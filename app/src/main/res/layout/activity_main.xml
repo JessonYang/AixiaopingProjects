@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gc.materialdesign.views.ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".demo.MainActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_awesome_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+
+        <TextView
+            android:id="@+id/textview1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/my_awesome_toolbar"
+            android:text="Hello World!" />
+
+        <ImageView
+            android:id="@+id/imageview1"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_below="@id/textview1" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_test_qr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageview1"
+            android:layout_centerHorizontal="true"
+            android:text="测试二维码扫描" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_test_widget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_test_qr"
+            android:layout_centerHorizontal="true"
+            android:text="打开控件集" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_test_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_test_widget"
+            android:layout_centerHorizontal="true"
+            android:text="测试分享" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_test_alipay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_test_share"
+            android:layout_centerHorizontal="true"
+            android:text="测试支付宝支付" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_test_weixinpay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_test_alipay"
+            android:layout_centerHorizontal="true"
+            android:text="测试微信支付" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_test_log"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_test_weixinpay"
+            android:layout_centerHorizontal="true"
+            android:text="测试日志收集" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_test_network_dao_recycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_test_log"
+            android:layout_centerHorizontal="true"
+            android:text="跳转至网络、数据库存储、数据列表界面" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_test_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_test_network_dao_recycler"
+            android:layout_centerHorizontal="true"
+            android:text="测试Dialog" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_test_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_test_dialog"
+            android:layout_centerHorizontal="true"
+            android:text="跳转至引导页" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_test_push"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_test_guide"
+            android:layout_centerHorizontal="true"
+            android:text="测试推送请到个推官网中发送推送请求" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_test_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_test_push"
+            android:layout_centerHorizontal="true"
+            android:text="定位" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/btn_test_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_test_location"
+            android:layout_centerHorizontal="true"
+            android:text="打开导航" />
+
+    </RelativeLayout>
+
+
+</com.gc.materialdesign.views.ScrollView>

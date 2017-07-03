@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@id/tool_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/main_color_white"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationIcon="@drawable/icon_quxiao"
+        app:title="商品详情"
+        app:titleTextColor="@color/toolbar_title_color">
+
+        <ImageView
+            android:id="@+id/iv_to_shopping_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:padding="12dp"
+            android:src="@drawable/icon_shopping_car" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <include
+            android:id="@+id/layout_goods_bottom"
+            layout="@layout/goods_view_bottom_option"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/goods_bottom_option_layout_height"
+            android:layout_alignParentBottom="true"></include>
+
+        <com.lzy.widget.VerticalSlide
+            android:id="@+id/dragLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/layout_goods_bottom">
+
+            <FrameLayout
+                android:id="@+id/first"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <FrameLayout
+                android:id="@+id/second"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.lzy.widget.VerticalSlide>
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+

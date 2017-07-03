@@ -1,0 +1,134 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion '25.0.0'
+    android {compileOptions.encoding = "utf-8"}
+    defaultConfig {
+        applicationId "com.weslide.lovesmallscreen"
+        minSdkVersion 16
+        targetSdkVersion 22
+        versionCode 90
+        versionName "5.8.1"
+        multiDexEnabled true
+        manifestPlaceholders = [BAIDU_API_KEY      : BAIDU_API_KEY,       //百度地图KEY
+                                GETUI_APP_ID       : GETUI_APP_ID,              //个推APPID
+                                GETUI_APP_KEY      : GETUI_APP_KEY,            //个推APP_KEY
+                                GETUI_APP_SECRET   : GETUI_APP_SECRET,       //个推APPSECRET
+                                PACKAGE_NAME       : 'com.weslide.lovesmallscreen',   //个推sdk使用的包名
+                                QQ_APP_ID          : QQ_APP_ID,
+                                QQ_APP_KEY         : QQ_APP_KEY,
+                                WEXIN_APP_ID       : WEXIN_APP_ID,
+                                WEXIN_APP_APPSECRET: WEXIN_APP_APPSECRET
+        ]
+    }
+
+    //配置keystore签名
+    signingConfigs {
+        release {
+            storeFile file("wsy.keystore")
+            storePassword STORE_PASSWORD
+            keyAlias "wsy"
+            keyPassword KEY_PASSWORD
+
+        }
+    }
+
+    buildTypes {
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //开启代码混淆
+            minifyEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+repositories {
+    maven { url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/" }
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    //Error:The number of method references in a .dex file cannot exceed 64K.
+    //Learn how to resolve this issue at https://developer.android.com/tools/building/multidex.html
+    compile 'com.android.support:multidex:1.0.0'
+    /**
+     *       推送接入
+     */
+    compile 'com.getui:sdk:2.8.1.0'
+    compile 'com.getui:ext:2.0.3'
+    /**
+     *         以来注入框架Butterknife
+     */
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+    compile project(':superrecyclerview')
+    compile project(':unlockview')
+    compile project(':ipc360')
+    /**
+     *  一款内存泄露检测工具
+     *  https://github.com/square/leakcanary
+     */
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
+    /**
+     *  下拉控件
+     *  https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md
+     *  这是现在已经停止维护的下拉刷新项目的替代方案。继承于ViewGroup可以包含任何View。功能比SwipeRefreshLayout强大。
+     使用起来非常简单。良好的设计，如果你想定制自己的UI样式，非常简单，就像给ListView加一个Header View那么简单。
+     */
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
+    compile project(path: ':library')
+    //fastjson
+    compile 'com.alibaba:fastjson:1.2.9'
+    //支付
+    compile 'com.alibaba.alipay:alipaySingle:20160825@jar'
+    //登陆
+    compile 'com.ali.auth.sdk:alibabauth_core:1.1.4@jar'
+    compile 'com.ali.auth.sdk:alibabauth_ui:1.1.4@aar'
+    compile 'com.ali.auth.sdk:alibabauth_ext:1.1.4@jar'
+    //【可选】仅供特殊合作伙伴使用
+    compile 'com.ali.auth.sdk:alibabauth_accountlink:1.1.4@jar'
+    //安全基础
+    compile 'com.taobao.android:securityguardaar3:5.1.81@aar'
+    //【可选】安全高级，如使用了发放红包、优惠券高级功能，则必须引入
+    compile 'com.taobao.android:securitybodyaar3:5.1.25@aar'
+    //Mtop网关
+    compile 'com.taobao.android:mtopsdk_allinone_open:1.2.2.4@jar'
+    //applink
+    compile 'com.taobao.android:alibc_applink:2.0.0.9@jar'
+    //UT
+    compile 'com.taobao.android:utdid4all:1.1.5.3_proguard@jar'
+    compile 'com.alibaba.mtl:app-monitor-sdk:2.5.1.3_for_bc_proguard@jar'
+    //电商SDK
+    compile 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.11@aar'
+    compile 'com.google.android:flexbox:0.2.3'
+    compile project(':pulltorefresh')
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.wuxiaolong.pullloadmorerecyclerview:library:1.0.4'
+    compile 'com.youth.banner:banner:1.4.9'
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/home_concentration_seller_grid_height"
+    android:layout_marginTop="@dimen/home_edge"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_more"
+        android:layout_width="42dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:padding="4dp"
+        android:text="更多精选"
+        android:textSize="@dimen/h5" />
+
+    <GridView
+        android:id="@+id/gv_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/tv_more"
+        android:numColumns="6"></GridView>
+
+
+</RelativeLayout>

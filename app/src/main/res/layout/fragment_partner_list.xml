@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ececec"
+    android:orientation="vertical">
+
+    <com.weslide.lovesmallscreen.views.custom.CustomToolbar
+        android:id="@+id/partner_list_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@color/main_color_white"
+        app:leftIv="@drawable/icon_fanhuij"
+        app:titleColor="@color/toolbar_title_color"
+        app:titleName="合伙人列表"
+        app:titleSize="16sp"></com.weslide.lovesmallscreen.views.custom.CustomToolbar>
+
+    <RelativeLayout
+        android:id="@+id/partner_num_rll"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@id/partner_list_toolbar"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="合伙人总量"
+                android:textColor="#333333"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/partner_all_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:text="2/100"
+                android:textColor="#ff2d47"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/partner_list_gv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/partner_num_rll"
+        android:layout_marginTop="5dp"
+        android:horizontalSpacing="7dp"
+        android:numColumns="4"
+        android:verticalSpacing="7dp"></GridView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff">
+
+        <Button
+            android:id="@+id/partner_list_btn"
+            android:layout_width="200dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/partner_list_btn_bg"
+            android:text="新增合伙人"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+    </RelativeLayout>
+</RelativeLayout>

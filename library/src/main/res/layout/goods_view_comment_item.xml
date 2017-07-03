@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_come_coment_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_goods_comment_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/font_title_color"
+            android:textSize="@dimen/h8" />
+
+        <TextView
+            android:id="@+id/tv_goods_comment_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv_goods_comment_name"
+            android:text=""
+            android:textColor="@color/font_content_color"
+            android:textSize="@dimen/h5" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/goods_comment_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_goods_comment_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/font_content_color"
+        android:textSize="@dimen/h8" />
+
+    <LinearLayout
+        android:id="@+id/layout_comment_images"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/goods_comment_height"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+    </LinearLayout>
+</LinearLayout>

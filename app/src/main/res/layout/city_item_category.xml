@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dip"
+    android:gravity="center"
+    android:paddingBottom="2dip"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip"
+    android:paddingTop="2dip">
+
+    <Button
+        android:id="@+id/item_btn_city_county"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/btn_gray"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="2"
+        android:text="全城"
+        android:textColor="@color/font_content_color"
+        android:textSize="14dp" />
+
+
+</RelativeLayout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@id/tool_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_white"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationIcon="@drawable/icon_quxiao"
+        app:title="特产速递"
+        app:titleTextColor="@color/toolbar_title_color">
+
+        //搜索图标
+        <!--<ImageView
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/icon_fangdajing" />-->
+    </android.support.v7.widget.Toolbar>
+
+    <!--<HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:scrollbars="none"
+        android:paddingLeft="17dp"
+        android:layout_height="42dp">
+
+        <LinearLayout
+            android:id="@+id/special_local_containner"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+    </HorizontalScrollView>-->
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/special_local_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="#ffffff"
+        app:tabIndicatorColor="#ff2d47"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="#ff2b49"
+        app:tabTextAppearance="@style/MyTextAppreanceStyle"
+        app:tabTextColor="#333333">
+
+    </android.support.design.widget.TabLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/sort_bar"
+            layout="@layout/view_dressing_by_screening"></include>
+
+        <com.malinskiy.superrecyclerview.SuperRecyclerView
+            android:id="@id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/sort_bar"></com.malinskiy.superrecyclerview.SuperRecyclerView>
+
+
+    </RelativeLayout>
+</LinearLayout>

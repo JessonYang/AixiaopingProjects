@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/iv_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/appdenlu_bg" />
+
+    <LinearLayout
+        android:id="@+id/ll_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_top"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/login_for_phone"
+            android:textColor="@color/mediumslateblue"
+            android:textSize="@dimen/h7" />
+
+        <TextView
+            android:id="@+id/to_regist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/register"
+            android:textColor="@color/black"
+            android:textSize="@dimen/h7"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/cv_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_type"
+        android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+        android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+        android:layout_marginTop="30dp">
+
+        <EditText
+            android:id="@+id/tv_name_for_phone"
+            style="@style/Widget.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:hint="请输入手机号"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textColorHint="@color/lightgray"
+            android:textSize="@dimen/h4" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/tv_name_for_phone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/darkgrey" />
+
+        <RelativeLayout
+            android:id="@+id/tv_pwd_ll"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/view_line"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/tv_pwd_for_phone"
+                style="@style/Widget.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@null"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:hint="请输入验证码"
+                android:inputType="textPassword"
+                android:textColorHint="@color/lightgray"
+                android:textSize="@dimen/h4" />
+
+            <TextView
+                android:id="@+id/getCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:text="获取验证码"
+                android:textColor="@color/mediumslateblue"
+                android:textSize="@dimen/h7" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_line2"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/tv_pwd_ll"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/darkgrey" />
+    </RelativeLayout>
+
+    <com.rey.material.widget.Button
+        android:id="@+id/btn_login_for_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cv_form"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+        android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+        android:layout_marginTop="20dp"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/h4"
+        app:v_styleId="@array/button_raise_color" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="如需帮助,请联系"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+
+        <com.weslide.lovesmallscreen.view_yy.customview.AXPTextView_Line
+            android:id="@+id/axp_kefu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="爱小屏客服"
+            android:textColor="#4672e9"
+            android:textSize="14dp" />
+    </LinearLayout>
+</RelativeLayout>

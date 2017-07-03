@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ececec"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@color/main_color_white">
+
+        <ImageView
+            android:id="@+id/back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/icon_fanhuij" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="申请合伙人"
+            android:textColor="#333333"
+            android:textSize="17dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#dddddd" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_height="125dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/zhifubj" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_fukuanjine" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="￥"
+                            android:textColor="#ffffff"
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:id="@+id/pay_num_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="99.0元"
+                            android:textColor="#ffffff"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="#ffffff"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_xuanchuan" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="普通合伙人宣传"
+                        android:textColor="#ff2b47"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/normal_partner_xuanChuan_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:lineSpacingExtra="5dp"
+                    android:text="成为合伙人您可以推广淘客和爱小屏商城的推广产品并获得收益。同时，您所购买的商品本身也可以从中获得收益。"
+                    android:textColor="#6c6c6c"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <!--<TextView
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:background="#f4f4f4"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:text="支付方式"
+                android:textColor="#222222"
+                android:textSize="13dp" />-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#dddddd" />
+
+            <com.weslide.lovesmallscreen.views.order.PayView
+                android:id="@+id/pay_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></com.weslide.lovesmallscreen.views.order.PayView>
+
+            <com.rey.material.widget.Button
+                android:id="@+id/pay_btn"
+                android:layout_width="330dp"
+                android:layout_height="44dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+                android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+                android:layout_marginTop="150dp"
+                android:text="我想加入"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h4"
+                app:v_styleId="@array/button_raise_color" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

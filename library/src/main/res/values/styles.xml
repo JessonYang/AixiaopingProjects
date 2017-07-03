@@ -1,0 +1,90 @@
+<resources>
+
+    <style name="loadingDialog" parent="android:Theme.Dialog">
+        <!--背景颜色及透明程度-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否有标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 点击空白不消失 -->
+        <item name="android:windowCloseOnTouchOutside">false</item>
+
+    </style>
+
+
+    <!-- 弹出dialog的动画 -->
+    <style name="dialogWindowAnim" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_goods_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_goods_exit_anim</item>
+    </style>
+
+    <style name="articlelist_item_ratingbar_style" parent="@android:style/Widget.RatingBar">
+
+        <item name="android:progressDrawable">@drawable/articlelist_item_rating_drawable_selector
+        </item>
+
+        <item name="android:minHeight">18dp</item>
+
+        <item name="android:maxHeight">18dp</item>
+        <!--<item name="android:numStars">5</item>-->
+        <!--<item name="android:minHeight">50dp</item>-->
+        <!--<item name="android:maxHeight">50dp</item>-->
+    </style>
+
+    <style name="secondaryClassificationDialog" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <!--背景颜色及透明程度-->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+    </style>
+
+    <style name="TextViewDistance">
+        <item name="android:button">@drawable/seller_selector_concern</item>
+        <item name="android:textColor">@color/font_content_color</item>
+        <item name="android:drawableLeft">@drawable/icon_distance</item>
+        <item name="android:textSize">@dimen/h5</item>
+    </style>
+
+    <style name="CheckBoxSellerConcern">
+        <item name="android:button">@drawable/seller_selector_concern</item>
+    </style>
+
+    <style name="CheckBoxSelect">
+        <item name="android:button">@drawable/selector_select</item>
+    </style>
+    <style name="CheckBoxVoice">
+        <!--<item name="android:button">@drawable/selector_jingyin</item>-->
+        <item name="android:background">@drawable/selector_jingyin</item>
+    </style>
+
+    <style name="goods_comment_ratingbar" parent="@android:style/Widget.Holo.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/goods_comment_ratingbar_drawable</item>
+        <item name="android:minHeight">9dip</item>
+
+        <item name="android:maxHeight">9dip</item>
+    </style>
+
+    <style name="ButtonOrder">
+        <item name="android:background">@drawable/rect_gray</item>
+        <item name="android:textColor">@color/font_color</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+
+    </style>
+
+    <style name="ButtonOrderOrange">
+        <item name="android:background">@drawable/rect_orange</item>
+        <item name="android:textColor">@color/btn_orange</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+
+    </style>
+
+
+</resources>

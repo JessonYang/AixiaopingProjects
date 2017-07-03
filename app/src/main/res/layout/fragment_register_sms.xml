@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@id/tool_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/main_color_white"
+        android:minHeight="?attr/actionBarSize"
+        android:visibility="gone"
+        app:navigationIcon="@drawable/icon_quxiao"
+        app:title="注册-爱小屏"
+        app:titleTextColor="@color/toolbar_title_color"></android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/up_bg">
+
+                <ImageView
+                    android:id="@+id/headimg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/appicon_img" />
+
+                <RelativeLayout
+                    android:id="@+id/back"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/xx" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/login"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/login"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/h7"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/register"
+                    android:textColor="@color/mediumslateblue"
+                    android:textSize="@dimen/h7" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+                    android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+                    android:layout_marginTop="50dp"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/edt_regist_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/white"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:hint="@string/input_phone_number"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:paddingLeft="5dp"
+                        android:textColorHint="@color/lightgray"
+                        android:textSize="@dimen/h8" />
+
+                    <View
+                        android:id="@+id/view_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/darkgrey" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+                    android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edt_captcha"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/white"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:hint="@string/invitation_code"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:textColorHint="@color/lightgray"
+                        android:textSize="@dimen/h8" />
+
+                    <TextView
+                        android:id="@+id/btn_send_captcha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:text="@string/get_auth_code"
+                        android:textColor="@color/mediumslateblue"
+                        android:textSize="@dimen/h8" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+                    android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+                    android:background="@color/darkgrey" />
+
+                <EditText
+                    android:id="@+id/edt_regist_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+                    android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:hint="@string/password_hint"
+                    android:inputType="textPassword"
+                    android:maxLength="16"
+                    android:textColorHint="@color/lightgray"
+                    android:textSize="@dimen/h8" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+                    android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+                    android:background="@color/darkgrey" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edt_invitation_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+                        android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/white"
+                        android:drawablePadding="15dp"
+                        android:gravity="center"
+                        android:hint="@string/invitation_code_hint"
+                        android:inputType="number"
+                        android:textColorHint="@color/lightgray"
+                        android:textSize="@dimen/h8"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:id="@+id/tv_have_invitor"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="20dp">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="有邀请人？"
+                            android:textColor="@color/mediumslateblue" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+                    android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+                    android:background="@color/darkgrey" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+                android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:id="@+id/cb_consent_agreement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/agree"
+                        android:textSize="@dimen/h7" />
+
+                    <TextView
+                        android:id="@+id/tv_installation_and_use"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/agreement"
+                        android:textColor="@color/mediumslateblue"
+                        android:textSize="@dimen/h7" />
+                </LinearLayout>
+
+                <com.gc.materialdesign.views.ButtonRectangle
+                    android:id="@+id/btn_register"
+                    style="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/main_color_red"
+                    android:text="@string/register" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

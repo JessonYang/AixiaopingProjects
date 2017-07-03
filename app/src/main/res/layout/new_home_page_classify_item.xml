@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:background="#dddddd"
+        android:layout_height="0.5dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="#f4f4f4"
+        android:layout_height="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="89dp">
+
+        <ImageView
+            android:id="@+id/shop_around_iv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/icon_zbdp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/time_limite_iv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/icon_xsms"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/credit_exchange_iv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/icon_jfdh"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/sign_up_attend_iv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/icon_chbm"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

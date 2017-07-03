@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@id/tool_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_white"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationIcon="@drawable/icon_quxiao"
+        app:title="申请会员"
+        app:titleTextColor="@color/toolbar_title_color"></android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/home_edge"
+            android:text="会员级别"
+            android:textColor="@color/font_color"
+            android:textSize="@dimen/h7" />
+    </RelativeLayout>
+
+    <com.weslide.lovesmallscreen.views.widget.AXPRadioGroup
+        android:id="@+id/layout_select_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+    </com.weslide.lovesmallscreen.views.widget.AXPRadioGroup>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/home_edge"
+            android:text="会员资料"
+            android:textColor="@color/font_color"
+            android:textSize="@dimen/h7" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/home_edge"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/h7"
+                android:textColor="@color/font_color"
+                android:text="邀请码"/>
+
+            <EditText
+                android:id="@+id/tv_invite_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/home_edge"
+                android:layout_marginRight="@dimen/home_edge"
+                android:textColor="@color/font_color"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/home_edge"
+            android:text="支付方式"
+            android:textColor="@color/font_color"
+            android:textSize="@dimen/h7" />
+    </RelativeLayout>
+
+    <com.weslide.lovesmallscreen.views.widget.AXPRadioGroup
+        android:id="@+id/rg_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layout_alipay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_alipay"
+                android:drawablePadding="6dp"
+                android:padding="10dp"
+                android:text="支付宝支付"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/h7" />
+
+            <RadioButton
+                android:id="@+id/rb_alipay"
+                style="@style/CheckBoxSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+
+        <RelativeLayout
+            android:id="@+id/layout_weixin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_wexin"
+                android:drawablePadding="6dp"
+                android:padding="10dp"
+                android:text="微信支付"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/h7" />
+
+            <RadioButton
+                android:id="@+id/rb_weixin"
+                style="@style/CheckBoxSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+    </com.weslide.lovesmallscreen.views.widget.AXPRadioGroup>
+
+    <RelativeLayout
+        android:paddingBottom="30dp"
+        android:paddingTop="30dp"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.rey.material.widget.Button
+            android:id="@+id/btn_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h4"
+            app:v_styleId="@array/button_raise_color"
+            android:text="支付"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

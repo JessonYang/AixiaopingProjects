@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/home_edge">
+
+    <TextView
+        android:id="@+id/tv_level_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="￥99"
+        android:textColor="@color/main_color_red"
+        android:textSize="@dimen/h7" />
+
+    <TextView
+        android:id="@+id/tv_level_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/home_edge"
+        android:layout_toRightOf="@id/tv_level_price"
+        android:text="选3样商品即成会员"
+        android:textColor="@color/font_content_color"
+        android:textSize="@dimen/h7" />
+
+    <RadioButton
+        android:id="@+id/tb_select_level"
+        style="@style/CheckBoxSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp" />
+
+</RelativeLayout>

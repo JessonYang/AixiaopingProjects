@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="countdownview-2.1.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.github.iwgang/countdownview/2.1.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/com.github.iwgang/countdownview/2.1.1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.iwgang/countdownview/2.1.1/fe03887aff9cb7c9250fb8757fe25998e26dc804/countdownview-2.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

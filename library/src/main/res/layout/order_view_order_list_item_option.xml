@@ -1,0 +1,196 @@
+<LinearLayout android:id="@+id/layout_order_option"
+    android:layout_width="match_parent"
+    android:layout_height="46dp"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <!-- 待收货布局 -->
+    <LinearLayout
+        android:id="@+id/layout_wait_of_goods"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_logistics"
+            style="@style/ButtonOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="查看物流"
+            android:textSize="@dimen/h5" />
+
+        <Button
+            android:id="@+id/btn_back"
+            style="@style/ButtonOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="退单"
+            android:textSize="@dimen/h5" />
+
+        <Button
+            android:id="@+id/btn_confirm_receipt"
+            style="@style/ButtonOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="确认收货"
+            android:textSize="@dimen/h5" />
+
+    </LinearLayout>
+
+    <!-- 待评论布局 -->
+    <LinearLayout
+        android:id="@+id/layout_receipt_of_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_comment"
+            style="@style/ButtonOrderOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="评价晒单"
+            android:textSize="@dimen/h5" />
+    </LinearLayout>
+
+    <!-- 待付款布局 -->
+    <LinearLayout
+        android:id="@+id/layout_receipt_of_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_contact_seller"
+            style="@style/ButtonOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:drawableLeft="@drawable/icon_phone"
+            android:gravity="center"
+            android:text="联系商家"
+            android:textSize="@dimen/h5" />
+
+        <Button
+            android:id="@+id/btn_cancel_order"
+            style="@style/ButtonOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="取消订单"
+            android:textSize="@dimen/h5" />
+
+        <Button
+            android:id="@+id/btn_to_pay"
+            style="@style/ButtonOrderOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="去付款"
+            android:textSize="@dimen/h5" />
+    </LinearLayout>
+
+
+    <!-- 待发货布局 -->
+    <LinearLayout
+        android:id="@+id/layout_receipt_of_send_out_goods"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_back_send_out_goods"
+            style="@style/ButtonOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="退单"
+            android:textSize="@dimen/h5" />
+
+        <Button
+            android:id="@+id/btn_contact_seller_send_out_goods"
+            style="@style/ButtonOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:drawableLeft="@drawable/icon_phone"
+            android:gravity="center"
+            android:text="联系商家"
+            android:textSize="@dimen/h5" />
+    </LinearLayout>
+
+    <!-- 待兑换布局 -->
+    <LinearLayout
+        android:id="@+id/layout_receipt_exchange"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_back_exchange"
+            style="@style/ButtonOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="退单"
+            android:textSize="@dimen/h5" />
+
+        <Button
+            android:id="@+id/btn_output_qr"
+            style="@style/ButtonOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="出示二维码"
+            android:textSize="@dimen/h5" />
+
+        <Button
+            android:id="@+id/btn_contact_seller_exchange"
+            style="@style/ButtonOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:drawableLeft="@drawable/icon_phone"
+            android:gravity="center"
+            android:text="联系商家"
+            android:textSize="@dimen/h5" />
+    </LinearLayout>
+
+
+</LinearLayout>

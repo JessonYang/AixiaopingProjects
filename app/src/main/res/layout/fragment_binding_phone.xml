@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+            android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+            android:layout_marginTop="30dp"
+            android:background="@color/white">
+
+            <EditText
+                android:id="@+id/tv_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/phone"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:hint="请输入电话号码"
+                android:inputType="number"
+                android:maxLength="11"
+                android:textSize="@dimen/h8" />
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+            android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@color/white">
+
+                <EditText
+                    android:id="@+id/edt_auth_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/icon_yanzhenma"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/alert_illegal_auth_code"
+                    android:inputType="number"
+                    android:textColorHint="@color/lightgray"
+                    android:textSize="@dimen/h8" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btn_send_auth_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/lightskyblue"
+                    android:text="@string/get_auth_code"
+                    android:textColor="@color/white" />
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_not_receive_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/form_layout_horizontal_margin"
+            android:layout_marginRight="@dimen/form_layout_horizontal_margin"
+            android:layout_marginTop="20dp"
+            android:text="@string/hint_auth_code"
+            android:textColor="@color/lightskyblue"
+            android:textSize="@dimen/h7" />
+    </LinearLayout>
+
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:id="@+id/btn_register"
+        style="@null"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/main_color_red"
+        android:text="确定" />
+</RelativeLayout>

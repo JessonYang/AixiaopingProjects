@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@id/tool_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_white"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationIcon="@drawable/icon_quxiao"
+        app:title="店铺信息"
+        app:titleTextColor="@color/toolbar_title_color">
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/icon_my_fenxiang" />
+    </android.support.v7.widget.Toolbar>
+
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:id="@id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tool_bar"
+        android:background="@color/white"
+        app:layout_empty="@layout/layout_empty"
+        app:layout_moreProgress="@layout/layout_load_more"
+        app:scrollbarStyle="insideInset">
+
+    </com.malinskiy.superrecyclerview.SuperRecyclerView>
+
+</RelativeLayout>

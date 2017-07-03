@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="swipe_progress_bar_height">8dp</dimen>
+
+    <dimen name="layout_recyclerview_load_more_height">48dp</dimen>
+    <dimen name="layout_recyclerview_load_more_progress_size">24dp</dimen>
+</resources>

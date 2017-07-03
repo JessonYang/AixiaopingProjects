@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroud"
+    android:layout_marginTop="8dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_seller_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="小米天河专卖店"
+            android:textColor="@color/font_content_color"
+            android:textSize="@dimen/h8" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/lightgray"></View>
+
+    <com.weslide.lovesmallscreen.views.order.GoodsItemView
+        android:id="@+id/giv_goods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.weslide.lovesmallscreen.views.order.GoodsItemView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/lightgray"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/to_evaluate"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/h5"
+            android:layout_marginLeft="10dp"
+            />
+
+        <RatingBar
+            android:id="@+id/rb_score"
+            style="@style/articlelist_item_ratingbar_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:isIndicator="false"
+            android:layout_marginLeft="10dp"
+            android:rating="5"
+            android:stepSize="0.5" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/lightgray"></View>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/lightgray"></View>
+
+    <com.weslide.lovesmallscreen.views.widget.TextUploadImageView
+        android:id="@+id/tuliv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.weslide.lovesmallscreen.views.widget.TextUploadImageView>
+
+
+</LinearLayout>

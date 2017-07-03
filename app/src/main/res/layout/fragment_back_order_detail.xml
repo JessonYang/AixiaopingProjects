@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@id/tool_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_color_white"
+            android:minHeight="?attr/actionBarSize"
+            app:navigationIcon="@drawable/icon_quxiao"
+            app:title="退单详情"
+            app:titleTextColor="@color/toolbar_title_color"></android.support.v7.widget.Toolbar>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+
+            <TextView
+                android:id="@+id/tv_seller_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="小米天河专卖店"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/h4" />
+
+            <TextView
+                android:id="@+id/tv_order_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:text="已退单"
+                android:textColor="@color/green"
+                android:textSize="@dimen/h7" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_toLeftOf="@id/tv_order_status"
+                android:background="@color/line" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/line" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_goods_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <!-- 退款信息 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退款信息"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/h4" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="退款金额:"
+                        android:textColor="@color/font_color"
+                        android:textSize="@dimen/h7" />
+
+                    <TextView
+                        android:id="@+id/tv_apply_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="125.0元"
+                        android:textColor="@color/main_color_red"
+                        android:textSize="@dimen/h7" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="退款理由:"
+                        android:textColor="@color/font_color"
+                        android:textSize="@dimen/h7" />
+
+                    <TextView
+                        android:id="@+id/tv_apply_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="用着不爽，就是要换"
+                        android:textColor="@color/font_content_color"
+                        android:textSize="@dimen/h7" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="申请时间:"
+                        android:textColor="@color/font_color"
+                        android:textSize="@dimen/h7" />
+
+                    <TextView
+                        android:id="@+id/tv_apply_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="2016-1650"
+                        android:textColor="@color/font_content_color"
+                        android:textSize="@dimen/h7" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/layout_drawback_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="退款时间:"
+                        android:textColor="@color/font_color"
+                        android:textSize="@dimen/h7" />
+
+                    <TextView
+                        android:id="@+id/tv_drawback_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="2016-1650"
+                        android:textColor="@color/font_content_color"
+                        android:textSize="@dimen/h7" />
+                </TableRow>
+
+            </TableLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+        </LinearLayout>
+
+        <!-- 审核信息 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="审核信息"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/h4" />
+
+            <TextView
+                android:id="@+id/tv_verify_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="商家已同意了您的申请，退款申请达成"
+                android:textColor="@color/font_content_color"
+                android:textSize="@dimen/h7" />
+
+            <TextView
+                android:id="@+id/tv_verify_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="4dp"
+                android:text="201314"
+                android:textColor="@color/font_content_color"
+                android:textSize="@dimen/h7"
+                android:visibility="gone" />
+
+
+            <TableLayout
+                android:id="@+id/layout_verify_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TableRow
+                    android:id="@+id/layout_verify_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="审核金额:"
+                        android:textColor="@color/font_color"
+                        android:textSize="@dimen/h7" />
+
+                    <TextView
+                        android:id="@+id/tv_verify_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="125元"
+                        android:textColor="@color/main_color_red"
+                        android:textSize="@dimen/h7" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="审核说明:"
+                        android:textColor="@color/font_color"
+                        android:textSize="@dimen/h7" />
+
+                    <TextView
+                        android:id="@+id/tv_verify_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="塑料袋口附近临时卡上的离开房间了的反馈接口软件了的富士康就考虑到非"
+                        android:textColor="@color/font_content_color"
+                        android:textSize="@dimen/h7" />
+
+                </TableRow>
+
+
+            </TableLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+        </LinearLayout>
+
+        <!-- 退款去向 -->
+        <LinearLayout
+            android:id="@+id/layout_drawback_way"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="gone">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退款去向"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/h4" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_drawback_way"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="钱款已经退回到您的微信钱包里"
+                        android:textColor="@color/font_content_color"
+                        android:textSize="@dimen/h7" />
+                </TableRow>
+            </TableLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+

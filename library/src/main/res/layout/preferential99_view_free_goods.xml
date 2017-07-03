@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/home_edge"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_score_exchange_more_height">
+
+        <View
+            android:layout_width="@dimen/home_slip_width"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/home_slip_top_bottom_margin"
+            android:layout_marginTop="@dimen/home_slip_top_bottom_margin"
+            android:background="@color/orange" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/home_edge"
+            android:text="免单专区"
+            android:textColor="@color/main_color_red"
+            android:textSize="@dimen/h4" />
+
+        <TextView
+            android:id="@id/tv_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/home_edge"
+            android:text="更多>" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"></View>
+
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:id="@id/list"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_score_exchange_goods_height">
+
+    </com.malinskiy.superrecyclerview.SuperRecyclerView>
+
+
+</LinearLayout>

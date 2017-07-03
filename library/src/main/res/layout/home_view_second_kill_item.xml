@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.weslide.lovesmallscreen.views.widget.SquareImageView
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitXY"></com.weslide.lovesmallscreen.views.widget.SquareImageView>
+
+        <TextView
+            android:id="@+id/tv_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@color/remind_yellow_color"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="5 折"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h8" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="4dp"
+        android:maxLines="2"
+        android:text="看来家里发动机流口水都放假了困扰舌乳头高士大夫撒的发生姐李大夫二"
+        android:textColor="@color/font_title_color"
+        android:textSize="@dimen/h8" />
+
+    <TextView
+        android:id="@+id/tv_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="￥30"
+        android:textColor="@color/main_color_red"
+        android:textSize="@dimen/h8" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:id="@+id/tv_cost_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:text="￥30"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/h8" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="30km"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/h5" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

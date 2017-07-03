@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.weslide.lovesmallscreen.views.custom.CustomToolbar
+        android:id="@+id/my_ticket_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@color/main_color_white"
+        app:leftIv="@drawable/icon_fanhuij"
+        app:titleColor="@color/toolbar_title_color"
+        app:titleName="我的优惠券"
+        app:titleSize="16sp"></com.weslide.lovesmallscreen.views.custom.CustomToolbar>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/my_ticket_tab"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:tabIndicatorColor="#ff2d47"
+        app:tabIndicatorHeight="1dp"
+        app:tabSelectedTextColor="#ff2d47"></android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/my_ticket_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ececec"></android.support.v4.view.ViewPager>
+</LinearLayout>

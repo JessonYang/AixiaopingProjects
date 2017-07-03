@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:padding="6dp">
+
+
+    <CheckBox
+        android:id="@+id/cb_status"
+        style="@style/CheckBoxDevicersListStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:enabled="false" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/cb_status"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:text="lskfldfi"
+        android:textColor="@color/font_color"
+        android:textSize="@dimen/h4"
+        android:maxLength="10"
+        />
+
+    <TextView
+        android:id="@+id/tv_online"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_toRightOf="@id/cb_status"
+        android:paddingLeft="8dp"
+        android:paddingTop="6dp"
+        android:text="摄像机在线"
+        android:textSize="@dimen/h7" />
+
+    <CheckBox
+        android:id="@+id/cb_share"
+        style="@style/CheckBoxDevicersListShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/tv_online"
+        android:enabled="false"
+        android:paddingTop="20dp" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        >
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fenxiang_my"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_rename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/rl_share"
+        >
+        <ImageView
+            android:id="@+id/iv_rename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bianji_myname"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+</RelativeLayout>

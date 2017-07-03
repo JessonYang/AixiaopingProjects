@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@id/tool_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/main_color_white"
+        android:minHeight="?attr/actionBarSize"
+        app:title="购物车"
+        app:titleTextColor="@color/toolbar_title_color">
+
+        <TextView
+            android:id="@+id/tv_shopping_car_option"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:padding="10dp"
+            android:text="编辑"
+            android:textColor="#333333"
+            android:textSize="@dimen/h7" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <include layout="@layout/layout_no_login" />
+
+        <com.malinskiy.superrecyclerview.SuperRecyclerView
+            android:id="@id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.malinskiy.superrecyclerview.SuperRecyclerView>
+
+    </FrameLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentTop="true"
+        android:background="@color/line" />
+
+    <RelativeLayout
+        android:id="@+id/layout_edit"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/cb_all_edit"
+            style="@style/CheckBoxSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:padding="6dp"
+            android:text="全选"
+            android:textColor="@color/font_content_color"
+            android:textSize="@dimen/h4" />
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/btn_share"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:background="@color/goodsAddShoppingCarBackground"
+            android:text="分享给朋友">
+
+        </com.gc.materialdesign.views.ButtonRectangle>
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/btn_remove"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/main_color_red"
+            android:text="删除"></com.gc.materialdesign.views.ButtonRectangle>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:id="@+id/layout_buy"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+
+        <CheckBox
+            android:id="@+id/cb_all_buy"
+            style="@style/CheckBoxSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:padding="6dp"
+            android:text="全选"
+            android:textColor="@color/font_content_color"
+            android:textSize="@dimen/h7" />
+
+        <TextView
+            android:id="@+id/tv_sum_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/cb_all_buy"
+            android:text="合计："
+            android:textColor="@color/font_content_color"
+            android:textSize="@dimen/h7" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_sum_title"
+            android:text="￥0.00"
+            android:textColor="@color/main_color_red"
+            android:textSize="@dimen/h7" />
+
+        <Button
+            android:id="@+id/btn_to_sum"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_margin="6dp"
+            android:background="@color/main_color_red"
+            android:text="去结算（0）"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h8">
+
+        </Button>
+
+    </RelativeLayout>
+
+</LinearLayout>

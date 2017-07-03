@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/home_score_exchange_more_height"
+    android:layout_marginTop="@dimen/home_edge"
+    android:background="@color/white">
+
+    <View
+        android:layout_width="@dimen/home_slip_width"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/home_slip_top_bottom_margin"
+        android:layout_marginTop="@dimen/home_slip_top_bottom_margin"
+        android:background="@color/orange" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/home_edge"
+        android:text="周边店铺"
+        android:textSize="@dimen/h8" />
+
+    <ImageView
+        android:id="@id/tv_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/home_edge"
+        android:src="@drawable/more_iv" />
+
+</RelativeLayout>

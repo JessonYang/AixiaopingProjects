@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <me.kaelaela.verticalviewpager.VerticalViewPager
+        android:id="@+id/view_pager"
+        android:background="@drawable/icon_no_adv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </me.kaelaela.verticalviewpager.VerticalViewPager>
+
+    <net.aixiaoping.unlock.views.UnlockClockView
+        android:id="@+id/unlock_clock_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </net.aixiaoping.unlock.views.UnlockClockView>
+
+
+    <net.aixiaoping.unlock.views.UnlockScoreIcon
+        android:id="@+id/usi_unlock_website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        app:select_icon="@mipmap/unlock_9_1"
+        app:unselect_icon="@mipmap/unlock_9">
+
+    </net.aixiaoping.unlock.views.UnlockScoreIcon>
+
+    <net.aixiaoping.unlock.views.UnlockScoreIcon
+        android:id="@+id/usi_unlock_mall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        app:select_icon="@mipmap/unlock_10_1"
+        app:unselect_icon="@mipmap/unlock_10">
+
+    </net.aixiaoping.unlock.views.UnlockScoreIcon>
+
+
+    <net.aixiaoping.unlock.views.SliderRelativeLayout
+        android:id="@+id/srl_unlock_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/usi_unlock_website">
+
+    </net.aixiaoping.unlock.views.SliderRelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_unlock_acquire_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="70sp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="100dp"
+        android:visibility="gone"
+        android:textColor="@color/red"
+        android:text="40"/>
+
+    <FrameLayout
+        android:id="@+id/layout_redpaper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+        <include layout="@layout/layout_redpaper_dialog_shows"></include>
+    </FrameLayout>
+
+
+
+
+</RelativeLayout>

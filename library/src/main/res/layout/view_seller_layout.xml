@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/seller_layout_height"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/iv_seller_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart"
+        android:src="@drawable/icon_app" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="6dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_seller_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:maxLines="1"
+                android:maxWidth="140dp"
+                android:text="YY高阿达吧"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/h8" />
+
+            <android.support.v7.widget.GridLayout
+                android:id="@+id/gl_preferentials"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                app:columnCount="3">
+
+                <ImageView
+                    android:id="@+id/iv_preferentials_1"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/icon_app" />
+
+                <ImageView
+                    android:id="@+id/iv_preferentials_2"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/icon_app" />
+
+                <ImageView
+                    android:id="@+id/iv_preferentials_3"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/icon_app" />
+
+            </android.support.v7.widget.GridLayout>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_seller_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="天河区中山中路80号"
+            android:textSize="@dimen/h5" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="@dimen/seller_layout_right_width"
+        android:layout_height="match_parent">
+
+        <CheckBox
+            android:id="@+id/cb_concern"
+            style="@style/CheckBoxSellerConcern"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp" />
+
+        <TextView
+            android:id="@+id/tv_distance"
+            style="@style/TextViewDistance"
+            android:maxLines="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="14dp"
+            android:padding="8dp"
+            android:paddingLeft="4dp"
+            android:text="11km" />
+
+        <Button
+            android:id="@+id/btn_seller"
+            android:layout_width="70dp"
+            android:layout_height="24dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/rect_orange"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:text="进店逛逛"
+            android:textColor="@color/btn_orange"
+            android:textSize="@dimen/h5">
+
+        </Button>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

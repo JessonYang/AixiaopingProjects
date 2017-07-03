@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 布局中的列表 -->
+    <item name="list" type="id" />
+    <!-- 主布局id -->
+    <item name="main_layout" type="id" />
+
+    <!-- Fragment容器 -->
+    <item name="container" type="id"  />
+
+    <!-- ToolBarid -->
+    <item name="tool_bar" type="id" />
+</resources>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/home_edge"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_second_kill_tab_height"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/home_slip_width"
+            android:layout_height="@dimen/home_second_kill_tab_height"
+            android:background="@color/orange" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/home_second_kill_tab_height"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="限时秒杀"
+            android:textSize="@dimen/h8"
+            android:textColor="@color/red" />
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/stl_second_kill_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/home_second_kill_tab_height"
+            android:layout_weight="4"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            app:tl_indicator_color="@color/orange"
+            app:tl_indicator_corner_radius="5dp"
+            app:tl_indicator_margin_left="2dp"
+            app:tl_indicator_margin_right="2dp"
+            app:tl_tab_space_equal="true"
+            app:tl_textSelectColor="@color/orange"
+            app:tl_textUnselectColor="@color/font_title_color"
+            app:tl_textsize="@dimen/h5"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_more"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_second_kill_more_height">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/home_edge">
+
+            <TextView
+                android:id="@+id/tv_countdown_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/home_second_kill_with_end"
+                android:textSize="@dimen/h5"
+                />
+
+            <cn.iwgang.countdownview.CountdownView
+                android:id="@+id/cv_second_kill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="8dp"
+                app:isHideTimeBackground="false"
+                app:isShowDay="false"
+                app:isShowHour="true"
+                app:isShowMillisecond="false"
+                app:isShowMinute="true"
+                app:isShowSecond="true"
+                app:suffixGravity="center"
+                app:suffixTextColor="#000000"
+                app:suffixTextSize="8sp"
+                app:timeBgDivisionLineSize="1dp"
+                app:timeBgRadius="3dp"
+                app:timeBgSize="14dp"
+                app:timeTextColor="#FFFFFF"
+                app:timeTextSize="10sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@id/tv_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/home_edge"
+            android:textSize="@dimen/h5"
+            android:text="更多>" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"></View>
+
+    <com.weslide.lovesmallscreen.views.custom.SuperViewPager
+        android:id="@+id/vp_pager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_second_kill_goods_height">
+
+    </com.weslide.lovesmallscreen.views.custom.SuperViewPager>
+
+</LinearLayout>

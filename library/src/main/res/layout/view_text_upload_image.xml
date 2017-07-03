@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:gravity="top"
+        android:hint="退单原因"
+        android:textColor="@color/font_content_color"
+        android:textColorHint="@color/grey"
+        android:textSize="@dimen/h8" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <GridView
+            android:id="@+id/gv_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/iv_add_photo"
+            android:numColumns="4"></GridView>
+
+        <ImageView
+            android:id="@+id/iv_add_photo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/icon_xiangji_xhdpi" />
+
+    </RelativeLayout>
+
+</LinearLayout>

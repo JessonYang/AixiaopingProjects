@@ -1,0 +1,11 @@
+<resources>
+
+    <style name="CheckBoxDevicersListStatus">
+        <item name="android:button">@drawable/devicers_list_status</item>
+    </style>
+
+    <style name="CheckBoxDevicersListShare">
+        <item name="android:button">@drawable/devicers_list_share</item>
+    </style>
+
+</resources>

@@ -1,0 +1,271 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+
+    useLibrary "org.apache.http.legacy"
+
+    compileSdkVersion 24
+    buildToolsVersion '25.0.0'
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+//        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    //http://www.open-open.com/lib/view/open1416664217867.html
+    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:support-v4:24.0.0'
+    //gif动画
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
+    /** *
+     *  百分比屏幕适配
+     *  https://github.com/hongyangAndroid/android-percent-support-extend
+     */
+    compile 'com.zhy:percent-support-extends:1.1.1'
+    //Error:The number of method references in a .dex file cannot exceed 64K.
+
+    //Learn how to resolve this issue at https://developer.android.com/tools/building/multidex.html
+    compile 'com.android.support:multidex:1.0.0'
+    //用于实现圆角布局
+    compile 'com.android.support:cardview-v7:24.0.0'
+    compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile 'com.android.support:gridlayout-v7:24.0.0'
+    compile project(':material_lib')
+    /**
+     *  控件集
+     *  http://wiki.jikexueyuan.com/project/material-design/material-design-intro/introduction.html
+     *  https://github.com/navasmdc/MaterialDesignLibrary
+     *  http://www.uisdc.com/comprehensive-material-design-note
+     */
+
+    //    compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
+
+    //    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.github.vajro:MaterialDesignLibrary:1.6'
+    compile 'com.nineoldandroids:library:2.4.0'
+    /**
+     *         以来注入框架Butterknife
+     */
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+    /**
+     *  加载中的lib
+     */
+    compile 'com.github.ybq:Android-SpinKit:1.0.4'
+    /**
+     *  一个纵向的viewPager
+     */
+    compile 'me.kaelaela:verticalviewpager:1.0.0@aar'
+    /**
+     *         图片加载 Glide
+     *         http://www.wtoutiao.com/p/y3eaF0.html
+     *         http://blog.csdn.net/ws595372215/article/details/51072003
+     */
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //一个基于Glide的transformation库，拥有裁剪，着色，模糊，滤镜等多种转换效果，赞的不行不行的~~
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.3.0'
+    //和okhttp集成
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    //okhttp日志系统
+    compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
+    /**
+     *         JSON解析及生成 GSON
+     *         Github:https://github.com/google/gson
+     */
+    compile 'com.google.code.gson:gson:2.6.2'
+    /**
+     *        数据库框架
+     *         API:http://greenrobot.org/greendao/
+     */
+    compile 'org.greenrobot:greendao:2.2.0'
+    compile 'org.greenrobot:greendao-generator:2.2.0'
+   /* *//**
+     *         百度地图
+     *//*
+    compile files('libs/BaiduLBS_Android.jar')*/
+    /**
+     *  波纹
+     *  https://github.com/skyfishjy/android-ripple-background
+     */
+    compile 'com.skyfishjy.ripplebackground:library:1.0.1'
+    /**
+     *  https://github.com/baoyongzhang/SwipeMenuListView
+     */
+    compile 'com.baoyz.swipemenulistview:library:1.3.0'
+    /**
+     *         引导页
+     *         https://github.com/PaoloRotolo/AppIntro
+     */
+    compile 'com.github.paolorotolo:appintro:3.4.0'
+    /**
+     *         RXjava 响应式编程思想
+     *         https://mcxiaoke.gitbooks.io/rxdocs/content/topics/How-To-Use-RxJava.html
+     *         http://blog.csdn.net/evan_man/article/details/51292099
+     *         http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0430/2815.html
+     *         http://www.jianshu.com/p/88779bda6691
+     */
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.3'
+    /**
+     *         retrofit 网络请求框架
+     */
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    //http://www.07net01.com/program/2016/02/1307334.html
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    /**
+     *        网络请求框架OkHttp
+     *         API:http://square.github.io/okhttp/
+     */
+    compile 'com.squareup.okio:okio:1.5.0'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    /**
+     *        JSON解析及生成 GSON
+     *        Github:https://github.com/google/gson
+     */
+    compile 'com.google.code.gson:gson:2.6.2'
+    /**
+     *        zxing 二维码扫描
+     *        https://github.com/journeyapps/zxing-android-embedded
+     */
+    compile 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+    compile 'com.google.zxing:core:3.2.1'
+    /**
+     *         沉浸式状态栏
+     *         http://niorgai.github.io/2016/03/20/Android-transulcent-status-bar/
+     */
+
+    /**
+     *       EventBus
+     *       https://github.com/greenrobot/EventBus
+     */
+    compile 'org.greenrobot:eventbus:3.0.0'
+    /**
+     *       微信支付接入
+     *       http://blog.csdn.net/jdsjlzx/article/details/47422279
+     *       https://open.weixin.qq.com/cgi-bin/index?t=home/index&lang=zh_CN&token=927f6f779dd721024e1e2571e09a90250333063b
+     */
+
+    //    compile files('libs/libammsdk.jar')
+
+    /**
+     *       支付宝支付接入
+     */
+    compile files('libs/alipaySDK-20150610.jar')
+    /**
+     *       日志收集
+     *       http://bugly.qq.com/
+     */
+    compile files('libs/bugly_crash_release__2.1.1.jar')
+    /**
+     *       增量更新
+     */
+
+    /**
+     *    分享
+     *    包括QQ、QQ空间、微信、微信朋友圈
+     */
+    compile files('libs/mta-sdk-1.6.2.jar')
+    compile files('libs/umeng_social_sdk.jar')
+    compile files('libs/alipaySdk-20160516.jar')
+    compile files('libs/open_sdk_r5509.jar')
+    compile files('libs/SocialSDK_WeiXin_1.jar')
+    compile files('libs/libapshare.jar')
+    /**
+     *  轮播控件
+     */
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    /**
+     *  选项卡
+     *  https://github.com/H07000223/FlycoTabLayout
+     */
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.6@aar'
+    /**
+     *  本地图片选择
+     *  https://github.com/lovetuzitong/MultiImageSelector
+     */
+    compile 'com.github.lovetuzitong:MultiImageSelector:1.2'
+    /**
+     *  android 倒计时
+     *  https://github.com/iwgang/CountdownView
+     */
+    compile 'com.github.iwgang:countdownview:2.1.1'
+    /**
+     *  标签
+     *  https://github.com/2dxgujun/AndroidTagGroup
+     */
+    compile 'me.gujun.android.taggroup:library:1.4@aar'
+    /**
+     *  类似淘宝的商品详情页，继续拖动查看详情，其中拖动增加了阻尼，并且重写了
+     *  ListView，GridView，ScrollView，WebView，RecyclerView 的 dispatchTouchEvent
+     *  方法，使用的时候无须额外的代码，可以任意嵌套使用。
+     * https://github.com/jeasonlzy0216/VerticalSlideView
+     */
+
+    //    compile 'com.lzy.widget:view-core:+'
+
+    //    compile 'com.lzy.widget:view-core:0.1.9'
+
+    /**
+     *  https://github.com/l123456789jy/Lazy
+     *  一系列的工具类
+     */
+
+    /**
+     *  节操视屏播放器
+     *  https://github.com/lipangit/JieCaoVideoPlayer/blob/develop/README-ZH.md
+     *
+     *  bilibili视屏开源项目，支持各种弹幕等
+     *  https://github.com/Bilibili/ijkplayer
+     *  https://github.com/Bilibili/DanmakuFlameMaster
+     *
+     */
+
+    //    compile 'fm.jiecao:jiecaovideoplayer:4.5_preview1'
+
+    //If you can not start app, you cancel the annotation
+
+    //如果app无法启动,请取消下面的注释
+
+    //Other ABIs: optional
+
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.6.0'
+
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.6.0'
+
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.6.0'
+
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.6.0'
+
+    //ExoPlayer as IMediaPlayer: optional, experimental
+
+    //compile 'tv.danmaku.ijk.media:ijkplayer-exo:0.6.0'
+
+    /**
+     *  日期时间选择器
+     *  https://github.com/saiwu-bigkoo/Android-PickerView
+     *  demo：https://raw.githubusercontent.com/saiwu-bigkoo/Android-PickerView/master/app/src/main/java/com/bigkoo/pickerviewdemo/MainActivity.java
+     */
+    compile 'com.bigkoo:pickerview:2.1.1'
+    compile files('libs/httpmime-4.1.2.jar')
+
+}

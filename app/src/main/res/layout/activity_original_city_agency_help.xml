@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.weslide.lovesmallscreen.views.custom.CustomToolbar
+        android:id="@+id/help_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/main_color_white"
+        app:leftIv="@drawable/icon_fanhuij"
+        app:titleColor="@color/toolbar_title_color"
+        app:titleName="分润说明"
+        app:titleSize="16sp"></com.weslide.lovesmallscreen.views.custom.CustomToolbar>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:id="@+id/city_agency_help_web"
+        android:layout_height="match_parent"></WebView>
+
+    <!--<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:text="1.什么是淘客分润?"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:text="2. 什么是合伙人？
+合伙人是与爱小屏一起合作共同进行淘客推广的人群，当您成为爱小屏的合伙人后，在因为您的关系在我们平台购买商品（目前为省钱购物模块）的用户，您都可以获得收益，收益比例高达65%！"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:text="3. 怎么获得分润？
+当与爱小屏达成战略合作关系，您就会享有分佣关系的权限，当您的直接用户/粉丝（绑定邀请码）/购买商品并付款，您就可以看到所享受的佣金收益，当您的用户/粉丝成功完成交易，您就可以实际拥有这笔收益。您的收益会在爱小屏“合伙人”模块体现出来，并可以结算到钱包进行提现。"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:text="4. 什么是预估收益？
+预估收益：用户下单付款，但未最后完成交易的情况下预估的佣金收益，实际根据退单情况分润收益会有变化。"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:text="5. 结算及提现的规则：
+我们每个月结算25号结算上个月20号之前的订单，可结算金额结算成功后会自动转到“我的钱包”模块，可以进行提现。（成功结算后，可结算金额归0）
+如果25号没有结算可以结算的金额，之后的任意时间结算已出账可以结算的部分。"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:text="6.如何与爱小屏合作共赢赚钱？
+请联系总部客服：
+QQ：3285671251，
+电话：020-29831747"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>-->
+
+</LinearLayout>

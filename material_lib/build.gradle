@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion '25.0.0'
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+
+    /**
+     *
+     * 源码项目该看的
+     * https://github.com/googlesamples/android-topeka
+     * 这个项目是Google前段时间刚发出来，通过这个app，你还可以学到如何设计你app的交互和视觉以更好的和MaterialDesign搭
+     *
+     * https://github.com/google/iosched
+     *
+     * https://github.com/square/dagger
+     *
+     * https://designcode.io/sketch
+     *
+     * https://github.com/facebook/react
+     *http://download.csdn.net/detail/somehow1002/9215495
+     *
+     *
+     * 国内Top500Android应用分析报告
+     * http://mp.weixin.qq.com/s?__biz=MzA5OTMxMjQzMw==&mid=2648112527&idx=1&sn=b23c1b5f3e32e343ad96d705bd4d63ff&scene=2&srcid=0711GL3B90iyRPmjRKTBN1I0&from=timeline&isappinstalled=0#wechat_redirect
+     *
+     * Weex http://blog.csdn.net/jasonblog/article/details/51863173
+     *
+     * http://blog.csdn.net/luyi325xyz/article/details/43085409
+     */
+
+    /**
+     * 控件库
+     * https://github.com/rey5137/material
+     */
+    compile 'com.github.rey5137:material:1.2.4'
+}

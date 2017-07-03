@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="115dp"
+    android:layout_height="120dp"
+    android:background="@drawable/sy_xialabeijing"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:id="@+id/home_page_msg_pup_item_msg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/home_page_msg_pup_item_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:src="@drawable/icon_xialaxiaoxi" />
+
+            <TextView
+                android:id="@+id/home_page_msg_pup_item_num_tv"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="32dp"
+                android:background="@drawable/icon_xiaoxiyuan02"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="#ffffff"
+                android:textSize="9sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:text="消息"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="#e0e1e2"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:id="@+id/home_page_msg_pup_item_scan"
+        android:layout_height="39dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@drawable/icon_saoyisao"
+            android:layout_marginLeft="18dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textSize="15sp"
+            android:textColor="#333333"
+            android:text="扫一扫"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="#e0e1e2"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:id="@+id/home_page_msg_pup_item_share"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@drawable/icon_fenxiang"
+            android:layout_marginLeft="18dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textSize="15sp"
+            android:textColor="#333333"
+            android:text="分享"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

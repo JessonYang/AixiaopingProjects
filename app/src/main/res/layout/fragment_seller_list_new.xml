@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@id/tool_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/main_color_white"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationIcon="@drawable/icon_fanhuij"
+        app:titleTextColor="@color/toolbar_title_color">
+
+        <RelativeLayout
+            android:layout_width="235dp"
+            android:layout_height="29dp"
+            android:background="@drawable/rec_bg_white">
+
+            <ImageView
+                android:id="@+id/fangfajing_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_fangdajing" />
+
+            <EditText
+                android:id="@+id/seller_list_search_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="7dp"
+                android:layout_toRightOf="@id/fangfajing_iv"
+                android:background="@null"
+                android:hint="去找一找周边的店铺"
+                android:textColor="#999999"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/btn_sellers_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:padding="10dp"
+            android:src="@drawable/iconfont_dizhi" />
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="#dddddd"
+        android:layout_height="0.5dp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@drawable/icon_zongxiangzhanshi"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            android:text="展现形式"
+            android:textColor="@color/font_color"
+            android:textSize="14dp" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/ll"
+        android:layout_height="40dp">
+
+        <RelativeLayout
+            android:id="@+id/near_rll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/near_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="附近"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:id="@+id/near_iv"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/near_tv"
+                android:src="@drawable/icon_xiasanjiao" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#dfdfdf" />
+
+        <RelativeLayout
+            android:id="@+id/type_rll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/type_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="类别"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:id="@+id/type_iv"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/type_tv"
+                android:src="@drawable/icon_xiasanjiao" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#dfdfdf" />
+
+        <RelativeLayout
+            android:id="@+id/comment_rll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/comment_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="评价"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/comment_iv"
+                android:layout_toRightOf="@id/comment_tv"
+                android:src="@drawable/icon_xiasanjiao" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/divider_fl"
+        android:layout_height="5dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="#ececec" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:id="@+id/near_line"
+                android:background="#ff2d47" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:id="@+id/type_line"
+                android:background="#ff2d47" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:id="@+id/comment_line"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:background="#ff2d47" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:id="@id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.malinskiy.superrecyclerview.SuperRecyclerView>
+
+</LinearLayout>

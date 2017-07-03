@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="支付方式"
+        android:background="@color/background_color"
+        android:textColor="@color/font_color"
+        android:textSize="@dimen/h7" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+
+    <com.weslide.lovesmallscreen.views.widget.AXPRadioGroup
+        android:id="@+id/rg_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layout_wallet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_wallet_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_wallet"
+                android:drawablePadding="6dp"
+                android:padding="10dp"
+                android:text="我的钱包"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/h7" />
+
+            <TextView
+                android:id="@+id/tv_wallet_yue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_wallet_text"
+                android:text="余额:"
+                android:textColor="@color/font_content_color" />
+
+            <TextView
+                android:id="@+id/tv_wallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_wallet_yue"
+                android:text="244"
+                android:textColor="@color/font_content_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_wallet"
+                android:text="元"
+                android:textColor="@color/font_content_color" />
+
+            <RadioButton
+                android:id="@+id/rb_wallet"
+                style="@style/CheckBoxSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+
+        <RelativeLayout
+            android:id="@+id/layout_alipay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_alipay"
+                android:drawablePadding="6dp"
+                android:padding="10dp"
+                android:text="支付宝支付"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/h7" />
+
+            <RadioButton
+                android:id="@+id/rb_alipay"
+                style="@style/CheckBoxSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+
+        <RelativeLayout
+            android:id="@+id/layout_weixin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_wexin"
+                android:drawablePadding="6dp"
+                android:padding="10dp"
+                android:text="微信支付"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/h7" />
+
+            <RadioButton
+                android:id="@+id/rb_weixin"
+                style="@style/CheckBoxSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+    </com.weslide.lovesmallscreen.views.widget.AXPRadioGroup>
+
+</LinearLayout>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_goods_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:padding="8dp"
+        android:text="监考老师发动机了独守空房收水电费水电费快来人他"
+        android:textColor="@color/font_color"
+        android:textSize="@dimen/h4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_goods_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11积分"
+            android:textColor="@color/main_color_red"
+            android:textSize="@dimen/h4" />
+
+        <TextView
+            android:id="@+id/tv_tag_red_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="4dp"
+            android:background="@color/orange"
+            android:text="红包可抵20元"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h5" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_cost_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="原价：30"
+            android:textColor="@color/font_content_color" />
+
+        <TextView
+            android:id="@+id/tv_express_tactics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="包邮"
+            android:textColor="@color/font_content_color" />
+
+        <TextView
+            android:id="@+id/tv_sales_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:drawablePadding="4dp"
+            android:layout_marginRight="10dp"
+            android:text="销量:"
+            android:textColor="@color/font_content_color" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/line"></View>
+
+    <LinearLayout
+        android:id="@+id/layout_spec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.weslide.lovesmallscreen.views.goods.SpecView
+            android:id="@+id/sv_spec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.weslide.lovesmallscreen.views.goods.SpecView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数量：" />
+
+        <com.weslide.lovesmallscreen.views.widget.AddAndSubtractView
+            android:id="@+id/as_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></com.weslide.lovesmallscreen.views.widget.AddAndSubtractView>
+
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/seller_layout_height"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/iv_seller_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"
+            android:src="@drawable/icon_app" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_seller_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:maxLines="2"
+                    android:maxWidth="140dp"
+                    android:text="YY高阿达吧"
+                    android:textColor="@color/font_color"
+                    android:textSize="@dimen/h8" />
+
+                <android.support.v7.widget.GridLayout
+                    android:id="@+id/gl_preferentials"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    app:columnCount="3">
+
+                    <ImageView
+                        android:id="@+id/iv_preferentials_1"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/icon_app" />
+
+                    <ImageView
+                        android:id="@+id/iv_preferentials_2"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/icon_app" />
+
+                    <ImageView
+                        android:id="@+id/iv_preferentials_3"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/icon_app" />
+
+                </android.support.v7.widget.GridLayout>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_seller_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="天河区中山中路80号"
+                android:textSize="@dimen/h5" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="@dimen/seller_layout_right_width"
+            android:layout_height="match_parent">
+
+
+            <Button
+                android:id="@+id/btn_seller"
+                android:layout_width="70dp"
+                android:layout_height="24dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/rect_orange"
+                android:paddingBottom="0dp"
+                android:paddingTop="0dp"
+                android:text="进店逛逛"
+                android:textColor="@color/btn_orange"
+                android:textSize="@dimen/h5">
+
+            </Button>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.weslide.lovesmallscreen.views.widget.SquareImageView
+            android:id="@+id/iv_goods_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_goods_name"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="类库离开房间爱路附近拉开飞机来我卡死了都分开就爱死了对方空间啊slj"
+        android:textColor="@color/font_color"
+        android:textSize="@dimen/h8" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <TextView
+            android:id="@+id/tv_goods_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="￥12"
+            android:textColor="@color/main_color_red"
+            android:textSize="@dimen/h8" />
+
+        <TextView
+            android:id="@+id/tv_express_tactics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="包邮"
+            android:textColor="@color/font_content_color"
+            android:textSize="@dimen/h5" />
+
+    </RelativeLayout>
+
+</LinearLayout>

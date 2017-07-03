@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="110.5dp"
+    android:layout_height="142dp"
+    android:background="#ffffff"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="110dp"
+        android:layout_height="141dp"
+        android:orientation="vertical">
+
+        <!--<TextView
+            android:id="@+id/product_good_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="13dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="和田大枣核桃"
+            android:textColor="#ff4563"
+            android:textSize="14sp"
+            android:visibility="gone" />-->
+
+        <ImageView
+            android:id="@+id/product_good_iv"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/sy_rxsp1" />
+
+        <TextView
+            android:id="@+id/product_good_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="5dp"
+            android:text="金丝黄菊"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#333333"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/product_good_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="4dp"
+            android:text="￥28.0"
+            android:textColor="#ff4460"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="120dp"
+        android:background="#dddddd" />
+</LinearLayout>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 商铺log -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/seller_layout_height"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/iv_seller_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"
+            android:src="@drawable/icon_app" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_seller_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font_color"
+                    android:text="YY酸奶吧"
+                    android:textSize="@dimen/h7" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_shopHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="营业时间：10:30~22:30"
+                android:maxLines="1"
+                android:textColor="@color/font_content_color1"
+                android:textSize="@dimen/h5" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/cb_concern"
+                style="@style/CheckBoxSellerConcern"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/icon_distance"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/font_content_color1"
+                android:text="111km"
+                android:textSize="@dimen/h5" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_seller_introduce"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"></View>
+        <TextView
+            android:id="@+id/tv_seller_introduce"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text=""
+            android:layout_margin="8dp"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"></View>
+    <!-- 地址电话 -->
+    <LinearLayout
+        android:id="@+id/layout_address_and_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/seller_address_layout_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_seller_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:textColor="@color/font_content_color1"
+            android:text="地址：中了几十块的房间里的附件二卡的说法是"
+            android:textSize="@dimen/h8" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/home_edge"
+            android:layout_marginRight="@dimen/home_edge"
+            android:background="@color/line"></View>
+
+        <ImageView
+            android:id="@+id/iv_seller_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/home_edge"
+            android:adjustViewBounds="true"
+            android:padding="5dp"
+            android:src="@drawable/icon_seller_phone" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"></View>
+
+    <!-- 分店 -->
+    <RelativeLayout
+        android:id="@+id/layout_branchs"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/seller_address_layout_height"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <TextView
+            android:id="@+id/tv_branchs_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="查看其它3家分店"
+            android:textColor="@color/main_color_red"
+            android:textSize="@dimen/h7" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/home_edge"
+            android:src="@drawable/icon_right" />
+
+    </RelativeLayout>
+
+    <!-- 优惠策略 -->
+    <com.weslide.lovesmallscreen.views.FixedGridView
+        android:id="@+id/gv_preferentials"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_color"
+        android:numColumns="2"
+        android:padding="8dp">
+
+    </com.weslide.lovesmallscreen.views.FixedGridView>
+
+</LinearLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#ececec"
+    android:layout_height="match_parent">
+
+    <com.weslide.lovesmallscreen.views.custom.CustomToolbar
+        android:id="@+id/add_partner_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@color/main_color_white"
+        app:leftIv="@drawable/icon_fanhuij"
+        app:titleColor="@color/toolbar_title_color"
+        app:titleName="新增合伙人"
+        app:titleSize="16sp"></com.weslide.lovesmallscreen.views.custom.CustomToolbar>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:layout_height="40dp">
+
+    <ImageView
+        android:layout_width="33dp"
+        android:padding="4dp"
+        android:layout_marginLeft="4dp"
+        android:src="@drawable/icon_sm_shouji"
+        android:layout_height="33dp" />
+
+    <View
+        android:layout_width="0.5dp"
+        android:background="#dcdcdc"
+        android:layout_marginLeft="2dp"
+        android:layout_height="25dp"/>
+
+    <EditText
+        android:id="@+id/edt_phone"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:hint="请输入粉丝手机号"
+        android:background="@null"
+        android:textColorHint="#bbbbbb"
+        android:textSize="15sp"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:layout_width="33dp"
+            android:padding="4dp"
+            android:layout_marginLeft="4dp"
+            android:src="@drawable/icon_sm_xiugaibeizhu"
+            android:layout_height="33dp" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:background="#dcdcdc"
+            android:layout_marginLeft="2dp"
+            android:layout_height="25dp"/>
+
+        <EditText
+            android:id="@+id/edt_beizhu"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:hint="请输入备注信息"
+            android:background="@null"
+            android:textColorHint="#bbbbbb"
+            android:textSize="15sp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:id="@+id/add_partner_button"
+        android:layout_width="350dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="27dp"
+        android:background="@color/main_color_red"
+        android:gravity="center"
+        android:text="新增"
+        android:layout_height="40dp"></com.gc.materialdesign.views.ButtonRectangle>
+
+</LinearLayout>

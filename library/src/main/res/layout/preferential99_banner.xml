@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.weslide.lovesmallscreen.views.Banner xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/banner"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/home_head_banner_height">
+
+</com.weslide.lovesmallscreen.views.Banner>

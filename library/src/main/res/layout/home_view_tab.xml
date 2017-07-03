@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.flyco.tablayout.CommonTabLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tl_tab"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:background="#ffffff"
+    tl:tl_iconHeight="23dp"
+    tl:tl_iconWidth="23dp"
+    tl:tl_indicator_color="@color/main_color_red"
+    tl:tl_indicator_height="0dp"
+    tl:tl_textSelectColor="@color/main_color_red"
+    tl:tl_textUnselectColor="#66000000"
+    tl:tl_textsize="12sp"
+    tl:tl_underline_color="#DDDDDD"
+    tl:tl_underline_height="1dp" />

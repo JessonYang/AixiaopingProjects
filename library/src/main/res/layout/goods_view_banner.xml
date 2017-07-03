@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.weslide.lovesmallscreen.views.widget.SquareLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.weslide.lovesmallscreen.views.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.weslide.lovesmallscreen.views.Banner>
+
+        <TextView
+            android:id="@+id/tv_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/banner"
+            android:layout_alignRight="@id/banner"
+            android:layout_margin="10dp"
+            android:background="@drawable/yuan"
+            android:gravity="center"
+            android:text="1/5"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h4" />
+    </com.weslide.lovesmallscreen.views.widget.SquareLayout>
+</LinearLayout>

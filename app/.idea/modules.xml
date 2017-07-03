@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../AixiaopingProjects.iml" filepath="$PROJECT_DIR$/../AixiaopingProjects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ipc360/ipc360.iml" filepath="$PROJECT_DIR$/../ipc360/ipc360.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../library/library.iml" filepath="$PROJECT_DIR$/../library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../material_lib/material_lib.iml" filepath="$PROJECT_DIR$/../material_lib/material_lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../superrecyclerview/superrecyclerview.iml" filepath="$PROJECT_DIR$/../superrecyclerview/superrecyclerview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../unlockview/unlockview.iml" filepath="$PROJECT_DIR$/../unlockview/unlockview.iml" />
+    </modules>
+  </component>
+</project>

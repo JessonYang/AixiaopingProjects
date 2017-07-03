@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/home_goods_classify_item_height"
+    android:descendantFocusability="blocksDescendants"
+    >
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/font_content_color"
+        android:textSize="@dimen/h5" />
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tv_name"
+        android:layout_centerHorizontal="true"
+        android:focusable="false"
+        android:clickable="false"
+        />
+    <ImageView
+        android:id="@+id/iv_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tv_name"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/icon_zhezhao"
+        android:visibility="gone"
+        android:focusable="false"
+        android:clickable="false"
+        />
+</RelativeLayout>

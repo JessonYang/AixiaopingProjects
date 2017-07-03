@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/home_score_exchange_goods_width"
+    android:layout_height="@dimen/home_score_exchange_goods_height"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="4dp">
+
+    <ImageView
+        android:id="@+id/iv_goods_image"
+        android:layout_width="@dimen/home_score_exchange_goods_size"
+        android:layout_height="@dimen/home_score_exchange_goods_size"
+        android:src="@drawable/icon_app"/>
+
+    <TextView
+        android:id="@+id/tv_goods_score"
+        android:layout_below="@id/iv_goods_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/h5"
+        android:textColor="@color/main_color_red"
+        android:text="积分：980"/>
+
+    <TextView
+        android:layout_below="@id/tv_goods_score"
+        android:id="@+id/tv_goods_costPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/h5"
+        android:text="原价：￥90"/>
+
+</RelativeLayout>

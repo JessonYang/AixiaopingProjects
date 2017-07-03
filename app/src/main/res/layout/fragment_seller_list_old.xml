@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@drawable/icon_zongxiangzhanshi"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            android:text="展现形式"
+            android:textColor="@color/font_color"
+            android:textSize="14dp" />
+
+    </FrameLayout>
+
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:id="@id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.malinskiy.superrecyclerview.SuperRecyclerView>
+
+</LinearLayout>

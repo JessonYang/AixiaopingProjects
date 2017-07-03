@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <com.weslide.lovesmallscreen.views.order.GoodsItemView
+        android:id="@+id/gtv_goods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_value_lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="退单金额："
+            android:textColor="@color/font_color"
+            android:textSize="@dimen/h7" />
+
+        <TextView
+            android:id="@+id/tv_back_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_color"
+            android:textSize="@dimen/h7" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="红包将会原路返回您的红包收益里"
+        android:textColor="@color/font_content_color"
+        android:textSize="@dimen/h5" />
+    <com.weslide.lovesmallscreen.views.widget.AXPRadioGroup
+        android:id="@+id/rg_drawback_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_textview1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/icon_rewallet"
+                android:drawablePadding="12dp"
+                android:text="原路返回"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/h7" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_textview1"
+                android:text="(商家确认后3个工作日内退回)"
+                android:textColor="@color/main_color_red"
+                android:textSize="@dimen/h5" />
+
+            <RadioButton
+                android:id="@+id/rb_re"
+                style="@style/CheckBoxSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:checked="true"
+                />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:id="@+id/tv_textview2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/icon_reback"
+                android:drawablePadding="10dp"
+                android:text="退款到我的钱包"
+                android:textColor="@color/font_color"
+                android:textSize="@dimen/h7" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_textview2"
+                android:text="(商家确认后3个工作日内退回)"
+                android:textColor="@color/main_color_red"
+                android:textSize="@dimen/h5" />
+
+            <RadioButton
+                android:id="@+id/rb_wallet"
+                style="@style/CheckBoxSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                />
+        </RelativeLayout>
+    </com.weslide.lovesmallscreen.views.widget.AXPRadioGroup>
+
+
+    <com.weslide.lovesmallscreen.views.widget.TextUploadImageView
+        android:id="@+id/tuliv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
+</LinearLayout>

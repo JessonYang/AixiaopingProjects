@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/original_city_agency_all_order_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="5dp" />
+
+        <ImageView
+            android:layout_width="150dp"
+            android:src="@drawable/wudingdan"
+            android:layout_centerInParent="true"
+            android:id="@+id/all_order_wudingdan_iv"
+            android:visibility="gone"
+            android:layout_height="150dp" />
+    </RelativeLayout>
+</LinearLayout>

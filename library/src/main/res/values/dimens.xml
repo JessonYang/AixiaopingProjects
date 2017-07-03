@@ -1,0 +1,79 @@
+<resources>
+    <dimen name="h1">56dp</dimen>
+    <dimen name="h2">40dp</dimen>
+    <dimen name="h3">26dp</dimen>
+    <dimen name="h4">18dp</dimen>
+    <dimen name="h7">16dp</dimen>
+    <dimen name="h5">12dp</dimen>
+    <dimen name="h6">8dp</dimen>
+    <dimen name="h8">14dp</dimen>
+
+    <dimen name="tool_bar_height">36dp</dimen>
+
+    <!-- 表单布局的默认横向边距 -->
+    <dimen name="form_layout_horizontal_margin">30dp</dimen>
+
+    <!-- 首页head_banner高度 -->
+    <dimen name="home_head_banner_height">150dp</dimen>
+
+    <!-- 首页商品分类高度 -->
+    <dimen name="home_goods_classify_height">162dp</dimen>
+    <!-- 首页商品垂直边距 -->
+    <dimen name="home_goods_classify_verticalSpacing">10dp</dimen>
+    <!-- 首页商品分类项高度 -->
+    <dimen name="home_goods_classify_item_height">66dp</dimen>
+
+    <!-- 首页操作图文高度 -->
+    <dimen name="home_option_height">180dp</dimen>
+    <!-- 99特惠宽 -->
+    <dimen name="home_option_99_width">135dp</dimen>
+    <!-- 首页操作图文右边操作图文高度 -->
+    <dimen name="home_option_right_height">90dp</dimen>
+
+    <!-- 精选商家gide高度 -->
+    <dimen name="home_concentration_seller_grid_height">52dp</dimen>
+
+    <!-- 首页垂直条宽度 -->
+    <dimen name="home_slip_width">4dp</dimen>
+    <dimen name="home_slip_top_bottom_margin">4dp</dimen> <!-- 上下边距 -->
+    <!-- 边距 -->
+    <dimen name="home_edge">10dp</dimen>
+
+    <!-- 爱划算、特卖汇banner高 -->
+    <dimen name="home_option_banner">120dp</dimen>
+
+    <!-- 限时秒杀模块高度 -->
+    <dimen name="home_second_kill_tab_height">32dp</dimen>
+    <dimen name="home_second_kill_more_height">42dp</dimen>
+    <dimen name="home_second_kill_goods_height">330dp</dimen>
+
+    <!-- 积分兑换模块 -->
+    <dimen name="home_score_exchange_more_height">42dp</dimen>
+    <dimen name="home_score_exchange_tab_height">38dp</dimen>
+    <dimen name="home_score_exchange_goods_height">184dp</dimen>
+    <dimen name="home_score_exchange_goods_width">130dp</dimen>
+    <dimen name="home_score_exchange_goods_size">@dimen/home_score_exchange_goods_width</dimen>
+
+    <dimen name="seller_layout_height">72dp</dimen>
+    <dimen name="seller_layout_right_width">110dp</dimen>
+    <dimen name="seller_layout_preferential_icon">18dp</dimen>
+
+    <!-- 商家店铺界面 -->
+    <dimen name="seller_address_layout_height">48dp</dimen>
+    <dimen name="seller_images_height">156dp</dimen>
+    <dimen name="seller_banner">120dp</dimen>
+
+
+    <!-- 商品详情 -->
+    <dimen name="goods_bottom_option_layout_height">48dp</dimen>
+    <dimen name="goods_bottom_option_option_width">58dp</dimen>
+    <dimen name="goods_comment_height">78dp</dimen>
+    <dimen name="goods_comment_step">3dp</dimen>
+    <dimen name="goods_comment_title_layout_height">48dp</dimen>
+
+
+    <!-- 二级分类 -->
+    <dimen name="secondary_classification_height">360dp</dimen>
+    <dimen name="secondary_classification_item_height">32dp</dimen>
+
+</resources>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_white"
+        android:minHeight="?attr/actionBarSize"
+        app:titleTextColor="@color/toolbar_title_color">
+
+        <ImageView
+            android:id="@+id/back_iv"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/icon_fanhuij" />
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="250dp"
+            android:layout_height="34dp"
+            android:layout_gravity="center"
+            android:background="@drawable/cashmall_edittext_transparent"
+            android:drawableLeft="@drawable/icon_fangdajing_gray"
+            android:drawablePadding="5dp"
+            android:hint="关键词搜索"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingLeft="8dp"
+            android:textColorHint="@color/gray"
+            android:textSize="@dimen/h7"></EditText>
+
+        <TextView
+            android:id="@+id/search_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="12dp"
+            android:text="搜索"
+            android:textColor="@color/toolbar_title_color"
+            android:textSize="16sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="搜索更多"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/h7" />
+
+    <me.gujun.android.taggroup.TagGroup
+        android:id="@+id/tg_hot_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        app:atg_borderColor="@color/white"
+        app:atg_textColor="@color/black"
+        app:atg_verticalSpacing="10dp"></me.gujun.android.taggroup.TagGroup>
+
+    <com.rey.material.widget.Button
+        android:id="@+id/tv_must_see_strategy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:text="清空搜索历史"
+        android:textSize="@dimen/h5"
+        app:v_styleId="@array/button_orange_raise_check_color" />
+
+</LinearLayout>

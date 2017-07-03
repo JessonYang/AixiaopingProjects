@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_redpaper"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/img_showredpager_background"
+    android:orientation="vertical"
+    >
+    
+	    <ImageView
+	        android:id="@+id/imageview_center"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:scaleType="fitCenter"
+	        android:src="@drawable/img_showredpager_background"
+	        android:layout_centerInParent="true"
+	        android:paddingLeft="10dp"
+	        android:visibility="gone"
+	        />
+
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@id/imageview_center"
+	        android:orientation="horizontal"
+	        android:layout_marginTop="5dp"
+		    android:layout_marginLeft="15dp"
+		    android:gravity="center_horizontal"
+	        >
+	        
+	        <ImageView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/icon_redpaper"
+		        android:layout_gravity="left"
+		        />
+	        
+	        <TextView 
+	            android:id="@+id/tv_redpager_details"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:text="爱生活，爱小屏"
+		        android:textColor="@color/white"
+		        android:textSize="16dp"
+		        android:layout_gravity="center_vertical"
+		        android:paddingRight="30dp"
+		        android:maxLines="3"
+		        android:ellipsize="end"
+		        />
+	        
+	    </LinearLayout>
+    
+	    <TextView 
+	        android:id="@+id/tv_redpaper_name"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="爱小屏红包"
+	        android:textColor="@color/font_color"
+	        android:textSize="15dp"
+	        android:layout_alignLeft="@id/imageview_center"
+		    android:paddingLeft="15dp"
+		    android:paddingBottom="20dp"
+		    android:layout_alignBottom="@id/imageview_center"
+		    android:singleLine="true"
+		    android:ellipsize="end"
+		    android:maxLength="12"
+	        />
+</LinearLayout>

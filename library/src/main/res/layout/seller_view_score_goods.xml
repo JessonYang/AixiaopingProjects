@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/tv_score_goods_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_content_color"
+            android:layout_centerHorizontal="true"
+            android:text="积分马上换"
+            android:textSize="@dimen/h7" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/home_edge"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@id/tv_score_goods_title"
+            android:background="@color/orangered"></View>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="@dimen/home_edge"
+            android:layout_toRightOf="@id/tv_score_goods_title"
+            android:background="@color/orangered"></View>
+
+    </RelativeLayout>
+
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_score_exchange_goods_height">
+
+    </com.malinskiy.superrecyclerview.SuperRecyclerView>
+
+
+</LinearLayout>

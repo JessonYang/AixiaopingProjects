@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/main_color_white"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationIcon="@drawable/icon_quxiao"
+        app:titleTextColor="@color/toolbar_title_color">
+
+        <RelativeLayout
+            android:layout_width="235dp"
+            android:layout_height="29dp"
+            android:background="@drawable/rec_bg_white">
+
+           <!-- <ImageView
+                android:id="@+id/fangfajing_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_fangdajing" />-->
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableLeft="@drawable/icon_fangdajing_gray"
+                android:drawablePadding="6dp"
+                android:hint="搜索一下周边的店铺"
+                android:layout_marginLeft="6dp"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textColor="#999999"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_search_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:background="@null"
+            android:gravity="center"
+            android:text="搜索"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:id="@+id/seller_list_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.malinskiy.superrecyclerview.SuperRecyclerView>
+</LinearLayout>

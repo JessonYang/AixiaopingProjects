@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <ImageView
+            android:id="@+id/ticket_good_iv"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_morentouxiang" />
+
+        <TextView
+            android:id="@+id/ticket_good_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="7dp"
+            android:layout_toRightOf="@id/ticket_good_iv"
+            android:ellipsize="end"
+            android:lineSpacingExtra="2.5dp"
+            android:maxLines="2"
+            android:text="发活动发货地哦啊法兰发活动发货地哦啊法兰发活动发货地哦啊法兰发活动发货地哦啊法兰"
+            android:textColor="#333333"
+            android:textSize="12dp" />
+
+        <LinearLayout
+            android:id="@+id/original_price_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ticket_good_desc"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/ticket_good_iv"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="现价"
+                android:textColor="#999999"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/original_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥500.0"
+                android:textColor="#999999"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/original_price_ll"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="9dp"
+            android:layout_toRightOf="@id/ticket_good_iv"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/final_price_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="券后价"
+                android:textColor="#999999"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/final_price_tag"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/final_price_tag"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:textColor="#424242"
+                    android:textSize="10.5sp" />
+
+                <TextView
+                    android:id="@+id/final_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="500.0"
+                    android:textColor="#424242"
+                    android:textSize="15dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/earn_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="19dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_tkfx" />
+
+            <TextView
+                android:id="@+id/earn_money_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:text="赚￥37.0"
+                android:textColor="#ff2b47"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ticket_good_desc"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_toLeftOf="@id/earn_ll"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="月销"
+                android:textColor="#999999"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/month_sale_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4000件"
+                android:textColor="#999999"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/earn_ll"
+            android:layout_toRightOf="@id/ticket_good_iv">
+
+            <ProgressBar
+                android:id="@+id/ticket_good_progress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:max="100"
+                android:progress="60"
+                android:progressDrawable="@drawable/layer_list_progress_drawable" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:src="@drawable/quanjindu" />
+
+            <TextView
+                android:id="@+id/quan_left_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="余300张"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/quan_price"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text="800元"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
+        </FrameLayout>
+    </RelativeLayout>
+</LinearLayout>

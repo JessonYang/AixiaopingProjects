@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.weslide.lovesmallscreen.views.widget.SquareImageView
+            android:id="@+id/iv_goods_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/expressTactics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="#88ffffff"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:text="上门自提"
+            android:textSize="@dimen/h5" />
+
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_goods_name"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:text="看来时机的弗兰克离开sdfsdf金额可独领风骚sdf肯德基冷热客家人小窗口Vertdfg领金色凯瑞想打飞机了圣诞节了加热"
+        android:textColor="@color/font_title_color"
+        android:textSize="@dimen/h5"
+        android:layout_marginLeft="5dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_goods_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="￥12"
+        android:textColor="@color/main_color_red"
+        android:textSize="@dimen/h8"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_goods_costPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥43"
+            android:textColor="@color/font_content_color"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="@dimen/h5"
+            />
+
+        <TextView
+            android:id="@+id/tv_sales_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="已售23份"
+            android:textColor="@color/font_content_color"
+            android:textSize="@dimen/h5"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_locaiont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:drawableLeft="@drawable/icon_distance"
+            android:drawablePadding="4dp"
+            android:text="18km"
+            android:textColor="@color/font_content_color"
+            android:textSize="@dimen/h5"
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

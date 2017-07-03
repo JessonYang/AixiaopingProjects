@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="03dp"
+        android:background="#f4f4f4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="220.5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/nfcp_iv"
+                android:layout_width="143dp"
+                android:scaleType="fitXY"
+                android:layout_height="match_parent"
+                android:src="@drawable/nongfuchanping" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#dddddd" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/to_friend_iv"
+                    android:layout_width="0dp"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/songqinren" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="#dddddd" />
+
+                <ImageView
+                    android:id="@+id/eat_must_iv"
+                    android:layout_width="0dp"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/chihuobibei" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#dddddd" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/dj_fruit_iv"
+                android:layout_width="143dp"
+                android:scaleType="fitXY"
+                android:layout_height="match_parent"
+                android:src="@drawable/dangjixianguo" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#dddddd" />
+
+            <ImageView
+                android:id="@+id/tea_iv"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/cha" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

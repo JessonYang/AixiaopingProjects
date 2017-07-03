@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gv_gride"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/home_goods_classify_height"
+    android:layout_marginTop="@dimen/home_goods_classify_verticalSpacing"
+    android:background="@color/white"
+    android:numColumns="5"
+    android:paddingTop="@dimen/home_goods_classify_verticalSpacing"
+    android:verticalSpacing="@dimen/home_goods_classify_verticalSpacing"
+
+    >
+
+</GridView>

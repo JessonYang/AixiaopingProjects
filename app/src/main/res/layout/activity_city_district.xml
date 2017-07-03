@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activty_category_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/page_score_store_mRlTitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_gravity="top"
+        android:background="@color/transparent"></RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_destroythis"
+        android:layout_width="match_parent"
+        android:layout_height="310dp"
+        android:background="@color/background_color"
+        android:orientation="vertical">
+
+        <GridView
+            android:id="@+id/activity_category_mGvCategory"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/background_color"
+            android:listSelector="@color/goodsAddShoppingCarBackground"
+            android:numColumns="3"
+            android:scrollbars="vertical"></GridView>
+
+        <RelativeLayout
+            android:id="@+id/rl_changecity"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp"
+            android:background="@color/main_color_red">
+
+            <TextView
+                android:id="@+id/tv_location_currentcity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:text="当前城市:"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="更换  >"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

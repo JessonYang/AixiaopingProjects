@@ -29,4 +29,15 @@ public class TicketListModel extends BaseModel {
 
     @SerializedName("ticketType")
     String ticketType;
+
+    public String getPageIndex() {
+        return pageIndex;
+    }
+
+    public void setPageIndex(String pageIndex) {
+        this.pageIndex = pageIndex;
+    }
+
+    @SerializedName("pageIndex")
+    String pageIndex;
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.weslide.lovesmallscreen.Constants;
+import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.MyPay;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.mall.GoodsActivity;
@@ -87,6 +88,7 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
     FrameLayout progress;
     @BindView(R.id.tool_bar)
     Toolbar toolBar;
+    private Float totalMoney;
 
     @Nullable
     @Override
@@ -134,7 +136,8 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
             pvPay.setVisibility(View.GONE);
         }
 
-        tvTotalMoney.setText("合计：￥" + mOrderList.getTotalMoney());
+        totalMoney = mOrderList.getTotalMoney();
+        tvTotalMoney.setText("合计：￥" + totalMoney);
         for (Order order : mOrderList.getDataList()) {
             OrderView orderView = new OrderView(getActivity());
             orderView.bindView(order);
@@ -325,6 +328,7 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
     @Override
     public void onSuccess() {
         L.i("支付成功");
+        ContextParameter.getUserInfo().setAvailableMoney(Integer.parseInt(ContextParameter.getUserInfo().getAvailableMoney())-totalMoney+"");
         Toast.makeText(getActivity(), "支付成功!", Toast.LENGTH_SHORT).show();
 
         Bundle bundle = new Bundle();

@@ -99,6 +99,7 @@ public class SpecialLocalProductFragment extends BaseFragment {
     private int position;
     private String intentTypeId;
     private int where = 0;
+    private int truePosition;
 
     @Nullable
     @Override
@@ -110,7 +111,7 @@ public class SpecialLocalProductFragment extends BaseFragment {
         Bundle extras = getActivity().getIntent().getExtras();
         if (extras != null) {
             typeId = extras.getString("typeId");
-            where = extras.getInt("where",0);
+            where = extras.getInt("where", 0);
         }
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,7 +221,7 @@ public class SpecialLocalProductFragment extends BaseFragment {
         if (where == 0) {
             mGoodsListReqeust.setPageIndex(1);
             where = 1;
-        }else {
+        } else {
             mGoodsListReqeust.setPageIndex(mGoodsListReqeust.getPageIndex() + 1);
         }
         mGoodsListReqeust.setMallTyle(Constants.MALL_SPECIAL_LOCAL_PRODUCT);
@@ -267,7 +268,6 @@ public class SpecialLocalProductFragment extends BaseFragment {
                 long currentTime = Calendar.getInstance().getTimeInMillis();
                 if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
                     lastClickTime = currentTime;
-
                     mGoodsListReqeust.setPageIndex(0);
                     mGoodsTypeReqeust.setTypeId(typeId);
                     mGoodsListReqeust.setValue("0");
@@ -280,6 +280,7 @@ public class SpecialLocalProductFragment extends BaseFragment {
                         mGoodsListReqeust.setSalesVolume("1");
                         tvSalesVolume.setText("从高到低");
                     }
+                    count++;
                     load();
                 }
                 break;
@@ -299,6 +300,7 @@ public class SpecialLocalProductFragment extends BaseFragment {
                         mGoodsListReqeust.setValue("1");
                         tvValue.setText("从高到低");
                     }
+                    count++;
                     load();
                 }
                 break;
@@ -399,10 +401,11 @@ public class SpecialLocalProductFragment extends BaseFragment {
         for (int i = 0; i < typeList.size(); i++) {
             TabLayout.Tab tab = mTabLayout.newTab();
             tab.setText(typeList.get(i).getTypeName());
+            tab.setTag(new TabBean(typeList.get(i).getTypeItems(), typeList.get(i).getTypeId()));
             if (typeId != null && typeId.equals(typeList.get(i).getTypeId())) {
                 mTabLayout.addTab(tab,2,true);
-            }
-            else mTabLayout.addTab(tab);
+                truePosition = i;
+            } else mTabLayout.addTab(tab);
         }
 
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -425,9 +428,14 @@ public class SpecialLocalProductFragment extends BaseFragment {
 
     private void showPw(TabLayout.Tab tab) {
         position = tab.getPosition();
-        List<GoodsType> goods = typeList.get(position).getTypeItems();
-        if (!goods.get(0).getTypeId().equals(typeList.get(position).getTypeId())) {
-            goods.add(0, new GoodsType(typeList.get(position).getTypeId(), "全部", null, false));
+//        List<GoodsType> goods = typeList.get(position).getTypeItems();
+        TabBean tabBean = (TabBean) tab.getTag();
+        List<GoodsType> goods = tabBean.list;
+            /*if (!goods.get(0).getTypeId().equals(typeList.get(position).getTypeId())) {
+                goods.add(0, new GoodsType(typeList.get(position).getTypeId(), "全部", null, false));
+            }*/
+        if (!goods.get(0).getTypeId().equals(tabBean.typeId)) {
+            goods.add(0, new GoodsType(tabBean.typeId, "全部", null, false));
         }
         mGridAdapter = new GridAdapter(goods);
         gridview.setAdapter(mGridAdapter);
@@ -498,10 +506,20 @@ public class SpecialLocalProductFragment extends BaseFragment {
             cityId = type.getCityId();
             //    toolBar.setTitle(type.getTypeName());
             typeListCount++;
+            count++;
             load();
         }
     }
 
+    class TabBean {
+        private List<GoodsType> list;
+        private String typeId;
+
+        public TabBean(List<GoodsType> list, String typeId) {
+            this.list = list;
+            this.typeId = typeId;
+        }
+    }
 
     private void initPwView(View pwView) {
 //        flexBox = (FlexboxLayout) pwView.findViewById(R.id.flex_box);

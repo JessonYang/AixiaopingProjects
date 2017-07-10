@@ -206,10 +206,10 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
     }
 
     private void initData() {
-        hqkt_ll.setVisibility(View.GONE);
-        hqkt_lv_rll.setVisibility(View.GONE);
-        mTab_top.setVisibility(View.GONE);
-        mTab.setVisibility(View.GONE);
+        hqkt_ll.setVisibility(View.VISIBLE);
+        hqkt_lv_rll.setVisibility(View.VISIBLE);
+        mTab_top.setVisibility(View.VISIBLE);
+        mTab.setVisibility(View.VISIBLE);
         Request<OriginalCityAgencyBean> request = new Request<>();
         OriginalCityAgencyBean bean = new OriginalCityAgencyBean();
         bean.setUser_id(userId);
@@ -221,7 +221,7 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                 data = originalCityAgencyBeanResponse.getData();
                 direction = data.getDirection();
                 List<TicketAllModel> ticketAll = data.getTicketAll();
-                /*if (data.getTicketTypes() != null && data.getTicketTypes().size() > 0) {
+                if (data.getTicketTypes() != null && data.getTicketTypes().size() > 0) {
                     OriginalCityAgencyFragment.this.ticketTypes = data.getTicketTypes();
                     if (mTab_top.getVisibility() == View.GONE) {
                         mTab_top.setVisibility(View.VISIBLE);
@@ -232,7 +232,7 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                 } else {
                     mTab_top.setVisibility(View.GONE);
                     hqkt_lv.setVisibility(View.GONE);
-                }*/
+                }
                 lvList.clear();
                 lvList.addAll(ticketAll);
                 int count = mLvAdapter.getCount();

@@ -888,6 +888,7 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
     public void loadData() {
         Request<GetSellerListBean> request = new Request<>();
         getSellerListBean.setType("HOME");//首页的商家
+        getSellerListBean.setPageIndex(1);
         request.setData(getSellerListBean);
         RXUtils.request(getActivity(), request, "getSellerListForNew", new SupportSubscriber() {
 

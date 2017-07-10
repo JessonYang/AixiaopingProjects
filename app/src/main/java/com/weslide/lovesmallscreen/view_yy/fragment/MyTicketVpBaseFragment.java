@@ -14,6 +14,7 @@ import com.weslide.lovesmallscreen.model_yy.javabean.TicketListObModel;
 import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.RXUtils;
+import com.weslide.lovesmallscreen.view_yy.adapter.MyTicketLvAdapter;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.ArrayList;
@@ -25,8 +26,11 @@ import java.util.List;
 public class MyTicketVpBaseFragment extends BaseFragment {
     private View mFgView;
     private PullLoadMoreRecyclerView mLv;
-    private String ticketType;
+    private String ticketType = "0";
+    private int page = 1;
     private List<TicketListObModel> mLvList = new ArrayList<>();
+    private int ASKMODE = 0;
+    private MyTicketLvAdapter mAdapter;
 
     public static MyTicketVpBaseFragment getInstance(Bundle bundle) {
         MyTicketVpBaseFragment myTicketVpBaseFragment = new MyTicketVpBaseFragment();
@@ -45,27 +49,43 @@ public class MyTicketVpBaseFragment extends BaseFragment {
     }
 
     private void initData() {
-        Request<TicketListModel> request = new Request<>();
-        TicketListModel ticketListModel = new TicketListModel();
-        ticketListModel.setTicketType(ticketType);
-        request.setData(ticketListModel);
-        RXUtils.request(getSupportActivity(), request, "getTicketList", new SupportSubscriber<Response<TicketListModel>>() {
-
-            @Override
-            public void onNext(Response<TicketListModel> ticketListModelResponse) {
-                mLvList.clear();
-                mLvList.addAll(ticketListModelResponse.getData().getTickets());
-            }
-        });
+        mLv.setLinearLayout();
+        mAdapter = new MyTicketLvAdapter(mLvList, getSupportActivity(), ticketType);
+        mLv.setAdapter(mAdapter);
+        ASKMODE = 0;
+        askNetData();
         mLv.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {
-
+                page = 1;
+                ASKMODE = 0;
+                askNetData();
             }
 
             @Override
             public void onLoadMore() {
+                page++;
+                ASKMODE = 1;
+                askNetData();
+            }
+        });
+    }
 
+    private void askNetData() {
+        Request<TicketListModel> request = new Request<>();
+        TicketListModel ticketListModel = new TicketListModel();
+        ticketListModel.setTicketType(ticketType);
+        ticketListModel.setPageIndex(page + "");
+        request.setData(ticketListModel);
+        RXUtils.request(getSupportActivity(), request, "getTicketList", new SupportSubscriber<Response<TicketListModel>>() {
+            @Override
+            public void onNext(Response<TicketListModel> ticketListModelResponse) {
+                if (ASKMODE == 0) {
+                    mLvList.clear();
+                }
+                mLvList.addAll(ticketListModelResponse.getData().getTickets());
+                mAdapter.notifyDataSetChanged();
+                mLv.setPullLoadMoreCompleted();
             }
         });
     }

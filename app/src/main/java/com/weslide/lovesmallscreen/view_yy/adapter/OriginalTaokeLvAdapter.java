@@ -23,8 +23,8 @@ import com.alibaba.baichuan.android.trade.page.AlibcPage;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.weslide.lovesmallscreen.R;
+import com.weslide.lovesmallscreen.activitys.HomeActivity;
 import com.weslide.lovesmallscreen.model_yy.javabean.SaveMoneyGoodModel;
-import com.weslide.lovesmallscreen.view_yy.activity.SaveMoneyHomeActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -150,7 +150,7 @@ public class OriginalTaokeLvAdapter extends BaseAdapter {
             showParams = new AlibcShowParams(OpenType.Native, false);
         }
         //使用百川sdk提供默认的Activity打开detail
-        AlibcTrade.show(SaveMoneyHomeActivity.saveMoneyHomeActivity, alibcBasePage, showParams, null, exParams,
+        AlibcTrade.show(HomeActivity.activity, alibcBasePage, showParams, null, exParams,
                 new AlibcTradeCallback() {
                     @Override
                     public void onTradeSuccess(TradeResult tradeResult) {

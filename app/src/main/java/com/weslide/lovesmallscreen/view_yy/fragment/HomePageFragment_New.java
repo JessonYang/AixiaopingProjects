@@ -30,7 +30,7 @@ import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.DownloadImageService;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.URIResolve;
-import com.weslide.lovesmallscreen.activitys.CityDistrictActivity;
+import com.weslide.lovesmallscreen.activitys.CityDistrictActivity_new;
 import com.weslide.lovesmallscreen.activitys.HomeActivity;
 import com.weslide.lovesmallscreen.activitys.LiveDetails;
 import com.weslide.lovesmallscreen.activitys.LoginOptionActivity;
@@ -375,8 +375,8 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
         Glide.with(getActivity()).load(topClassify.getJfdh().getImage()).into(credit_exchange_iv);
         Glide.with(getActivity()).load(topClassify.getChbm().getImage()).into(sign_up_attend_iv);
         Glide.with(getActivity()).load(saveMoney.getSqgwTp().getImage()).placeholder(R.drawable.sqgw_title).into(save_money_title_rll);
-        Glide.with(getActivity()).load(saveMoney.getPpth().getImage()).into(brand_zone_iv);
-        Glide.with(getActivity()).load(saveMoney.getNine2nine().getImage()).into(nine_to_nine_baoyou_iv);
+        Glide.with(getActivity()).load(saveMoney.getPpth().getImage()).override(100,100).into(brand_zone_iv);
+        Glide.with(getActivity()).load(saveMoney.getNine2nine().getImage()).override(100,100).into(nine_to_nine_baoyou_iv);
 //        title_tv.setText(saveMoney.getSqgwCategories().get(0).getTitle());
 //        second_title_tv.setText(saveMoney.getSqgwCategories().get(0).getSubTitle());
         Glide.with(getActivity()).load(saveMoney.getSqgwCategories().get(0).getImage()).into(sqgw_second_classify_iv);
@@ -511,7 +511,8 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_main_mall_title_content:
-                AppUtils.toActivity(getActivity(), CityDistrictActivity.class);
+//                AppUtils.toActivity(getActivity(), CityDistrictActivity.class);
+                AppUtils.toActivity(getActivity(), CityDistrictActivity_new.class);
                 break;
 
             case R.id.et_search:

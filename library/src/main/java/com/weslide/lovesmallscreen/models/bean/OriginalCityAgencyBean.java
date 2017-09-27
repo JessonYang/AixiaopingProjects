@@ -7,7 +7,9 @@ import com.weslide.lovesmallscreen.model_yy.javabean.PartnerInfoModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.ProfitDetailModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.TicketAllModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.TicketTypesModel;
+import com.weslide.lovesmallscreen.models.GoodsType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +32,17 @@ public class OriginalCityAgencyBean extends BaseModel {
 
     @SerializedName("orderDetail")
     private OrderDetailModel orderDetail;
+
+    @SerializedName("typeList")
+    private List<GoodsType> typeList = new ArrayList<>();
+
+    public List<GoodsType> getTypeList() {
+        return typeList;
+    }
+
+    public void setTypeList(List<GoodsType> typeList) {
+        this.typeList = typeList;
+    }
 
     public ProfitDetailModel getProfitDetail() {
         return profitDetail;

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
 import com.rey.material.app.ThemeManager;
+import com.umeng.socialize.UMShareAPI;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.core.BaseActivity;
@@ -203,6 +204,8 @@ public class LoginOptionActivity extends BaseActivity {
         mLoginFragment.onActivityResult(requestCode, resultCode, data);
 
         mRegisterFragment.onActivityResult(requestCode, resultCode, data);
+
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

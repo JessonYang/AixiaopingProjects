@@ -10,9 +10,8 @@ import com.weslide.lovesmallscreen.utils.AppUtils;
 public class Constants {
     /** 正式发布 */
     public static final boolean RELEASE = false;
-    /** 正式服务器 */
+    /** 是否为正式服务器 */
     public static final boolean RELEASE_SERVICE = true;
-
 
     //    1:独立商城stand alone
     public static final String MALL_STAND_ALONE = "1";
@@ -69,6 +68,8 @@ public class Constants {
     public static final String PAY_WALLET = "100";
     /** 支付宝支付 */
     public static final String PAY_ALIPAY = "200";
+    /** 银联支付 */
+    public static final String PAY_BANK = "400";
 
 
     /** 待支付 */

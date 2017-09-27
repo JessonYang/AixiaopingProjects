@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.models.OrderItem;
-import com.weslide.lovesmallscreen.utils.StringUtils;
 import com.weslide.lovesmallscreen.utils.Utils;
 
 import butterknife.BindView;

@@ -52,7 +52,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="10dp"
                 app:tl_bar_color="#ffffff"
-                app:tl_indicator_color="@color/goodsAddShoppingCarBackground"
+                app:tl_indicator_color="@color/goodsOrderTab"
                 app:tl_indicator_corner_radius="8dp" />
             <!--app:tl_tab_padding="6dp" />-->
 

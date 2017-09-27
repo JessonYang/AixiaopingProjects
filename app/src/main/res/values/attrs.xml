@@ -7,4 +7,9 @@
         <attr name="titleColor" format="color|reference"/>
         <attr name="titleName" format="string|reference"/>
     </declare-styleable>
+
+    <declare-styleable name="IndexBar">
+        <attr name="textSize" format="dimension"/>
+        <attr name="pressBackground" format="color" />
+    </declare-styleable>
 </resources>

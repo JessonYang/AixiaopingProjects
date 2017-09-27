@@ -1,12 +1,9 @@
 package com.weslide.lovesmallscreen.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.view.View;
 
 import com.weslide.lovesmallscreen.activitys.order.ConfirmOrderActivity;
-import com.weslide.lovesmallscreen.core.BaseActivity;
 import com.weslide.lovesmallscreen.core.SupportSubscriber;
 import com.weslide.lovesmallscreen.models.OrderList;
 import com.weslide.lovesmallscreen.models.bean.CreateTempOrderListBean;
@@ -54,11 +51,13 @@ public class OrderUtils {
 
             @Override
             public void onNext(Object o) {
+
                 Response<OrderList> response = (Response<OrderList>) o;
                 OrderList orderList = response.getData();
 
                 Intent intent = new Intent(context, ConfirmOrderActivity.class);
                 intent.putExtra(ConfirmOrderActivity.KEY_ORDER_LIST, orderList);
+                intent.putExtra("science", response.getData().getScience());
                 context.startActivity(intent);
 
             }

@@ -28,6 +28,17 @@ public class UserInfo extends BaseModel {
     private String pwd;
     @SerializedName("verifyCode")
     private String verifyCode;
+
+    public String getVerifyStatus() {
+        return verifyStatus;
+    }
+
+    public void setVerifyStatus(String verifyStatus) {
+        this.verifyStatus = verifyStatus;
+    }
+
+    @SerializedName("verifyStatus")
+    private String verifyStatus;
     @SerializedName("username")
     private String username;
     @SerializedName("realname")

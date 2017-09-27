@@ -1,9 +1,13 @@
 package com.weslide.lovesmallscreen.network;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.core.BaseModel;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 
 /**
@@ -13,9 +17,13 @@ import java.text.SimpleDateFormat;
 public class Request<T> extends BaseModel {
 
     private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static SimpleDateFormat formatMD5 = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
 
     public Request() {
         userId = ContextParameter.getUserInfo().getUserId();
+        if (userId == null) {
+            userId = "";
+        }
         appVersion = ContextParameter.getAppVersion();
         dip = ContextParameter.getDip();
         channelId = ContextParameter.getChannelId();
@@ -30,6 +38,12 @@ public class Request<T> extends BaseModel {
         if (zoneId == null) {
             zoneId = "";
         }
+        String axpabc = md5("axp"+userId);
+        String s = md5(axpabc + formatMD5.format(System.currentTimeMillis() + ContextParameter.getTimeExtra()));
+        axp =s;
+//        axp = md5(md5("axp"+"abc")+formatMD5.format(System.currentTimeMillis() + ContextParameter.getTimeExtra()));
+//        Log.d("雨落无痕丶", "Request: axpMD5:"+axp);
+//        Log.d("雨落无痕丶", "Request: userid:"+userId+";time:"+formatMD5.format(System.currentTimeMillis()));
     }
 
     /**
@@ -78,6 +92,18 @@ public class Request<T> extends BaseModel {
     @SerializedName("machineCode")
     /** 机器码 */
     private String machineCode;
+
+    public String getAxp() {
+        return axp;
+    }
+
+    public void setAxp(String axp) {
+        this.axp = axp;
+    }
+
+    @SerializedName("axp")
+    /** MD5加密参数 */
+    private String axp;
 
     @SerializedName("data")
     /** 主数据 */
@@ -166,5 +192,28 @@ public class Request<T> extends BaseModel {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    private static String md5(String string) {
+        if (TextUtils.isEmpty(string)) {
+            return "";
+        }
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+            byte[] bytes = md5.digest(string.getBytes());
+            String result = "";
+            for (byte b : bytes) {
+                String temp = Integer.toHexString(b & 0xff);
+                if (temp.length() == 1) {
+                    temp = "0" + temp;
+                }
+                result += temp;
+            }
+            return result;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

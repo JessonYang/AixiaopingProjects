@@ -7,14 +7,14 @@
     android:orientation="vertical">
 
     <View
-        android:layout_width="match_parent"
-        android:background="@drawable/dclbj"
         android:id="@+id/dcl_view"
-        android:layout_height="0dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/dclbj" />
 
     <com.weslide.lovesmallscreen.views.custom.CustomToolbar
-        android:layout_width="match_parent"
         android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="@color/main_color_white"
         app:leftIv="@drawable/icon_fanhuij"
@@ -22,7 +22,7 @@
         app:titleName="邀请好友"
         app:titleSize="16sp"></com.weslide.lovesmallscreen.views.custom.CustomToolbar>
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -116,13 +116,22 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="28dp"
+                android:text="点击二维码保存至本地"
+                android:textColor="#ff4460"
+                android:textSize="14sp" />
+
             <ImageView
                 android:id="@+id/invitation_code"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:scaleType="centerCrop"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="15dp"
+                android:scaleType="centerCrop" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -139,18 +148,18 @@
                 android:background="@drawable/fsbg">
 
                 <ImageView
+                    android:id="@+id/fensi_iv"
                     android:layout_width="wrap_content"
-                    android:src="@drawable/icon_fensi"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12dp"
-                    android:id="@+id/fensi_iv"
-                    android:layout_height="wrap_content" />
+                    android:src="@drawable/icon_fensi" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/fensi_iv"
                     android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/fensi_iv"
                     android:gravity="center">
 
                     <TextView
@@ -161,10 +170,10 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/fans_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
-                        android:id="@+id/fans_num"
                         android:textColor="#ff2d47"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -178,19 +187,37 @@
                     android:src="@drawable/right_jiantou_img" />
             </RelativeLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="45dp"
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/invate_friend_btn"
-                android:layout_width="330dp"
+                android:layout_width="0dp"
                 android:layout_height="44dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="45dp"
-                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/invate_friend_btn_bg"
                 android:gravity="center"
                 android:text="发送邀请给朋友"
                 android:textColor="#ffffff"
-                android:textSize="15sp" />
+                android:textSize="15dp" />
+
+            <Button
+                android:id="@+id/send_constact_btn"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@drawable/send_constact_btn_bg"
+                android:gravity="center"
+                android:text="发送通讯录好友"
+                android:textColor="#ffffff"
+                android:textSize="15dp" />
         </LinearLayout>
-    </ScrollView>
+    </RelativeLayout>
 
 </LinearLayout>

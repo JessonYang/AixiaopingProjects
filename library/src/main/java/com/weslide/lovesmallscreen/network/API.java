@@ -1,14 +1,21 @@
 package com.weslide.lovesmallscreen.network;
 
 import com.weslide.lovesmallscreen.managers.pay.PayModel;
+import com.weslide.lovesmallscreen.model_yy.javabean.AchieveBean;
 import com.weslide.lovesmallscreen.model_yy.javabean.ApplyPartnerModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.Brand;
 import com.weslide.lovesmallscreen.model_yy.javabean.Cate;
+import com.weslide.lovesmallscreen.model_yy.javabean.CouponsBean;
+import com.weslide.lovesmallscreen.model_yy.javabean.FeedbackTipsBean;
 import com.weslide.lovesmallscreen.model_yy.javabean.GoodsModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.HomeTicketsModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.PartnerIconListModel;
+import com.weslide.lovesmallscreen.model_yy.javabean.Shopcate;
+import com.weslide.lovesmallscreen.model_yy.javabean.TaoBaoUrlModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.TicketGoodsDtModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.TicketListModel;
+import com.weslide.lovesmallscreen.model_yy.javabean.TypeListBean;
+import com.weslide.lovesmallscreen.model_yy.javabean.UpdateStoreInfo;
 import com.weslide.lovesmallscreen.models.Address;
 import com.weslide.lovesmallscreen.models.AssetsMsgDtModel;
 import com.weslide.lovesmallscreen.models.BackOrder;
@@ -806,4 +813,53 @@ public interface API {
 
     @POST("users/getCheckPhone")
     Call<Response> getCheckPhone(@Query("data") String jsonData);
+
+    @POST("users/getDefaultMsg")
+    Call<Response> getDefaultMsg(@Query("data") String jsonData);
+
+    @POST("order/synchroYiLianNotify")
+    Call<Response> synchroYiLianNotify(@Query("data") String jsonData);
+
+    @POST("users/feedbackTips")
+    Call<Response<FeedbackTipsBean>> feedbackTips(@Query("data") String jsonData);
+
+    @POST("taoke/commodityType")
+    Call<Response<TypeListBean>> commodityType(@Query("data") String jsonData);
+
+    @POST("taoke/coupons")
+    Call<Response<CouponsBean>> getCoupons(@Query("data") String jsonData);
+
+    @POST("taoke/achieve")
+    Call<Response<AchieveBean>> achieve(@Query("data") String jsonData);
+
+    /**
+     * 提交开店资料
+     */
+    @POST("sellers/updateStoreInfo")
+    Call<Response<UpdateStoreInfo>> updateStoreInfo(@Query("data") String jsonData);
+
+    /**
+     * 提交资料状态审核
+     */
+    @POST("sellers/storeVerifyStatus")
+    Call<Response<UpdateStoreInfo>> storeVerifyStatus(@Query("data") String jsonData);
+
+    /**
+     * 选择店铺类型
+     */
+    @POST("sellers/getShopcategoryInfo")
+    Call<Response<List<Shopcate>>> getShopcategoryInfo(@Query("data") String jsonData);
+
+    /**
+     * 提交资料状态审核
+     */
+    @POST("sellers/returnCheckstatus")
+    Call<Response> returnCheckstatus(@Query("data") String jsonData);
+
+
+    /**
+     * 获取跳转淘宝链接
+     */
+    @POST("taoke/findGoodsUrl")
+    Call<Response<TaoBaoUrlModel>> findGoodsUrl(@Query("data") String jsonData);
 }

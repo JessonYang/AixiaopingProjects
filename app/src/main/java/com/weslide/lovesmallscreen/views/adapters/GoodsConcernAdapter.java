@@ -19,7 +19,6 @@ import com.weslide.lovesmallscreen.fragments.user.GoodsConcernFragment;
 import com.weslide.lovesmallscreen.models.Goods;
 import com.weslide.lovesmallscreen.network.DataList;
 import com.weslide.lovesmallscreen.utils.AppUtils;
-import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.StringUtils;
 import com.weslide.lovesmallscreen.views.widget.SquareImageView;
 
@@ -30,19 +29,21 @@ import butterknife.ButterKnife;
  * Created by Dong on 2016/7/24.
  * 商品关注适配器
  */
-public class GoodsConcernAdapter extends SuperRecyclerViewAdapter<Goods,GoodsConcernAdapter.GoodsConcernViewHolder>{
+public class GoodsConcernAdapter extends SuperRecyclerViewAdapter<Goods, GoodsConcernAdapter.GoodsConcernViewHolder> {
 
-   int state = 0;
+    int state = 0;
+
     public GoodsConcernAdapter(Context context, DataList<Goods> dataList, GoodsConcernFragment fragment) {
         super(context, dataList);
     }
-    public void setState(int state){
+
+    public void setState(int state) {
         this.state = state;
     }
 
     @Override
     public GoodsConcernViewHolder onSuperCreateViewHolder(ViewGroup parent, int viewType) {
-        GoodsConcernViewHolder viewHolder = new GoodsConcernViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_goods_concern,parent,false));
+        GoodsConcernViewHolder viewHolder = new GoodsConcernViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_goods_concern, parent, false));
         return viewHolder;
     }
 
@@ -62,20 +63,20 @@ public class GoodsConcernAdapter extends SuperRecyclerViewAdapter<Goods,GoodsCon
             }
         });
         holder.checkView.setChecked(false);
-        if(state == 0){
+        if (state == 0) {
 
             holder.checkView.setVisibility(View.GONE);
-        }else{
+        } else {
 
             holder.checkView.setVisibility(View.VISIBLE);
         }
         holder.checkView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     goods.setSelect(true);
                     goods.setConcern(false);
-                }else{
+                } else {
                     goods.setSelect(false);
                     goods.setConcern(true);
                 }
@@ -85,21 +86,21 @@ public class GoodsConcernAdapter extends SuperRecyclerViewAdapter<Goods,GoodsCon
 
         holder.price.setText(goods.getPrice());
         holder.name.setText(goods.getName());
-        holder.rb.setRating(Float.parseFloat(goods.getCommentList().getGoodCommentPraise())/20);
+        holder.rb.setRating(Float.parseFloat(goods.getCommentList().getGoodCommentPraise()) / 20);
         Glide.with(mContext).load(goods.getCoverPic()).into(holder.imag);
-        if(StringUtils.isEmpty(goods.getScore())==false) {
+        if (StringUtils.isEmpty(goods.getScore()) == false) {
             if (Float.parseFloat(goods.getScore()) > 0) {
                 holder.score.setText("或" + goods.getScore() + "积分兑换");
             }
-            if(StringUtils.isEmpty(goods.getSalesVolume())==true){
+            if (goods.getSalesVolume() == 0) {
                 holder.num.setText("已售" + 0);
-            }else {
+            } else {
                 holder.num.setText("已售" + goods.getSalesVolume());
             }
         }
     }
 
-    class GoodsConcernViewHolder extends RecyclerView.ViewHolder{
+    class GoodsConcernViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.cb_check)
         CheckBox checkView;
         @BindView(R.id.iv_goods_image)

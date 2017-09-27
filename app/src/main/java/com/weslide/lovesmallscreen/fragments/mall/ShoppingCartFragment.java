@@ -19,6 +19,7 @@ import com.malinskiy.superrecyclerview.core.RecyclerViewSubscriber;
 import com.malinskiy.superrecyclerview.decoration.SpaceItemDecoration;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
+import com.weslide.lovesmallscreen.activitys.mall.SpecialLocalProductActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
 import com.weslide.lovesmallscreen.core.RecyclerViewModel;
 import com.weslide.lovesmallscreen.core.SupportSubscriber;
@@ -127,7 +128,18 @@ public class ShoppingCartFragment extends BaseFragment {
         list.setDifferentSituationOptionListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadData();
+                //重新加载数据
+//                loadData();
+
+                //跳转各地特产
+                AppUtils.toActivity(getActivity(), SpecialLocalProductActivity.class);
+
+                //跳转省钱购物
+                /*Bundle saveMoneyBundle = new Bundle();
+                saveMoneyBundle.putString("toolbarType", "省钱购物");
+                saveMoneyBundle.putString("searchValue", "");
+                saveMoneyBundle.putString("cid", "-1");
+                AppUtils.toActivity(getActivity(), SaveMoneyHomeActivity.class, saveMoneyBundle);*/
             }
         });
 
@@ -139,8 +151,6 @@ public class ShoppingCartFragment extends BaseFragment {
         if (ContextParameter.isLogin()) {
             loadData();
         }
-
-
         return mView;
     }
 
@@ -184,8 +194,18 @@ public class ShoppingCartFragment extends BaseFragment {
                 mRecyclerViewModels.addAll(handller(shoppingCarListResponse.getData()));
                 mAdapter.notifyDataSetChanged();
 
-                //数据更新后需要重新计算价格之类的东西
-                handlerChecked(false);
+                //数据更新后需要重新计算价格之类的东西(默认不全选)
+//                handlerChecked(false);
+
+                //默认商品全选
+                for (RecyclerViewModel recyclerViewModel : mRecyclerViewModels) {
+                    if (recyclerViewModel.getData() instanceof ShoppingCarItem) {
+                        ShoppingCarItem item = (ShoppingCarItem) recyclerViewModel.getData();
+                        item.setSumPrice(Float.parseFloat(item.getGoods().getPrice()) * item.getNumber());
+                    }
+                }
+                cbAllBuy.setChecked(true);
+                handlerChecked(true);
             }
         });
     }
@@ -233,7 +253,6 @@ public class ShoppingCartFragment extends BaseFragment {
             CreateTempOrderListBean bean = new CreateTempOrderListBean();
             bean.setShoppingCarItemIds(ids);
             bean.setType("1");
-
             OrderUtils.createTempOrderList(getActivity(), bean);
         }
 
@@ -372,7 +391,6 @@ public class ShoppingCartFragment extends BaseFragment {
      * @param isAll 是否是选中全部
      */
     public void handlerChecked(boolean isAll) {
-
         if (mRecyclerViewModels == null || mRecyclerViewModels.size() == 0) {
             cbAllBuy.setChecked(false);
             cbAllEdit.setChecked(false);
@@ -383,7 +401,6 @@ public class ShoppingCartFragment extends BaseFragment {
         }
 
         if (isAll) {
-
             boolean checked;
             //判断当前的操作状态
             if (status == 0) {
@@ -403,7 +420,6 @@ public class ShoppingCartFragment extends BaseFragment {
                         item.setSelected(true);
                     }
                 }
-
                 cbAllBuy.setChecked(true);
                 cbAllEdit.setChecked(true);
             } else {
@@ -483,6 +499,7 @@ public class ShoppingCartFragment extends BaseFragment {
                 ShoppingCarItem item = (ShoppingCarItem) recyclerViewModel.getData();
                 if (item.isSelected()) {
                     sum += item.getSumPrice();
+//                    Log.d("雨落无痕丶", "sum: "+sum);
                 }
             }
         }

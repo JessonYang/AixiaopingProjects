@@ -15,10 +15,23 @@ public class OrderList extends DataList<Order> {
     @SerializedName("totalScore")
     /** 所有订单需要支付的积分 */
     private Float totalScore;
+
+    public String getScience() {
+        return Science;
+    }
+
+    public void setScience(String science) {
+        Science = science;
+    }
+
     @SerializedName("totalCashpoint")
+
     /** 所有订单需要支付的总红包 */
     private Float totalCashpoint;
 
+    @SerializedName("Science")
+    /** 银联环境(00:测试环境，01:正式环境) */
+    private String Science;
 
     public Float getTotalMoney() {
         return totalMoney;

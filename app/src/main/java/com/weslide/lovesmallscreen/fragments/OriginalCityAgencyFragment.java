@@ -1,6 +1,10 @@
 package com.weslide.lovesmallscreen.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,15 +14,16 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.AbsListView;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -34,7 +39,9 @@ import com.weslide.lovesmallscreen.core.SupportSubscriber;
 import com.weslide.lovesmallscreen.model_yy.javabean.HomeTicketsModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.TicketAllModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.TicketTypesModel;
+import com.weslide.lovesmallscreen.model_yy.javabean.TypeListBean;
 import com.weslide.lovesmallscreen.models.CanPayBean;
+import com.weslide.lovesmallscreen.models.GoodsType;
 import com.weslide.lovesmallscreen.models.bean.OrdersOb;
 import com.weslide.lovesmallscreen.models.bean.OriginalCityAgencyBean;
 import com.weslide.lovesmallscreen.network.Request;
@@ -46,10 +53,12 @@ import com.weslide.lovesmallscreen.view_yy.activity.TaoBaoActivity;
 import com.weslide.lovesmallscreen.view_yy.activity.TicketGoodsDtActivity;
 import com.weslide.lovesmallscreen.view_yy.adapter.OriginalAgenceVpAdapter;
 import com.weslide.lovesmallscreen.view_yy.customview.MyScrollView;
+import com.weslide.lovesmallscreen.view_yy.customview.NestedListView;
 import com.weslide.lovesmallscreen.view_yy.customview.ViewPageInScrollView;
 import com.weslide.lovesmallscreen.views.adapters.CityAgencyOrderAdapter;
 import com.weslide.lovesmallscreen.views.custom.CustomToolbar;
 import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
+import com.weslide.lovesmallscreen.views.dialogs.SecondaryTypeDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,18 +69,18 @@ import okhttp3.OkHttpClient;
 /**
  * Created by YY on 2017/3/21.
  */
-public class OriginalCityAgencyFragment extends BaseFragment implements View.OnClickListener, MyScrollView.OnScrollListener {
+public class OriginalCityAgencyFragment extends BaseFragment implements View.OnClickListener, MyScrollView.OnScrollListener, MyScrollView.OnTouchDownListener, View.OnTouchListener {
 
     private View originalCityAgencyFragmentView;
     private CustomToolbar toolbar;
-    private TextView distinctProfit;
+    private TextView distinctProfit, loading_tv;
     private TextView canDeal;
     private Button go_pay_btn;
     private RadioGroup rg;
     private ViewPageInScrollView vp;
     private RelativeLayout myPartnerRll;
     private List<Fragment> fragmentList;
-    private RelativeLayout allOrdersRll,hqkt_lv_rll;
+    private RelativeLayout allOrdersRll, hqkt_lv_rll;
     private OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS).build();
     //    private ListView lv;
     private String personalOrder;
@@ -123,13 +132,14 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
     private TextView no_distribute_num;
     private List<TicketTypesModel> ticketTypes;
     private List<TicketAllModel> lvList = new ArrayList<>();
-    private ListView hqkt_lv;
+    //    private ListView hqkt_lv;
+    private NestedListView hqkt_lv;
     private OriginalAgenceVpAdapter mLvAdapter;
     private int mLvPage = 1;
     private String typeId = "";
     private LinearLayout myPartnerRll_data;
     private LinearLayout partner_order_ll;
-    private LinearLayout partner_predict_ll,hqkt_ll;
+    private LinearLayout partner_predict_ll, hqkt_ll;
     private TextView personal_order_tag;
     private Handler mHandler = new Handler() {
         @Override
@@ -150,7 +160,23 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
     private LinearLayout partner_detail_ll;
     private TextView partner_order_tag, partner_predict_tag;
     private Button to_applay_partner_btn;
-    private ImageView predict_profit_help,income_help,can_deal_help;
+    private ImageView predict_profit_help, income_help, can_deal_help;
+    private LinearLayout type_ll, type_ll2;
+    private RelativeLayout near_rll, type_rll, comment_rll;
+    private ImageView nearIv, typeIv, commentIv, nearIv3, typeIv3, commentIv3;
+    private TextView nearTv, typeTv, commentTv, nearTv3, typeTv3, commentTv3;
+    private List<GoodsType> typeList;
+    private int top;
+    private PopupWindow hqkt_type_pw;
+    private View hqkt_type_pw_view;
+    private TextView near_type_tv;
+    private String areaType = "0";
+    private String sortType = "0";
+    private LinearLayout screen_bg_ll;
+    private String typeListId = "";
+    private LinearLayout parent_layout, type_ll3;
+    private String totalPage = "1";
+    private boolean isClearList = true;
 
     @Nullable
     @Override
@@ -169,7 +195,7 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                 AppUtils.toActivity(getActivity(), TicketGoodsDtActivity.class, bundle);
             }
         });
-        hqkt_lv.setOnScrollListener(new AbsListView.OnScrollListener() {
+        /*hqkt_lv.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
                 // 当不滚动时
@@ -188,9 +214,11 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
             public void onScroll(AbsListView absListView, int i, int i1, int i2) {
 
             }
-        });
+        });*/
 
         myScrollView.setOnScrollListener(this);
+        myScrollView.setOnTouchDownListener(this);
+        hqkt_lv.setOnTouchListener(this);
 
         //当布局的状态或者控件的可见性发生改变回调的接口
         originalCityAgencyFragmentView.findViewById(R.id.parent_layout).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -202,14 +230,13 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
 
             }
         });
+        Log.d("雨落无痕丶", "getTop1: " + type_ll.getTop());
         return originalCityAgencyFragmentView;
     }
 
     private void initData() {
         hqkt_ll.setVisibility(View.VISIBLE);
         hqkt_lv_rll.setVisibility(View.VISIBLE);
-        mTab_top.setVisibility(View.VISIBLE);
-        mTab.setVisibility(View.VISIBLE);
         Request<OriginalCityAgencyBean> request = new Request<>();
         OriginalCityAgencyBean bean = new OriginalCityAgencyBean();
         bean.setUser_id(userId);
@@ -219,23 +246,26 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
             @Override
             public void onNext(Response<OriginalCityAgencyBean> originalCityAgencyBeanResponse) {
                 data = originalCityAgencyBeanResponse.getData();
+//                typeList = data.getTypeList();
                 direction = data.getDirection();
                 List<TicketAllModel> ticketAll = data.getTicketAll();
                 if (data.getTicketTypes() != null && data.getTicketTypes().size() > 0) {
                     OriginalCityAgencyFragment.this.ticketTypes = data.getTicketTypes();
-                    if (mTab_top.getVisibility() == View.GONE) {
-                        mTab_top.setVisibility(View.VISIBLE);
+                    if (type_ll.getVisibility() == View.GONE) {
+                        type_ll.setVisibility(View.VISIBLE);
+                        type_ll2.setVisibility(View.VISIBLE);
                     }
                     if (hqkt_lv.getVisibility() == View.GONE) {
                         hqkt_lv.setVisibility(View.VISIBLE);
                     }
                 } else {
-                    mTab_top.setVisibility(View.GONE);
+                    type_ll.setVisibility(View.GONE);
+                    type_ll2.setVisibility(View.GONE);
                     hqkt_lv.setVisibility(View.GONE);
                 }
                 lvList.clear();
                 lvList.addAll(ticketAll);
-                int count = mLvAdapter.getCount();
+                /*int count = mLvAdapter.getCount();
                 int totalHeight = 0;
                 for (int i = 0; i < count; i++) {
                     View itemView = mLvAdapter.getView(i, null, hqkt_lv);
@@ -244,10 +274,10 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                 }
                 ViewGroup.LayoutParams params = hqkt_lv.getLayoutParams();
                 params.height = totalHeight + (count - 1) * hqkt_lv.getDividerHeight();
-                hqkt_lv.requestLayout();
-//                hqkt_lv.setLayoutParams(params);
+                hqkt_lv.requestLayout();*/
                 mLvAdapter.notifyDataSetChanged();
                 myScrollView.smoothScrollTo(0, 0);
+//                myScrollView.smoothScrollTo(0, type_ll.getTop());
                 isPartner = data.getIsPartner();
                 if (isPartner == 3) {
                     myPartnerRll.setVisibility(View.GONE);
@@ -351,7 +381,22 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
 
             @Override
             public void onCompleted() {
-                mHandler.sendEmptyMessage(0);
+//                mHandler.sendEmptyMessage(0);
+            }
+        });
+
+        getTypeListNet();
+    }
+
+    private void getTypeListNet() {
+        Request request1 = new Request();
+        TypeListBean typeListBean = new TypeListBean();
+        typeListBean.setAreaType(areaType);
+        request1.setData(typeListBean);
+        RXUtils.request(getActivity(), request1, "commodityType", new SupportSubscriber<Response<TypeListBean>>() {
+            @Override
+            public void onNext(Response<TypeListBean> typeListBeanResponse) {
+                typeList = typeListBeanResponse.getData().getTypeList();
             }
         });
     }
@@ -369,6 +414,8 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 typeId = ticketTypes.get(tab.getPosition()).getTypeId();
+                mLvPage = 1;
+                isClearList = true;
                 changeHqktLv(typeId);
             }
 
@@ -388,13 +435,23 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
         Request<HomeTicketsModel> request = new Request<>();
         HomeTicketsModel homeTicketsModel = new HomeTicketsModel();
         homeTicketsModel.setTypeId(typeId);
+        homeTicketsModel.setAreaType(areaType);
+        homeTicketsModel.setSortType(sortType);
         homeTicketsModel.setPage(String.valueOf(mLvPage));
         request.setData(homeTicketsModel);
         RXUtils.request(getActivity(), request, "getHomeTickets", new SupportSubscriber<Response<HomeTicketsModel>>() {
+
             @Override
             public void onNext(Response<HomeTicketsModel> homeTicketsModelResponse) {
-                lvList.clear();
+                totalPage = homeTicketsModelResponse.getData().getTotalPage();
+                if (isClearList) {
+                    lvList.clear();
+                }
                 lvList.addAll(homeTicketsModelResponse.getData().getTickets());
+                if (homeTicketsModelResponse.getData().getTickets() == null || homeTicketsModelResponse.getData().getTickets().size() == 0){
+                    Toast.makeText(OriginalCityAgencyFragment.this.getActivity(), "没有更多数据了!", Toast.LENGTH_SHORT).show();
+                }
+                Log.d("雨落无痕丶", "lvList: " + lvList.size());
                 if (lvList.size() == 0) {
                     hqkt_lv.setVisibility(View.GONE);
                     empty_ll.setVisibility(View.VISIBLE);
@@ -403,6 +460,7 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                     empty_ll.setVisibility(View.GONE);
                 }
                 mLvAdapter.notifyDataSetChanged();
+                loading_tv.setVisibility(View.GONE);
             }
         });
     }
@@ -412,6 +470,7 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
         toolbar = (CustomToolbar) originalCityAgencyFragmentView.findViewById(R.id.original_city_agency_toolbar);
         myScrollView = (MyScrollView) originalCityAgencyFragmentView.findViewById(R.id.original_agency_scollview);
         distinctProfit = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.distinct_profit_tv));
+        loading_tv = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.loading_tv));
         partner_type_tv = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.partner_type_tv));
         partner_order_tag = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.partner_order_tag));
         partner_predict_tag = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.partner_predict_tag));
@@ -426,10 +485,31 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
         partner_detail_ll = ((LinearLayout) originalCityAgencyFragmentView.findViewById(R.id.partner_detail_ll));
         go_pay_btn = ((Button) originalCityAgencyFragmentView.findViewById(R.id.original_city_agency_go_pay));
 
-        mTab_top = ((TabLayout) originalCityAgencyFragmentView.findViewById(R.id.hqkt_tab_top));
-        mTab = ((TabLayout) originalCityAgencyFragmentView.findViewById(R.id.hqkt_tab));
+        parent_layout = ((LinearLayout) originalCityAgencyFragmentView.findViewById(R.id.parent_layout));
+        type_ll3 = ((LinearLayout) originalCityAgencyFragmentView.findViewById(R.id.type_ll3));
+        screen_bg_ll = ((LinearLayout) originalCityAgencyFragmentView.findViewById(R.id.screen_bg_ll));
+        near_rll = ((RelativeLayout) originalCityAgencyFragmentView.findViewById(R.id.near_rll));
+        type_rll = ((RelativeLayout) originalCityAgencyFragmentView.findViewById(R.id.type_rll));
+        comment_rll = ((RelativeLayout) originalCityAgencyFragmentView.findViewById(R.id.comment_rll));
+        type_ll = ((LinearLayout) originalCityAgencyFragmentView.findViewById(R.id.ll));
+        type_ll2 = ((LinearLayout) originalCityAgencyFragmentView.findViewById(R.id.ll2));
+        nearIv = ((ImageView) originalCityAgencyFragmentView.findViewById(R.id.near_iv));
+        nearIv3 = ((ImageView) originalCityAgencyFragmentView.findViewById(R.id.near_iv3));
+        typeIv = ((ImageView) originalCityAgencyFragmentView.findViewById(R.id.type_iv));
+        typeIv3 = ((ImageView) originalCityAgencyFragmentView.findViewById(R.id.type_iv3));
+        commentIv = ((ImageView) originalCityAgencyFragmentView.findViewById(R.id.comment_iv));
+        commentIv3 = ((ImageView) originalCityAgencyFragmentView.findViewById(R.id.comment_iv3));
+        nearTv = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.near_tv));
+        nearTv3 = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.near_tv3));
+        typeTv = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.type_tv));
+        typeTv3 = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.type_tv3));
+        commentTv = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.comment_tv));
+        commentTv3 = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.comment_tv3));
+//        mTab_top = ((TabLayout) originalCityAgencyFragmentView.findViewById(R.id.hqkt_tab_top));
+//        mTab = ((TabLayout) originalCityAgencyFragmentView.findViewById(R.id.hqkt_tab));
 //        vp = ((ViewPageInScrollView) originalCityAgencyFragmentView.findViewById(R.id.hqkt_vp));
-        hqkt_lv = ((ListView) originalCityAgencyFragmentView.findViewById(R.id.hqkt_lv));
+        hqkt_lv = ((NestedListView) originalCityAgencyFragmentView.findViewById(R.id.hqkt_lv));
+//        hqkt_lv = ((ListView) originalCityAgencyFragmentView.findViewById(R.id.hqkt_lv));
         reload_btn = ((com.rey.material.widget.Button) originalCityAgencyFragmentView.findViewById(R.id.btn_empty_reload));
         myPartnerRll = ((RelativeLayout) originalCityAgencyFragmentView.findViewById(R.id.city_agenty_mypartner_rll));
         myPartnerRll_data = ((LinearLayout) originalCityAgencyFragmentView.findViewById(R.id.city_agenty_mypartner_rll_data));
@@ -472,6 +552,9 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
         predict_profit_help.setOnClickListener(this);
         income_help.setOnClickListener(this);
         can_deal_help.setOnClickListener(this);
+        near_rll.setOnClickListener(this);
+        type_rll.setOnClickListener(this);
+        comment_rll.setOnClickListener(this);
 
         toolbar.setOnImgClick(new CustomToolbar.OnImgClick() {
             @Override
@@ -557,6 +640,8 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                 }
                 break;
             case R.id.btn_empty_reload:
+                mLvPage = 1;
+                isClearList = true;
                 changeHqktLv(typeId);
                 break;
             case R.id.to_applay_partner_btn:
@@ -583,12 +668,183 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                 intent2.putExtra("URL", data.getSettleDirection());
                 getActivity().startActivity(intent2);
                 break;
+            case R.id.type_rll:
+                typeTv.setTextColor(Color.parseColor("#ff4460"));
+                typeTv3.setTextColor(Color.parseColor("#ff4460"));
+                typeIv.setImageResource(R.drawable.icon_shangsanjiao);
+                typeIv3.setImageResource(R.drawable.icon_shangsanjiao);
+                type_ll3.setVisibility(View.VISIBLE);
+                /*RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(0, -type_ll.getTop(), 0, 0);
+                myScrollView.setLayoutParams(layoutParams);
+                myScrollView.smoothScrollTo(0, 0);
+                hqkt_lv.getParent().requestDisallowInterceptTouchEvent(true);
+                hqkt_lv.smoothScrollToPosition(0);*/
+                myScrollView.smoothScrollTo(0, type_ll.getTop());
+                Rect rect = new Rect();
+                getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+//                top = (int) (type_ll.getY());
+                top = toolbar.getLayoutParams().height + type_ll.getLayoutParams().height;
+                screen_bg_ll.setVisibility(View.VISIBLE);
+                nearIv.setImageResource(R.drawable.icon_xiasanjiao);
+                typeIv.setImageResource(R.drawable.icon_xiasanjiao_red);
+//                commentIv.setImageResource(R.drawable.icon_xiasanjiao);
+                nearTv.setTextColor(Color.parseColor("#333333"));
+                typeTv.setTextColor(Color.parseColor("#ff2d47"));
+                commentTv.setTextColor(Color.parseColor("#333333"));
+                SecondaryTypeDialog typeDialog = new SecondaryTypeDialog(getActivity(), typeList, top);
+                typeDialog.setOnClassificationSelectListener(new SecondaryTypeDialog.OnClassificationSelectListener() {
+
+                    @Override
+                    public void select(GoodsType type) {
+//                        changeTypeData(type.getTypeId());
+                        mLvPage = 1;
+                        isClearList = true;
+                        typeListId = type.getTypeId();
+                        typeTv.setText(type.getTypeName());
+                        changeHqktLv(typeListId);
+                    }
+                });
+                typeDialog.show();
+                typeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        typeTv.setTextColor(Color.parseColor("#333333"));
+                        typeTv3.setTextColor(Color.parseColor("#333333"));
+                        typeIv.setImageResource(R.drawable.icon_xiasanjiao);
+                        typeIv3.setImageResource(R.drawable.icon_xiasanjiao);
+                        type_ll3.setVisibility(View.GONE);
+                        screen_bg_ll.setVisibility(View.GONE);
+                    }
+                });
+                break;
+            case R.id.near_rll:
+                nearTv.setTextColor(Color.parseColor("#ff4460"));
+                nearTv3.setTextColor(Color.parseColor("#ff4460"));
+                nearIv.setImageResource(R.drawable.icon_shangsanjiao);
+                nearIv3.setImageResource(R.drawable.icon_shangsanjiao);
+                type_ll3.setVisibility(View.VISIBLE);
+              /*  RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0, -type_ll.getTop(), 0, 0);
+                myScrollView.setLayoutParams(params);
+                myScrollView.smoothScrollTo(0, 0);
+                hqkt_lv.smoothScrollToPosition(0);*/
+                myScrollView.smoothScrollTo(0, type_ll.getTop());
+                if (hqkt_type_pw == null || hqkt_type_pw_view == null) {
+                    hqkt_type_pw_view = LayoutInflater.from(getActivity()).inflate(R.layout.hqkt_type_pw_item, null);
+                    near_type_tv = ((TextView) hqkt_type_pw_view.findViewById(R.id.near_type_tv));
+                    near_type_tv.setOnClickListener(this);
+                    hqkt_type_pw = new PopupWindow(hqkt_type_pw_view, WindowManager.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                }
+//                changeScreenBg();
+                screen_bg_ll.setVisibility(View.VISIBLE);
+                hqkt_type_pw.setOutsideTouchable(true);
+                hqkt_type_pw.setFocusable(true);
+                hqkt_type_pw.setBackgroundDrawable(new BitmapDrawable());
+                hqkt_type_pw.showAsDropDown(type_ll3);
+                hqkt_type_pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+//                        restoreScreenBg();
+                        screen_bg_ll.setVisibility(View.GONE);
+                        nearIv.setImageResource(R.drawable.icon_xiasanjiao);
+                        nearIv3.setImageResource(R.drawable.icon_xiasanjiao);
+                        type_ll3.setVisibility(View.GONE);
+                    }
+                });
+                break;
+            case R.id.comment_rll:
+                myScrollView.smoothScrollTo(0, type_ll.getTop());
+                if (sortType.equals("0")) {
+                    sortType = "1";
+                    commentIv.setImageResource(R.drawable.icon_didaogao);
+                } else if (sortType.equals("1")) {
+                    sortType = "-1";
+                    commentIv.setImageResource(R.drawable.icon_yongjin);
+                } else if (sortType.equals("-1")) {
+                    sortType = "0";
+                    commentIv.setImageResource(R.drawable.icon_gaodaodi);
+                }
+                mLvPage = 1;
+                isClearList = true;
+                changeHqktLv(typeListId);
+                break;
+            case R.id.near_type_tv:
+                String string = near_type_tv.getText().toString();
+                if (string != null) {
+                    typeListId = "183";
+                    typeTv.setText("分类");
+                    if (string.equals("周边产品")) {
+                        areaType = "1";
+                        getTypeListNet();
+                        mLvPage = 1;
+                        isClearList = true;
+                        changeHqktLv(typeListId);
+                        hqkt_type_pw.dismiss();
+                        nearTv.setText("周边产品");
+                        nearTv.setTextColor(Color.parseColor("#ff2d47"));
+                        near_type_tv.setText("全国特产");
+                    } else if (string.equals("全国特产")) {
+                        areaType = "2";
+                        getTypeListNet();
+                        mLvPage = 1;
+                        isClearList = true;
+                        changeHqktLv(typeListId);
+                        hqkt_type_pw.dismiss();
+                        nearTv.setText("全国特产");
+                        nearTv.setTextColor(Color.parseColor("#ff2d47"));
+                        near_type_tv.setText("周边产品");
+                    }
+                }
+                break;
         }
     }
 
     @Override
     public void onScroll(ScrollView scrollView, int scrollY) {
-        int mTab2ParentTop = Math.max(scrollY, mTab.getTop());
-        mTab_top.layout(0, mTab2ParentTop, mTab_top.getWidth(), mTab2ParentTop + mTab_top.getHeight());
+        int mTab2ParentTop = Math.max(scrollY, type_ll2.getTop());
+//        mTab_top.layout(0, mTab2ParentTop, mTab_top.getWidth(), mTab2ParentTop + mTab_top.getHeight());
+        type_ll.layout(0, mTab2ParentTop, type_ll.getWidth(), mTab2ParentTop + type_ll.getHeight());
+    }
+
+    private void changeScreenBg() {
+        WindowManager.LayoutParams params = getActivity().getWindow().getAttributes();
+        params.alpha = (float) 0.5;
+        getActivity().getWindow().setAttributes(params);
+    }
+
+    private void restoreScreenBg() {
+        WindowManager.LayoutParams params = getActivity().getWindow().getAttributes();
+        params.alpha = (float) 1;
+        getActivity().getWindow().setAttributes(params);
+    }
+
+    @Override
+    public void onTouchDown() {
+        /*if (mLvPage < Integer.parseInt(totalPage)) {
+            loading_tv.setVisibility(View.VISIBLE);
+            mLvPage++;
+            isClearList = false;
+            changeHqktLv(typeListId);
+        } else {
+            Toast.makeText(OriginalCityAgencyFragment.this.getActivity(), "没有更多数据了!", Toast.LENGTH_SHORT).show();
+        }*/
+
+            loading_tv.setVisibility(View.VISIBLE);
+            mLvPage++;
+            isClearList = false;
+            changeHqktLv(typeListId);
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_MOVE:
+                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(0, 0, 0, 0);
+                myScrollView.setLayoutParams(layoutParams);
+                break;
+        }
+        return false;
     }
 }

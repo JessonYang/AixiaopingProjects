@@ -3,9 +3,9 @@ package com.weslide.lovesmallscreen.views.order;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.weslide.lovesmallscreen.Constants;
@@ -13,10 +13,11 @@ import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.models.Order;
 import com.weslide.lovesmallscreen.models.OrderDetail;
 import com.weslide.lovesmallscreen.models.OrderItem;
-import com.weslide.lovesmallscreen.utils.L;
+import com.weslide.lovesmallscreen.utils.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by xu on 2016/6/29.
@@ -40,19 +41,23 @@ public class OrderView extends FrameLayout {
     TextView tvRealityMoney;
 
     Order mOrder;
+    Context mContext;
 
     public OrderView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mContext = context;
         initView();
     }
 
     public OrderView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
         initView();
     }
 
     public OrderView(Context context) {
         super(context);
+        mContext = context;
         initView();
     }
 
@@ -85,13 +90,22 @@ public class OrderView extends FrameLayout {
                     //显示多选框
                     itemView.showCheckBox();
                 }
+                itemView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String goodsId = orderItem.getGoods().getGoodsId();
+                        if (goodsId != null && goodsId.length() > 0) {
+                            AppUtils.toGoods(mContext, goodsId);
+                        }
+                    }
+                });
                 layoutOrderGoods.addView(itemView);
             }
         }
 
         if(mOrder.getDetails() != null){
             for (OrderDetail detail : mOrder.getDetails()) {
-                if(detail.getName().equals("运费")) {
+                if(detail.getName().equals("运费") || detail.getName().equals("优惠券抵扣")) {
                     OrderDetailView detailView = new OrderDetailView(getContext());
                     detailView.bindView(detail);
                     layoutOrderDetails.addView(detailView);
@@ -107,6 +121,12 @@ public class OrderView extends FrameLayout {
      */
     public void bindView(Order order){
         bindView(order, false);
+    }
 
+    @OnClick({})
+    public void onClick(View v){
+        switch (v.getId()) {
+
+        }
     }
 }

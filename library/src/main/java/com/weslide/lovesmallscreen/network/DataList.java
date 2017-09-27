@@ -17,6 +17,17 @@ public class DataList<T> extends BaseModel {
     @SerializedName("dataList")
     private List<T> dataList = new ArrayList<>();
 
+    public List<T> getHotDataList() {
+        return hotDataList;
+    }
+
+    public void setHotDataList(List<T> hotDataList) {
+        this.hotDataList = hotDataList;
+    }
+
+    @SerializedName("hotDataList")
+    private List<T> hotDataList = new ArrayList<>();
+
     @SerializedName("cityList")
     private List<CityType> cityList = new ArrayList<>();
 

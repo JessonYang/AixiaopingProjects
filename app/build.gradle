@@ -10,8 +10,8 @@ android {
         applicationId "com.weslide.lovesmallscreen"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 90
-        versionName "5.8.1"
+        versionCode 92
+        versionName "5.9.1"
         multiDexEnabled true
         manifestPlaceholders = [BAIDU_API_KEY      : BAIDU_API_KEY,       //百度地图KEY
                                 GETUI_APP_ID       : GETUI_APP_ID,              //个推APPID
@@ -41,7 +41,7 @@ android {
             // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
             //开启代码混淆
-            minifyEnabled true
+            minifyEnabled false
             // 移除无用的resource文件
             shrinkResources true
             signingConfig signingConfigs.release
@@ -131,4 +131,6 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.wuxiaolong.pullloadmorerecyclerview:library:1.0.4'
     compile 'com.youth.banner:banner:1.4.9'
+    //友盟集成统计
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }

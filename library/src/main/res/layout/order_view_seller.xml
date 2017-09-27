@@ -20,8 +20,10 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
         android:layout_toRightOf="@id/tv_seller_name"
+        android:text=""
         android:textColor="@color/font_color"
-        android:textSize="@dimen/h8" />
+        android:textSize="@dimen/h8"
+        android:visibility="gone" />
 
     <!--<ImageView-->
     <!--android:layout_width="wrap_content"-->

@@ -23,7 +23,17 @@ public class PayOrderBean {
     @SerializedName("payType")
     /** 支付方式 Constants中有定义常量 */
     private String payType;
+    @SerializedName("type")
+    /** 支付方式 (组合或非组合支付) */
+    private int type;
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public List<String> getOrderIds() {
         return orderIds;

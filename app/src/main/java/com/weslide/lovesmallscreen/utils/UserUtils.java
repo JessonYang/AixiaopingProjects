@@ -29,6 +29,9 @@ public class UserUtils {
      * @param context
      */
     public static void logout(Context context) {
+        //退出友盟统计
+//        MobclickAgent.onProfileSignOff();
+
         Bundle bundle = new Bundle();
 //        bundle.putString(LoginOptionActivity.KEY_LAUNCHER_FRAGMENT, LoginFragment.class.getName());
         AppUtils.toActivity(context, LoginOptionActivity.class, Intent.ACTION_VIEW, Intent.FLAG_ACTIVITY_CLEAR_TOP, bundle);

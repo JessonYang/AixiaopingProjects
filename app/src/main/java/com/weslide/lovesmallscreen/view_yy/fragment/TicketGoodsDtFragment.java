@@ -5,18 +5,26 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.gc.materialdesign.views.ButtonRectangle;
+import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.core.BaseFragment;
+import com.weslide.lovesmallscreen.core.SupportSubscriber;
+import com.weslide.lovesmallscreen.model_yy.javabean.AchieveBean;
 import com.weslide.lovesmallscreen.model_yy.javabean.TicketGoodsDtModel;
+import com.weslide.lovesmallscreen.network.Request;
+import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.presenter_yy.TicketGoodsDtFgPresenter;
 import com.weslide.lovesmallscreen.utils.AppUtils;
+import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.utils.ShareUtils;
 import com.weslide.lovesmallscreen.view_yy.viewinterface.IShowTicketGoodsDtFg;
+import com.weslide.lovesmallscreen.views.custom.CustomToolbar;
 import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
 
 /**
@@ -39,9 +47,10 @@ public class TicketGoodsDtFragment extends BaseFragment implements IShowTicketGo
     private TextView consumeStateTv;
     private TextView salesNumTv;
     private TextView noUseTimeTv;
-    private ButtonRectangle btn_share_good;
+    private Button btn_share_good, btn_buy_good;
     private TicketGoodsDtModel mTicketGoodsDtModel;
     private String ticketId;
+    private CustomToolbar toolbar;
 
     @Nullable
     @Override
@@ -58,6 +67,7 @@ public class TicketGoodsDtFragment extends BaseFragment implements IShowTicketGo
     public void initView() {
         loadingDialog = new LoadingDialog(getActivity());
         headerGoodIv = ((ImageView) mFgView.findViewById(R.id.ticket_good_dt_banner_iv));
+        toolbar = ((CustomToolbar) mFgView.findViewById(R.id.ticket_good_dt_toolbar));
         consumeStateIv = ((ImageView) mFgView.findViewById(R.id.ticket_good_dt_consume_state_iv));
         goodDtIv = ((ImageView) mFgView.findViewById(R.id.ticket_goods_detail_iv));
         goodDescTv = ((TextView) mFgView.findViewById(R.id.ticket_good_dt_desc_tv));
@@ -70,7 +80,8 @@ public class TicketGoodsDtFragment extends BaseFragment implements IShowTicketGo
         consumeStateTv = ((TextView) mFgView.findViewById(R.id.ticket_good_dt_consume_state_tv));
         salesNumTv = ((TextView) mFgView.findViewById(R.id.ticket_good_dt_slaes_num_tv));
         noUseTimeTv = ((TextView) mFgView.findViewById(R.id.ticket_good_dt_noUse_time_tv));
-        btn_share_good = ((ButtonRectangle) mFgView.findViewById(R.id.ticket_good_dt_btn_share));
+        btn_share_good = ((Button) mFgView.findViewById(R.id.ticket_good_dt_btn_share));
+        btn_buy_good = ((Button) mFgView.findViewById(R.id.ticket_good_dt_btn_buy));
     }
 
     //准备工作，初始化数据
@@ -78,6 +89,18 @@ public class TicketGoodsDtFragment extends BaseFragment implements IShowTicketGo
     public void initData() {
         goodDtIv.setOnClickListener(this);
         btn_share_good.setOnClickListener(this);
+        btn_buy_good.setOnClickListener(this);
+        toolbar.setOnImgClick(new CustomToolbar.OnImgClick() {
+            @Override
+            public void onLeftImgClick() {
+                getActivity().finish();
+            }
+
+            @Override
+            public void onRightImgClick() {
+
+            }
+        });
     }
 
     //加载数据之前显示的LoadingView
@@ -109,10 +132,10 @@ public class TicketGoodsDtFragment extends BaseFragment implements IShowTicketGo
         goodDescTv.setText(ticketGoodsDtModel.getGoodsName());
         afterTicketPriceTv.setText(ticketGoodsDtModel.getGoodsPriceAfterTicket());
         originalPriceTv.setText("原价￥" + ticketGoodsDtModel.getGoodsOrieignPrice());
-        ticketPrice.setText(ticketGoodsDtModel.getTicketFaceValue());
+        ticketPrice.setText(ticketGoodsDtModel.getTicketFaceValue() + "元");
         predictProfitTv.setText("￥" + ticketGoodsDtModel.getProfit());
-        leftTicketTv.setText(ticketGoodsDtModel.getTicketVacancy());
-        useTimeTv.setText(ticketGoodsDtModel.getDaysInUse());
+        leftTicketTv.setText(ticketGoodsDtModel.getTicketVacancy() + "张");
+        useTimeTv.setText(ticketGoodsDtModel.getDaysInUse() + "天(" + ticketGoodsDtModel.getExpiryDate() + "到期)");
         salesNumTv.setText(ticketGoodsDtModel.getGoodsSold());
         noUseTimeTv.setText(ticketGoodsDtModel.getExpiryDate());
         String consumeTack = ticketGoodsDtModel.getConsumeTack();
@@ -133,6 +156,27 @@ public class TicketGoodsDtFragment extends BaseFragment implements IShowTicketGo
                 break;
             case R.id.ticket_good_dt_btn_share:  //分享推广点击监听
                 ShareUtils.share(getActivity(), mTicketGoodsDtModel.getShareTitle(), mTicketGoodsDtModel.getShareIconUrl(), mTicketGoodsDtModel.getShareTargetUrl(), mTicketGoodsDtModel.getShareContent());
+                break;
+            case R.id.ticket_good_dt_btn_buy:  //立即购买点击监听
+                LoadingDialog ldd = new LoadingDialog(getActivity());
+                ldd.show();
+                Request<AchieveBean> request = new Request<>();
+                AchieveBean bean = new AchieveBean();
+                bean.setTicketId(mTicketGoodsDtModel.getTicketId());
+                bean.setShareId("");
+                bean.setUserId(ContextParameter.getUserInfo().getUserId());
+                request.setData(bean);
+                RXUtils.request(getActivity(), request, "achieve", new SupportSubscriber<Response<AchieveBean>>() {
+                    @Override
+                    public void onNext(Response<AchieveBean> achieveBeanResponse) {
+                        AchieveBean data = achieveBeanResponse.getData();
+                        if (data != null) {
+                            ldd.dismiss();
+                            Toast.makeText(getActivity(), data.getContent(), Toast.LENGTH_SHORT).show();
+                            AppUtils.toGoods(getActivity(), mTicketGoodsDtModel.getGoodsId());
+                        }
+                    }
+                });
                 break;
         }
     }

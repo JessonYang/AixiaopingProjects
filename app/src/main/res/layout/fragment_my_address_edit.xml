@@ -3,213 +3,208 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ececec"
-    >
+    android:background="#ececec">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <android.support.v7.widget.Toolbar
-        android:id="@id/tool_bar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/main_color_white"
-        android:minHeight="?attr/actionBarSize"
-        app:title="我的地址"
-        app:titleTextColor="@color/toolbar_title_color"
+            android:id="@id/tool_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/main_color_white"
+            android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/icon_quxiao"
-        >
-    </android.support.v7.widget.Toolbar>
+            app:title="我的地址"
+            app:titleTextColor="@color/toolbar_title_color"></android.support.v7.widget.Toolbar>
 
-    <View
-        android:id="@+id/view_line"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/lightgray"
-
-        ></View>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:id="@+id/ll_layout"
-        >
-        <LinearLayout
+        <View
+            android:id="@+id/view_line"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:id="@+id/ll_name"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/recipient_name"
-                android:layout_gravity="center_vertical"
-                android:textSize="@dimen/h8"
-                android:textColor="@color/font_content_color"
-                />
-            <EditText
-                android:id="@+id/edt_name"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:layout_marginLeft="5dp"
-                android:textSize="@dimen/h8"
-                android:textColor="@color/font_content_color"
-                />
-        </LinearLayout>
+            android:layout_height="0.5dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/lightgray"
+
+            ></View>
 
         <LinearLayout
+            android:id="@+id/ll_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal"
-            android:id="@+id/ll_phone"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/recipient_phone_number"
-                android:layout_gravity="center_vertical"
-                android:textSize="@dimen/h8"
-                android:textColor="@color/font_content_color"
-                />
-            <EditText
-                android:id="@+id/edt_phone_number"
-                android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:layout_marginLeft="5dp"
-                android:textSize="@dimen/h8"
-                android:textColor="@color/font_content_color"
-                android:inputType="number"
-                android:maxLength="11"
-                />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/recipient_name"
+                    android:textColor="@color/font_content_color"
+                    android:textSize="@dimen/h8" />
+
+                <EditText
+                    android:id="@+id/edt_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:textColor="@color/font_content_color"
+                    android:textSize="@dimen/h8" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_phone"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/recipient_phone_number"
+                    android:textColor="@color/font_content_color"
+                    android:textSize="@dimen/h8" />
+
+                <EditText
+                    android:id="@+id/edt_phone_number"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:textColor="@color/font_content_color"
+                    android:textSize="@dimen/h8" />
+            </LinearLayout>
         </LinearLayout>
+
+        <View
+            android:id="@+id/view_line2"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/lightgray"></View>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/lightgray"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/address_now"
+                    android:textColor="@color/font_content_color"
+                    android:textSize="@dimen/h8" />
+
+                <TextView
+                    android:id="@+id/edt_address"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/font_content_color"
+                    android:textSize="@dimen/h8" />
+
+                <ImageView
+                    android:id="@+id/iv_choise_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/icon_xiala2" />
+
+                <!--<ImageView
+                    android:id="@+id/iv_location_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/icon_dizhi_hei2" />-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/address_details"
+                    android:textColor="@color/font_content_color"
+                    android:textSize="@dimen/h8" />
+
+                <EditText
+                    android:id="@+id/edt_address_details"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:hint="@string/address_details_hint"
+                    android:textColor="@color/font_content_color"
+                    android:textColorHint="@color/lightgray"
+                    android:textSize="@dimen/h8" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/lightgray"></View>
     </LinearLayout>
-    <View
-        android:id="@+id/view_line2"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/lightgray"
-        ></View>
-    <View
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/lightgray"
-        ></View>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/white"
-        android:orientation="vertical"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/address_now"
-                android:layout_gravity="center_vertical"
-                android:textSize="@dimen/h8"
-                android:textColor="@color/font_content_color"
-                />
-            <TextView
-                android:id="@+id/edt_address"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:textSize="@dimen/h8"
-                android:textColor="@color/font_content_color"
-                android:gravity="center_vertical"
-                />
-            <ImageView
-                android:id="@+id/iv_choise_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_xiala2"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                />
-            <ImageView
-                android:id="@+id/iv_location_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_dizhi_hei2"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/address_details"
-                android:layout_gravity="center_vertical"
-                android:textSize="@dimen/h8"
-                android:textColor="@color/font_content_color"
-                />
-            <EditText
-                android:id="@+id/edt_address_details"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:hint="@string/address_details_hint"
-                android:textColorHint="@color/lightgray"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/font_content_color"
-                android:textSize="@dimen/h8"
-                />
-        </LinearLayout>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/lightgray"
-        >
-    </View>
-    </LinearLayout>
     <com.gc.materialdesign.views.ButtonRectangle
-        style="@null"
-        android:background="@color/main_color_red"
         android:id="@+id/btn_sure"
+        style="@null"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="30dp"
-        android:text="@string/make_sure"
-        />
+        android:background="@color/main_color_red"
+        android:text="@string/make_sure" />
 </RelativeLayout>

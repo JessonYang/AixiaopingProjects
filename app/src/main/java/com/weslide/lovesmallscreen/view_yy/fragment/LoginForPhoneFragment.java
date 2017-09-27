@@ -190,8 +190,6 @@ public class LoginForPhoneFragment extends Fragment implements View.OnClickListe
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
-
-
     }
 
     /**

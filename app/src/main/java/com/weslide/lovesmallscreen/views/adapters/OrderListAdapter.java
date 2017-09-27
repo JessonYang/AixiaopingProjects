@@ -154,14 +154,23 @@ class OrderListAdapterViewHolder extends RecyclerView.ViewHolder {
             case Constants.ORDER_STATUS_WAIT_SEND_OUT_GOODS: //待发货
                 layoutOrderOption.setVisibility(View.VISIBLE);
                 layoutReceiptOfSendOutGoods.setVisibility(View.VISIBLE);
+                if (Integer.parseInt(mOrder.getOrderItems().get(0).getScore()) > 0) {
+                    btnBackSendOutGoods.setVisibility(View.GONE);
+                }
                 break;
             case Constants.ORDER_STATUS_WAIT_EXCHANGE: //待兑换
                 layoutOrderOption.setVisibility(View.VISIBLE);
                 layoutReceiptExchange.setVisibility(View.VISIBLE);
+                if (Integer.parseInt(mOrder.getOrderItems().get(0).getScore()) > 0) {
+                    btnBackExchange.setVisibility(View.GONE);
+                }
                 break;
             case Constants.ORDER_STATUS_WAIT_OF_GOODS: //待收货
                 layoutOrderOption.setVisibility(View.VISIBLE);
                 layoutWaitOfGoods.setVisibility(View.VISIBLE);
+                if (Integer.parseInt(mOrder.getOrderItems().get(0).getScore()) > 0) {
+                    btnBack.setVisibility(View.GONE);
+                }
                 break;
             case Constants.ORDER_STATUS_WAIT_COMMENT: //待评价
                 layoutOrderOption.setVisibility(View.VISIBLE);
@@ -181,7 +190,6 @@ class OrderListAdapterViewHolder extends RecyclerView.ViewHolder {
         });
 
     }
-
 
     @OnClick({R.id.btn_logistics, R.id.btn_back, R.id.btn_confirm_receipt, R.id.btn_comment,
             R.id.btn_contact_seller, R.id.btn_cancel_order, R.id.btn_to_pay, R.id.btn_back_send_out_goods,

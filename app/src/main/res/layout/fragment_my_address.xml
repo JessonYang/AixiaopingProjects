@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
         android:id="@id/tool_bar"
         android:layout_width="fill_parent"
@@ -12,29 +12,29 @@
         android:layout_alignParentTop="true"
         android:background="@color/main_color_white"
         android:minHeight="?attr/actionBarSize"
-        app:title="我的地址"
         app:navigationIcon="@drawable/icon_fanhuij"
-        app:titleTextColor="@color/toolbar_title_color"
-        >
+        app:title="我的地址"
+        app:titleTextColor="@color/toolbar_title_color">
+
         <ImageView
             android:id="@+id/iv_add_address"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="20dp"
-            android:src="@drawable/icon_plus"
-            />
+            android:src="@drawable/icon_plus" />
     </android.support.v7.widget.Toolbar>
+
     <View
         android:layout_width="wrap_content"
-        android:background="#dddddd"
-        android:layout_height="0.5dp"/>
-<com.malinskiy.superrecyclerview.SuperRecyclerView
-android:id="@+id/lv_address_list"
-android:layout_width="match_parent"
-android:layout_height="0dp"
-android:layout_weight="1"
-    >
+        android:layout_height="0.5dp"
+        android:background="#dddddd" />
 
-</com.malinskiy.superrecyclerview.SuperRecyclerView>
-    </LinearLayout>
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:id="@+id/lv_address_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </com.malinskiy.superrecyclerview.SuperRecyclerView>
+</LinearLayout>

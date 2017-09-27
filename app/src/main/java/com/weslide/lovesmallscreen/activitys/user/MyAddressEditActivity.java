@@ -8,7 +8,7 @@ import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.core.BaseActivity;
 import com.weslide.lovesmallscreen.fragments.user.MyAddressEditFragment;
 import com.weslide.lovesmallscreen.models.Address;
-import com.weslide.lovesmallscreen.utils.T;
+import com.weslide.lovesmallscreen.view_yy.activity.PermissionsActivity;
 
 /**
  * Created by Dong on 2016/7/1.
@@ -37,6 +37,14 @@ public class MyAddressEditActivity extends BaseActivity {
         }else{
             bundle1.putInt("type",3);
             fragment.setArguments(bundle1);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
+            finish();
         }
     }
 }

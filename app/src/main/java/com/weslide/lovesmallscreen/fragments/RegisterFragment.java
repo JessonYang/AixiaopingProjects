@@ -9,13 +9,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -44,7 +45,11 @@ import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -89,6 +94,7 @@ public class RegisterFragment extends BaseFragment {
 
     MultiImageSelector selector = MultiImageSelector.create(getActivity());
     private ArrayList<String> mSelectPath;
+    private SimpleDateFormat formatMD5 = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
 
     @Nullable
     @Override
@@ -108,7 +114,7 @@ public class RegisterFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.btn_send_captcha, R.id.btn_register, R.id.tv_installation_and_use, R.id.back, R.id.headimg, R.id.login,R.id.tv_have_invitor})
+    @OnClick({R.id.btn_send_captcha, R.id.btn_register, R.id.tv_installation_and_use, R.id.back, R.id.headimg, R.id.login, R.id.tv_have_invitor})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_send_captcha:
@@ -169,11 +175,12 @@ public class RegisterFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        edtCaptcha.setText("");
+//        MobclickAgent.onEvent(getActivity(),"register_enter");
+        /*edtCaptcha.setText("");
         edtInvitationCode.setText("");
         edtPassWord.setText("");
         edtPhoneNumber.setText("");
-        agreement.setChecked(false);
+        agreement.setChecked(false);*/
         time.cancel();
     }
 
@@ -206,9 +213,9 @@ public class RegisterFragment extends BaseFragment {
                 }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Response<UserInfo>>() {
             @Override
             public void call(Response<UserInfo> userInfoResponse) {
+                Log.d("雨落无痕丶", "call: ======" + userInfoResponse.getMessage() + ";status:" + userInfoResponse.getStatus());
                 if (userInfoResponse.getStatus() == 1) {
                     T.showShort(getActivity(), userInfoResponse.getMessage());
-
                 }
 
             }
@@ -253,6 +260,21 @@ public class RegisterFragment extends BaseFragment {
                 .map(new Func1<Response<UserInfo>, Response<UserInfo>>() {
                     @Override
                     public Response<UserInfo> call(Response<UserInfo> userInfoResponse) {
+//                        MobclickAgent.onEvent(getActivity(), "register_commit");
+                        HashMap<String,String> map1 = new HashMap<String,String>();
+                        HashMap<String,String> map2 = new HashMap<String,String>();
+                        HashMap<String,String> map3 = new HashMap<String,String>();
+                        HashMap<String,String> map4 = new HashMap<String,String>();
+                        map1.put("phoneNum",phoneNumber);
+                        map2.put("captcha",captcha);
+                        map3.put("password",password);
+                        if (invationcode != null) {
+                            map4.put("invationcode",invationcode);
+//                            MobclickAgent.onEvent(getActivity(), "register_inviteCode",map4);
+                        }
+//                        MobclickAgent.onEvent(getActivity(), "register_getverifycode",map2);
+//                        MobclickAgent.onEvent(getActivity(), "register_mobileNum",map1);
+//                        MobclickAgent.onEvent(getActivity(), "register_password",map3);
                         return userInfoResponse;
                     }
                 })
@@ -262,6 +284,9 @@ public class RegisterFragment extends BaseFragment {
 
                     try {
                         Request<UserInfo> request = new Request<UserInfo>();
+                        String axpabc = md5("axp" + u.getData().getUserId());
+                        String s = md5(axpabc + formatMD5.format(System.currentTimeMillis() + ContextParameter.getTimeExtra()));
+                        request.setAxp(s);
                         request.setData(u.getData());
 
                         Response<UserInfo> response = HTTP.getAPI().login(HTTP.formatJSONData(request)).execute().body();
@@ -280,6 +305,9 @@ public class RegisterFragment extends BaseFragment {
                         try {
                             Request request = new Request();
                             request.setUserId(userInfoResponse.getData().getUserId());
+                            String axpabc = md5("axp" + userInfoResponse.getData().getUserId());
+                            String s = md5(axpabc + formatMD5.format(System.currentTimeMillis() + ContextParameter.getTimeExtra()));
+                            request.setAxp(s);
                             Response<UserInfo> response = HTTP.getAPI().getUserInfo(HTTP.formatJSONData(request)).execute().body();
                             return response;
                         } catch (IOException e) {
@@ -382,4 +410,28 @@ public class RegisterFragment extends BaseFragment {
             btnSendCaptcha.setText(millisUntilFinished / 1000 + " s");
         }
     }
+
+    private String md5(String string) {
+        if (TextUtils.isEmpty(string)) {
+            return "";
+        }
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+            byte[] bytes = md5.digest(string.getBytes());
+            String result = "";
+            for (byte b : bytes) {
+                String temp = Integer.toHexString(b & 0xff);
+                if (temp.length() == 1) {
+                    temp = "0" + temp;
+                }
+                result += temp;
+            }
+            return result;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
 }

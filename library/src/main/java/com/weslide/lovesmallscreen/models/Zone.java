@@ -15,6 +15,17 @@ public  class Zone extends BaseModel {
 //    private String level ;
     @SerializedName("name")
     private String name = "广州市";
+
+    public String getPinYin() {
+        return pinYin;
+    }
+
+    public void setPinYin(String pinYin) {
+        this.pinYin = pinYin;
+    }
+
+    @SerializedName("pinYin")
+    private String pinYin = "guangzhoushi";
 //    private String name ;
     @SerializedName("englishChar")
     private String englishChar = "G";

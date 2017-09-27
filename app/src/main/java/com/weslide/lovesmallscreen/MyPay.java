@@ -1,15 +1,22 @@
 package com.weslide.lovesmallscreen;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
+import com.google.gson.Gson;
+import com.payeco.android.plugin.PayecoPluginLoadingActivity;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.weslide.lovesmallscreen.fragments.order.ConfirmOrderFragment;
 import com.weslide.lovesmallscreen.managers.pay.PayListener;
 import com.weslide.lovesmallscreen.managers.pay.PayModel;
 import com.weslide.lovesmallscreen.managers.pay.alipay.AlipayResult;
+import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.NetworkUtils;
 import com.weslide.lovesmallscreen.utils.T;
@@ -26,12 +33,12 @@ import rx.schedulers.Schedulers;
 public class MyPay {
     /**
      * http://blog.csdn.net/jdsjlzx/article/details/47422279
+     *
      * @param activity
      * @param payModel
      * @param listener
      */
     public static void payToWeiXin(Activity activity, PayModel payModel, PayListener listener) {
-
 //        StringBuilder sb = new StringBuilder();
 //        sb.append("appid=" + payModel.getAppId() + "&");
 //        sb.append("noncestr=" + payModel.getNonceStr() + "&");
@@ -43,7 +50,6 @@ public class MyPay {
 //        String appSign = MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
 //        Log.e("orion",appSign);
 //        payModel.setSign(appSign);
-
 
 
 //        new Pay();
@@ -65,6 +71,7 @@ public class MyPay {
 
         //分离，预防内存泄露
         msgApi.detach();
+        Log.d("雨落无痕丶", "payToWeiXin: 微信");
 
 
     }
@@ -129,7 +136,18 @@ public class MyPay {
                 }
             }
         });
+    }
 
-
+    public static void payToBank(Response<PayModel> payOrderBean, Context context,String science) {
+        //设置Intent指向
+        Intent intent = new Intent(context, PayecoPluginLoadingActivity.class);
+        // 将封装好的xml报文传入bundle
+        intent.putExtra("upPay.Req", new Gson().toJson(payOrderBean.getData()));
+        // 设置广播接收地址
+        intent.putExtra("Broadcast", ConfirmOrderFragment.PAY_RESULT_RECEIVER_ACTION);
+        // 设置支付插件访问的环境： 00: 测试环境, 01: 生产环境
+        intent.putExtra("Environment", science);
+        // 使用intent跳转至手机在线支付
+        context.startActivity(intent);
     }
 }

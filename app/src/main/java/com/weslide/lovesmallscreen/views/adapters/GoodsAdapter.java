@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,8 +134,8 @@ public class GoodsAdapter extends SuperRecyclerViewAdapter<RecyclerViewModel, Re
                     @Override
                     public void onClick(View view) {
                         Bundle bundle = new Bundle();
-                        bundle.putString("goodsId",goods.getGoodsId());
-                        AppUtils.toActivity(mContext, GoodsCommentListActivity.class,bundle);
+                        bundle.putString("goodsId", goods.getGoodsId());
+                        AppUtils.toActivity(mContext, GoodsCommentListActivity.class, bundle);
                     }
                 });
                 break;
@@ -152,8 +151,8 @@ public class GoodsAdapter extends SuperRecyclerViewAdapter<RecyclerViewModel, Re
                     @Override
                     public void onClick(View view) {
                         Bundle bundle = new Bundle();
-                        bundle.putString("goodsId",goodsId);
-                        AppUtils.toActivity(mContext, GoodsCommentListActivity.class,bundle);
+                        bundle.putString("goodsId", goodsId);
+                        AppUtils.toActivity(mContext, GoodsCommentListActivity.class, bundle);
                     }
                 });
                 if (comment.getCommentImages() != null && comment.getCommentImages().size() > 0) {
@@ -162,7 +161,7 @@ public class GoodsAdapter extends SuperRecyclerViewAdapter<RecyclerViewModel, Re
 
                     for (String image : comment.getCommentImages()) {
                         ImageView imageView = new ImageView(mContext);
-                        imageView.setPadding(10,10,10,10);
+                        imageView.setPadding(10, 10, 10, 10);
                         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                                 (int) mContext.getResources().getDimension(R.dimen.goods_comment_height));
                         imageView.setLayoutParams(params);
@@ -262,6 +261,10 @@ class GoodsInfoViewHolder extends RecyclerView.ViewHolder {
     TextView tvCostPrice;
     @BindView(R.id.tv_express_tactics)
     TextView tvExpressTactics;
+    @BindView(R.id.score_no_charge_back)
+    TextView score_no_charge_back;
+    @BindView(R.id.iv_express_tactics)
+    ImageView ivExpressTactics;
     @BindView(R.id.tv_sales_volume)
     TextView tvSalesVolume;
 
@@ -308,14 +311,24 @@ class GoodsInfoViewHolder extends RecyclerView.ViewHolder {
 
         showGoodsInfo(mGoods);
 
-        tvCostPrice.setText("原价：￥" + mGoods.getCostPrice());
+        if ("2".equals(mGoods.getMallType()) || "scm".equals(mGoods.getMallType())){
+            score_no_charge_back.setVisibility(View.VISIBLE);
+        }else {
+            score_no_charge_back.setVisibility(View.GONE);
+        }
+        tvCostPrice.setText("￥" + mGoods.getCostPrice());
         tvExpressTactics.setText(mGoods.getExpressTactics());
-        String salesVolume = mGoods.getSalesVolume();
+        String expressStatus = mGoods.getExpressStatus();
+        if (expressStatus != null && expressStatus.length() > 0) {
+            if (expressStatus.equals("1")) {
+                ivExpressTactics.setImageResource(R.drawable.icon_sm_qgby);
+            } else if (expressStatus.equals("2")) {
+                ivExpressTactics.setImageResource(R.drawable.icon_sm_ddxf);
+            }
+        }
+        int salesVolume = mGoods.getSalesVolume();
 //        String substring = salesVolume.substring(0,salesVolume.indexOf("."));
-        tvSalesVolume.setText("销量:"+ salesVolume);
-        Log.d("雨落无痕丶", "bindView: sales"+salesVolume);
-
-
+        tvSalesVolume.setText("销量:" + salesVolume);
 
         //设置规格等信息
         if (mGoods.getSpec() == null || mGoods.getSpec().size() == 0) {

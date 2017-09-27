@@ -24,7 +24,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.HomeActivity;
+import com.weslide.lovesmallscreen.core.SupportSubscriber;
 import com.weslide.lovesmallscreen.model_yy.javabean.SaveMoneyGoodModel;
+import com.weslide.lovesmallscreen.model_yy.javabean.TaoBaoUrlModel;
+import com.weslide.lovesmallscreen.network.Request;
+import com.weslide.lovesmallscreen.network.Response;
+import com.weslide.lovesmallscreen.utils.RXUtils;
+import com.weslide.lovesmallscreen.view_yy.fragment.HomePageFragment_New;
+import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
 
 import java.util.HashMap;
 import java.util.List;
@@ -123,7 +130,20 @@ public class OriginalTaokeLvAdapter extends BaseAdapter {
         viewHolder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toTaobao(list.get(position).getLink());
+                LoadingDialog dialog = new LoadingDialog(context);
+                dialog.show();
+                Request<TaoBaoUrlModel> request = new Request<TaoBaoUrlModel>();
+                TaoBaoUrlModel model = new TaoBaoUrlModel();
+                model.setPid(HomePageFragment_New.pid);
+                model.setGoodsId(list.get(position).getGoods_id());
+                request.setData(model);
+                RXUtils.request(context,request,"findGoodsUrl", new SupportSubscriber<Response<TaoBaoUrlModel>>() {
+                    @Override
+                    public void onNext(Response<TaoBaoUrlModel> taoBaoUrlModelResponse) {
+                        dialog.dismiss();
+                        toTaobao(taoBaoUrlModelResponse.getData().getLink());
+                    }
+                });
             }
         });
         return convertView;

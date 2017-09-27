@@ -58,6 +58,9 @@
     <style name="CheckBoxSelect">
         <item name="android:button">@drawable/selector_select</item>
     </style>
+    <style name="CheckBoxContact">
+        <item name="android:button">@drawable/selector_contact</item>
+    </style>
     <style name="CheckBoxVoice">
         <!--<item name="android:button">@drawable/selector_jingyin</item>-->
         <item name="android:background">@drawable/selector_jingyin</item>

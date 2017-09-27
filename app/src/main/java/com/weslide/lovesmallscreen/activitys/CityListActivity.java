@@ -107,16 +107,13 @@ public class CityListActivity extends BaseActivity {
         hotcityGridView = (GridView) header.findViewById(R.id.lv_header_citylist_mGridViewHotCity);
         mLetterView = (LetterIndexView) findViewById(R.id.letter_index_view);
         mCityListView = (ListView) findViewById(R.id.activity_citylist_mListView);
-//        mCityListView.addHeaderView(header, null, false);
-
-
+        mCityListView.addHeaderView(header, null, false);
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-
 
         hotcityGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

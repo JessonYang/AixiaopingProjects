@@ -36,7 +36,7 @@
             android:paddingBottom="0dp"
             android:paddingTop="0dp"
             android:text="重新加载"
-            android:textColor="@color/font_color"
+            android:textColor="#848484"
             app:v_styleId="@array/button_gray_white_raise_check_color" />
     </LinearLayout>
 

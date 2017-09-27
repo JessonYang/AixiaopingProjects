@@ -1,15 +1,23 @@
 package com.weslide.lovesmallscreen.activitys;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -19,9 +27,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.rey.material.app.DialogFragment;
-import com.rey.material.app.SimpleDialog;
-import com.rey.material.app.ThemeManager;
 import com.weslide.lovesmallscreen.ArchitectureAppliation;
 import com.weslide.lovesmallscreen.Constants;
 import com.weslide.lovesmallscreen.ContextParameter;
@@ -54,6 +59,7 @@ import com.weslide.lovesmallscreen.utils.AppUtils;
 import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.NetworkUtils;
 import com.weslide.lovesmallscreen.utils.RXUtils;
+import com.weslide.lovesmallscreen.view_yy.activity.AxpDiscountTicketActivity;
 import com.weslide.lovesmallscreen.view_yy.fragment.HomePageFragment_New;
 
 import org.greenrobot.eventbus.EventBus;
@@ -133,6 +139,11 @@ public class HomeActivity extends BaseActivity {
 
     int postion = 0;
     private SharedPreferences cityInfo;
+    private ImageView cancleIv;
+    private AlertDialog updateDialog;
+    private Button updateBtn;
+    private TextView update_content,version_tv;
+    private ClipboardManager mClipboard;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -146,8 +157,7 @@ public class HomeActivity extends BaseActivity {
         if (city == null) {
             city = "";
         }
-        district = getSupportApplication().getDaoSession().getZoneDao()
-                .loadDistrictByZoneName(city, ContextParameter.getCurrentLocation().getDistrict());
+        district = getSupportApplication().getDaoSession().getZoneDao().loadDistrictByZoneName(city, ContextParameter.getCurrentLocation().getDistrict());
         ContextParameter.setCurrentZone(district);
 
 //
@@ -196,6 +206,37 @@ public class HomeActivity extends BaseActivity {
             Log.d("雨落无痕丶", "onCreate: fff"+show);
         }*/
         L.e("onCreate");
+        pasteToResult();
+    }
+
+    private void pasteToResult() {
+        if (null == mClipboard) {
+            mClipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        }
+
+        String resultString = "";
+        // 检查剪贴板是否有内容
+        if (!mClipboard.hasPrimaryClip()) {
+            Log.d("雨落无痕丶", "pasteToResult: 剪贴板为空!");
+        } else {
+            ClipData clipData = mClipboard.getPrimaryClip();
+            int count = clipData.getItemCount();
+            for (int i = 0; i < count; ++i) {
+                ClipData.Item item = clipData.getItemAt(i);
+                CharSequence str = item.coerceToText(this);
+                resultString += str;
+            }
+            if (resultString != null && resultString.length() > 0 && resultString.startsWith("axp_2017_id:") && resultString.contains("&")) {
+                String[] split = resultString.split(":");
+                String str = split[1];
+                String[] strings = str.split("&");
+                Bundle bundle = new Bundle();
+                bundle.putString("ticketId", strings[0]);
+                bundle.putString("shareId", strings[1]);
+                AppUtils.toActivity(this, AxpDiscountTicketActivity.class, bundle);
+                mClipboard.setText(null);
+            }
+        }
     }
 
     private void init() {
@@ -280,9 +321,19 @@ public class HomeActivity extends BaseActivity {
         RXUtils.request(this, new Request(), "getClientConfig", new SupportSubscriber<Response<ClientConfig>>() {
             @Override
             public void onNext(Response<ClientConfig> clientConfig) {
+                ContextParameter.setTimeExtra(clientConfig.getData().getServiceTime() - System.currentTimeMillis());
                 ContextParameter.setClientConfig(clientConfig.getData());
-
                 checkVersionUpdate();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("雨落无痕丶", "getClientConfig:onError: " + e.toString());
+            }
+
+            @Override
+            public void onResponseError(Response response) {
+                Log.d("雨落无痕丶", "onResponseError: fdsgfrgrf");
             }
         });
 
@@ -293,9 +344,9 @@ public class HomeActivity extends BaseActivity {
      */
     public void checkVersionUpdate() {
 
-        int currentVersion = AppUtils.getVersionCode(this);
-        int newVersion = ContextParameter.getClientConfig().getNewVersion();
-
+        String currentVersion = AppUtils.getVersionName(this);
+        String newVersion = ContextParameter.getClientConfig().getNewVersion();
+        String hasNewVerson = ContextParameter.getClientConfig().getHasNewVerson();
         if (getSupportApplication().alertVersionUpdate) {
             //判断时间间隔
             long currentTime = System.currentTimeMillis();
@@ -308,9 +359,11 @@ public class HomeActivity extends BaseActivity {
         }
 
 
-        if (newVersion > currentVersion) {
+        if (hasNewVerson.equals("1")) {
+            showUpdateDialog();
 
-            boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
+            //旧版更新提示界面
+            /*boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
             SimpleDialog.Builder builder = new SimpleDialog.Builder(isLightTheme ? R.style.SimpleDialogLight : R.style.SimpleDialog) {
                 @Override
                 public void onPositiveActionClicked(DialogFragment fragment) {
@@ -333,12 +386,72 @@ public class HomeActivity extends BaseActivity {
                     .negativeAction("再等等");
 
             DialogFragment fragment = DialogFragment.newInstance(builder);
-            fragment.show(getSupportFragmentManager(), null);
+            fragment.show(getSupportFragmentManager(), null);*/
 
             /*getSupportApplication().alertVersionUpdate = true;
             getSupportApplication().alertVersionUpdateTime = System.currentTimeMillis();*/
 
         }
+    }
+
+    private void showUpdateDialog() {
+        View updateView = LayoutInflater.from(this).inflate(R.layout.update_tip_dialog, null);
+        cancleIv = (ImageView) updateView.findViewById(R.id.cancle_iv);
+        update_content = (TextView) updateView.findViewById(R.id.update_content);
+        version_tv = (TextView) updateView.findViewById(R.id.version_tv);
+        updateBtn = ((Button) updateView.findViewById(R.id.btn_update));
+        version_tv.setText(ContextParameter.getClientConfig().getNewVersion());
+        List<String> newVersonContents = ContextParameter.getClientConfig().getNewVersonContents();
+        StringBuilder builder = new StringBuilder();
+        if (newVersonContents != null && newVersonContents.size() > 0) {
+            for (int i = 0; i < newVersonContents.size(); i++) {
+                if (i != newVersonContents.size() - 1) {
+                    builder.append(newVersonContents.get(i) + "\n");
+                } else {
+                    builder.append(newVersonContents.get(i));
+                }
+            }
+        }
+        update_content.setText(builder.toString());
+//        update_content.setText(ContextParameter.getClientConfig().getNewVersonContents());
+        cancleIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateDialog.dismiss();
+            }
+        });
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSupportApplication().alertVersionUpdate = true;
+                getSupportApplication().alertVersionUpdateTime = System.currentTimeMillis();
+                Uri uri = Uri.parse(ContextParameter.getClientConfig().getNewVersionDownload());
+                Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(it);
+                updateDialog.dismiss();
+            }
+        });
+        updateDialog = new AlertDialog.Builder(this, R.style.CustomDialog).setView(updateView).create();
+        changeScreenBg();
+        updateDialog.show();
+        updateDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                restoreScreenBg();
+            }
+        });
+    }
+
+    private void changeScreenBg() {
+        WindowManager.LayoutParams params = this.getWindow().getAttributes();
+        params.alpha = (float) 0.5;
+        this.getWindow().setAttributes(params);
+    }
+
+    private void restoreScreenBg() {
+        WindowManager.LayoutParams params = this.getWindow().getAttributes();
+        params.alpha = (float) 1;
+        this.getWindow().setAttributes(params);
     }
 
     /**
@@ -472,6 +585,7 @@ public class HomeActivity extends BaseActivity {
                         .loadDistrictByZoneName(ContextParameter.getCurrentLocation().getCity(), ContextParameter.getCurrentLocation().getDistrict());
                 ContextParameter.setCurrentZone(district);
 
+                ContextParameter.setHotCityList(zoneListResponse.getData().getHotDataList());
             }
         });
     }

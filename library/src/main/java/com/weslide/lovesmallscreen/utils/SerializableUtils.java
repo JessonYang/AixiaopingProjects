@@ -1,6 +1,7 @@
 package com.weslide.lovesmallscreen.utils;
 
 import android.content.Context;
+import android.os.Environment;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,7 +28,8 @@ public class SerializableUtils {
      * @param name
      */
     public static void serializableToCacheFile(Context context, Serializable object, String name){
-        File cacheDir = context.getCacheDir();//文件所在目录为getFilesDir();
+//        File cacheDir = context.getCacheDir();//文件所在目录为getFilesDir();
+        File cacheDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);//文件所在目录为getFilesDir();
         try{
             FileOutputStream fs = new FileOutputStream(cacheDir+"/"+name);
             ObjectOutputStream os =  new ObjectOutputStream(fs);
@@ -57,7 +59,8 @@ public class SerializableUtils {
      */
     public static Object getObjectByCacheFile(Context context, String name){
         try{
-            File cacheDir = context.getCacheDir();//文件所在目录为getFilesDir();
+//            File cacheDir = context.getCacheDir();//文件所在目录为getFilesDir();
+            File cacheDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);//文件所在目录为getFilesDir();
             File objectFile = new File(cacheDir.getPath() + "/" + name);
             if(!objectFile.exists()){
                 return null;

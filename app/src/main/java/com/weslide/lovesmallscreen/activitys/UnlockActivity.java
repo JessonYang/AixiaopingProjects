@@ -1,8 +1,8 @@
 package com.weslide.lovesmallscreen.activitys;
 
+import android.content.ClipboardManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -19,12 +19,14 @@ import net.aixiaoping.unlock.views.UnlockView;
  * 锁屏使用的Activity
  */
 public class UnlockActivity extends BaseActivity {
-
+    private ClipboardManager mClipboard = null;
     FrameLayout container;
 
     public static final String KEY_IS_APP = "KEY_IS_APP";
 
-    /** 是否是app启动的 */
+    /**
+     * 是否是app启动的
+     */
     boolean isApp = true;
 
     @Override
@@ -66,9 +68,9 @@ public class UnlockActivity extends BaseActivity {
         });*/
     }
 
-    private void loadBundle(){
+    private void loadBundle() {
         Bundle bundle = getIntent().getExtras();
-        if(bundle != null){
+        if (bundle != null) {
             isApp = bundle.getBoolean(KEY_IS_APP, true);
         }
     }
@@ -120,19 +122,17 @@ public class UnlockActivity extends BaseActivity {
             @Override
             public void option(String option, AdvertImg advertImg) {
                 if (UnlockView.OPTION_UNLOCK.equals(option)) {
-                    if(isApp)
+                    if (isApp) {
                         AppUtils.toActivity(UnlockActivity.this, HomeActivity.class);
-
-                    Log.d("雨落无痕丶", "option-yyyyyy: 解锁");
-
+                    }
                     finish();
                 } else if (UnlockView.OPTION_MALL.equals(option)) {
                     AppUtils.toActivity(UnlockActivity.this, HomeActivity.class);
                     finish();
                 } else if (UnlockView.OPTION_WEBSITE.equals(option)) {
-                    if(isApp)
+                    if (isApp)
                         AppUtils.toActivity(UnlockActivity.this, HomeActivity.class);
-                    if(advertImg == null || StringUtils.isBlank(advertImg.getUri()))
+                    if (advertImg == null || StringUtils.isBlank(advertImg.getUri()))
                         return;
                     AppUtils.toBrowser(UnlockActivity.this, advertImg.getUri());
                     finish();
@@ -140,4 +140,5 @@ public class UnlockActivity extends BaseActivity {
             }
         });
     }
+
 }

@@ -24,8 +24,6 @@ import com.weslide.lovesmallscreen.utils.QRCodeUtil;
 import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.utils.ShareUtils;
 
-import java.net.URI;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -64,7 +62,12 @@ public class RegisterSuccessfulActivity extends BaseActivity {
         String inviteCode = bundle.getString("inviteCode");
         tvInviteCode.setText(inviteCode);
         URL = ContextParameter.getClientConfig().getDownload() + "?invitecode=" +inviteCode;
-        Bitmap bitmap = QRCodeUtil.createQRImage(ContextParameter.getClientConfig().getDownload() + "?invitecode=" +inviteCode,200,200);
+        String targetUrl = ContextParameter.getClientConfig().getPersonalCenterShareContent().getTargetUrl();
+        if (targetUrl == null) {
+            targetUrl = "http://seller.aixiaoping.com/Share/Index/index";
+        }
+//        Bitmap bitmap = QRCodeUtil.createQRImage(ContextParameter.getClientConfig().getDownload() + "?invitecode=" +inviteCode,200,200);
+        Bitmap bitmap = QRCodeUtil.createQRImage(targetUrl + "?img="+ContextParameter.getUserInfo().getHeadimage() + "&name="+ContextParameter.getUserInfo().getUsername() +"&phone="+ContextParameter.getUserInfo().getPhone()+"&code="+ContextParameter.getUserInfo().getInviteCode()+"&appVersion="+AppUtils.getVersionCode(this),200,200);
         imgTwo.setImageBitmap(bitmap);
     }
 
@@ -72,10 +75,30 @@ public class RegisterSuccessfulActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_invite_friends:
-                ShareContent home = ContextParameter.getClientConfig().getHomeShareContent();
+//                ShareContent home = ContextParameter.getClientConfig().getHomeShareContent();
+                ShareContent home = ContextParameter.getClientConfig().getPersonalCenterShareContent();
+                String url = home.getTargetUrl();
+                String img = ContextParameter.getUserInfo().getHeadimage();
+                String name = ContextParameter.getUserInfo().getUsername();
+                String phone = ContextParameter.getUserInfo().getPhone();
+                String code = ContextParameter.getUserInfo().getInviteCode();
+                String appVersion = String.valueOf(AppUtils.getVersionCode(this));
+                if (name == null){
+                    name = "";
+                }
+                if (img == null){
+                    img = "";
+                }
+                if (phone == null){
+                    phone = "";
+                }
+                if (code == null){
+                    code = "";
+                }
+                String targetUrl =url+ "?img="+img + "&name="+name+"&phone="+phone+"&code="+code+"&appVersion="+appVersion;
                 ShareUtils.share(this, home.getTitle(),
                         home.getIconUrl(),
-                        URL,
+                        targetUrl,
                         home.getContent());
                 break;
             case R.id.tv_obtain://怎么获得积分
@@ -117,7 +140,7 @@ public class RegisterSuccessfulActivity extends BaseActivity {
     public void checkVersionUpdate() {
 
         int currentVersion = AppUtils.getVersionCode(this);
-        int newVersion = ContextParameter.getClientConfig().getNewVersion();
+        String newVersion = ContextParameter.getClientConfig().getNewVersion();
 
         if (getSupportApplication().alertVersionUpdate) {
             //判断时间间隔

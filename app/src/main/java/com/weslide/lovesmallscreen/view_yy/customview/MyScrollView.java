@@ -2,6 +2,7 @@ package com.weslide.lovesmallscreen.view_yy.customview;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.ScrollView;
 
 /**
@@ -9,6 +10,7 @@ import android.widget.ScrollView;
  */
 public class MyScrollView extends ScrollView {
     private OnScrollListener onScrollListener;
+    private OnTouchDownListener onTouchDownListener;
 
     public MyScrollView(Context context) {
         this(context, null);
@@ -45,6 +47,9 @@ public class MyScrollView extends ScrollView {
         }
     }
 
+    public void setOnTouchDownListener(OnTouchDownListener onTouchDownListener) {
+        this.onTouchDownListener = onTouchDownListener;
+    }
 
 
     /**
@@ -63,4 +68,21 @@ public class MyScrollView extends ScrollView {
         public void onScroll(ScrollView scrollView,int scrollY);
     }
 
+    public interface OnTouchDownListener {
+        public void onTouchDown();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_UP:
+                if (onTouchDownListener != null) {
+                    if (getChildAt(0).getMeasuredHeight() <= (getScrollY() + getHeight())) {
+                        onTouchDownListener.onTouchDown();
+                    }
+                }
+                break;
+        }
+        return super.onTouchEvent(ev);
+    }
 }

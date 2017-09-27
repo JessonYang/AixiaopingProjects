@@ -9,14 +9,13 @@ import com.google.gson.GsonBuilder;
 import com.weslide.lovesmallscreen.ArchitectureAppliation;
 import com.weslide.lovesmallscreen.Constants;
 import com.weslide.lovesmallscreen.utils.L;
-import com.weslide.lovesmallscreen.utils.SPUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
-import java.util.prefs.Preferences;
 
-import okhttp3.*;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -30,25 +29,32 @@ public class HTTP {
 
     /** 开发服务器 */
 
-    /** OKHTTP日志级别 */
+    /**
+     * OKHTTP日志级别
+     */
     public static final HttpLoggingInterceptor.Level LOGGING_LEVEL;
-    /** 正式服务器 */
+    /**
+     * 正式服务器
+     */
     public static final String API_SERVER;
 //    public static final String API_SERVER = "http://192.168.1.124:8080/aixiaopingAPI/invoke/";
 //    public static final String API_SERVER = "http://15x30g3106.iok.la:32443/aixiaopingAPI/invoke/";
+
     /** 小黄服务器 */
 //    public static final String API_SERVER = "http://192.168.1.108:8089/invoke/";
 //   public static final String API_SERVER = "http://192.168.1.109:8082/invoke/";
 
-    static{
+    static {
 
-        if(Constants.RELEASE_SERVICE){
+        if (Constants.RELEASE_SERVICE) {
             API_SERVER = "http://www.aixiaoping.com:8080/aixiaopingAPI/invoke/";
         } else {
-            API_SERVER = "http://27.54.226.210:8080/aixiaopingAPI/invoke/";
+//            API_SERVER = "http://27.54.226.210:8080/aixiaopingAPI/invoke/";
+//            API_SERVER = "http://192.168.200.201:8080/aixiaopingAPI/invoke/";
+            API_SERVER = "http://test.aixiaoping.cn:8888/aixiaopingAPI/invoke/";
         }
 
-        if(Constants.RELEASE){
+        if (Constants.RELEASE) {
             LOGGING_LEVEL = HttpLoggingInterceptor.Level.NONE;
         } else {
             LOGGING_LEVEL = HttpLoggingInterceptor.Level.BODY;
@@ -67,7 +73,7 @@ public class HTTP {
 
     public static OkHttpClient getOkHttpClient() {
 
-        if(mOkHttpClient == null){
+        if (mOkHttpClient == null) {
             getRetrofit();
         }
 
@@ -139,7 +145,6 @@ public class HTTP {
     }
 
 
-
     /**
      * 商品图文详情页面链接
      */
@@ -177,17 +182,25 @@ public class HTTP {
      */
     public static final String URL_SEND_BIRTHDAY_GIFT = API_SERVER + "users/sendBirthdayGift?data=";
 
-    /** 打开红包(users/openRedPaper) */
-    public static final String URL_OPEN_RED_PAPER = API_SERVER +  "users/openRedPaper?data=";
+    /**
+     * 打开红包(users/openRedPaper)
+     */
+    public static final String URL_OPEN_RED_PAPER = API_SERVER + "users/openRedPaper?data=";
 
-    /** 红包列表(users/redPaperList) */
-    public static final String URL_RED_PAPER_LIST = API_SERVER +  "users/redPaperList?data=";
+    /**
+     * 红包列表(users/redPaperList)
+     */
+    public static final String URL_RED_PAPER_LIST = API_SERVER + "users/redPaperList?data=";
 
-    /** 打开现金列表（users/moneyLink）*/
-    public static final String URL_MONEY_LINK_LIST = API_SERVER +  "users/moneyLink?data=";
+    /**
+     * 打开现金列表（users/moneyLink）
+     */
+    public static final String URL_MONEY_LINK_LIST = API_SERVER + "users/moneyLink?data=";
 //    public static final String
 
-    /** 换货会*/
+    /**
+     * 换货会
+     */
     public static final String URL_EXCHENGE_GOODS = "http://hhh.aixiaoping.cn/?";
     /**
      * 下载爱小屏链接

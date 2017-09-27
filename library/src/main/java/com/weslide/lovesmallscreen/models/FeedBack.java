@@ -11,6 +11,17 @@ import java.util.List;
 public class FeedBack extends BaseModel{
     @SerializedName("content")
     private String content;
+
+    public String getConnectPhone() {
+        return connectPhone;
+    }
+
+    public void setConnectPhone(String connectPhone) {
+        this.connectPhone = connectPhone;
+    }
+
+    @SerializedName("connectPhone")
+    private String connectPhone;
     @SerializedName("Images")
     private List<String> Images;
 

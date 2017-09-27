@@ -10,6 +10,9 @@ public class TicketListObModel extends BaseModel {
     @SerializedName("ticketId")
     String ticketId;
 
+    @SerializedName("goodsId")
+    String goodsId;
+
     @SerializedName("consumeTack")
     String consumeTack;
 
@@ -28,6 +31,14 @@ public class TicketListObModel extends BaseModel {
 
     public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public String getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
     }
 
     public String getTicketId() {

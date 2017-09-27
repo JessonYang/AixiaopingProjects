@@ -17,11 +17,24 @@ import com.weslide.lovesmallscreen.utils.DeviceUtils;
 import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.StringUtils;
 
+import java.util.List;
+
 /**
  * Created by xu on 2016/5/25.
  * App保存在内存中的主要参数
  */
 public class ContextParameter {
+
+    private static long timeExtra;
+
+    public static long getTimeExtra() {
+        return timeExtra;
+    }
+
+    public static void setTimeExtra(long timeExtra) {
+        ContextParameter.timeExtra = timeExtra;
+    }
+
     /**
      * 当前登录的用户信息
      */
@@ -35,6 +48,20 @@ public class ContextParameter {
      * 当前定位的城市标示
      */
     private static Zone currentZone;
+
+    public static List<Zone> getHotCityList() {
+        return hotCityList;
+    }
+
+    public static void setHotCityList(List<Zone> hotCityList) {
+        ContextParameter.hotCityList = hotCityList;
+    }
+
+    /**
+     * 热门城市
+
+     */
+    private static List<Zone> hotCityList;
 
     /**
      * 客户端运行配置

@@ -51,6 +51,8 @@ public class BackOrderDetailFragment extends BaseFragment {
     LinearLayout layoutGoodsList;
     @BindView(R.id.tv_apply_price)
     TextView tvApplyPrice;
+    @BindView(R.id.order_num_tv)
+    TextView order_num_tv;
     @BindView(R.id.tv_apply_content)
     TextView tvApplyContent;
     @BindView(R.id.tv_apply_date)
@@ -112,6 +114,7 @@ public class BackOrderDetailFragment extends BaseFragment {
         tvApplyContent.setText(backOrder.getBackOrderInfo().getContent());
         tvApplyDate.setText(backOrder.getBackOrderInfo().getDate());
         tvApplyPrice.setText(backOrder.getBackOrderInfo().getValue());
+        order_num_tv.setText(backOrder.getOrderNumber());
 
         GoodsItemView goodsItemView = new GoodsItemView(getActivity());
         goodsItemView.bindView(backOrder.getBackOrderItem());
@@ -174,11 +177,14 @@ public class BackOrderDetailFragment extends BaseFragment {
                     case Constants.PAY_ALIPAY:
                         sb.append("退回到您的支付宝里");
                         break;
-                    case Constants.PAY_WALLET:
+                    case Constants.PAY_WEIXIN:
                         sb.append("退回到您的微信钱包里");
                         break;
-                    case Constants.PAY_WEIXIN:
+                    case Constants.PAY_WALLET:
                         sb.append("退回到您的钱包里");
+                        break;
+                    case Constants.PAY_BANK:
+                        sb.append("退回到您的银行卡里");
                         break;
                 }
                 tvDrawbackWay.setText(sb.toString());

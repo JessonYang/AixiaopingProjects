@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.github.paolorotolo.appintro.AppIntro2;
-import com.github.paolorotolo.appintro.AppIntroFragment;
-
+import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.fragments.GlideFragment;
+import com.weslide.lovesmallscreen.models.UserInfo;
 import com.weslide.lovesmallscreen.utils.AppUtils;
-import com.weslide.lovesmallscreen.utils.L;
+import com.weslide.lovesmallscreen.utils.SerializableUtils;
 
 
 /**
@@ -23,10 +23,10 @@ public class GuideActivity extends AppIntro2 {
     public void init(@Nullable Bundle savedInstanceState) {
 
 
-        addSlide(GlideFragment.newInstance(R.mipmap.guide1));
-        addSlide(GlideFragment.newInstance(R.mipmap.guide2));
-        addSlide(GlideFragment.newInstance(R.mipmap.guide3));
-        addSlide(GlideFragment.newInstance(R.mipmap.guide4, true));
+        addSlide(GlideFragment.newInstance(R.mipmap.loading1));
+        addSlide(GlideFragment.newInstance(R.mipmap.loading2));
+        addSlide(GlideFragment.newInstance(R.mipmap.loading3));
+        addSlide(GlideFragment.newInstance(R.mipmap.loading4, true));
 //        setZoomAnimation();
 //        setSlideOverAnimation();
 
@@ -41,9 +41,15 @@ public class GuideActivity extends AppIntro2 {
 
     @Override
     public void onDonePressed() {
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("isShow",true);
-        AppUtils.toActivity(this, LoginOptionActivity.class,bundle);
+        UserInfo axp_userinfo = (UserInfo) SerializableUtils.getObjectByCacheFile(this, "AXP_USERINFO");
+        if (axp_userinfo != null && axp_userinfo.getUserId() != null) {
+            ContextParameter.setUserInfo(axp_userinfo);
+            AppUtils.toActivity(this,UnlockActivity.class);
+        }else {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("isShow",true);
+            AppUtils.toActivity(this, LoginOptionActivity.class,bundle);
+        }
         finish();
     }
 

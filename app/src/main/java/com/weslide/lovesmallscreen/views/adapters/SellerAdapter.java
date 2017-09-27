@@ -10,16 +10,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.malinskiy.superrecyclerview.SuperRecyclerViewAdapter;
+import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.core.RecyclerViewModel;
 import com.weslide.lovesmallscreen.models.Goods;
 import com.weslide.lovesmallscreen.models.ImageText;
 import com.weslide.lovesmallscreen.models.Seller;
 import com.weslide.lovesmallscreen.network.DataList;
-import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.AppUtils;
-import com.weslide.lovesmallscreen.utils.L;
-import com.weslide.lovesmallscreen.utils.T;
 import com.weslide.lovesmallscreen.views.adapters.viewholder.BannerViewHolder;
 import com.weslide.lovesmallscreen.views.seller.SellerBaseInfoView;
 import com.weslide.lovesmallscreen.views.seller.SellerScoreGoodsViwe;
@@ -57,6 +55,7 @@ public class SellerAdapter extends SuperRecyclerViewAdapter<RecyclerViewModel, R
      * 商家商品列表
      */
     public static final int TYPE_SELLER_GOODS = 4;
+    private String mDistance;
 
 
     public SellerAdapter(Context context, DataList<RecyclerViewModel> list) {
@@ -77,8 +76,7 @@ public class SellerAdapter extends SuperRecyclerViewAdapter<RecyclerViewModel, R
 
         switch (viewType) {
             case TYPE_SELLER_IMAGES:
-                viewHolder = new BannerViewHolder(LayoutInflater.from(mContext)
-                        .inflate(R.layout.seller_view_images, parent, false));
+                viewHolder = new BannerViewHolder(LayoutInflater.from(mContext).inflate(R.layout.seller_view_images, parent, false));
                 break;
             case TYPE_SELLER_INFO:
                 viewHolder = new SellerBaseInfoViewHodler(new SellerBaseInfoView(mContext));
@@ -87,12 +85,10 @@ public class SellerAdapter extends SuperRecyclerViewAdapter<RecyclerViewModel, R
                 viewHolder = new SellerScoreGoodsViewHodler(new SellerScoreGoodsViwe(mContext));
                 break;
             case TYPE_SELLER_BANNER:
-                viewHolder = new BannerViewHolder(LayoutInflater.from(mContext)
-                        .inflate(R.layout.seller_view_banner, parent, false));
+                viewHolder = new BannerViewHolder(LayoutInflater.from(mContext).inflate(R.layout.seller_view_banner, parent, false));
                 break;
             case TYPE_SELLER_GOODS:
-                viewHolder = new SellerGoodsViewHodler(LayoutInflater.from(mContext)
-                        .inflate(R.layout.view_goods_grid, parent, false));
+                viewHolder = new SellerGoodsViewHodler(LayoutInflater.from(mContext).inflate(R.layout.view_goods_grid, parent, false));
                 break;
         }
 
@@ -107,6 +103,7 @@ public class SellerAdapter extends SuperRecyclerViewAdapter<RecyclerViewModel, R
                 break;
             case TYPE_SELLER_INFO:
                 ((SellerBaseInfoView) ((SellerBaseInfoViewHodler) holder).itemView).show((Seller) mList.get(position).getData());
+                mDistance = ContextParameter.getDistanceForCurrentLocationAddUnit((Seller) mList.get(position).getData());
                 break;
             case TYPE_SELLER_SCORE_GOODS:
                 ((SellerScoreGoodsViwe) holder.itemView).bindView((List<Goods>) mList.get(position).getData());
@@ -128,7 +125,10 @@ public class SellerAdapter extends SuperRecyclerViewAdapter<RecyclerViewModel, R
                 sellerGoodsViewHodler.tvGoodsCostPrice.setText("￥" + goods.getCostPrice());
                 sellerGoodsViewHodler.tvGoodsName.setText(goods.getName());
                 sellerGoodsViewHodler.tvGoodsPrice.setText("￥" + goods.getPrice());
-                sellerGoodsViewHodler.tvSalesVolume.setText("已售" + goods.getSalesVolume() + "份");
+                if (mDistance != null) {
+                    sellerGoodsViewHodler.tvSalesVolume.setText("距离" + mDistance);
+                }
+//                sellerGoodsViewHodler.tvSalesVolume.setText("已售" + goods.getSalesVolume() + "份");
                 sellerGoodsViewHodler.expressTactics.setText(goods.getExpressTactics());
 
                 break;

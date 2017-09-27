@@ -38,7 +38,7 @@ public class LetterIndexView extends View {
         paint = new Paint();
         paint.setAntiAlias(true);
 //        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(24);
+        paint.setTextSize(36);
     }
 
     @Override
@@ -65,10 +65,10 @@ public class LetterIndexView extends View {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
                 setBackgroundColor(Color.parseColor("#11000000"));
-//                if (showLetterTv != null) {
+                if (showLetterTv != null) {
                 if (currentPosition > -1 && currentPosition < letters.length) {
-//                        showLetterTv.setVisibility(View.VISIBLE);
-//                        showLetterTv.setText(letters[currentPosition]);
+                        showLetterTv.setVisibility(View.VISIBLE);
+                        showLetterTv.setText(letters[currentPosition]);
                     if (updateListView != null) {
                         String firstLetter = letters[currentPosition];
                         if (!firstLetter.equals("I") && !firstLetter.equals("O") && !firstLetter.equals("U") && !firstLetter.equals("V")) {
@@ -76,14 +76,14 @@ public class LetterIndexView extends View {
                         }
                     }
                 }
-//        }
+        }
                 break;
             //处理手指抬起时的操作
             case MotionEvent.ACTION_UP:
                 setBackgroundColor(Color.TRANSPARENT);
-//                if (showLetterTv != null) {
-//                    showLetterTv.setVisibility(View.GONE);
-//                }
+                if (showLetterTv != null) {
+                    showLetterTv.setVisibility(View.GONE);
+                }
                 break;
         }
         invalidate();

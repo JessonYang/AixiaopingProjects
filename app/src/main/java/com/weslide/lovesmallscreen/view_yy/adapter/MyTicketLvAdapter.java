@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.model_yy.javabean.TicketListObModel;
+import com.weslide.lovesmallscreen.utils.AppUtils;
 
 import java.util.List;
 
@@ -46,16 +47,18 @@ public class MyTicketLvAdapter extends RecyclerView.Adapter {
         myHolder.consume_date.setText(model.getExpiryDate());
         if (model.getConsumeTack().equals("0")) {
             myHolder.consume_type.setBackgroundResource(R.drawable.ddxfbj);
+            myHolder.consume_address_tag.setVisibility(View.VISIBLE);
             myHolder.consume_address.setVisibility(View.VISIBLE);
             myHolder.consume_address.setText(model.getConsumeAddress());
         } else if (model.getConsumeTack().equals("1")) {
             myHolder.consume_type.setBackgroundResource(R.drawable.bydjbj);
+            myHolder.consume_address_tag.setVisibility(View.GONE);
             myHolder.consume_address.setVisibility(View.GONE);
         }
         if (ticketType.equals("0")) {
             myHolder.ticket_yiguoqi.setVisibility(View.GONE);
             myHolder.consume_type.setAlpha(1);
-            myHolder.ticket_consume_way.setVisibility(View.VISIBLE);
+            myHolder.ticket_consume_way.setVisibility(View.GONE);
             if (model.getConsumeTack().equals("0")){
                 myHolder.ticket_consume_way.setText("到店消费");
                 myHolder.ticket_consume_way.setTextColor(Color.parseColor("#eb6572"));
@@ -70,7 +73,7 @@ public class MyTicketLvAdapter extends RecyclerView.Adapter {
         } else if (ticketType.equals("1")) {
             myHolder.ticket_yiguoqi.setVisibility(View.GONE);
             myHolder.consume_type.setAlpha(0.4f);
-            myHolder.ticket_consume_way.setVisibility(View.VISIBLE);
+            myHolder.ticket_consume_way.setVisibility(View.GONE);
             if (model.getConsumeTack().equals("0")){
                 myHolder.ticket_consume_way.setText("已使用");
                 myHolder.ticket_consume_way.setTextColor(Color.parseColor("#eb6572"));
@@ -96,7 +99,7 @@ public class MyTicketLvAdapter extends RecyclerView.Adapter {
 
     class MyHolder extends RecyclerView.ViewHolder {
         private RelativeLayout consume_type;
-        private TextView ticket_price_tv, ticket_desc_tv, consume_address, consume_date, ticket_consume_way;
+        private TextView ticket_price_tv, ticket_desc_tv, consume_address,consume_address_tag, consume_date, ticket_consume_way;
         private ImageView ticket_yiguoqi;
 
         public MyHolder(View itemView) {
@@ -105,13 +108,14 @@ public class MyTicketLvAdapter extends RecyclerView.Adapter {
             ticket_price_tv = (TextView) itemView.findViewById(R.id.ticket_price_tv);
             ticket_desc_tv = (TextView) itemView.findViewById(R.id.ticket_desc_tv);
             consume_address = (TextView) itemView.findViewById(R.id.consume_address);
+            consume_address_tag = (TextView) itemView.findViewById(R.id.consume_address_tag);
             consume_date = (TextView) itemView.findViewById(R.id.consume_date);
             ticket_consume_way = (TextView) itemView.findViewById(R.id.ticket_consume_way);
             ticket_yiguoqi = (ImageView) itemView.findViewById(R.id.ticket_yiguoqi);
             consume_type.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    AppUtils.toGoods(context,list.get(getLayoutPosition()).getGoodsId());
                 }
             });
         }

@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_detail_name"
@@ -11,8 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="@color/font_color"
-        android:textSize="@dimen/h7"
-        />
+        android:textSize="@dimen/h7" />
 
     <TextView
         android:id="@+id/tv_detail_option"
@@ -21,7 +20,6 @@
         android:layout_alignParentRight="true"
         android:padding="10dp"
         android:textColor="@color/font_color"
-        android:textSize="@dimen/h7"
-        />
+        android:textSize="@dimen/h7" />
 
 </RelativeLayout>

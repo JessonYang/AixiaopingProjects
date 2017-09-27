@@ -60,6 +60,7 @@ public class OriginalAgenceVpAdapter extends BaseAdapter {
             holder.quan_left_num = (TextView) view.findViewById(R.id.quan_left_num);
             holder.quan_price = (TextView) view.findViewById(R.id.quan_price);
             holder.ticket_good_iv = (ImageView) view.findViewById(R.id.ticket_good_iv);
+            holder.consume_tack_iv = (ImageView) view.findViewById(R.id.consume_tack_iv);
             holder.ticket_good_progress = (ProgressBar) view.findViewById(R.id.ticket_good_progress);
             holder.earn_ll = (LinearLayout) view.findViewById(R.id.earn_ll);
             view.setTag(holder);
@@ -69,24 +70,30 @@ public class OriginalAgenceVpAdapter extends BaseAdapter {
         holder.ticket_good_desc.setText(model.getGoodsName());
         holder.original_price.setText(model.getGoodsPrice());
         holder.month_sale_num.setText(model.getGoodsSoldPerMonty());
-        holder.earn_money_tv.setText(model.getProfitMoney());
+        holder.earn_money_tv.setText("赚￥"+model.getProfitMoney());
         holder.final_price.setText(model.getGoodsPriceAfterTicket());
-        holder.quan_left_num.setText(model.getTicketVacancy());
-        holder.quan_price.setText(model.getTicketPrice());
+        holder.quan_left_num.setText("余" + model.getTicketVacancy() + "张");
+        holder.quan_price.setText(model.getTicketPrice() + "元");
         holder.ticket_good_progress.setMax(100);
         holder.ticket_good_progress.setProgress((int) (Double.parseDouble(model.getTicketSentPercent()) * 100));
-        holder.earn_ll.setOnClickListener(new View.OnClickListener() {
+        String consumeTack = model.getConsumeTack();
+        if (consumeTack.equals("1")) {
+            holder.consume_tack_iv.setImageResource(R.drawable.quanguobaoyou);
+        } else if (consumeTack.equals("0")) {
+            holder.consume_tack_iv.setImageResource(R.drawable.daodianxiaofei);
+        }
+        /*holder.earn_ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
-        });
+        });*/
         return view;
     }
 
     class MyViewHolder {
         TextView ticket_good_desc, original_price, month_sale_num, earn_money_tv, final_price, quan_left_num, quan_price;
-        ImageView ticket_good_iv;
+        ImageView ticket_good_iv,consume_tack_iv;
         ProgressBar ticket_good_progress;
         LinearLayout earn_ll;
     }

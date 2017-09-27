@@ -105,6 +105,7 @@ public class MainSelectCityDialog extends BaseSelectCityDialog implements OnClic
         mViewProvince.setVisibleItems(7);
         mViewCity.setVisibleItems(7);
         mViewDistrict.setVisibleItems(7);
+        mViewProvince.setCurrentItem(0);
         if(mProvinceDatas.length>7){
             mViewProvince.setCurrentItem(3);
         }else{
@@ -209,6 +210,28 @@ public class MainSelectCityDialog extends BaseSelectCityDialog implements OnClic
         }
         if (this.selected!=null) {
             this.selected.selectedCity(mCurrentProviceName,mCurrentCityName,mCurrentDistrictName,mCurrentZipCode);
+        }
+    }
+
+    public void locateArea(String province,String city,String area){
+        if (mProvinceDatas != null){
+            for (int i = 0; i < mProvinceDatas.length; i++) {
+                if (province.equals(mProvinceDatas[i])) {
+                    mViewProvince.setCurrentItem(i);
+                    String[] cities = mCitisDatasMap.get(mProvinceDatas[i]);
+                    for (int j = 0; j < cities.length; j++) {
+                        if (city.equals(cities[j])) {
+                            mViewCity.setCurrentItem(j);
+                            String[] areas = mDistrictDatasMap.get(cities[j]);
+                            for (int m = 0; m < areas.length; m++) {
+                                if (area.equals(areas[m])) {
+                                    mViewDistrict.setCurrentItem(m);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

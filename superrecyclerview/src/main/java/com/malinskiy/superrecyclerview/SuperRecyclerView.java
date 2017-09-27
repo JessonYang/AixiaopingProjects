@@ -395,8 +395,7 @@ public class SuperRecyclerView extends FrameLayout {
 
                             mDifferentSituationContainer.setVisibility(View.VISIBLE);
                             mDifferentSituationContainer.removeAllViews();
-                            EmptyViewHolder emptyViewHolder = (EmptyViewHolder) differentSituationAdapter.getEmpty(getContext(),
-                                    mDifferentSituationContainer, null,supeRecyclerView_parent_type);
+                            EmptyViewHolder emptyViewHolder = (EmptyViewHolder) differentSituationAdapter.getEmpty(getContext(),mDifferentSituationContainer, null,supeRecyclerView_parent_type);
 
                             if(getDifferentSituationOptionListener() != null)
                                 emptyViewHolder.setOnClickListener(getDifferentSituationOptionListener());

@@ -97,6 +97,28 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="订单编号:"
+                        android:textColor="@color/font_color"
+                        android:textSize="@dimen/h7" />
+
+                    <TextView
+                        android:id="@+id/order_num_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="@color/font_content_color"
+                        android:textSize="@dimen/h7" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="退款金额:"
                         android:textColor="@color/font_color"
                         android:textSize="@dimen/h7" />

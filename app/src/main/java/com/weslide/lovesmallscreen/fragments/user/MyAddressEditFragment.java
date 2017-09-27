@@ -1,5 +1,6 @@
 package com.weslide.lovesmallscreen.fragments.user;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,8 @@ import com.weslide.lovesmallscreen.utils.NetworkUtils;
 import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.utils.StringUtils;
 import com.weslide.lovesmallscreen.utils.T;
+import com.weslide.lovesmallscreen.view_yy.activity.PermissionsActivity;
+import com.weslide.lovesmallscreen.view_yy.util.PermissionsChecker;
 import com.weslide.lovesmallscreen.views.choisCityView.MainSelectCityDialog;
 import com.weslide.lovesmallscreen.views.choisCityView.SelectedCity;
 
@@ -57,8 +60,8 @@ public class MyAddressEditFragment extends BaseFragment implements SelectedCity 
     Toolbar toolBar;
     @BindView(R.id.iv_choise_city)
     ImageView ivChoiseCity;
-    @BindView(R.id.iv_location_city)
-    ImageView ivLocationCity;
+//    @BindView(R.id.iv_location_city)
+//    ImageView ivLocationCity;
     @BindView(R.id.view_line)
     View viewLine;
     @BindView(R.id.ll_name)
@@ -76,6 +79,8 @@ public class MyAddressEditFragment extends BaseFragment implements SelectedCity 
     private String district = "";
     Address mAddress;
     Bundle bundle;
+    private PermissionsChecker mPermissionsChecker;
+    private final String[] PERMISSIONS = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
 
     @Nullable
     @Override
@@ -212,18 +217,28 @@ public class MyAddressEditFragment extends BaseFragment implements SelectedCity 
         });
     }
 
-    @OnClick({R.id.iv_choise_city, R.id.iv_location_city, R.id.btn_sure})
+    @OnClick({R.id.iv_choise_city, /*R.id.iv_location_city,*/ R.id.btn_sure,R.id.edt_address})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_choise_city:
-                openDialogSelectCity();
+                mPermissionsChecker = new PermissionsChecker(getActivity());
+                boolean lacksPermissions = mPermissionsChecker.lacksPermissions(PERMISSIONS);
+                if (!lacksPermissions) {
+                    mProvince = ContextParameter.getCurrentLocation().getProvince();
+                    mCity = ContextParameter.getCurrentLocation().getCity();
+                    mDistrict = ContextParameter.getCurrentLocation().getDistrict();
+                    openDialogSelectCity();
+                }else {
+                    PermissionsActivity.startActivityForResult(getActivity(), 0, PERMISSIONS);
+                }
+
                 break;
-            case R.id.iv_location_city:
+            /*case R.id.iv_location_city:
                 mProvince = ContextParameter.getCurrentLocation().getProvince();
                 mCity = ContextParameter.getCurrentLocation().getCity();
                 mDistrict = ContextParameter.getCurrentLocation().getDistrict();
                 edtAddress.setText(mProvince + mCity + mDistrict);
-                break;
+                break;*/
             case R.id.btn_sure:
                 if (bundle.getInt("type") == 3) {
                     addUseInfoAddress();
@@ -235,6 +250,13 @@ public class MyAddressEditFragment extends BaseFragment implements SelectedCity 
                     }
                 }
                 break;
+            case R.id.edt_address:
+                mProvince = ContextParameter.getCurrentLocation().getProvince();
+                mCity = ContextParameter.getCurrentLocation().getCity();
+                mDistrict = ContextParameter.getCurrentLocation().getDistrict();
+                edtAddress.setText(mProvince + mCity + mDistrict);
+                openDialogSelectCity();
+                break;
         }
     }
 
@@ -244,8 +266,8 @@ public class MyAddressEditFragment extends BaseFragment implements SelectedCity 
             cityDialog.cancel();
             cityDialog = null;
         }
-        cityDialog = new MainSelectCityDialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar, this,
-                new String[]{this.province, this.city});
+        cityDialog = new MainSelectCityDialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar, this, new String[]{this.province, this.city});
+        cityDialog.locateArea(mProvince,mCity,mDistrict);
         cityDialog.show();
     }
 

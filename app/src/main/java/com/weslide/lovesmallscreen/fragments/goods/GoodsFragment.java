@@ -126,7 +126,6 @@ public class GoodsFragment extends BaseFragment {
         if (!secondKillStart) {
             tvBuy.setText("敬请期待");
         }
-
         return mView;
     }
 
@@ -315,6 +314,11 @@ public class GoodsFragment extends BaseFragment {
 
             @Override
             public void onNext(Object o) {
+                HashMap<String,String> map = new HashMap<String, String>();
+                map.put("goodsId",goods.getGoodsId());
+                map.put("goodsName",goods.getName());
+                map.put("userId",ContextParameter.getUserInfo().getUserId());
+//                MobclickAgent.onEvent(getActivity(),"purchase_shoppingCard",map);
                 Response response = (Response) o;
                 T.showShort(getActivity(), response.getMessage());
 
@@ -360,5 +364,10 @@ public class GoodsFragment extends BaseFragment {
         }
 
         layoutOption.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

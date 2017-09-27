@@ -152,6 +152,17 @@
 
  -keep class com.linkedin.** { *; }
  -keepattributes Signature
+
+ -keepclassmembers class * {
+    public <init> (org.json.JSONObject);
+ }
+ -keep public class com.weslide.lovesmallscreen.R$*{
+ public static final int *;
+ }
+ -keepclassmembers enum * {
+     public static **[] values();
+     public static ** valueOf(java.lang.String);
+ }
 #--------------------------------------------友盟----------------------------------------------------#
 
 #支付宝

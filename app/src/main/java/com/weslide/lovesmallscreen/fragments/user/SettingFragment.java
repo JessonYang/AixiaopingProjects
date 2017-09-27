@@ -1,12 +1,15 @@
 package com.weslide.lovesmallscreen.fragments.user;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +19,7 @@ import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.DownloadImageService;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.URIResolve;
+import com.weslide.lovesmallscreen.activitys.TaoKeActivity;
 import com.weslide.lovesmallscreen.activitys.user.FeedbackActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
 import com.weslide.lovesmallscreen.models.eventbus_message.DownloadImageMessage;
@@ -51,6 +55,10 @@ public class SettingFragment extends BaseFragment {
     View mView;
     @BindView(R.id.iv_clean_memorry)
     TextView ivCleanMemorry;
+    @BindView(R.id.version_code_tv)
+    TextView version_code_tv;
+    @BindView(R.id.version_notice_iv)
+    ImageView version_notice_iv;
     @BindView(R.id.tool_bar)
     Toolbar toolBar;
     @BindView(R.id.switchView)
@@ -73,6 +81,12 @@ public class SettingFragment extends BaseFragment {
                 getActivity().finish();
             }
         });
+        version_code_tv.setText(AppUtils.getVersionName(getActivity()));
+        if (ContextParameter.getClientConfig().getHasNewVerson().equals("1")) {
+            version_notice_iv.setVisibility(View.VISIBLE);
+        } else {
+            version_notice_iv.setVisibility(View.GONE);
+        }
         switchView.setChecked(ContextParameter.getLocalConfig().isOpenPush());
         switchView2.setChecked(ContextParameter.getLocalConfig().isOpenVoice());
         switchView.setOnCheckedChangeListener((view, checked) -> {
@@ -93,7 +107,7 @@ public class SettingFragment extends BaseFragment {
                     T.showShort(getActivity(), "开启声音");
                     ContextParameter.getLocalConfig().setOpenVoice(true);
                     ContextParameter.setLocalConfig(ContextParameter.getLocalConfig());
-                }else {
+                } else {
                     T.showShort(getActivity(), "关闭声音");
                     ContextParameter.getLocalConfig().setOpenVoice(false);
                     ContextParameter.setLocalConfig(ContextParameter.getLocalConfig());
@@ -102,7 +116,7 @@ public class SettingFragment extends BaseFragment {
         });
         File file = new File(getActivity().getCacheDir() + "/" + DiskCache.Factory.DEFAULT_DISK_CACHE_DIR);
         long fileSize = FileUtils.getDirSize(file);
-        long showValue = fileSize >= M ? fileSize / 1024 /1024 : fileSize / 1024;
+        long showValue = fileSize >= M ? fileSize / 1024 / 1024 : fileSize / 1024;
         String showDanwei = fileSize >= M ? "M" : "K";
         ivCleanMemorry.setText(showValue + showDanwei);
 
@@ -119,7 +133,7 @@ public class SettingFragment extends BaseFragment {
 
     LoadingDialog loadingDialog;
 
-    @OnClick({R.id.ll_clean_memorry, R.id.ll_feedback, R.id.ll_about_aixiaoping, R.id.ll_refresh_backound})
+    @OnClick({R.id.ll_clean_memorry, R.id.ll_feedback, R.id.ll_about_aixiaoping, R.id.ll_refresh_backound, R.id.ll_version})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_clean_memorry:
@@ -147,7 +161,7 @@ public class SettingFragment extends BaseFragment {
                             public void onNext(Object o) {
                                 File file = new File(getActivity().getCacheDir() + "/" + DiskCache.Factory.DEFAULT_DISK_CACHE_DIR);
                                 long fileSize = FileUtils.getDirSize(file);
-                                long showValue = fileSize >= M ? fileSize / 1024 /1024 : fileSize / 1024;
+                                long showValue = fileSize >= M ? fileSize / 1024 / 1024 : fileSize / 1024;
                                 String showDanwei = fileSize >= M ? "M" : "K";
                                 ivCleanMemorry.setText(showValue + showDanwei);
                                 T.showShort(getActivity(), "缓存清除成功");
@@ -169,6 +183,21 @@ public class SettingFragment extends BaseFragment {
 
                 loadingDialog = new LoadingDialog(getActivity());
                 loadingDialog.show();
+                break;
+            case R.id.ll_version:
+                if (ContextParameter.getClientConfig().getHasNewVerson().equals("1")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(TaoKeActivity.KEY_LOAD_URL, "http://a.app.qq.com/o/simple.jsp?pkgname=com.weslide.lovesmallscreen");
+                    AppUtils.toActivity(getActivity(), TaoKeActivity.class, bundle);
+                } else {
+                    new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("没有新版本哦!")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            }).create().show();
+                }
                 break;
         }
     }

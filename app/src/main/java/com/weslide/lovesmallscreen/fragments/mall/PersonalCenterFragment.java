@@ -42,6 +42,7 @@ import com.weslide.lovesmallscreen.activitys.order.BackOrderListActivity;
 import com.weslide.lovesmallscreen.activitys.order.OrderActivity;
 import com.weslide.lovesmallscreen.activitys.user.BindingContactsActivity;
 import com.weslide.lovesmallscreen.activitys.user.ExemptActivity;
+import com.weslide.lovesmallscreen.activitys.user.FeedbackActivity;
 import com.weslide.lovesmallscreen.activitys.user.GoodsConcernActivity;
 import com.weslide.lovesmallscreen.activitys.user.LockScreenActivity;
 import com.weslide.lovesmallscreen.activitys.user.MyAddressActivity;
@@ -65,7 +66,9 @@ import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.utils.StringUtils;
 import com.weslide.lovesmallscreen.utils.T;
 import com.weslide.lovesmallscreen.view_yy.activity.ApplayPartnerActivity;
+import com.weslide.lovesmallscreen.view_yy.activity.InputStatusActivity;
 import com.weslide.lovesmallscreen.view_yy.activity.MyTicketActivity;
+import com.weslide.lovesmallscreen.view_yy.activity.OpenShopActivity;
 import com.weslide.lovesmallscreen.view_yy.activity.TaoBaoActivity;
 import com.weslide.lovesmallscreen.views.custom.SuperGridView;
 import com.xmcamera.core.model.XmAccount;
@@ -131,22 +134,23 @@ public class PersonalCenterFragment extends BaseFragment {
     RelativeLayout rlBindingContacts;
     @BindView(R.id.iv_inviter_img)
     ImageView ivInviterImg;
+    @BindView(R.id.setting_iv)
+    ImageView setting_iv;
     @BindView(R.id.tv_inviter_name)
     TextView tvInviterName;
     @BindView(R.id.ll_inviter)
     LinearLayout llInviter;
     private int[] drawint = new int[]{/*R.drawable.icon_jifen_wode_my,*/
             R.drawable.icon_dizi_wode_my,/* R.drawable.ixon_tixian_my,*/
-            R.drawable.icon_ziliao_my, R.drawable.icon_dianpu,
+            /*R.drawable.icon_ziliao_my,*/ R.drawable.icon_dianpu,
             R.drawable.icon_guangzhu_my,/*R.drawable.icon_shenri,*/
-            R.drawable.icon_suoping_my, /*R.drawable.icon_woshishangjia_my,*/
-            R.drawable.icon_jiankong, /*R.drawable.icon_shezi_my,*/ R.drawable.icon_youhuiquan,
-            R.drawable.icon_cshehuoren};
+            R.drawable.icon_youhuiquan, /*R.drawable.icon_woshishangjia_my,*/
+            R.drawable.icon_jiankong, /*R.drawable.icon_shezi_my,*/ R.drawable.icon_lianxiwomen,
+            R.drawable.icon_woyaokaidian, R.drawable.icon_cshehuoren, R.drawable.icon_suoping_my};
     private String[] userString = new String[]{
-            /*"我的积分",*/ "我的地址"/*,"我的提现"*/, "个人资料",
-            "店铺收藏", "商品关注"/*,"送礼提醒"*/, "锁屏开关",
-            /*"我是商家",*/ "我的监控", /*"我的设置",*/ "我的优惠券",
-            "合伙人"};
+            /*"我的积分",*/ "我的地址"/*,"我的提现"*/, /*"个人资料",*/
+            "店铺收藏", "商品关注"/*,"送礼提醒"*/, "我的优惠券",
+            /*"我是商家",*/ "我的监控", /*"我的设置",*/ "联系我们", "我要开店", "合伙人", "锁屏开关"};
     private List<ImageAndText> data;
     private Bitmap logo;
     private String mUrl;
@@ -155,6 +159,7 @@ public class PersonalCenterFragment extends BaseFragment {
     spUtil sp;
     private int JIANKONG = 1;
     private int HEHUOREN = 2;
+    private String verifyStatus;
 
     @Nullable
     @Override
@@ -172,6 +177,11 @@ public class PersonalCenterFragment extends BaseFragment {
 
     private void init() {
 
+        if (ContextParameter.getClientConfig().getHasNewVerson().equals("1")) {
+            setting_iv.setImageResource(R.drawable.icon_heiseshezhidian);
+        } else {
+            setting_iv.setImageResource(R.drawable.icon_heiseshezhi);
+        }
         data = new ArrayList<>();
 
         mGridView.setFocusable(false);
@@ -255,6 +265,7 @@ public class PersonalCenterFragment extends BaseFragment {
             @Override
             public void onNext(Response<UserInfo> response) {
                 UserInfoSP.setUserInfo(response.getData());
+                verifyStatus = response.getData().getVerifyStatus();
                 if (response.getData().getIspartenr().equals("0")) {
                     user_tag_iv.setImageResource(R.drawable.axpfs_icon);
                 } else if (response.getData().getIspartenr().equals("1")) {
@@ -577,7 +588,6 @@ public class PersonalCenterFragment extends BaseFragment {
         }
     }
 
-
     /**
      * 适配器
      */
@@ -649,16 +659,27 @@ public class PersonalCenterFragment extends BaseFragment {
                             }
 
                             break;*/
-                        case 1:
-                            if (ContextParameter.isLogin() == false) {
+                        case 8:
+                            /*if (ContextParameter.isLogin() == false) {
                                 AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
                             } else {
-                                //个人资料
+                                //个人资料(暂时屏蔽)
                                 AppUtils.toActivity(getActivity(), PersonInformationActivity.class);
-                            }
+                            }*/
 
+                            //锁屏设置
+                            AppUtils.toActivity(getActivity(), LockScreenActivity.class);
                             break;
-                        case 2:
+                        case 1:
+
+                            /*if (ContextParameter.isLogin() == false) {
+                                AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
+                            } else {
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("KEY_SELECT", 1);
+                                //店铺收藏
+                                AppUtils.toActivity(getActivity(), SellerListActivity_old.class, bundle);
+                            }*/
 
                             if (ContextParameter.isLogin() == false) {
                                 AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
@@ -670,7 +691,14 @@ public class PersonalCenterFragment extends BaseFragment {
                             }
 
                             break;
-                        case 3:
+                        case 2:
+
+                            /*if (ContextParameter.isLogin() == false) {
+                                AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
+                            } else {
+                                //商品关注
+                                AppUtils.toActivity(getActivity(), GoodsConcernActivity.class);
+                            }*/
 
                             if (ContextParameter.isLogin() == false) {
                                 AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
@@ -678,7 +706,6 @@ public class PersonalCenterFragment extends BaseFragment {
                                 //商品关注
                                 AppUtils.toActivity(getActivity(), GoodsConcernActivity.class);
                             }
-
                             break;
                        /* case 5:
 
@@ -689,19 +716,29 @@ public class PersonalCenterFragment extends BaseFragment {
                             }
 
                             break;*/
-                        case 4:
-                            //锁屏设置
-                            AppUtils.toActivity(getActivity(), LockScreenActivity.class);
+                        case 3:
+                            //优惠券
+                            if (ContextParameter.isLogin() == true) {
+                                AppUtils.toActivity(getActivity(), MyTicketActivity.class);
+                            } else {
+                                AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
+                            }
 
                             break;
-                        case 5:
-                            /*
-                            if (ContextParameter.isLogin() == false) {
+                        case 4:
+                            /*if (ContextParameter.isLogin() == false) {
                                 AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
                             } else {
                             //我是商家
                                 AppUtils.toActivity(getActivity(), MyStoreActivity.class);
 
+                            }
+
+                            if (ContextParameter.isLogin() == false) {
+                                AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
+                            } else {
+                                //我的监控
+                                getMonitorAccount(JIANKONG);
                             }*/
 
                             if (ContextParameter.isLogin() == false) {
@@ -710,37 +747,30 @@ public class PersonalCenterFragment extends BaseFragment {
                                 //我的监控
                                 getMonitorAccount(JIANKONG);
                             }
+
+                            break;
+                        case 5:
+                            //联系我们
+                            if (ContextParameter.isLogin()) {
+                                AppUtils.toActivity(getActivity(), FeedbackActivity.class);
+                            } else {
+                                AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
+                            }
                             break;
                         case 6:
-                            //优惠券
+                            //我要开店
                             if (ContextParameter.isLogin() == true) {
-                                AppUtils.toActivity(getActivity(), MyTicketActivity.class);
+                                if (verifyStatus.equals("-1")) {
+                                    AppUtils.toActivity(getActivity(), OpenShopActivity.class);
+                                } else {
+                                    AppUtils.toActivity(getActivity(), InputStatusActivity.class);
+                                }
                             } else {
                                 AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
                             }
                             break;
                         case 7:
-                            if (ContextParameter.isLogin() == false) {
-                                AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
-                            } else {
-                                //城市合伙人(网页)
-                                /*Bundle bundle = new Bundle();
-                                bundle.putString(TaoKeActivity.KEY_LOAD_URL, ContextParameter.getUserInfo().getTk_uri());
-                                AppUtils.toActivity(getActivity(), TaoKeActivity.class, bundle);*/
 
-                                //合伙人(原生)
-                                if (ContextParameter.getUserInfo().getIspartenr().equals("0")) {
-//                                    getMonitorAccount(HEHUOREN);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putInt("type", 0);
-                                    AppUtils.toActivity(getActivity(), ApplayPartnerActivity.class, bundle);
-                                } else {
-                                    AppUtils.toActivity(getActivity(), OriginalCityAgencyActivity.class);
-                                }
-
-                            }
-                            break;
-                        case 8:
                             /*if (ContextParameter.isLogin() == false) {
                                 AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
                             } else {
@@ -749,6 +779,19 @@ public class PersonalCenterFragment extends BaseFragment {
                                 bundle.putString(TaoKeActivity.KEY_LOAD_URL, ContextParameter.getUserInfo().getTk_uri());
                                 AppUtils.toActivity(getActivity(), TaoKeActivity.class, bundle);
                             }*/
+
+                            if (ContextParameter.isLogin() == false) {
+                                AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
+                            } else {
+                                //合伙人(原生)
+                                if (ContextParameter.getUserInfo().getIspartenr().equals("0")) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("type", 0);
+                                    AppUtils.toActivity(getActivity(), ApplayPartnerActivity.class, bundle);
+                                } else {
+                                    AppUtils.toActivity(getActivity(), OriginalCityAgencyActivity.class);
+                                }
+                            }
                             break;
                     }
                 }
@@ -778,7 +821,7 @@ public class PersonalCenterFragment extends BaseFragment {
     private void removeH() {
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getId() == 7) {
-                data.remove(data.get(data.size() - 1));
+                data.remove(data.get(data.size() - 2));
                 userBaseAdapter.notifyDataSetChanged();
                 break;
             }
@@ -794,7 +837,7 @@ public class PersonalCenterFragment extends BaseFragment {
         YY:
         for (int i = 0; i < drawint.length; i++) {
             ImageAndText it = new ImageAndText();
-            if (i == drawint.length - 1) {
+            if (i == drawint.length - 2) {
                 if (ContextParameter.getUserInfo().getIspartenr() != null) {
                     if (ContextParameter.getUserInfo().getIspartenr().equals("0")) {
                         it.setText("我想赚钱");
@@ -811,13 +854,15 @@ public class PersonalCenterFragment extends BaseFragment {
                     }
                     it.setId(i);
                     data.add(it);
-                    break YY;
+//                    break YY;
                 }
             }
-            it.setText(userString[i]);
-            it.setImageId(drawint[i]);
-            it.setId(i);
-            data.add(it);
+            if (i != drawint.length - 2) {
+                it.setText(userString[i]);
+                it.setImageId(drawint[i]);
+                it.setId(i);
+                data.add(it);
+            }
         }
         mGridView.setAdapter(userBaseAdapter);
     }

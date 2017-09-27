@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -85,6 +86,12 @@ public class OrderDetailFragment extends BaseFragment {
     TextView tvExpressTactics;
     @BindView(R.id.tv_order_code)
     TextView tvOrderCode;
+    @BindView(R.id.btn_back)
+    Button btnBack;
+    @BindView(R.id.btn_back_send_out_goods)
+    Button btnBackSendOutGoods;
+    @BindView(R.id.btn_back_exchange)
+    Button btnBackExchange;
 
     @Nullable
     @Override
@@ -185,14 +192,23 @@ public class OrderDetailFragment extends BaseFragment {
             case Constants.ORDER_STATUS_WAIT_SEND_OUT_GOODS: //待发货
                 layoutOrderOption.setVisibility(View.VISIBLE);
                 layoutReceiptOfSendOutGoods.setVisibility(View.VISIBLE);
+                if (Integer.parseInt(mOrder.getScore()) > 0) {
+                    btnBackSendOutGoods.setVisibility(View.GONE);
+                }
                 break;
             case Constants.ORDER_STATUS_WAIT_EXCHANGE: //待兑换
                 layoutOrderOption.setVisibility(View.VISIBLE);
                 layoutReceiptExchange.setVisibility(View.VISIBLE);
+                if (Integer.parseInt(mOrder.getScore()) > 0) {
+                    btnBackExchange.setVisibility(View.GONE);
+                }
                 break;
             case Constants.ORDER_STATUS_WAIT_OF_GOODS: //待收货
                 layoutOrderOption.setVisibility(View.VISIBLE);
                 layoutWaitOfGoods.setVisibility(View.VISIBLE);
+                if (Integer.parseInt(mOrder.getScore()) > 0) {
+                    btnBack.setVisibility(View.GONE);
+                }
                 break;
             case Constants.ORDER_STATUS_WAIT_COMMENT: //待评价
                 layoutOrderOption.setVisibility(View.VISIBLE);

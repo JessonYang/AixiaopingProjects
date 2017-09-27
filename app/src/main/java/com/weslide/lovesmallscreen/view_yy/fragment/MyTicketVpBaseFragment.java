@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.core.BaseFragment;
@@ -15,6 +16,7 @@ import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.view_yy.adapter.MyTicketLvAdapter;
+import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ public class MyTicketVpBaseFragment extends BaseFragment {
     private List<TicketListObModel> mLvList = new ArrayList<>();
     private int ASKMODE = 0;
     private MyTicketLvAdapter mAdapter;
+    private LoadingDialog loadingDialog;
+    private ImageView no_data_iv;
 
     public static MyTicketVpBaseFragment getInstance(Bundle bundle) {
         MyTicketVpBaseFragment myTicketVpBaseFragment = new MyTicketVpBaseFragment();
@@ -49,11 +53,13 @@ public class MyTicketVpBaseFragment extends BaseFragment {
     }
 
     private void initData() {
+        loadingDialog.show();
         mLv.setLinearLayout();
         mAdapter = new MyTicketLvAdapter(mLvList, getSupportActivity(), ticketType);
         mLv.setAdapter(mAdapter);
         ASKMODE = 0;
         askNetData();
+        mLv.setFooterViewText("加载中...");
         mLv.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {
@@ -86,11 +92,23 @@ public class MyTicketVpBaseFragment extends BaseFragment {
                 mLvList.addAll(ticketListModelResponse.getData().getTickets());
                 mAdapter.notifyDataSetChanged();
                 mLv.setPullLoadMoreCompleted();
+                if (mLvList == null || mLvList.size() == 0) {
+                    no_data_iv.setVisibility(View.VISIBLE);
+                    mLv.setVisibility(View.GONE);
+                }else {
+                    no_data_iv.setVisibility(View.GONE);
+                    mLv.setVisibility(View.VISIBLE);
+                }
+                if (loadingDialog != null && loadingDialog.isShowing()){
+                    loadingDialog.dismiss();
+                }
             }
         });
     }
 
     private void initView() {
         mLv = ((PullLoadMoreRecyclerView) mFgView.findViewById(R.id.my_ticket_vp_base_fg_lv));
+        no_data_iv = ((ImageView) mFgView.findViewById(R.id.no_data_iv));
+        loadingDialog = new LoadingDialog(getSupportActivity());
     }
 }

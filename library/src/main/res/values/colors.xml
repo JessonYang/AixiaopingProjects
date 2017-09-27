@@ -5,12 +5,13 @@
     <color name="main_color">#ff2d47</color> <!-- 主要颜色 -->
     <color name="main_color_white">#ffffff</color> <!-- 主要颜色 -->
     <color name="toolbar_bg_color">#ff2d47</color> <!-- 导航条背景色 -->
-    <color name="ticket_good_dt_btn_color">#fd3e57</color>
+    <color name="ticket_good_dt_btn_color">#ff1635</color>
     <color name="font_title_color">#1a1a1a</color> <!-- 文本标题颜色 -->
     <color name="font_content_color">#555555</color> <!-- 文本内容颜色 -->
     <color name="font_content_color1">#666666</color> <!-- 文本内容颜色 -->
     <color name="font_color">#222222</color> <!-- 字体主要颜色 -->
     <color name="background_color">#ececec</color><!-- 背景颜色 -->
+    <color name="update_dialog_color">#50000000</color><!-- 背景颜色 -->
 
     <color name="remind_red_color">#ff2d47</color> <!-- 红色提示色 -->
     <color name="remind_yellow_color">#f39826</color> <!-- 黄色提醒色 -->
@@ -22,8 +23,9 @@
     <!--<color name="colorAccent">#FF4081</color>-->
 
 
-    <color name="goodsBuyBackground">#fe566b</color>
-    <color name="goodsAddShoppingCarBackground">#848484</color>
+    <color name="goodsBuyBackground">#ff4460</color>
+    <color name="goodsAddShoppingCarBackground">#ff8939</color>
+    <color name="goodsOrderTab">#848484</color>
     <color name="light_blue">#37c1ff</color>
     <color name="transinfo">#50000000</color> <!-- 半透明颜色 -->
     <color name="line">@color/lightgray</color>
@@ -176,4 +178,6 @@
     <color name="navy">#000080</color><!--海军色 -->
     <color name="black">#000000</color><!--黑色 -->
     <color name="partner_btn_bg">#3eabe4</color>
+    <color name="project_main_bg">#f4f4f4</color>
+    <color name="project_line_bg">#dddddd</color>
 </resources>

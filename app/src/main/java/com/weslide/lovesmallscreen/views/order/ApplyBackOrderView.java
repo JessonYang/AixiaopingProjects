@@ -16,7 +16,6 @@ import com.weslide.lovesmallscreen.views.widget.AXPRadioGroup;
 import com.weslide.lovesmallscreen.views.widget.TextUploadImageView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,9 +106,10 @@ public class ApplyBackOrderView extends FrameLayout {
                 break;
             case 2:
             case 4:
-                tvAlert.setVisibility(View.VISIBLE);
-                tvValueLable.setText( "退单金额：");
-                tvValue.setText(orderItem.getMoney() + "元");
+                tvAlert.setVisibility(View.GONE);
+                tvValueLable.setText("退单金额：");
+                tvValue.setText(orderItem.getGoods().getPay_price() + "元");
+//                tvValue.setText(orderItem.getMoney() + "元");
                 break;
             case 3:
                 L.e("ApplyBackOrderView", "免单商品不允许退单！");

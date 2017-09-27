@@ -26,7 +26,7 @@
     <ListView
         android:id="@+id/activity_citylist_mListView"
         android:layout_width="match_parent"
-        android:layout_toLeftOf="@id/letter_index_view"
         android:layout_height="match_parent"
-        android:layout_below="@id/tool_bar"></ListView>
+        android:layout_below="@id/tool_bar"
+        android:layout_toLeftOf="@id/letter_index_view"></ListView>
 </RelativeLayout>

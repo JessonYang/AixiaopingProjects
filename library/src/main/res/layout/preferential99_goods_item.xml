@@ -12,6 +12,7 @@
         <com.weslide.lovesmallscreen.views.widget.SquareImageView
             android:id="@+id/iv_goods_image"
             android:layout_width="match_parent"
+            android:scaleType="fitXY"
             android:layout_height="wrap_content" />
     </RelativeLayout>
 

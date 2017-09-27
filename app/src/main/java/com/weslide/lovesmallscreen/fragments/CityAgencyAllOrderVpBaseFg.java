@@ -58,7 +58,7 @@ public class CityAgencyAllOrderVpBaseFg extends BaseFragment {
         initView();
         mAdapter = new CityAgencyOrderAdapter(getActivity(), list);
         lv.setAdapter(mAdapter);
-        /*lv.setOnTouchListener(new View.OnTouchListener() {
+        /*lv.setOnTouchListener(new View.OnTouchDownListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 view.getParent().requestDisallowInterceptTouchEvent(true);

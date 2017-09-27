@@ -34,6 +34,28 @@ public class HomeTicketsModel extends BaseModel {
     @SerializedName("typeId")
     String typeId;
 
+    @SerializedName("areaType")
+    String areaType;
+
+    public String getSortType() {
+        return sortType;
+    }
+
+    public void setSortType(String sortType) {
+        this.sortType = sortType;
+    }
+
+    public String getAreaType() {
+        return areaType;
+    }
+
+    public void setAreaType(String areaType) {
+        this.areaType = areaType;
+    }
+
+    @SerializedName("sortType")
+    String sortType;
+
     public String getPage() {
         return page;
     }

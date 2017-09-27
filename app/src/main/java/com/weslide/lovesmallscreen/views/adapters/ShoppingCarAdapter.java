@@ -14,17 +14,12 @@ import com.malinskiy.superrecyclerview.SuperRecyclerViewAdapter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.core.RecyclerViewModel;
 import com.weslide.lovesmallscreen.fragments.mall.ShoppingCartFragment;
-import com.weslide.lovesmallscreen.models.Seller;
 import com.weslide.lovesmallscreen.models.ShoppingCar;
 import com.weslide.lovesmallscreen.models.ShoppingCarItem;
 import com.weslide.lovesmallscreen.network.DataList;
 import com.weslide.lovesmallscreen.utils.AppUtils;
-import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.Utils;
-import com.weslide.lovesmallscreen.utils.ViewUtils;
 import com.weslide.lovesmallscreen.views.widget.AddAndSubtractView;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -159,6 +154,7 @@ class ShoppingCarItemViewHolder extends RecyclerView.ViewHolder {
 
     @OnClick(R.id.layout_shopping_car_item)
     public void onClick() {
+        AppUtils.toGoods(mContext,mShoppingCarItem.getGoods().getGoodsId());
     }
 
     @OnCheckedChanged({R.id.cb_select})

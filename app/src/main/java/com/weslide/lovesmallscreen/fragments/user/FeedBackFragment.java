@@ -1,6 +1,7 @@
 package com.weslide.lovesmallscreen.fragments.user;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.gc.materialdesign.views.ButtonRectangle;
@@ -20,6 +22,7 @@ import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.core.BaseFragment;
 import com.weslide.lovesmallscreen.core.SupportSubscriber;
 import com.weslide.lovesmallscreen.core.UploadSubscriber;
+import com.weslide.lovesmallscreen.model_yy.javabean.FeedbackTipsBean;
 import com.weslide.lovesmallscreen.models.FeedBack;
 import com.weslide.lovesmallscreen.models.bean.UploadFileBean;
 import com.weslide.lovesmallscreen.network.Request;
@@ -27,6 +30,7 @@ import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.utils.StringUtils;
 import com.weslide.lovesmallscreen.utils.T;
+import com.weslide.lovesmallscreen.view_yy.customview.AXPTextView_Line;
 import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
 
 import java.io.File;
@@ -49,19 +53,27 @@ public class FeedBackFragment extends BaseFragment {
     Toolbar toolBar;
     @BindView(R.id.edt_feedback)
     EditText edtFeedback;
+    @BindView(R.id.phone_edt)
+    EditText phone_edt;
     @BindView(R.id.gv_photo)
     GridView gvPhoto;
     @BindView(R.id.iv_add_photo)
     ImageView ivAddPhoto;
     @BindView(R.id.btn_commint)
     ButtonRectangle btnCommint;
-
+    @BindView(R.id.qq_tv)
+    TextView qq_tv;
+    @BindView(R.id.weixin_tv)
+    TextView weixin_tv;
+    @BindView(R.id.kefu_tv)
+    AXPTextView_Line kefu_tv;
     private String content;
 
     List<String> datas;
     MultiImageSelector selector = MultiImageSelector.create(getActivity());
     private ArrayList<String> mSelectPath;
     MyAdapter adapter;
+    private String phone;
 
     @Nullable
     @Override
@@ -83,6 +95,17 @@ public class FeedBackFragment extends BaseFragment {
                 getActivity().finish();
             }
         });
+        RXUtils.request(getActivity(),new Request(),"feedbackTips", new SupportSubscriber<Response<FeedbackTipsBean>>() {
+            @Override
+            public void onNext(Response<FeedbackTipsBean> feedbackTipsBeanResponse) {
+                FeedbackTipsBean data = feedbackTipsBeanResponse.getData();
+                if (data != null) {
+                    qq_tv.setText(data.getQq());
+                    weixin_tv.setText(data.getWeChat());
+                    kefu_tv.setText(data.getPhone());
+                }
+            }
+        });
     }
 
     private void putFeedBack() {
@@ -91,6 +114,7 @@ public class FeedBackFragment extends BaseFragment {
         List<String> path = new ArrayList<>();
         feedBack.setImages(path);
         feedBack.setContent(content);
+        feedBack.setConnectPhone(phone);
         Request request = new Request<>();
         request.setData(feedBack);
 
@@ -146,7 +170,7 @@ public class FeedBackFragment extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.iv_add_photo, R.id.btn_commint})
+    @OnClick({R.id.iv_add_photo, R.id.btn_commint,R.id.kefu_tv})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_add_photo:
@@ -155,13 +179,23 @@ public class FeedBackFragment extends BaseFragment {
             case R.id.btn_commint:
 
                 content = edtFeedback.getText().toString();
-
+                phone = phone_edt.getText().toString();
                 if (StringUtils.isEmpty(content)) {
                     T.showShort(getActivity(), "您还没有填写内容哦~");
                     return;
                 }
-
+                if (StringUtils.isEmpty(phone)) {
+                    T.showShort(getActivity(), "您还没有填写联系方式哦~");
+                    return;
+                }
                 putFeedBack();
+                break;
+            case R.id.kefu_tv:
+                String kefuPhone = kefu_tv.getText().toString();
+                if (kefuPhone != null && kefuPhone.length() > 0) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + kefuPhone));
+                    getActivity().startActivity(intent);
+                }
                 break;
         }
     }

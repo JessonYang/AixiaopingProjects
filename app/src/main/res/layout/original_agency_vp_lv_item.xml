@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/ticket_good_iv"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
+            android:padding="3dp"
             android:scaleType="fitXY"
             android:src="@drawable/icon_morentouxiang" />
+
+        <ImageView
+            android:id="@+id/consume_tack_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ticket_good_iv"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="8dp" />
 
         <TextView
             android:id="@+id/ticket_good_desc"
@@ -39,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ticket_good_desc"
             android:layout_marginLeft="9dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/ticket_good_iv"
             android:gravity="center"
             android:orientation="horizontal">
@@ -60,12 +68,117 @@
                 android:textSize="12dp" />
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/earn_ll"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginRight="2dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_tkfx" />
+
+            <TextView
+                android:id="@+id/earn_money_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:textColor="#ff2b47"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/ticket_good_desc"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_toLeftOf="@id/earn_ll"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="销量"
+                android:textColor="#999999"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/month_sale_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#999999"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/pg_fl"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_alignBottom="@id/ticket_good_iv"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="6dp"
+            android:layout_toLeftOf="@id/earn_ll"
+            android:layout_toRightOf="@id/ticket_good_iv">
+
+            <ProgressBar
+                android:id="@+id/ticket_good_progress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:max="100"
+                android:progress="60"
+                android:progressDrawable="@drawable/layer_list_progress_drawable" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="6dp"
+                android:src="@drawable/quanjindu" />
+
+            <TextView
+                android:id="@+id/quan_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="25dp"
+                android:text="800元"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/quan_left_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="余300张"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/qhj_rll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/pg_fl"
             android:layout_below="@id/original_price_ll"
             android:layout_marginLeft="9dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="4dp"
             android:layout_toRightOf="@id/ticket_good_iv"
             android:gravity="center">
 
@@ -96,108 +209,10 @@
                     android:id="@+id/final_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="500.0"
                     android:textColor="#424242"
                     android:textSize="15dp" />
             </LinearLayout>
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/earn_ll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="19dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_tkfx" />
-
-            <TextView
-                android:id="@+id/earn_money_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
-                android:text="赚￥37.0"
-                android:textColor="#ff2b47"
-                android:textSize="12dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ticket_good_desc"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_toLeftOf="@id/earn_ll"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="月销"
-                android:textColor="#999999"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/month_sale_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4000件"
-                android:textColor="#999999"
-                android:textSize="12dp" />
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="9dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/earn_ll"
-            android:layout_toRightOf="@id/ticket_good_iv">
-
-            <ProgressBar
-                android:id="@+id/ticket_good_progress"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="12dp"
-                android:max="100"
-                android:progress="60"
-                android:progressDrawable="@drawable/layer_list_progress_drawable" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:src="@drawable/quanjindu" />
-
-            <TextView
-                android:id="@+id/quan_left_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="余300张"
-                android:textColor="#ffffff"
-                android:textSize="10dp" />
-
-            <TextView
-                android:id="@+id/quan_price"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:text="800元"
-                android:textColor="#ffffff"
-                android:textSize="10dp" />
-        </FrameLayout>
     </RelativeLayout>
 </LinearLayout>

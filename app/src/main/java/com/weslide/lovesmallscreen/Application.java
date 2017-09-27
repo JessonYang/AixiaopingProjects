@@ -1,7 +1,6 @@
 package com.weslide.lovesmallscreen;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.util.Log;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
@@ -9,9 +8,9 @@ import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
 import com.igexin.sdk.PushManager;
 import com.rey.material.app.ThemeManager;
 import com.squareup.leakcanary.LeakCanary;
+//import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.PlatformConfig;
 import com.weslide.lovesmallscreen.managers.LocationService;
-import com.weslide.lovesmallscreen.utils.T;
 
 import net.aixiaoping.unlock.views.UnlockView;
 
@@ -41,6 +40,7 @@ public class Application extends ArchitectureAppliation {
             }
         });
 
+//        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
     }
 
 

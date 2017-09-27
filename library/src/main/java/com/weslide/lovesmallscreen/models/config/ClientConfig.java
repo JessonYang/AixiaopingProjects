@@ -17,7 +17,29 @@ public class ClientConfig extends BaseModel {
 //    vipLevels	会员的可选级别	[{vipLevel},{ vipLevel }]
 
     @SerializedName("newVersion")
-    private int newVersion;
+    private String newVersion;
+    @SerializedName("hasNewVersion")
+    private String hasNewVerson;
+    @SerializedName("newVersionContents")
+    private List<String> newVersonContents;
+
+
+    public String getHasNewVerson() {
+        return hasNewVerson;
+    }
+
+    public void setHasNewVerson(String hasNewVerson) {
+        this.hasNewVerson = hasNewVerson;
+    }
+
+    public List<String> getNewVersonContents() {
+        return newVersonContents;
+    }
+
+    public void setNewVersonContents(List<String> newVersonContents) {
+        this.newVersonContents = newVersonContents;
+    }
+
     @SerializedName("newVersionMessage")
     private String newVersionMessage;
     @SerializedName("newVersionDownload")
@@ -34,6 +56,17 @@ public class ClientConfig extends BaseModel {
     private int minscore = 20;
     @SerializedName("toadyscore")
     private int toadyscore = 4000;
+
+    public long getServiceTime() {
+        return serviceTime;
+    }
+
+    public void setServiceTime(long serviceTime) {
+        this.serviceTime = serviceTime;
+    }
+
+    @SerializedName("serviceTime")
+    private long serviceTime;
     @SerializedName("screenAdvertLoadTime")
     private long screenAdvertLoadTime = 30 * (1000 * 60); //默认30分钟
     @SerializedName("vipLevels")
@@ -148,11 +181,11 @@ public class ClientConfig extends BaseModel {
     }
 
 
-    public int getNewVersion() {
+    public String getNewVersion() {
         return newVersion;
     }
 
-    public void setNewVersion(int newVersion) {
+    public void setNewVersion(String newVersion) {
         this.newVersion = newVersion;
     }
 

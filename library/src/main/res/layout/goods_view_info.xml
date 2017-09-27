@@ -52,24 +52,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="原价：30"
+            android:text="￥30"
             android:textColor="@color/font_content_color" />
 
-        <TextView
-            android:id="@+id/tv_express_tactics"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="包邮"
-            android:textColor="@color/font_content_color" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_express_tactics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_sm_ddxf" />
+
+            <TextView
+                android:id="@+id/tv_express_tactics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="3dp"
+                android:text="全国包邮"
+                android:textColor="#ff4460" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_sales_volume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:drawablePadding="4dp"
             android:layout_marginRight="10dp"
+            android:drawablePadding="4dp"
             android:text="销量:"
             android:textColor="@color/font_content_color" />
     </RelativeLayout>
@@ -112,7 +128,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></com.weslide.lovesmallscreen.views.widget.AddAndSubtractView>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/score_no_charge_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="(积分商品不可退单)"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/main_color_red" />
+
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

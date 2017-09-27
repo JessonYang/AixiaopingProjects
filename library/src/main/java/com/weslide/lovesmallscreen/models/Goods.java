@@ -36,6 +36,18 @@ public class Goods extends BaseModel {
     @SerializedName("score")
     /** 商品可以使用的积分 */
     private String score;
+
+    public String getPay_price() {
+        return pay_price;
+    }
+
+    public void setPay_price(String pay_price) {
+        this.pay_price = pay_price;
+    }
+
+    @SerializedName("pay_price")
+    /** 退款金额 */
+    private String pay_price;
     @SerializedName("cashpoint")
     /** 商品可使用的代金券 */
     private String cashpoint;
@@ -53,12 +65,23 @@ public class Goods extends BaseModel {
      * 包邮 、随单包邮 、单笔满固额包邮 、邮费代付 、到店消费 、上门自提 、周边配送
      */
     private String expressTactics;
+
+    public String getExpressStatus() {
+        return expressStatus;
+    }
+
+    public void setExpressStatus(String expressStatus) {
+        this.expressStatus = expressStatus;
+    }
+
+    @SerializedName("expressStatus")
+    private String expressStatus;
     @SerializedName("spec")
     /** 商品规格 */
     private List<Spec> spec;
     @SerializedName("salesVolume")
     /** 销量 */
-    private String salesVolume;
+    private int salesVolume;
     @SerializedName("specNotes")
     /** 不同规格的商品库存、价值记录 */
     private List<SpecNote> specNotes;
@@ -173,11 +196,11 @@ public class Goods extends BaseModel {
         this.spec = spec;
     }
 
-    public String getSalesVolume() {
+    public int getSalesVolume() {
         return salesVolume;
     }
 
-    public void setSalesVolume(String salesVolume) {
+    public void setSalesVolume(int salesVolume) {
         this.salesVolume = salesVolume;
     }
 

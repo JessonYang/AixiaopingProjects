@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.malinskiy.superrecyclerview.SuperRecyclerViewAdapter;
 import com.malinskiy.superrecyclerview.core.RecyclerViewSubscriber;
+import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.mall.GoodsActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
@@ -21,9 +21,9 @@ import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.views.adapters.GoodsAdapter;
-import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -100,6 +100,11 @@ public class GoodsInfoFragment extends BaseFragment {
                 mDataList.getDataList().addAll(handler());
                 mDataList.setPageSize(1);  //如果pageSize是0 ，界面就会显示空
                 mAdapter.notifyDataSetChanged();
+                HashMap<String,String> map = new HashMap<String, String>();
+                map.put("goodsId",goods.getGoodsId());
+                map.put("goodsName",goods.getName());
+                map.put("userId", ContextParameter.getUserInfo().getUserId());
+//                MobclickAgent.onEvent(getActivity(),"purchase_browse",map);
             }
         });
 

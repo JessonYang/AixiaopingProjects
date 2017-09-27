@@ -39,8 +39,77 @@ public class PayModel extends BaseModel {
     @SerializedName("sign")
     /** 签名 支付宝支付的时候，只会返回这个字段 */
     private String sign;
+
     private String extData;
 
+    @SerializedName("Version")
+    String version;
+
+    @SerializedName("MerchantId")
+    String MerchantId;
+
+    @SerializedName("MerchOrderId")
+    String MerchOrderId;
+
+    @SerializedName("Amount")
+    String Amount;
+
+    @SerializedName("TradeTime")
+    String TradeTime;
+
+    @SerializedName("OrderId")
+    String OrderId;
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getMerchantId() {
+        return MerchantId;
+    }
+
+    public void setMerchantId(String merchantId) {
+        MerchantId = merchantId;
+    }
+
+    public String getMerchOrderId() {
+        return MerchOrderId;
+    }
+
+    public void setMerchOrderId(String merchOrderId) {
+        MerchOrderId = merchOrderId;
+    }
+
+    public String getAmount() {
+        return Amount;
+    }
+
+    public void setAmount(String amount) {
+        Amount = amount;
+    }
+
+    public String getTradeTime() {
+        return TradeTime;
+    }
+
+    public void setTradeTime(String tradeTime) {
+        TradeTime = tradeTime;
+    }
+
+    public String getOrderId() {
+        return OrderId;
+    }
+
+    public void setOrderId(String orderId) {
+        OrderId = orderId;
+    }
+
+    @SerializedName("Sign")
+    String Sign;
 
     public String getAppId() {
         return appId;

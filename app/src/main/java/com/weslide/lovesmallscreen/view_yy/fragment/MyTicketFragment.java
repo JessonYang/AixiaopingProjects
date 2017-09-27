@@ -39,6 +39,7 @@ public class MyTicketFragment extends BaseFragment {
     private void initData() {
         addFragmentList();
         vp.setAdapter(new MyTicketFgVpAdapter(getActivity().getSupportFragmentManager(), mFragmentList, titles));
+        vp.setOffscreenPageLimit(2);
         tab.setupWithViewPager(vp);
         toolbar.setOnImgClick(new CustomToolbar.OnImgClick() {
             @Override

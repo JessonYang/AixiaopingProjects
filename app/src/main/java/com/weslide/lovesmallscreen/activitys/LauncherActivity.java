@@ -66,7 +66,7 @@ public class LauncherActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sp = getSharedPreferences("cityInfo",MODE_PRIVATE);
+        sp = getSharedPreferences("cityInfo", MODE_PRIVATE);
         String zoneId = sp.getString("zoneId", "1961");
         String zoneName = sp.getString("zoneName", "广州市");
         String zoneLevel = sp.getString("zoneLevel", "2");
@@ -151,9 +151,12 @@ public class LauncherActivity extends BaseActivity {
                         locationService = ((Application) getApplication()).locationService;
                         //初始化定位
                         location = LocationManager.syncGetLocation();
-                        L.e("=====城市=====" + location.getId() + location.getCity());
-                        if (location.getCity().equals("广州市") && location.getDistrict().equals("萝岗区")) {
-                            location.setDistrict("黄埔区");
+                        if (location != null) {
+                            L.e("=====城市=====" + location.getId() + location.getCity());
+                            if (location.getCity().equals("广州市") && location.getDistrict().equals("萝岗区")) {
+                                location.setDistrict("黄埔区");
+                            }
+                            ContextParameter.setCurrentLocation(location);
                         }
                    /*     LatLng latLng = new LatLng(Double.parseDouble(location.getLatitude()), Double.parseDouble(location.getLongitude()));
                         // 将GPS设备采集的原始GPS坐标转换成百度坐标
@@ -168,7 +171,6 @@ public class LauncherActivity extends BaseActivity {
                         L.e("未处理过的精度"+location.getLatitude());
                         L.e("未处理过的维度"+location.getLongitude());*/
 
-                        ContextParameter.setCurrentLocation(location);
 
                         //初始化城市列表
                         long count = getSupportApplication().getDaoSession().getZoneDao().count();
@@ -251,9 +253,27 @@ public class LauncherActivity extends BaseActivity {
      * 处理城市
      */
     public void handlerZone() {
-        Zone district = getSupportApplication().getDaoSession().getZoneDao()
+        if (location != null && location.getCity() != null) {
+            ContextParameter.setIsLocation(true);
+            Zone district = getSupportApplication().getDaoSession().getZoneDao()
+                    .loadDistrictByZoneName(ContextParameter.getCurrentLocation().getCity(), ContextParameter.getCurrentLocation().getDistrict());
+            ContextParameter.setCurrentZone(district);
+            getSharedPreferences("ZONEFILE", MODE_PRIVATE).edit().putString("LEVEL", district.getLevel()).putString("NAME", district.getName()).putString("PINYIN",district.getPinYin()).putString("ENGLISHCHAR",district.getEnglishChar()).putString("ZONEID",district.getZoneId()).putString("PARENTZONEID",district.getParentZoneId()).commit();
+        } else {
+            ContextParameter.setIsLocation(false);
+            Zone z = new Zone();
+            z.setName(getSharedPreferences("ZONEFILE", MODE_PRIVATE).getString("NAME", "广州市"));
+            z.setLevel(getSharedPreferences("ZONEFILE", MODE_PRIVATE).getString("LEVEL", "2"));
+            z.setZoneId(getSharedPreferences("ZONEFILE", MODE_PRIVATE).getString("ZONEID", "1961"));
+            z.setEnglishChar(getSharedPreferences("ZONEFILE", MODE_PRIVATE).getString("ENGLISHCHAR", "G"));
+            z.setParentZoneId(getSharedPreferences("ZONEFILE", MODE_PRIVATE).getString("PARENTZONEID", "-1"));
+            z.setPinYin(getSharedPreferences("ZONEFILE", MODE_PRIVATE).getString("PINYIN", "guangzhoushi"));
+            ContextParameter.setCurrentZone(z);
+        }
+
+        /*Zone district = getSupportApplication().getDaoSession().getZoneDao()
                 .loadDistrictByZoneName(ContextParameter.getCurrentLocation().getCity(), ContextParameter.getCurrentLocation().getDistrict());
-        ContextParameter.setCurrentZone(district);
+        ContextParameter.setCurrentZone(district);*/
     }
 
     @Override

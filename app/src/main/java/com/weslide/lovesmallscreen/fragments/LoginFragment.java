@@ -25,6 +25,7 @@ import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.tauth.Tencent;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -64,6 +65,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -422,6 +425,7 @@ public class LoginFragment extends BaseFragment {
             openid = data.get("openid");
             access_token = data.get("access_token");
             umShareAPI.getPlatformInfo(getActivity(), platform, mAuthListener);
+            MobclickAgent.onProfileSignIn("login_qq",ContextParameter.getUserInfo().getUserId());
         }
 
         @Override
@@ -483,7 +487,9 @@ public class LoginFragment extends BaseFragment {
 
             @Override
             public void onNext(UserInfo userInfo) {  //执行完成后执行
+                MobclickAgent.onProfileSignIn(ContextParameter.getUserInfo().getUserId());
                 getActivity().finish();
+                connectRongIM();
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -535,6 +541,8 @@ public class LoginFragment extends BaseFragment {
                             String s = md5(axpabc + formatMD5.format(System.currentTimeMillis() + ContextParameter.getTimeExtra()));
                             request.setAxp(s);
                             Response<UserInfo> response = HTTP.getAPI().getUserInfo(HTTP.formatJSONData(request)).execute().body();
+                            response.getData().setToken(userInfoResponse.getData().getToken());
+                            response.getData().setUserHead(userInfoResponse.getData().getUserHead());
                             return response;
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -579,7 +587,9 @@ public class LoginFragment extends BaseFragment {
 
             @Override
             public void onNext(UserInfo userInfo) {  //执行完成后执行
+                MobclickAgent.onProfileSignIn(ContextParameter.getUserInfo().getUserId());
                 getActivity().finish();
+                connectRongIM();
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -632,6 +642,8 @@ public class LoginFragment extends BaseFragment {
                             String s = md5(axpabc + formatMD5.format(System.currentTimeMillis() + ContextParameter.getTimeExtra()));
                             request.setAxp(s);
                             Response<UserInfo> response = HTTP.getAPI().getUserInfo(HTTP.formatJSONData(request)).execute().body();
+                            response.getData().setToken(userInfoResponse.getData().getToken());
+                            response.getData().setUserHead(userInfoResponse.getData().getUserHead());
                             return response;
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -699,6 +711,8 @@ public class LoginFragment extends BaseFragment {
                             String s = md5(axpabc + formatMD5.format(System.currentTimeMillis() + ContextParameter.getTimeExtra()));
                             request.setAxp(s);
                             Response<UserInfo> response = HTTP.getAPI().getUserInfo(HTTP.formatJSONData(request)).execute().body();
+                            response.getData().setToken(userInfoResponse.getData().getToken());
+                            response.getData().setUserHead(userInfoResponse.getData().getUserHead());
                             return response;
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -736,7 +750,9 @@ public class LoginFragment extends BaseFragment {
 
                     @Override
                     public void onNext(UserInfo userInfo) {
+                        MobclickAgent.onProfileSignIn("login_qq",ContextParameter.getUserInfo().getUserId());
                         getActivity().finish();
+                        connectRongIM();
                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -744,6 +760,26 @@ public class LoginFragment extends BaseFragment {
                 });
 
 
+    }
+
+    private void connectRongIM() {
+        //融云连接(在用户登陆成功的时候进行连接)
+        RongIM.connect(ContextParameter.getUserInfo().getToken(), new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+                Log.d("雨落无痕丶", "融云Token不正确 ");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                Log.d("雨落无痕丶", "融云连接成功: "+s);
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.d("雨落无痕丶", "融云连接错误码: "+errorCode.getMessage());
+            }
+        });
     }
 
     @Override

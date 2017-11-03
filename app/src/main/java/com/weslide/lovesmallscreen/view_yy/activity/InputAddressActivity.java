@@ -6,10 +6,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
@@ -74,12 +76,29 @@ public class InputAddressActivity extends BaseActivity {
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (tvAddress.getText().toString() != null && tvAddressDetails.getText().toString() != null) {
+                    intent.putExtra("address", tvAddress.getText().toString()+tvAddressDetails.getText().toString());
+                }else {
+                    Toast.makeText(InputAddressActivity.this, "请完善地址信息!", Toast.LENGTH_SHORT).show();
+                }
                 setResult(4, intent);
                 finish();
             }
         });
 
         mBaiduMap = mMapView.getMap();
+        mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+            }
+
+            @Override
+            public boolean onMapPoiClick(MapPoi mapPoi) {
+                tvAddress.setText(mapPoi.getName());
+                return false;
+            }
+        });
         mUiSettings = mBaiduMap.getUiSettings();
 
         MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(16.0f);
@@ -130,8 +149,7 @@ public class InputAddressActivity extends BaseActivity {
                         builder.target(ll).zoom(18.0f);
                         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
 
-                        MarkerOptions option = new MarkerOptions().position(ll).icon(hongdianBitmap)
-                                .zIndex(9).draggable(true);
+                        MarkerOptions option = new MarkerOptions().position(ll).icon(hongdianBitmap).zIndex(9).draggable(true);
                         option.animateType(MarkerOptions.MarkerAnimateType.grow);
 
                         hongdianMarker = (Marker) mBaiduMap.addOverlay(option);
@@ -141,6 +159,7 @@ public class InputAddressActivity extends BaseActivity {
                         tvAddressDetails.setText(location.getStreet());
 
                         intent.putExtra("address", location.getAddress());
+
                     }
                 });
     }
@@ -148,6 +167,11 @@ public class InputAddressActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (tvAddress.getText().toString() != null && tvAddressDetails.getText().toString() != null) {
+            intent.putExtra("address", tvAddress.getText().toString()+tvAddressDetails.getText().toString());
+        }else {
+            Toast.makeText(InputAddressActivity.this, "请完善地址信息!", Toast.LENGTH_SHORT).show();
+        }
         setResult(4, intent);
         return super.onKeyDown(keyCode, event);
     }
@@ -187,6 +211,11 @@ public class InputAddressActivity extends BaseActivity {
 
                 break;
             case R.id.btn_post:
+                if (tvAddress.getText().toString() != null && tvAddressDetails.getText().toString() != null) {
+                    intent.putExtra("address", tvAddress.getText().toString()+tvAddressDetails.getText().toString());
+                }else {
+                    Toast.makeText(InputAddressActivity.this, "请完善地址信息!", Toast.LENGTH_SHORT).show();
+                }
                 setResult(4, intent);
                 InputAddressActivity.this.finish();
                 break;

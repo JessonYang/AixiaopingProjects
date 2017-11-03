@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <RadioGroup
+        android:id="@+id/tab_rg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <com.weslide.lovesmallscreen.view_yy.customview.MyRadiobutton
+            android:id="@+id/main_rb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="首页"
+            android:textSize="12dp"
+            app:MydrawableTop="@drawable/selector_tab_home_mall"
+            app:drawableTopHeight="25dp"
+            app:drawableTopWidth="25dp" />
+
+        <com.weslide.lovesmallscreen.view_yy.customview.MyRadiobutton
+            android:id="@+id/exchange_rb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="false"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="换货会"
+            android:textSize="12dp"
+            app:MydrawableTop="@drawable/selector_tab_change_mall"
+            app:drawableTopHeight="25dp"
+            app:drawableTopWidth="25dp" />
+
+        <com.weslide.lovesmallscreen.view_yy.customview.MyRadiobutton
+            android:id="@+id/shopping_car_rb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="false"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="购物车"
+            android:textSize="12dp"
+            app:MydrawableTop="@drawable/selector_tab_shop_mall"
+            app:drawableTopHeight="25dp"
+            app:drawableTopWidth="25dp" />
+
+        <com.weslide.lovesmallscreen.view_yy.customview.MyRadiobutton
+            android:id="@+id/chat_rb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="false"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="聊天"
+            android:textSize="12dp"
+            app:MydrawableTop="@drawable/selecter_tab_chat_mall"
+            app:drawableTopHeight="25dp"
+            app:drawableTopWidth="25dp" />
+
+        <com.weslide.lovesmallscreen.view_yy.customview.MyRadiobutton
+            android:id="@+id/personal_center_rb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="false"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="个人中心"
+            android:textSize="12dp"
+            app:MydrawableTop="@drawable/selector_tab_person_mall"
+            app:drawableTopHeight="25dp"
+            app:drawableTopWidth="25dp" />
+    </RadioGroup>
+
+</LinearLayout>

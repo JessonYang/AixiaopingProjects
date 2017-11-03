@@ -96,7 +96,7 @@
             android:textSize="12dp" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/rl_main_tab_oder"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -122,6 +122,36 @@
             android:layout_below="@+id/iv_main_tab_oder"
             android:gravity="center"
             android:text="订单"
+            android:textColor="@color/selector_tab_all"
+            android:textSize="12dp" />
+    </RelativeLayout>-->
+
+    <RelativeLayout
+        android:id="@+id/rl_main_tab_oder"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <ImageView
+            android:id="@+id/iv_main_tab_chat"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerHorizontal="true"
+            android:padding="5dp"
+            android:src="@drawable/selecter_tab_chat_mall" />
+
+        <TextView
+            android:id="@+id/tv_main_tab_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_main_tab_chat"
+            android:gravity="center"
+            android:text="聊天"
             android:textColor="@color/selector_tab_all"
             android:textSize="12dp" />
     </RelativeLayout>

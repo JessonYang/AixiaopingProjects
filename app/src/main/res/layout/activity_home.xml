@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
@@ -17,8 +18,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"></FrameLayout>
 
-    <include
-        android:id="@+id/htv_tab"
-        layout="@layout/item_tabview_home"></include>
+    <include layout="@layout/item_tabview_home_new"/>
 
 </LinearLayout>

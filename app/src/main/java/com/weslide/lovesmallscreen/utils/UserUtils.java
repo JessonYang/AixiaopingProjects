@@ -9,12 +9,15 @@ import android.util.Log;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
 import com.rey.material.app.ThemeManager;
+import com.umeng.analytics.MobclickAgent;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.HomeActivity;
 import com.weslide.lovesmallscreen.activitys.LoginOptionActivity;
 import com.weslide.lovesmallscreen.dao.sp.UserInfoSP;
 import com.weslide.lovesmallscreen.models.UserInfo;
+
+import io.rong.imkit.RongIM;
 
 /**
  * Created by xu on 2016/6/2.
@@ -30,8 +33,9 @@ public class UserUtils {
      */
     public static void logout(Context context) {
         //退出友盟统计
-//        MobclickAgent.onProfileSignOff();
-
+        MobclickAgent.onProfileSignOff();
+        //断开融云连接
+        RongIM.getInstance().disconnect();
         Bundle bundle = new Bundle();
 //        bundle.putString(LoginOptionActivity.KEY_LAUNCHER_FRAGMENT, LoginFragment.class.getName());
         AppUtils.toActivity(context, LoginOptionActivity.class, Intent.ACTION_VIEW, Intent.FLAG_ACTIVITY_CLEAR_TOP, bundle);
@@ -39,7 +43,7 @@ public class UserUtils {
         ContextParameter.setUserInfo(new UserInfo());
         if (HomeActivity.activity != null) {
             HomeActivity.activity.finish();
-            Log.d("雨落无痕丶", "logout: sss");
+            Log.d("雨落无痕丶", "logout: 登出");
         }
     }
 

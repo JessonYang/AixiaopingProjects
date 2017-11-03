@@ -12,6 +12,12 @@ public class UserInfo extends BaseModel {
     @SerializedName("userId")
     private String userId;
 
+    @SerializedName("token")//融云token
+    private String token;
+
+    @SerializedName("userHead")//融云用户头像
+    private String userHead;
+
     public String getAdminuserId() {
         return adminuserId;
     }
@@ -21,7 +27,7 @@ public class UserInfo extends BaseModel {
     }
 
     @SerializedName("adminuserId  ")
-    private String adminuserId  ;
+    private String adminuserId;
     @SerializedName("name")
     private String name;
     @SerializedName("pwd")
@@ -41,6 +47,17 @@ public class UserInfo extends BaseModel {
     private String verifyStatus;
     @SerializedName("username")
     private String username;
+    @SerializedName("sellerName")
+    private String sellerName;
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
+    }
+
     @SerializedName("realname")
     private String realname;
     @SerializedName("phone")
@@ -97,6 +114,22 @@ public class UserInfo extends BaseModel {
     private String tk_show;
     @SerializedName("ispartenr")
     private String ispartenr;
+
+    public String getUserHead() {
+        return userHead;
+    }
+
+    public void setUserHead(String userHead) {
+        this.userHead = userHead;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getVerifyCode() {
         return verifyCode;
@@ -306,7 +339,9 @@ public class UserInfo extends BaseModel {
     }
 
 
-    /** 登录名，仅用于传递信息，勿保存本地 */
+    /**
+     * 登录名，仅用于传递信息，勿保存本地
+     */
     public String getName() {
         return name;
     }
@@ -315,7 +350,9 @@ public class UserInfo extends BaseModel {
         this.name = name;
     }
 
-    /** 登录密码，仅用于传递信息，勿保存本地 */
+    /**
+     * 登录密码，仅用于传递信息，勿保存本地
+     */
     public String getPwd() {
         return pwd;
     }
@@ -324,53 +361,108 @@ public class UserInfo extends BaseModel {
         this.pwd = pwd;
     }
 
-    /**第三方登录时返回的openid*/
-    public String getOpenId() { return openId; }
+    /**
+     * 第三方登录时返回的openid
+     */
+    public String getOpenId() {
+        return openId;
+    }
 
-    public void setOpenId(String openId) { this.openId = openId; }
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
 
-    /**第三方登录时返回的tokenId*/
-    public void setTokenId(String tokenId) { this.tokenId = tokenId; }
+    /**
+     * 第三方登录时返回的tokenId
+     */
+    public void setTokenId(String tokenId) {
+        this.tokenId = tokenId;
+    }
 
-    public String getTokenId() { return tokenId; }
-    /**注册时的验证码 */
-    public String getCaptcha() { return captcha; }
+    public String getTokenId() {
+        return tokenId;
+    }
 
-    public void setCaptcha(String captcha) { this.captcha = captcha; }
+    /**
+     * 注册时的验证码
+     */
+    public String getCaptcha() {
+        return captcha;
+    }
 
-    public String getFansNumber() { return fansNumber; }
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
+    }
 
-    public void setFansNumber(String fansNumber) { this.fansNumber = fansNumber; }
+    public String getFansNumber() {
+        return fansNumber;
+    }
 
-    public String getInviterImg() { return inviterImg; }
+    public void setFansNumber(String fansNumber) {
+        this.fansNumber = fansNumber;
+    }
 
-    public void setInviterImg(String inviterImg) { this.inviterImg = inviterImg; }
+    public String getInviterImg() {
+        return inviterImg;
+    }
 
-    public String getInviterName() { return inviterName; }
+    public void setInviterImg(String inviterImg) {
+        this.inviterImg = inviterImg;
+    }
 
-    public void setInviterName(String inviterName) { this.inviterName = inviterName; }
+    public String getInviterName() {
+        return inviterName;
+    }
 
-    public boolean getBindingInviter() { return bindingInviter; }
+    public void setInviterName(String inviterName) {
+        this.inviterName = inviterName;
+    }
 
-    public void setBindingInviter(boolean bindingInviter) { this.bindingInviter = bindingInviter; }
+    public boolean getBindingInviter() {
+        return bindingInviter;
+    }
 
-    public String getTdCode() { return tdCode; }
+    public void setBindingInviter(boolean bindingInviter) {
+        this.bindingInviter = bindingInviter;
+    }
 
-    public void setTdCode(String tdCode) { this.tdCode = tdCode; }
+    public String getTdCode() {
+        return tdCode;
+    }
 
-    public String getiCode() { return iCode; }
+    public void setTdCode(String tdCode) {
+        this.tdCode = tdCode;
+    }
 
-    public void setiCode(String iCode) { this.iCode = iCode; }
+    public String getiCode() {
+        return iCode;
+    }
 
-    public String getTk_uri() { return tk_uri; }
+    public void setiCode(String iCode) {
+        this.iCode = iCode;
+    }
 
-    public void setTk_uri(String tk_uri) { this.tk_uri = tk_uri; }
+    public String getTk_uri() {
+        return tk_uri;
+    }
 
-    public String getTk_show() { return tk_show; }
+    public void setTk_uri(String tk_uri) {
+        this.tk_uri = tk_uri;
+    }
 
-    public void setTk_show(String tk_show) { this.tk_show = tk_show; }
+    public String getTk_show() {
+        return tk_show;
+    }
 
-    public String getIspartenr() { return ispartenr; }
+    public void setTk_show(String tk_show) {
+        this.tk_show = tk_show;
+    }
 
-    public void setIspartenr(String ispartenr) { this.ispartenr = ispartenr; }
+    public String getIspartenr() {
+        return ispartenr;
+    }
+
+    public void setIspartenr(String ispartenr) {
+        this.ispartenr = ispartenr;
+    }
 }

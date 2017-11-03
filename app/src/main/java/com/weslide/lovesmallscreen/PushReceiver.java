@@ -21,6 +21,7 @@ import com.igexin.sdk.PushManager;
 import com.weslide.lovesmallscreen.activitys.MsgHomeActivity;
 import com.weslide.lovesmallscreen.models.Message;
 import com.weslide.lovesmallscreen.models.RefreshPushMsg;
+import com.weslide.lovesmallscreen.models.eventbus_message.UpdateMallMessage;
 import com.weslide.lovesmallscreen.models.push.OtherLogin;
 import com.weslide.lovesmallscreen.models.push.SystemMsg;
 import com.weslide.lovesmallscreen.network.Push;
@@ -118,6 +119,7 @@ public class PushReceiver extends BroadcastReceiver {
                             systemMsgPush = gson.fromJson(data, objectType);
                             context.getSharedPreferences("newMsgInfo", Context.MODE_PRIVATE).edit().putBoolean("hasNewMsg", true).commit();
                             EventBus.getDefault().post(new RefreshPushMsg());
+                            EventBus.getDefault().post(new UpdateMallMessage());
                             saveMsg(context, systemMsgPush);
                             sendMessage(systemMsgPush, context);
                         }
@@ -209,8 +211,14 @@ public class PushReceiver extends BroadcastReceiver {
                 .setContentTitle("爱小屏消息")//大标题
                 .setContentText(messagePush.getData().getMessage())//内容
                 .setTicker("爱小屏新消息哦~~")//提醒
-                .setContentIntent(PendingIntent.getActivity(context, 0, intent, 0))
-                .setFullScreenIntent(PendingIntent.getActivity(context, 0, intent, 0), true);
+                .setContentIntent(PendingIntent.getActivity(context, 0, intent, 0));
+//                .setFullScreenIntent(PendingIntent.getActivity(context, 0, intent, 0), true);//横幅通知
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0或以上
+            builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+            // 关联PendingIntent
+            builder.setFullScreenIntent(PendingIntent.getActivity(context, 0, intent, 0), false);// 横幅
+                }
         Notification n = builder.getNotification();
         n.flags |= Notification.FLAG_AUTO_CANCEL;
         n.tickerText = "爱小屏新消息哦~~";

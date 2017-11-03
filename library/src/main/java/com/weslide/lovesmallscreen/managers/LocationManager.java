@@ -205,8 +205,9 @@ public class LocationManager {
 
             if(bdLocation == null || bdLocation.getLatitude() == 0 || bdLocation.getLongitude() == 0
                      || bdLocation.getCity() == null){
+                Log.d("雨落无痕丶", "onReceiveLocation: 定位失败");
                 //查询最后一条数据
-                 location = ArchitectureAppliation.getDaoSession().getLocationDao().loadLastRow();
+//                 location = ArchitectureAppliation.getDaoSession().getLocationDao().loadLastRow();
             } else {
                 location = new Location();
                 location.setLatitude(bdLocation.getLatitude() + "");

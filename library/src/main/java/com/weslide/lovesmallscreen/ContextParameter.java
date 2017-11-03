@@ -49,6 +49,17 @@ public class ContextParameter {
      */
     private static Zone currentZone;
 
+    //判断是否定位成功
+    private static boolean isLocation;
+
+    public static boolean isLocation() {
+        return isLocation;
+    }
+
+    public static void setIsLocation(boolean isLocation) {
+        ContextParameter.isLocation = isLocation;
+    }
+
     public static List<Zone> getHotCityList() {
         return hotCityList;
     }
@@ -62,6 +73,20 @@ public class ContextParameter {
 
      */
     private static List<Zone> hotCityList;
+
+    public static List<Zone> getAllCityList() {
+        return AllCityList;
+    }
+
+    public static void setAllCityList(List<Zone> allCityList) {
+        AllCityList = allCityList;
+    }
+
+    /**
+     * 所有城市区
+
+     */
+    private static List<Zone> AllCityList;
 
     /**
      * 客户端运行配置

@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|right"
             android:layout_marginRight="12dp"
-            android:src="@drawable/del" />
+            android:src="@drawable/icon_shanchu" />
     </android.support.v7.widget.Toolbar>
 
     <RelativeLayout

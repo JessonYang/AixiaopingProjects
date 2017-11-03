@@ -57,6 +57,10 @@ public class UserInfoSP {
     public static final String KEY_USER_INFO_IS_BINDING = "KEY_USER_INFO_IS_BINDING";
     /** 当前登录的用户绑定的手机号码 */
     public static final String KEY_USER_INFO_BINDING = "KEY_USER_INFO_BINDING";
+    /** 当前登录的用户的融云token */
+    public static final String KEY_USER_INFO_TOKEN = "KEY_USER_INFO_TOKEN";
+    /** 当前登录的用户融云头像 */
+    public static final String KEY_USER_INFO_USERHEAD = "KEY_USER_INFO_USERHEAD";
 
     /**
      * 清空
@@ -90,6 +94,8 @@ public class UserInfoSP {
         values.put(KEY_USER_INFO_FREE_COUNT, userInfo.getFreeCount());
         values.put(KEY_USER_INFO_SELLER_ID, userInfo.getSellerId());
         values.put(KEY_USER_INFO_BINDING, userInfo.getBinding());
+        values.put(KEY_USER_INFO_TOKEN, userInfo.getToken());
+        values.put(KEY_USER_INFO_USERHEAD, userInfo.getUserHead());
 
         ContextParameter.setUserInfo(userInfo);
 
@@ -123,6 +129,8 @@ public class UserInfoSP {
         userInfo.setFreeCount(SPUtils.getValueByMapToString(values,KEY_USER_INFO_FREE_COUNT, null));
         userInfo.setSellerId(SPUtils.getValueByMapToString(values,KEY_USER_INFO_SELLER_ID, null));
         userInfo.setBinding(SPUtils.getValueByMapToString(values,KEY_USER_INFO_BINDING, null));
+        userInfo.setToken(SPUtils.getValueByMapToString(values,KEY_USER_INFO_TOKEN, null));
+        userInfo.setUserHead(SPUtils.getValueByMapToString(values,KEY_USER_INFO_USERHEAD, null));
 
         return  userInfo;
     }

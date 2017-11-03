@@ -40,6 +40,8 @@ public class InputInformationActivity extends BaseActivity {
     EditText edtInfo;
     @BindView(R.id.tv_address)
     TextView tvAddress;
+//    @BindView(R.id.tv_address)
+//    EditText tvAddress;
     @BindView(R.id.tv_type)
     TextView tvType;
     @BindView(R.id.tv_license)
@@ -65,12 +67,12 @@ public class InputInformationActivity extends BaseActivity {
         getStoreVerifyStatus();
     }
 
-    @OnClick({R.id.tv_guide, R.id.tv_address, R.id.tv_type, R.id.tv_license, R.id.btn_commint})
+    @OnClick({R.id.tv_guide, R.id.to_select_address, R.id.tv_type, R.id.tv_license, R.id.btn_commint})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_guide:
                 break;
-            case R.id.tv_address:
+            case R.id.to_select_address:
                 Intent intent1 = new Intent(InputInformationActivity.this, InputAddressActivity.class);
                 startActivityForResult(intent1, 3);
                 break;
@@ -95,7 +97,7 @@ public class InputInformationActivity extends BaseActivity {
                     T.showShort(InputInformationActivity.this, "请完善提交信息");
                 }*/
 
-                if (StringUtils.isBlank(edtInfo.getText().toString()) || StringUtils.isBlank(edtName.getText().toString()) || StringUtils.isBlank(edtPhone.getText().toString()) || tvAddress.getText().toString().equals("填入商铺地址") || tvType.getText().toString().equals("您的店铺类型") || tvLicense.getText().toString().equals("上传营业执照")){
+                if (StringUtils.isBlank(edtInfo.getText().toString()) || StringUtils.isBlank(edtName.getText().toString()) || StringUtils.isBlank(edtPhone.getText().toString()) || StringUtils.isBlank(tvAddress.getText().toString()) || tvType.getText().toString().equals("您的店铺类型") || tvLicense.getText().toString().equals("上传营业执照")){
                     T.showShort(InputInformationActivity.this, "请完善提交信息");
                 }else {
                     updateStoreInfo();
@@ -108,7 +110,11 @@ public class InputInformationActivity extends BaseActivity {
         UpdateStoreData updateStoreData = new UpdateStoreData();
         Request<UpdateStoreData> request = new Request<>();
         updateStoreData.setName(edtName.getText().toString());
-        updateStoreData.setAddress(address);
+        if (address != null && address.length() > 0) {
+            updateStoreData.setAddress(address);
+        }else {
+            updateStoreData.setAddress(tvAddress.getText().toString());
+        }
         updateStoreData.setPhone(edtPhone.getText().toString());
         String oppositeUrl = uploadFileBean.getOppositeUrl();
         if (oppositeUrl != null && oppositeUrl.length() > 0) {

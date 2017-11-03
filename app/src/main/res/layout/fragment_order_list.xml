@@ -1,5 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.malinskiy.superrecyclerview.SuperRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/list"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"></com.malinskiy.superrecyclerview.SuperRecyclerView>
+    android:layout_height="match_parent">
+
+    <com.malinskiy.superrecyclerview.SuperRecyclerView android:layout_height="match_parent"
+        android:id="@id/list"
+        android:layout_width="match_parent">
+    </com.malinskiy.superrecyclerview.SuperRecyclerView>
+
+    <LinearLayout
+        android:id="@+id/no_data_ll"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_empty_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/icon_list_kissing" />
+
+        <TextView
+            android:id="@+id/tv_empty_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="当前网络连接失败!"
+            android:textColor="#222222"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/empty_reload_btn"
+            android:layout_width="80dp"
+            android:visibility="visible"
+            android:layout_height="26dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="0dp"
+            android:background="@drawable/reload_btn_bg"
+            android:paddingTop="0dp"
+            android:text="重新加载"
+            android:textColor="#848484"/>
+    </LinearLayout>
+
+</RelativeLayout>

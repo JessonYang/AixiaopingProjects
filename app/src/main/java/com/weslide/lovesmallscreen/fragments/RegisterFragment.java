@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.umeng.analytics.MobclickAgent;
 import com.weslide.lovesmallscreen.Constants;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
@@ -175,7 +176,7 @@ public class RegisterFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-//        MobclickAgent.onEvent(getActivity(),"register_enter");
+        MobclickAgent.onEvent(getActivity(),"register_enter");
         /*edtCaptcha.setText("");
         edtInvitationCode.setText("");
         edtPassWord.setText("");
@@ -260,7 +261,7 @@ public class RegisterFragment extends BaseFragment {
                 .map(new Func1<Response<UserInfo>, Response<UserInfo>>() {
                     @Override
                     public Response<UserInfo> call(Response<UserInfo> userInfoResponse) {
-//                        MobclickAgent.onEvent(getActivity(), "register_commit");
+                        MobclickAgent.onEvent(getActivity(), "register_commit");
                         HashMap<String,String> map1 = new HashMap<String,String>();
                         HashMap<String,String> map2 = new HashMap<String,String>();
                         HashMap<String,String> map3 = new HashMap<String,String>();
@@ -270,11 +271,11 @@ public class RegisterFragment extends BaseFragment {
                         map3.put("password",password);
                         if (invationcode != null) {
                             map4.put("invationcode",invationcode);
-//                            MobclickAgent.onEvent(getActivity(), "register_inviteCode",map4);
+                            MobclickAgent.onEvent(getActivity(), "register_inviteCode",map4);
                         }
-//                        MobclickAgent.onEvent(getActivity(), "register_getverifycode",map2);
-//                        MobclickAgent.onEvent(getActivity(), "register_mobileNum",map1);
-//                        MobclickAgent.onEvent(getActivity(), "register_password",map3);
+                        MobclickAgent.onEvent(getActivity(), "register_getverifycode",map2);
+                        MobclickAgent.onEvent(getActivity(), "register_mobileNum",map1);
+                        MobclickAgent.onEvent(getActivity(), "register_password",map3);
                         return userInfoResponse;
                     }
                 })

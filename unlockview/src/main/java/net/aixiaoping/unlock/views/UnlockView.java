@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,9 +28,11 @@ import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.core.APeriod;
 import com.weslide.lovesmallscreen.core.BaseActivity;
 import com.weslide.lovesmallscreen.core.SupportSubscriber;
+import com.weslide.lovesmallscreen.dao.sp.UserInfoSP;
 import com.weslide.lovesmallscreen.models.AcquireScore;
 import com.weslide.lovesmallscreen.models.AdvertImg;
 import com.weslide.lovesmallscreen.models.RedPaper;
+import com.weslide.lovesmallscreen.models.bean.UpdateScoreBean;
 import com.weslide.lovesmallscreen.models.eventbus_message.DownloadImageMessage;
 import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
@@ -42,6 +46,7 @@ import net.aixiaoping.unlock.views.adpaters.UnlockViewPagerAdapter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -53,7 +58,7 @@ import me.kaelaela.verticalviewpager.VerticalViewPager;
  * Created by xu on 2016/5/16.
  * 锁屏使用的view
  */
-public class UnlockView extends FrameLayout implements View.OnClickListener,APeriod {
+public class UnlockView extends FrameLayout implements View.OnClickListener, APeriod {
 
     /**
      * 自动滑动的间隔时间
@@ -86,6 +91,8 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
      */
     public static final String ACQUIRE_SCORE_TYPE_WEBSITE = Constants.SCORE_TYPE_WEBSITE;
 
+    public static RedPaper mRedPaper;
+
     VerticalViewPager mViewPager;
     SliderRelativeLayout mSliderRelativeLayout;
     UnlockClockView mUnlockClockView;
@@ -105,7 +112,8 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
      */
     OnOptionListener mOptionListener;
     List<AdvertImg> mAdverts;
-    Context mContext;
+    public static Context mContext;
+    private ImageView gold_iv,chai_iv;
 
     public UnlockView(Context context) {
         super(context);
@@ -130,6 +138,11 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
         initView();
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
     /**
      * 用于自动轮播
      */
@@ -137,7 +150,7 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
         @Override
         public boolean handleMessage(Message msg) {
 
-            if(mViewPager.getAdapter() == null){
+            if (mViewPager.getAdapter() == null) {
                 L.e("锁屏尚未加载完毕");
                 return false;
             }
@@ -163,6 +176,8 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
         mWebsiteIcon = (UnlockScoreIcon) findViewById(R.id.usi_unlock_website);
         mMallIcon = (UnlockScoreIcon) findViewById(R.id.usi_unlock_mall);
         mRedPaperView = (FrameLayout) findViewById(R.id.layout_redpaper);
+        gold_iv = ((ImageView) findViewById(R.id.loading_gold));
+        chai_iv = ((ImageView) findViewById(R.id.chai_iv));
         mUnlockClockView = (UnlockClockView) findViewById(R.id.unlock_clock_view);
 
         initAnim();
@@ -213,12 +228,58 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
                 unlock(OPTION_UNLOCK);
                 URIResolve.resolve(getContext(), url);*/
                 unlock(OPTION_UNLOCK);
-                Intent intent = new Intent();
-                intent.setClassName(getContext(), "com.weslide.lovesmallscreen.activitys.sellerinfo.RedPaperDetailsActivity");
                 RedPaper redPaper = (RedPaper) view.getTag();
+                openAdminRedPaper(redPaper.getSettingId());
+                /*Intent intent = new Intent();
+                intent.setClassName(getContext(), "com.weslide.lovesmallscreen.activitys.sellerinfo.RedPaperDetailsActivity");
                 intent.putExtra("settingId",redPaper.getSettingId());
                 mContext.startActivity(intent);
+                mRedPaperView.setVisibility(View.GONE);*/
+            }
+        });
+    }
+
+    private void openAdminRedPaper(final int settingId) {
+        Rotate3dAnimation rotate3dAnimation = new Rotate3dAnimation(0, 360, 120, 120, 0f, Rotate3dAnimation.ROTATE_Y_AXIS, true);
+        rotate3dAnimation.setRepeatCount(Animation.INFINITE);
+        rotate3dAnimation.setDuration(1200);
+        chai_iv.setVisibility(GONE);
+        gold_iv.setVisibility(VISIBLE);
+        gold_iv.startAnimation(rotate3dAnimation);
+        Request<RedPaper> request = new Request<>();
+        RedPaper redPaper = new RedPaper();
+        redPaper.setSettingId(settingId);
+        redPaper.setType("6");
+        request.setData(redPaper);
+        RXUtils.request(mContext, request, "openAdminRedPaper", new SupportSubscriber<Response<RedPaper>>() {
+
+            @Override
+            public void onNext(Response<RedPaper> redPaperResponse) {
+                mRedPaper = redPaperResponse.getData();
+                Intent intent = new Intent();
+                intent.setClassName(getContext(), "com.weslide.lovesmallscreen.activitys.sellerinfo.RedPaperDetailsActivity");
+                intent.putExtra("status", redPaperResponse.getStatus());
+                mContext.startActivity(intent);
                 mRedPaperView.setVisibility(View.GONE);
+                gold_iv.setVisibility(GONE);
+                chai_iv.setVisibility(VISIBLE);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onResponseError(Response response) {
+                if (response.getStatus() == -3) {//红包金额被领完了
+                    Intent intent = new Intent();
+                    intent.setClassName(getContext(), "com.weslide.lovesmallscreen.activitys.sellerinfo.RedPaperDetailsActivity");
+                    intent.putExtra("status", response.getStatus());
+                    mContext.startActivity(intent);
+                    mRedPaperView.setVisibility(View.GONE);
+                    gold_iv.setVisibility(GONE);
+                }
             }
         });
     }
@@ -234,13 +295,13 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
         mRedPaperView.setVisibility(View.GONE);
         mRedPaperView.setTag(null);
         mUnlockClockView.onStart();
-       if(ArchitectureAppliation.getDaoSession().getAdvertImgDao()!=null) {
-           mAdverts = ArchitectureAppliation.getDaoSession().getAdvertImgDao().loadAll();
-       }
+        if (ArchitectureAppliation.getDaoSession().getAdvertImgDao() != null) {
+            mAdverts = ArchitectureAppliation.getDaoSession().getAdvertImgDao().loadAll();
+        }
         //需要过滤掉没有下载完成的图片
-        if(mAdverts != null){
+        if (mAdverts != null) {
             for (int i = 0; i < mAdverts.size(); i++) {
-                if(StringUtils.isBlank(mAdverts.get(i).getImageFile())){
+                if (StringUtils.isBlank(mAdverts.get(i).getImageFile())) {
                     mAdverts.remove(i);
                     i--;
                 }
@@ -277,9 +338,9 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
         List<AdvertImg> adverts = ArchitectureAppliation.getDaoSession().getAdvertImgDao().loadAll();
 
         //需要过滤掉没有下载完成的图片
-        if(adverts != null){
+        if (adverts != null) {
             for (int i = 0; i < adverts.size(); i++) {
-                if(StringUtils.isBlank(adverts.get(i).getImageFile())){
+                if (StringUtils.isBlank(adverts.get(i).getImageFile())) {
                     adverts.remove(i);
                     i--;
                 }
@@ -306,8 +367,26 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
         acquireScore.setScore(score + "");
         acquireScore.setAdvertId(advertId);
 
-        //添加至数据库
-        ArchitectureAppliation.getDaoSession().getAcquireScoreDao().insert(acquireScore);
+        //每次滑屏的时候直接提交积分
+        if (ContextParameter.isLogin()) {
+            List<AcquireScore> acquireScoreList = new ArrayList<>();
+            acquireScoreList.add(acquireScore);
+            UpdateScoreBean updateScoreReqeust = new UpdateScoreBean();
+            updateScoreReqeust.setAcquireScores(acquireScoreList);
+            Request<UpdateScoreBean> reqeust = new Request<UpdateScoreBean>();
+            reqeust.setData(updateScoreReqeust);
+            RXUtils.request(mContext, reqeust, "updateScore", new SupportSubscriber<Response<UpdateScoreBean>>() {
+                @Override
+                public void onNext(Response<UpdateScoreBean> updateScoreBeanResponse) {
+                    ContextParameter.getUserInfo().setScore(updateScoreBeanResponse.getData().getTotalScore());
+                    UserInfoSP.setUserInfo(ContextParameter.getUserInfo());
+                    Log.d("雨落无痕丶", "score: " + ContextParameter.getUserInfo().getScore());
+                }
+            });
+        }
+
+        //将滑屏所得积分添加至数据库(解锁之后再一起提交积分)
+//        ArchitectureAppliation.getDaoSession().getAcquireScoreDao().insert(acquireScore);
     }
 
     /**
@@ -320,11 +399,12 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
         int s = random.nextInt(max) % (max - min + 1) + min;
         return s;
     }
-    public void stop(){
+
+    public void stop() {
         mHandler.removeMessages(1);
     }
 
-    public void start(){
+    public void start() {
         mHandler.sendEmptyMessageDelayed(1, INTERVAL_TIME);
     }
 
@@ -427,7 +507,7 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
     public void detonateRedPaper() {
 
         //判断用户是否登录
-        if(!ContextParameter.isLogin()){
+        if (!ContextParameter.isLogin()) {
             L.i("用户未登录，不能触发红包");
             return;
         }
@@ -438,7 +518,7 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
         L.e("probability->" + probability + ", random->" + random);
 
         //几率判断
-        if(random < probability){
+        if (random < probability) {
 
             RXUtils.request(getContext(), new Request(), "checkRedPaper", new SupportSubscriber<Response<RedPaper>>() {
 
@@ -450,10 +530,13 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
 
                 @Override
                 public void onNext(Response<RedPaper> redPaperResponse) {
-                    if(redPaperResponse.getData().getSettingId()>0) {
+                    if (redPaperResponse.getData().getSettingId() > 0) {
                         mRedPaperView.setVisibility(VISIBLE);
+                        gold_iv.setVisibility(GONE);
+                        chai_iv.setVisibility(VISIBLE);
                         mRedPaperView.setTag(redPaperResponse.getData());
                         animationShow(mRedPaperView, 1200).start();
+
                     }
                 }
             });
@@ -467,9 +550,7 @@ public class UnlockView extends FrameLayout implements View.OnClickListener,APer
         anim.playTogether(ObjectAnimator.ofFloat(target, "alpha", 0, 1, 1),
                 ObjectAnimator.ofFloat(target, "scaleX", 0.1f, 0.475f, 1),
                 ObjectAnimator.ofFloat(target, "scaleY", 0.1f, 0.475f, 1),
-                ObjectAnimator
-                        .ofFloat(target, "translationY", distance, -60, 0)
-
+                ObjectAnimator.ofFloat(target, "translationY", distance, -60, 0)
         );
         anim.setTarget(target);
         anim.setDuration(duration);

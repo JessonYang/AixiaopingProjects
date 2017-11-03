@@ -139,14 +139,22 @@
             android:layout_marginRight="@dimen/home_edge"
             android:background="@color/line"></View>
 
-        <ImageView
-            android:id="@+id/iv_seller_phone"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:id="@+id/rll_seller_phone"
             android:layout_marginRight="@dimen/home_edge"
-            android:adjustViewBounds="true"
-            android:padding="5dp"
-            android:src="@drawable/icon_seller_phone" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/iv_seller_phone"
+                android:layout_centerVertical="true"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/home_edge"
+                android:adjustViewBounds="true"
+                android:padding="5dp"
+                android:src="@drawable/icon_seller_phone" />
+        </RelativeLayout>
 
     </LinearLayout>
 

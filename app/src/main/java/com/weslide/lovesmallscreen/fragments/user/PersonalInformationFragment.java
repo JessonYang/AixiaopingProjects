@@ -117,11 +117,15 @@ public class PersonalInformationFragment extends BaseFragment {
                 AppUtils.toActivity(getActivity(), NameEditActivity.class);
                 break;
             case R.id.ll_phone:
-                if(StringUtils.isBlank(ContextParameter.getUserInfo().getPhone())) {
+                //一旦填写了手机资料后便不能修改
+                /*if(StringUtils.isBlank(ContextParameter.getUserInfo().getPhone())) {
                     AppUtils.toActivity(getActivity(), RetrieveActivity.class);
                 }else{
                     T.showShort(getActivity(),"您已绑定了手机号码");
-            }
+            }*/
+
+                //填写资料后还可以进行修改
+                AppUtils.toActivity(getActivity(), RetrieveActivity.class);
                 break;
             case R.id.ll_address:
                 Bundle bundle = new Bundle();

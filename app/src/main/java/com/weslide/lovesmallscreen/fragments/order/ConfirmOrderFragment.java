@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.umeng.analytics.MobclickAgent;
 import com.weslide.lovesmallscreen.Constants;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.MyPay;
@@ -338,7 +339,7 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
                 map.put("totalMoney", totalMoney + "");
                 map.put("userId", ContextParameter.getUserInfo().getUserId());
                 map.put("time", request.getTimes());
-//                MobclickAgent.onEvent(getActivity(), "purchase_order", map);
+                MobclickAgent.onEvent(getActivity(), "purchase_order", map);
 
                 //发送购物车改变事件
                 EventBus.getDefault().post(new UpdateShoppingCarMessage());
@@ -406,7 +407,7 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
                     for (int i = 0; i < orderIds.size(); i++) {
                         map.put("orderIds" + i, orderIds.get(i));
                     }
-//                    MobclickAgent.onEvent(getActivity(), "purchase_pay", map);
+                    MobclickAgent.onEvent(getActivity(), "purchase_pay", map);
                     MyPay.payToAlipay(getActivity(), payOrderBean.getData().getSign(), ConfirmOrderFragment.this);
                 } else if (Constants.PAY_WALLET.equals(mPayMode)) {
                     HashMap<String, String> map = new HashMap<>();
@@ -418,7 +419,7 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
                     for (int i = 0; i < orderIds.size(); i++) {
                         map.put("orderIds" + i, orderIds.get(i));
                     }
-//                    MobclickAgent.onEvent(getActivity(), "purchase_pay", map);
+                    MobclickAgent.onEvent(getActivity(), "purchase_pay", map);
                     onSuccess();
                 } else if (Constants.PAY_WEIXIN.equals(mPayMode)) {
                     HashMap<String, String> map = new HashMap<>();
@@ -430,7 +431,7 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
                     for (int i = 0; i < orderIds.size(); i++) {
                         map.put("orderIds" + i, orderIds.get(i));
                     }
-//                    MobclickAgent.onEvent(getActivity(), "purchase_pay", map);
+                    MobclickAgent.onEvent(getActivity(), "purchase_pay", map);
                     MyPay.payToWeiXin(getActivity(), payOrderBean.getData(), ConfirmOrderFragment.this);
                 } else if (Constants.PAY_BANK.equals(mPayMode)) {
                     MyPay.payToBank(payOrderBean, getActivity(), science);
@@ -516,7 +517,7 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
         }
         map.put("userId", ContextParameter.getUserInfo().getUserId());
         map.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()));
-//        MobclickAgent.onEvent(getActivity(), "purchase_completionTrans", map);
+        MobclickAgent.onEvent(getActivity(), "purchase_completionTrans", map);
         ContextParameter.getUserInfo().setAvailableMoney(Float.parseFloat(ContextParameter.getUserInfo().getAvailableMoney()) - totalMoney + "");
         Toast.makeText(getActivity(), "支付成功!", Toast.LENGTH_SHORT).show();
 

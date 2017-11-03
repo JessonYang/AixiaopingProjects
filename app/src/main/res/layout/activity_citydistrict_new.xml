@@ -87,18 +87,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.weslide.lovesmallscreen.views.custom.LetterIndexView
-            android:id="@+id/letter_index_view"
-            android:layout_width="32dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:background="@color/project_main_bg" />
-
         <ListView
             android:id="@+id/city_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@id/letter_index_view"
             android:divider="@null"
             android:scrollbars="none"></ListView>
 
@@ -110,6 +102,12 @@
             android:background="@drawable/voip_toast_bg"
             android:gravity="center"
             android:visibility="gone" />
+
+        <com.weslide.lovesmallscreen.views.custom.LetterIndexView
+            android:id="@+id/letter_index_view"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"/>
 
         <FrameLayout
             android:id="@+id/alpha_bg"

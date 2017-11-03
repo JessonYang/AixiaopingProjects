@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -20,7 +21,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +62,7 @@ import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.NetworkUtils;
 import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.view_yy.activity.AxpDiscountTicketActivity;
+import com.weslide.lovesmallscreen.view_yy.adapter.ConversationListAdapterEx;
 import com.weslide.lovesmallscreen.view_yy.fragment.HomePageFragment_New;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,7 +74,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import io.rong.imkit.RongContext;
+import io.rong.imkit.fragment.ConversationListFragment;
+import io.rong.imlib.model.Conversation;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
@@ -86,69 +91,56 @@ public class HomeActivity extends BaseActivity {
     /**
      * 界面切换
      */
+    //主页
 //    HomePageFragment mMallFragment;
     HomePageFragment_New mMallFragment;
+    //购物车
     ShoppingCartFragment mShoppingCartFragment;
+    //订单
     OrderFragment mOrderFragment;
+    //个人中心
     PersonalCenterFragment mUserInfoFragment;
+    //换货会
     ExChangeBusFragment exChangeBusFragment;
+    //聊天
+    ConversationListFragment mConversationListFg;
     public static Activity activity;
-
+    private Fragment mFragment, mCurrentFragment;
     public static final String KEY_SHOW = "KEY_SHOW";
-    @BindView(R.id.iv_main_tab_mall)
-    ImageView ivMainTabMall;
-    @BindView(R.id.tv_main_tab_mall)
-    TextView tvMainTabMall;
-    @BindView(R.id.rl_main_tab_mall)
-    RelativeLayout rlMainTabMall;
-    @BindView(R.id.iv_main_tab_change)
-    ImageView ivMainTabChange;
-    @BindView(R.id.tv_main_tab_change)
-    TextView tvMainTabChange;
-    @BindView(R.id.rl_main_tab_change)
-    RelativeLayout rlMainTabChange;
-    @BindView(R.id.iv_main_tab_shopping_car)
-    ImageView ivMainTabShoppingCar;
-    @BindView(R.id.tv_main_tab_shopping_car)
-    TextView tvMainTabShoppingCar;
-    @BindView(R.id.rl_main_tab_shopping_car)
-    RelativeLayout rlMainTabShoppingCar;
-    @BindView(R.id.iv_main_tab_oder)
-    ImageView ivMainTabOder;
-    @BindView(R.id.tv_main_tab_oder)
-    TextView tvMainTabOder;
-    @BindView(R.id.rl_main_tab_oder)
-    RelativeLayout rlMainTabOder;
-    @BindView(R.id.iv_main_tab_person)
-    ImageView ivMainTabPerson;
-    @BindView(R.id.tv_main_tab_person)
-    TextView tvMainTabPerson;
-    @BindView(R.id.rl_main_tab_person)
-    RelativeLayout rlMainTabPerson;
     @BindView(R.id.container)
     FrameLayout container;
+    @BindView(R.id.tab_rg)
+    RadioGroup tab_rg;
+    @BindView(R.id.main_rb)
+    RadioButton main_rb;
+    @BindView(R.id.exchange_rb)
+    RadioButton exchange_rb;
+    @BindView(R.id.shopping_car_rb)
+    RadioButton shopping_car_rb;
+    @BindView(R.id.chat_rb)
+    RadioButton chat_rb;
+    @BindView(R.id.personal_center_rb)
+    RadioButton personal_center_rb;
     private String showChange;
     private boolean click = false;
     private int show = Constants.HOME_SHOW_MALL;
-
-    /*  @BindView(R.id.htv_tab)
-      HomeTabView mTabView;*/
     List<Integer> mIconUnselectId = new ArrayList<>();
     List<Integer> mIconSelectId = new ArrayList<>();
     List<String> title = new ArrayList<>();
-
     int postion = 0;
     private SharedPreferences cityInfo;
     private ImageView cancleIv;
     private AlertDialog updateDialog;
     private Button updateBtn;
-    private TextView update_content,version_tv;
+    private TextView update_content, version_tv;
     private ClipboardManager mClipboard;
+    private boolean isDebug = false;
+    private Conversation.ConversationType[] mConversationsTypes;
+    private Fragment mChatFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        StatusbarUtils.enableTranslucentStatusbar(this);
         setContentView(R.layout.activity_home);
         activity = this;
         ButterKnife.bind(this);
@@ -157,42 +149,81 @@ public class HomeActivity extends BaseActivity {
         if (city == null) {
             city = "";
         }
-        district = getSupportApplication().getDaoSession().getZoneDao().loadDistrictByZoneName(city, ContextParameter.getCurrentLocation().getDistrict());
-        ContextParameter.setCurrentZone(district);
-
-//
-//        cityInfo = getSharedPreferences("cityInfo", MODE_PRIVATE);
-//        String currentCity = cityInfo.getString("currentCity", "黄埔区");
-
-//        String s = LauncherActivity.location.getDistrict();
-//        Log.d("雨落无痕丶", "onCreate: ttt"+currentCity+"========="+s);
-        /*if (!currentCity.equals(s)){
-            final String finalCity = city;
-            AlertDialog dialog = new AlertDialog.Builder(this)
-                    .setTitle("温馨提示")
-                    .setMessage("当前定位到" + ContextParameter.getCurrentLocation().getDistrict() + ",是否切换到" + ContextParameter.getCurrentLocation().getDistrict())
-                    .setNegativeButton("否", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            init();
+        tab_rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.main_rb:
+                        postion = 1;
+                        if (mMallFragment == null) {
+                            mMallFragment = new HomePageFragment_New();
                         }
-                    })
-                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            if (LauncherActivity.location != null) {
-                                ContextParameter.setCurrentLocation(LauncherActivity.location);
-                                handlerZone();
-                                Log.d("雨落无痕丶", "onClick: dsfdsfs");
-                            }
-
-                            init();
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        if (mMallFragment.isAdded()) {
+                            transaction.hide(mCurrentFragment).show(mMallFragment).commit();
+                        } else {
+                            transaction.hide(mCurrentFragment).add(R.id.container, mMallFragment).commit();
                         }
-                    })
-                    .create();
-            dialog.show();
-        }*/
-
+                        mCurrentFragment = mMallFragment;
+                        break;
+                    case R.id.exchange_rb:
+                        if (ContextParameter.isLogin() == false) {
+                            AppUtils.toActivity(HomeActivity.this, LoginOptionActivity.class);
+                        } else {
+                            String URL = HTTP.URL_EXCHENGE_GOODS + "zone_id=" + ContextParameter.getCurrentZone().getZoneId() + "&user_id=" + ContextParameter.getUserInfo().getUserId();
+                            L.e("换货会链接", URL);
+                            //URIResolve.resolve(this,URL);
+                            Bundle bundle = new Bundle();
+                            bundle.putString(ChangeGoodsWebActivity.KEY_LOAD_URL, URL);
+                            AppUtils.toActivity(HomeActivity.this, ChangeGoodsWebActivity.class, bundle);
+                        }
+                        click = true;
+                        break;
+                    case R.id.shopping_car_rb:
+                        postion = 2;
+                        if (mShoppingCartFragment == null) {
+                            mShoppingCartFragment = new ShoppingCartFragment();
+                        }
+                        FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
+                        if (mShoppingCartFragment.isAdded()) {
+                            transaction1.hide(mCurrentFragment).show(mShoppingCartFragment).commit();
+                        } else {
+                            transaction1.hide(mCurrentFragment).add(R.id.container, mShoppingCartFragment).commit();
+                        }
+                        mCurrentFragment = mShoppingCartFragment;
+                        break;
+                    case R.id.chat_rb:
+                        postion = 3;
+                        if (mChatFragment == null) {
+//                            mChatFragment = new ChatFragment();
+                            mChatFragment = initConversationList();
+                        }
+                        FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+                        if (mChatFragment.isAdded()) {
+                            transaction2.hide(mCurrentFragment).show(mChatFragment).commit();
+                        } else {
+                            transaction2.hide(mCurrentFragment).add(R.id.container, mChatFragment).commit();
+                        }
+                        mCurrentFragment = mChatFragment;
+                        break;
+                    case R.id.personal_center_rb:
+                        postion = 4;
+                        if (mUserInfoFragment == null) {
+                            mUserInfoFragment = new PersonalCenterFragment();
+                        }
+                        FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
+                        if (mUserInfoFragment.isAdded()) {
+                            transaction3.hide(mCurrentFragment).show(mUserInfoFragment).commit();
+                        } else {
+                            transaction3.hide(mCurrentFragment).add(R.id.container, mUserInfoFragment).commit();
+                        }
+                        mCurrentFragment = mUserInfoFragment;
+                        break;
+                }
+            }
+        });
+        mCurrentFragment = new HomePageFragment_New();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mCurrentFragment).commit();
         init();
 
        /* Bundle bundle = getIntent().getExtras();
@@ -246,7 +277,7 @@ public class HomeActivity extends BaseActivity {
         updateScore();
         loadGlideAdvert();
         updateZoneList();
-        rlMainTabMall.performClick();
+//        rlMainTabMall.performClick();
     }
 
     private void loadChange() {
@@ -256,17 +287,17 @@ public class HomeActivity extends BaseActivity {
             public void onNext(Response<Show> showResponse) {
 
                 if (showResponse.getData().getShowChange().equals("1")) {
-                    rlMainTabChange.setVisibility(View.GONE);
+                    exchange_rb.setVisibility(View.GONE);
 
                 } else if (showResponse.getData().getShowChange().equals("0")) {
-                    rlMainTabChange.setVisibility(View.GONE);
+                    exchange_rb.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                rlMainTabChange.setVisibility(View.VISIBLE);
+                exchange_rb.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -305,8 +336,9 @@ public class HomeActivity extends BaseActivity {
         if (bundle != null) {
             //读取当前应该显示哪一项
             show = bundle.getInt(KEY_SHOW, Constants.HOME_SHOW_MALL);
+            shopping_car_rb.setChecked(true);
 //            mTabView.getTabLayout().setCurrentTab(show);
-            rlMainTabShoppingCar.performClick();
+//            rlMainTabShoppingCar.performClick();
         }
 
         EventBus.getDefault().post(new UpdateShoppingCarMessage());
@@ -343,54 +375,17 @@ public class HomeActivity extends BaseActivity {
      * 检查版本更新
      */
     public void checkVersionUpdate() {
-
-        String currentVersion = AppUtils.getVersionName(this);
-        String newVersion = ContextParameter.getClientConfig().getNewVersion();
         String hasNewVerson = ContextParameter.getClientConfig().getHasNewVerson();
         if (getSupportApplication().alertVersionUpdate) {
             //判断时间间隔
             long currentTime = System.currentTimeMillis();
             long intevalTime = currentTime - getSupportApplication().alertVersionUpdateTime;
-
             if (intevalTime < getSupportApplication().MAX_ALERT_VERSION_UPDATE_TIME) {
                 return;
             }
-
         }
-
-
         if (hasNewVerson.equals("1")) {
             showUpdateDialog();
-
-            //旧版更新提示界面
-            /*boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
-            SimpleDialog.Builder builder = new SimpleDialog.Builder(isLightTheme ? R.style.SimpleDialogLight : R.style.SimpleDialog) {
-                @Override
-                public void onPositiveActionClicked(DialogFragment fragment) {
-                    super.onPositiveActionClicked(fragment);
-                    getSupportApplication().alertVersionUpdate = true;
-                    getSupportApplication().alertVersionUpdateTime = System.currentTimeMillis();
-                    Uri uri = Uri.parse(ContextParameter.getClientConfig().getNewVersionDownload());
-                    Intent it = new Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(it);
-                }
-
-                @Override
-                public void onNegativeActionClicked(DialogFragment fragment) {
-                    super.onNegativeActionClicked(fragment);
-                }
-            };
-
-            builder.message(ContextParameter.getClientConfig().getNewVersionMessage()).title("更新提示")
-                    .positiveAction("立即更新")
-                    .negativeAction("再等等");
-
-            DialogFragment fragment = DialogFragment.newInstance(builder);
-            fragment.show(getSupportFragmentManager(), null);*/
-
-            /*getSupportApplication().alertVersionUpdate = true;
-            getSupportApplication().alertVersionUpdateTime = System.currentTimeMillis();*/
-
         }
     }
 
@@ -440,6 +435,55 @@ public class HomeActivity extends BaseActivity {
                 restoreScreenBg();
             }
         });
+    }
+
+    //初始化融云会话列表fg
+    private Fragment initConversationList() {
+        Log.d("雨落无痕丶", "initConversationList: ");
+        if (mConversationListFg == null) {
+            ConversationListFragment listFragment = new ConversationListFragment();
+            listFragment.setAdapter(new ConversationListAdapterEx(RongContext.getInstance()));
+            Uri uri;
+            if (isDebug) {
+                uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
+                        .appendPath("conversationlist")
+                        .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "true") //设置私聊会话是否聚合显示
+                        .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "true")//群组
+                        .appendQueryParameter(Conversation.ConversationType.PUBLIC_SERVICE.getName(), "false")//公共服务号
+                        .appendQueryParameter(Conversation.ConversationType.APP_PUBLIC_SERVICE.getName(), "false")//订阅号
+                        .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")//系统
+                        .appendQueryParameter(Conversation.ConversationType.DISCUSSION.getName(), "true")
+                        .build();
+                mConversationsTypes = new Conversation.ConversationType[]{Conversation.ConversationType.PRIVATE,
+                        Conversation.ConversationType.GROUP,
+                        Conversation.ConversationType.PUBLIC_SERVICE,
+                        Conversation.ConversationType.APP_PUBLIC_SERVICE,
+                        Conversation.ConversationType.SYSTEM,
+                        Conversation.ConversationType.DISCUSSION
+                };
+
+            } else {
+                uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
+                        .appendPath("conversationlist")
+                        .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //设置私聊会话是否聚合显示
+                        .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false")//群组
+                        .appendQueryParameter(Conversation.ConversationType.PUBLIC_SERVICE.getName(), "false")//公共服务号
+                        .appendQueryParameter(Conversation.ConversationType.APP_PUBLIC_SERVICE.getName(), "false")//订阅号
+                        .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")//系统
+                        .build();
+                mConversationsTypes = new Conversation.ConversationType[]{Conversation.ConversationType.PRIVATE,
+                        Conversation.ConversationType.GROUP,
+                        Conversation.ConversationType.PUBLIC_SERVICE,
+                        Conversation.ConversationType.APP_PUBLIC_SERVICE,
+                        Conversation.ConversationType.SYSTEM
+                };
+            }
+            listFragment.setUri(uri);
+            mConversationListFg = listFragment;
+            return listFragment;
+        } else {
+            return mConversationListFg;
+        }
     }
 
     private void changeScreenBg() {
@@ -532,18 +576,14 @@ public class HomeActivity extends BaseActivity {
                         L.e("当前积分：" + ContextParameter.getUserInfo().getScore());
                     }
                 });
-
     }
-
 
     /**
      * 加载滑屏图片
      */
     public void loadGlideAdvert() {
-
         Intent intent = new Intent(HomeActivity.this, DownloadImageService.class);
         startService(intent);
-
     }
 
     /**
@@ -581,11 +621,12 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onNext(Response<ZoneList> zoneListResponse) {
 
-                Zone district = getSupportApplication().getDaoSession().getZoneDao()
+                /*Zone district = getSupportApplication().getDaoSession().getZoneDao()
                         .loadDistrictByZoneName(ContextParameter.getCurrentLocation().getCity(), ContextParameter.getCurrentLocation().getDistrict());
-                ContextParameter.setCurrentZone(district);
+                ContextParameter.setCurrentZone(district);*/
 
                 ContextParameter.setHotCityList(zoneListResponse.getData().getHotDataList());
+                ContextParameter.setAllCityList(zoneListResponse.getData().getDataList());
             }
         });
     }
@@ -630,18 +671,11 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
         cityInfo = getSharedPreferences("cityInfo", MODE_PRIVATE);
         SharedPreferences.Editor edit = cityInfo.edit();
         edit.putString("zoneId", ContextParameter.getCurrentZone().getZoneId());
         edit.putString("zoneName", ContextParameter.getCurrentZone().getName());
         edit.putString("zoneLevel", ContextParameter.getCurrentZone().getLevel());
-
-
-        /*edit.putString("pool1", ContextParameter.getCurrentZone().getLevel());
-        edit.putString("pool2", ContextParameter.getCurrentZone().getLevel());
-        edit.putString("pool3", ContextParameter.getCurrentZone().getLevel());
-        edit.putString("pool4", ContextParameter.getCurrentZone().getLevel());*/
         edit.commit();
     }
 
@@ -650,134 +684,17 @@ public class HomeActivity extends BaseActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
         ArchitectureAppliation.fixInputMethodManagerLeak(this);
-
-//        Log.d("雨落无痕丶", "onDestroy: dddd"+ContextParameter.getCurrentZone().getName());
     }
-
-    @OnClick({R.id.rl_main_tab_mall, R.id.rl_main_tab_change, R.id.rl_main_tab_shopping_car, R.id.rl_main_tab_oder, R.id.rl_main_tab_person})
-    public void onClick(View view) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        hideAllFragment(transaction);
-        switch (view.getId()) {
-            case R.id.rl_main_tab_mall:
-                postion = 1;
-                select();
-                tvMainTabMall.setSelected(true);
-                ivMainTabMall.setSelected(true);
-                if (mMallFragment == null) {
-//                    mMallFragment = new HomePageFragment();
-                    mMallFragment = new HomePageFragment_New();
-                    transaction.replace(R.id.container, mMallFragment);
-                } else {
-                    transaction.show(mMallFragment);
-                    // mMallFragment.goToTop();
-                }
-                break;
-            case R.id.rl_main_tab_change:
-               /* tvMainTabChange.setSelected(true);
-                ivMainTabChange.setSelected(true);
-                if(exChangeBusFragment==null){
-                    exChangeBusFragment = new ExChangeBusFragment();
-                    transaction.add(R.id.container,exChangeBusFragment);
-                }else{
-                    transaction.show(exChangeBusFragment);
-                }*/
-                // AppUtils.toActivity(HomeActivity.this,ExChangeActivity.class);
-                if (ContextParameter.isLogin() == false) {
-                    AppUtils.toActivity(HomeActivity.this, LoginOptionActivity.class);
-                } else {
-                    String URL = HTTP.URL_EXCHENGE_GOODS + "zone_id=" + ContextParameter.getCurrentZone().getZoneId() + "&user_id=" + ContextParameter.getUserInfo().getUserId();
-                    L.e("换货会链接", URL);
-                    //URIResolve.resolve(this,URL);
-                    Bundle bundle = new Bundle();
-                    bundle.putString(ChangeGoodsWebActivity.KEY_LOAD_URL, URL);
-                    AppUtils.toActivity(HomeActivity.this, ChangeGoodsWebActivity.class, bundle);
-                }
-                click = true;
-                break;
-            case R.id.rl_main_tab_shopping_car:
-                postion = 2;
-                select();
-                tvMainTabShoppingCar.setSelected(true);
-                ivMainTabShoppingCar.setSelected(true);
-                if (mShoppingCartFragment == null) {
-                    mShoppingCartFragment = new ShoppingCartFragment();
-                    transaction.add(R.id.container, mShoppingCartFragment);
-                } else {
-                    transaction.show(mShoppingCartFragment);
-                }
-                break;
-            case R.id.rl_main_tab_oder:
-                postion = 3;
-                select();
-                tvMainTabOder.setSelected(true);
-                ivMainTabOder.setSelected(true);
-                if (mOrderFragment == null) {
-                    mOrderFragment = new OrderFragment();
-                    transaction.add(R.id.container, mOrderFragment);
-                } else {
-                    transaction.show(mOrderFragment);
-                }
-                break;
-            case R.id.rl_main_tab_person:
-                postion = 4;
-                select();
-                tvMainTabPerson.setSelected(true);
-                ivMainTabPerson.setSelected(true);
-                if (mUserInfoFragment == null) {
-                    mUserInfoFragment = new PersonalCenterFragment();
-                    transaction.add(R.id.container, mUserInfoFragment);
-                } else {
-                    transaction.show(mUserInfoFragment);
-                }
-                break;
-
-        }
-        transaction.commit();
-    }
-
 
     private void click() {
         if (postion == 1) {
-            rlMainTabMall.performClick();
+            main_rb.setChecked(true);
         } else if (postion == 2) {
-            rlMainTabShoppingCar.performClick();
+            shopping_car_rb.setChecked(true);
         } else if (postion == 3) {
-            rlMainTabOder.performClick();
+            chat_rb.setChecked(true);
         } else if (postion == 4) {
-            rlMainTabPerson.performClick();
-        }
-    }
-
-    private void select() {
-        tvMainTabChange.setSelected(false);
-        ivMainTabChange.setSelected(false);
-
-        tvMainTabMall.setSelected(false);
-        ivMainTabMall.setSelected(false);
-
-        tvMainTabShoppingCar.setSelected(false);
-        ivMainTabShoppingCar.setSelected(false);
-
-        tvMainTabOder.setSelected(false);
-        ivMainTabOder.setSelected(false);
-
-        tvMainTabPerson.setSelected(false);
-        ivMainTabPerson.setSelected(false);
-    }
-
-    public void hideAllFragment(FragmentTransaction transaction) {
-        if (mMallFragment != null) {
-            transaction.hide(mMallFragment);
-        }
-        if (mShoppingCartFragment != null) {
-            transaction.hide(mShoppingCartFragment);
-        }
-        if (mOrderFragment != null) {
-            transaction.hide(mOrderFragment);
-        }
-        if (mUserInfoFragment != null) {
-            transaction.hide(mUserInfoFragment);
+            personal_center_rb.setChecked(true);
         }
     }
 

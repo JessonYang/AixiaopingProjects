@@ -73,10 +73,10 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
 
-    <!--<android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
+    <!-- <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application xmlns:tools="http://schemas.android.com/tools"
@@ -87,10 +87,14 @@
         android:supportsRtl="true"
         android:theme="@style/Aixiaoping.AppTheme"
         tools:replace="android:icon, android:allowBackup">
-        <!-- 友盟key icon,-->
+
+        <!-- 友盟key icon, -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="57457110e0f55ae769000312"></meta-data>
+            android:value="57457110e0f55ae769000312" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="aixiaoping_2017" />
 
         <!-- QQ、微信 -->
         <meta-data
@@ -131,480 +135,414 @@
         <activity
             android:name="com.payeco.android.plugin.PayecoPluginLoadingActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
 
         <!-- 插件拍照界面 -->
         <activity
             android:name="com.payeco.android.plugin.PayecoCameraActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
 
         <!-- 插件录像界面 -->
         <activity
             android:name="com.payeco.android.plugin.PayecoVedioActivity"
-            android:screenOrientation="landscape"
             android:process="com.payeco.android.plugin.vedio"
-            />
-
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activitys.UnlockActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/FullScreen">
-
-        </activity>
-
+            android:theme="@style/FullScreen" />
         <activity
             android:name=".demo.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppCompatCaptureTheme">
-
-        </activity>
-
+            android:theme="@style/AppCompatCaptureTheme" />
         <activity
             android:name=".core.ImageShowActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme">
-
-        </activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 首页 -->
         <activity
             android:name=".activitys.HomeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/HomeStyle">
-
-
-        </activity>
+            android:theme="@style/HomeStyle" />
         <activity
             android:name=".activitys.ChangeGoodsWebActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
         <activity
             android:name=".activitys.ExChangeActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <!-- 免单商品列表 -->
         <activity
             android:name=".activitys.mall.FreeGoodsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
-        <!-- 评价列表-->
+        <!-- 评价列表 -->
         <activity
             android:name=".activitys.mall.GoodsCommentListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
         <!-- 成为会员 -->
         <activity
             android:name=".activitys.mall.BecomeVipActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
         <activity
             android:name=".activitys.LiveActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 申请退单 -->
         <activity
             android:name=".activitys.order.ApplyBackOrderActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 退单列表 -->
         <activity
             android:name=".activitys.order.BackOrderListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 退单详情 -->
         <activity
             android:name=".activitys.order.BackOrderDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 商家退单详情 -->
         <activity
             android:name=".activitys.sellerinfo.SellerHandlerBackOrderDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 商家退单列表 -->
         <activity
             android:name=".activitys.sellerinfo.SellerHandlerBackOrderListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 遮掩物地图 -->
         <activity
             android:name=".activitys.mall.AmbitusSellerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme">
-
-        </activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
         <activity
             android:name=".activitys.TaoKeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 商家位置选择 -->
         <activity
             android:name=".activitys.mall.SellerAddressActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme">
-
-        </activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 周边店铺_旧版 -->
         <activity
             android:name=".activitys.mall.SellerListActivity_old"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme">
-
-
-        </activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 订单详情 -->
         <activity
             android:name=".activitys.order.OrderDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme">
-
-
-        </activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 评价晒单 -->
         <activity
             android:name=".activitys.order.EvaluateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden">
-
-
-        </activity>
-
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name=".activitys.LauncherActivity"
             android:screenOrientation="portrait"
             android:theme="@style/FullScreen">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="wxd930ea5d5a258f4f" android:host="axp.com.test"/>
+
+                <data
+                    android:host="axp.com.test"
+                    android:scheme="wxd930ea5d5a258f4f" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".activitys.mall.Preferential99Activity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-
+            android:theme="@style/Aixiaoping.AppTheme" />
         <activity
             android:name=".activitys.mall.SpecialLocalProductActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme">
-
-        </activity>
-
+            android:theme="@style/Aixiaoping.AppTheme" />
         <activity
             android:name=".demo.DemoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme">
-
-        </activity>
-
-
+            android:theme="@style/Aixiaoping.AppTheme" />
         <activity
-            android:name="com.weslide.lovesmallscreen.activitys.GuideActivity"
+            android:name=".activitys.GuideActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/FullScreen"></activity>
-
+            android:theme="@style/FullScreen" />
         <activity
             android:name=".activitys.mall.GoodsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme">
-
-        </activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 订单列表 -->
         <activity
             android:name=".activitys.order.OrderActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
 
         <!-- 商家订单列表 -->
         <activity
             android:name=".activitys.sellerinfo.SellerOrderActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-
+            android:theme="@style/Aixiaoping.AppTheme" />
         <activity
             android:name=".activitys.mall.GoodsSearchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"
-
-            ></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
         <activity
             android:name=".demo.WidgetActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppCompatCaptureTheme">
-
-        </activity>
-
+            android:theme="@style/AppCompatCaptureTheme" />
 
         <!-- 地图Demo使用的Activity -->
         <activity
             android:name=".demo.MapDemoActivity"
-            android:screenOrientation="portrait"></activity>
-
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".core.QRActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppCompatCaptureTheme">
-
-        </activity>
-
+            android:theme="@style/AppCompatCaptureTheme" />
         <activity
             android:name=".core.WebActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme">
-
-        </activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
         <activity
             android:name=".core.SaveMoneyWebActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme">
-
-        </activity>
-        <!--注册成功-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 注册成功 -->
         <activity
             android:name=".activitys.RegisterSuccessfulActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--积分列表-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 积分列表 -->
         <activity
             android:name=".activitys.user.MyScoreActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--设置-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 设置 -->
         <activity
             android:name=".activitys.user.SettingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--个人资料-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 个人资料 -->
         <activity
             android:name=".activitys.user.PersonInformationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--消息列表-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 消息列表 -->
         <activity
             android:name=".activitys.user.MyMessageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--我的提现-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 我的提现 -->
         <activity
             android:name=".activitys.user.MyWithdrawActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--关闭锁屏-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 关闭锁屏 -->
         <activity
             android:name=".activitys.user.LockScreenActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
         <activity
             android:name=".activitys.sellerinfo.RedPaperDetailsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--商家-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 商家 -->
         <activity
             android:name=".activitys.user.MyStoreActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme">
-
-        </activity>
-        <!--免单券-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 免单券 -->
         <activity
             android:name=".activitys.user.ExemptActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--地址列表-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 地址列表 -->
         <activity
             android:name=".activitys.user.MyAddressActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--添加修改地址-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 添加修改地址 -->
         <activity
             android:name=".activitys.user.MyAddressEditActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--意见反馈-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 意见反馈 -->
         <activity
             android:name=".activitys.user.FeedbackActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
-        <!--选择性别-->
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 选择性别 -->
         <activity
             android:name=".activitys.user.ChioseSexActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--发送验证码-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 发送验证码 -->
         <activity
             android:name=".activitys.user.RetrieveActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme">
             >
         </activity>
-        <!--名字编辑 -->
+        <!-- 名字编辑 -->
         <activity
             android:name=".activitys.user.NameEditActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme">
             >
         </activity>
-        <!--现金收益 -->
+        <!-- 现金收益 -->
         <activity
             android:name=".activitys.withdrawals.CashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme">
             >
         </activity>
-        <!-- 提现明细-->
+        <!-- 提现明细 -->
         <activity
             android:name=".activitys.withdrawals.WithdrawalsListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme">
             >
         </activity>
-        <!--提现 -->
+        <!-- 提现 -->
         <activity
             android:name=".activitys.withdrawals.WithdrawalsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme">
             >
         </activity>
-        <!-- 身份验证-->
+        <!-- 身份验证 -->
         <activity
             android:name=".activitys.withdrawals.AuthenticationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme">
             >
         </activity>
-        <!--资料审核-->
+        <!-- 资料审核 -->
         <activity
             android:name=".activitys.user.MyDataVerificationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
-        <!-- 绑定联系人-->
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 绑定联系人 -->
         <activity
             android:name=".activitys.user.BindingContactsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--我的粉丝 -->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 我的粉丝 -->
         <activity
             android:name=".activitys.user.MyFansActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!-- 城市列表-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 城市列表 -->
         <activity
             android:name=".activitys.CityListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--待兑换-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 待兑换 -->
         <activity
             android:name=".activitys.sellerinfo.StayExchangeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
-        <!--待发货-->
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 待发货 -->
         <activity
             android:name=".activitys.sellerinfo.StayTakeOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
-        <!--积分兑换-->
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 积分兑换 -->
         <activity
             android:name=".activitys.ScoreExchangeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!--秒杀-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- 秒杀 -->
         <activity
             android:name=".activitys.SecondKillActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
-        <!---商品关注-->
+            android:theme="@style/Aixiaoping.AppTheme" />
+        <!-- -商品关注 -->
         <activity
             android:name=".activitys.user.GoodsConcernActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
         <activity
             android:name=".activitys.user.ChangePasswordActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/transinfoTheme"></activity>
-        <!-- 地区列表-->
+            android:theme="@style/transinfoTheme" />
+        <!-- 地区列表 -->
         <activity
             android:name=".activitys.CityDistrictActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/transinfoTheme"></activity>
-
-        <activity android:name=".activitys.CityDistrictActivity_new"/>
+            android:theme="@style/transinfoTheme" />
+        <activity
+            android:name=".activitys.CityDistrictActivity_new"
+            android:windowSoftInputMode="adjustPan" />
 
         <!-- 商家详情 -->
         <activity
             android:name=".activitys.mall.SellerActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <!-- 确认订单 -->
         <activity
             android:name=".activitys.order.ConfirmOrderActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <!--退单申请-->
+            android:screenOrientation="portrait" />
+        <!-- 退单申请 -->
         <activity
             android:name=".activitys.sellerinfo.ChargebacKauditActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Aixiaoping.AppTheme"></activity>
+            android:theme="@style/Aixiaoping.AppTheme" />
         <activity
             android:name=".activitys.LoginOptionActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.mall.GoodsClassifiActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" />
 
-
-        </activity>
-
-        <service android:name=".DownloadImageService"></service>
-
-        <service android:name=".AthanasiaService"></service>
-
-        <service android:name=".RefushService"></service>
+        <service android:name=".DownloadImageService" />
+        <service android:name=".AthanasiaService" />
+        <service android:name=".RefushService" />
 
         <!-- ###########################以下为第三方配置############################## -->
+
 
         <!-- 百度地图 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
-
+            android:process=":remote" />
 
         <!-- 个推 -->
         <!-- 配置第三方Receiver -->
@@ -613,6 +551,11 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.${GETUI_APP_ID}" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".RongIMReceiver">
+            <intent-filter>
+                <action android:name="RongIMReceiverAction" />
             </intent-filter>
         </receiver>
 
@@ -634,27 +577,24 @@
                 <!-- 100380359 100381104 222222 -->
             </intent-filter>
         </activity>
-        <!--微信登录-->
+        <!-- 微信登录 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-
-        </activity>
-
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
 
-        <!-- alipay sdk begin android:configChanges="orientation|keyboardHidden|navigation|screenSize"-->
+        <!-- alipay sdk begin android:configChanges="orientation|keyboardHidden|navigation|screenSize" -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <!-- alipay sdk end -->
 
@@ -662,148 +602,94 @@
         <!-- IPC 360 start -->
         <activity
             android:name="com.showmo.ipc360.login.LoginActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.maincotent.MainContentActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.account.ModifyPswActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.account.AccountActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.play.DeviceslistActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.adddevice.AddDeviceUserEnsure"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.adddevice.AddDeviceSetNetworkActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.adddevice.AddDeviceUserTipClose"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.adddevice.AddDeviceConfigSearchActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.login.ResetDeviceActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.login.RegisterActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.login.RegisterActivity2"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.play.PlayActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-
-        </activity>
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".activitys.LiveDetails"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.LiveMaxActivity"
-            android:screenOrientation="landscape"></activity>
-
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.showmo.ipc360.play.ShareDeviceActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.showmo.ipc360.play.ReNameActivity"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
         <activity android:name=".activitys.OriginalCityAgencyActivity" />
         //城市代理
-
-        <activity android:name=".activitys.OriginalMyPartnerActivity"></activity>
+        <activity android:name=".activitys.OriginalMyPartnerActivity" />
         //我的合伙人
-
         <activity android:name=".activitys.OriginalCityAgencyAllOrderActivity" />
         //全部订单
-
         <activity android:name=".activitys.OriginalCityAgencyHelpActivity" />
         //分润说明
-
-        <activity android:name=".activitys.ShareToEarnActivity"  android:theme="@style/invatationBg"/>
+        <activity
+            android:name=".activitys.ShareToEarnActivity"
+            android:theme="@style/invatationBg" />
         //分享赚钱
-
-        <activity android:name=".activitys.mall.SellerListActivity_new"/>
+        <activity android:name=".activitys.mall.SellerListActivity_new" />
         //周边店铺_新版
-
         <activity android:name=".activitys.SellerListSearchActivity" />
         //周边店铺搜索
-
         <activity android:name=".activitys.OrderMsgActivity" />
-
         <activity android:name=".activitys.SystemMsgActivity" />
-
         <activity android:name=".activitys.MsgHomeActivity" />
-
         <activity android:name=".activitys.SystemMsgDtActivity" />
-
         <activity android:name=".activitys.AssetsMsgDtActivity" />
-
         <activity android:name=".activitys.OrderMsgDtActivity" />
-
         <activity android:name=".view_yy.activity.TicketGoodsDtActivity" />
-
         <activity android:name=".view_yy.activity.AddPartnerActivity" />
-
         <activity android:name=".view_yy.activity.MyTicketActivity" />
-
         <activity android:name=".view_yy.activity.PartnerListActivity" />
-
         <activity android:name=".activitys.OriginalCityAgencyAllOrderActivity_New" />
-
         <activity android:name=".view_yy.activity.SaveMoneyHomeActivity" />
-
         <activity android:name=".view_yy.activity.TaoBaoActivity" />
-
         <activity android:name=".activitys.mall.GoodsSearchActivity_New" />
-
         <activity android:name=".view_yy.activity.SaveMoneySearchActivity" />
-
         <activity android:name=".view_yy.activity.SaveMoneyBrandActivity" />
-
         <activity android:name=".view_yy.activity.ApplayPartnerPaySuccessActivity" />
-
         <activity android:name=".view_yy.activity.ApplayPartnerPayActivity" />
-
         <activity android:name=".view_yy.activity.ApplayPartnerActivity" />
-
         <activity android:name=".view_yy.activity.ApplayNormalPartnerActivity" />
-
         <activity android:name=".view_yy.activity.ApplayYxsPartnerActivity" />
-
         <activity android:name=".view_yy.activity.LoginForPhoneActivity" />
 
         <meta-data
@@ -815,14 +701,15 @@
         <!-- IPC 365 END -->
         <activity android:name=".view_yy.activity.PermissionsActivity" />
         <activity android:name=".view_yy.activity.SendMsgActivity" />
-        <activity android:name=".view_yy.activity.InputAddressActivity"/>
-        <activity android:name=".view_yy.activity.InputChioseAddressActivity"/>
-        <activity android:name=".view_yy.activity.InputInformationActivity"/>
-        <activity android:name=".view_yy.activity.InputStatusActivity"/>
-        <activity android:name=".view_yy.activity.InputStoreTypeActivity"/>
-        <activity android:name=".view_yy.activity.OpenShopActivity"/>
-        <activity android:name=".view_yy.activity.UploadLicenseActivity"/>
-        <activity android:name=".view_yy.activity.ConstantListActivity"/>
+        <activity android:name=".view_yy.activity.InputAddressActivity" />
+        <activity android:name=".view_yy.activity.InputChioseAddressActivity" />
+        <activity android:name=".view_yy.activity.InputInformationActivity" />
+        <activity android:name=".view_yy.activity.InputStatusActivity" />
+        <activity android:name=".view_yy.activity.InputStoreTypeActivity" />
+        <activity android:name=".view_yy.activity.OpenShopActivity" />
+        <activity android:name=".view_yy.activity.UploadLicenseActivity" />
+        <activity android:name=".view_yy.activity.ConstantListActivity" />
+        <activity android:name=".activitys.DiscountActionActivity" />
         <activity android:name=".view_yy.activity.AxpDiscountTicketActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -830,13 +717,30 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <!--下面所设置的质需要和html端对调-->
-                <!--在data里设置了 scheme和host，则该Activity可以接收和处理类似于 "sharetest://data/XXX"的链接-->
+                <!-- 下面所设置的质需要和html端对调 -->
+                <!-- 在data里设置了 scheme和host，则该Activity可以接收和处理类似于 "sharetest://data/XXX"的链接 -->
                 <data
                     android:host="com.test"
                     android:scheme="axp2017" />
             </intent-filter>
         </activity>
+        <activity android:name=".view_yy.activity.ActionDtActivity" />
+        <activity
+            android:name=".activitys.ConversionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.weslide.lovesmallscreen"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view_yy.activity.FansConversationListActivity"></activity>
     </application>
 
 </manifest>

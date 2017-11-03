@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.weslide.lovesmallscreen.core.BaseModel;
 import com.weslide.lovesmallscreen.models.CityType;
 import com.weslide.lovesmallscreen.models.GoodsType;
+import com.weslide.lovesmallscreen.models.RecomenderModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +76,18 @@ public class DataList<T> extends BaseModel {
 
     @SerializedName("title")
     private String title;
+
+    public RecomenderModel getRecommender() {
+        return recommender;
+    }
+
+    public void setRecommender(RecomenderModel recommender) {
+        this.recommender = recommender;
+    }
+
+    //粉丝推荐人
+    @SerializedName("recommender")
+    private RecomenderModel recommender;
 
     private String recyclerViewStatus = "RECYCLER_VIEW_STATUS_SUCCESS";
 

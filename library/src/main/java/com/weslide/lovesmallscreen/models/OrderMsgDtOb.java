@@ -37,6 +37,28 @@ public class OrderMsgDtOb extends BaseModel{
     @SerializedName("orderIcon")
     String orderIcon;
 
+    @SerializedName("picture")
+    String picture;
+
+    public String getActiveLink() {
+        return activeLink;
+    }
+
+    public void setActiveLink(String activeLink) {
+        this.activeLink = activeLink;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    @SerializedName("activeLink")
+    String activeLink;
+
     @SerializedName("orderDesc")
     String orderDesc;
 

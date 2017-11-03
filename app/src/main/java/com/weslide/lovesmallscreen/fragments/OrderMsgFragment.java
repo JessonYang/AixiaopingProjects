@@ -191,6 +191,11 @@ public class OrderMsgFragment extends BaseFragment implements IShowOrderMsgFg {
                 }
 //                Toast.makeText(OrderMsgFragment.this.getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
             }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
         });
     }
 

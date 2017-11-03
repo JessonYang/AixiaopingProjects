@@ -12,6 +12,8 @@
         android:layout_marginLeft="15dp"
         android:background="@drawable/city_tv_bg"
         android:gravity="center"
+        android:ellipsize="middle"
+        android:maxLines="1"
         android:text="广州市"
         android:textColor="#333333"
         android:textSize="14dp" />

@@ -1,7 +1,5 @@
 package com.weslide.lovesmallscreen.core;
 
-import com.weslide.lovesmallscreen.models.Live;
-import com.weslide.lovesmallscreen.network.DataList;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.L;
 
@@ -78,5 +76,5 @@ public abstract class SupportSubscriber<T> extends Subscriber<T> {
      * 请求错误
      * @param response
      */
-    public void onResponseError(Response response){L.i("请求错误");};
+    public void onResponseError(Response response){L.i("请求错误");}
 }

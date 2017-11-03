@@ -1,2 +1,2 @@
-include ':app', ':superrecyclerview', ':library', ':unlockview', ':material_lib', ':ipc360'
+include ':app', ':superrecyclerview', ':library', ':unlockview', ':material_lib', ':ipc360', ':IMLib', ':CallLib', ':IMKit', ':CallKit'
 include ':pulltorefresh'

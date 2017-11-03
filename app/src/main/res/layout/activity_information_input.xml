@@ -65,6 +65,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/to_select_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -249,7 +250,7 @@
                         android:background="@color/white"
                         android:gravity="right"
                         android:hint="您的身份证号"
-                        android:inputType="number"
+                        android:inputType="number|text"
                         android:textSize="@dimen/h8" />
                 </LinearLayout>
 

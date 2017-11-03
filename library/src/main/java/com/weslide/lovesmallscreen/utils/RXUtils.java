@@ -61,8 +61,7 @@ public class RXUtils {
                 .map(new Func1<Object, Response>() {
                     @Override
                     public Response call(Object o) {
-                        retrofit2.Call call = (retrofit2.Call) ReflectionUtils.methodInvoke(API.class.getName(),
-                                apiMethodName, new Class[]{String.class}, new Object[]{HTTP.formatJSONData(request)}, HTTP.getAPI());
+                        retrofit2.Call call = (retrofit2.Call) ReflectionUtils.methodInvoke(API.class.getName(),apiMethodName, new Class[]{String.class}, new Object[]{HTTP.formatJSONData(request)}, HTTP.getAPI());
                         Object obj = null;
                         try {
                             obj = call.execute().body();

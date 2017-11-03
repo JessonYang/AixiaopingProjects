@@ -99,8 +99,7 @@ public class TaoKeActivity extends BaseActivity {
         initData();
         initListener();
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        mWebView.addJavascriptInterface(new InJavaScriptGetBody(),
-                "android");
+        mWebView.addJavascriptInterface(new InJavaScriptGetBody(), "android");
         if (search != null && search.length() > 0) {
             String parmars = "search=" + search + "&state=app" + "&userId = " + ContextParameter.getUserInfo().getUserId();
             mWebView.postUrl(loadUrl, parmars.getBytes());

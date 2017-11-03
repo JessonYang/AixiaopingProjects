@@ -2,6 +2,7 @@ package com.weslide.lovesmallscreen.activitys.sellerinfo;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,15 +21,13 @@ import com.weslide.lovesmallscreen.activitys.HomeActivity;
 import com.weslide.lovesmallscreen.activitys.UnlockActivity;
 import com.weslide.lovesmallscreen.activitys.withdrawals.CashActivity;
 import com.weslide.lovesmallscreen.core.BaseActivity;
-import com.weslide.lovesmallscreen.core.SupportSubscriber;
 import com.weslide.lovesmallscreen.models.Goods;
 import com.weslide.lovesmallscreen.models.RedPaper;
-import com.weslide.lovesmallscreen.network.Request;
-import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.AppUtils;
-import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.utils.StringUtils;
 import com.weslide.lovesmallscreen.views.custom.SuperGridView;
+
+import net.aixiaoping.unlock.views.UnlockView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -57,55 +57,91 @@ public class RedPaperDetailsActivity extends BaseActivity {
     TextView tvYuan;
     @BindView(R.id.iv_come)
     ImageView ivCome;
+    @BindView(R.id.red_status2)
+    LinearLayout red_status2;
+    @BindView(R.id.red_status1)
+    LinearLayout red_status1;
     private int seetingId;
     private String sellerId, URL;
     List<Goods> data = new ArrayList<>();
+    private Thread thread;
+    private boolean exit = false;
+    private int status;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newredpaper_detail);
         ButterKnife.bind(this);
-        seetingId = getIntent().getIntExtra("settingId", 0);
+//        seetingId = getIntent().getIntExtra("settingId", 0);
+        status = getIntent().getIntExtra("status", 0);
         openAdminRedPaper();
-
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.sleep(2000);
+                if (!exit) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            toStore();
+                            RedPaperDetailsActivity.this.finish();
+                        }
+                    });
+                }
+            }
+        });
+        if (status == 1) {
+            thread.start();
+        }
     }
 
-    @OnClick({R.id.tv_back, R.id.tv_wallet, R.id.iv_come})
+    @OnClick({R.id.tv_back, R.id.tv_wallet, R.id.iv_come, R.id.iv_come2})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_back:
+                exit = true;
                 AppUtils.toActivity(this, UnlockActivity.class);
                 this.finish();
                 break;
             case R.id.tv_wallet:
+                exit = true;
                 // URIResolve.resolve(RedPaperDetailsActivity.this, HTTP.URL_MONEY_LINK_LIST + HTTP.formatJSONData(new Request()));
                 AppUtils.toActivity(RedPaperDetailsActivity.this, CashActivity.class);
                 this.finish();
                 break;
             case R.id.iv_come:
-                if (!StringUtils.isBlank("sellerId")) {
-                    if (sellerId.equals("0")) {
-                        if (StringUtils.isBlank(URL)) {
-                            //进入首页
-                            AppUtils.toActivity(this, HomeActivity.class);
-                        } else {
-                            //查看网页
-                            URIResolve.resolve(RedPaperDetailsActivity.this, URL);
-
-                        }
-                    } else {
-                        //进店逛逛
-                        AppUtils.toSeller(this, sellerId);
-                    }
-                }
+                exit = true;
+                toStore();
+                this.finish();
+                break;
+            case R.id.iv_come2:
+                AppUtils.toActivity(this, HomeActivity.class);
                 this.finish();
                 break;
         }
     }
 
+    private void toStore() {
+        if (!StringUtils.isBlank("sellerId")) {
+            if (sellerId.equals("0")) {
+                if (StringUtils.isBlank(URL)) {
+                    //进入首页
+                    AppUtils.toActivity(this, HomeActivity.class);
+                } else {
+                    //查看网页
+                    URIResolve.resolve(RedPaperDetailsActivity.this, URL);
+
+                }
+            } else {
+                //进店逛逛
+                AppUtils.toSeller(this, sellerId);
+            }
+        }
+    }
+
     private void openAdminRedPaper() {
-        Request<RedPaper> request = new Request<>();
+        /*Request<RedPaper> request = new Request<>();
         RedPaper redPaper = new RedPaper();
         redPaper.setSettingId(seetingId);
         redPaper.setType("6");
@@ -114,11 +150,41 @@ public class RedPaperDetailsActivity extends BaseActivity {
 
             @Override
             public void onNext(Response<RedPaper> redPaperResponse) {
-                if (redPaperResponse.getData() != null) {
+                Log.d("雨落无痕丶", "onNext: ss");
+                if (redPaperResponse.getStatus() == 1) {//正常获取到红包
+                    thread.start();
+                    red_status1.setVisibility(View.VISIBLE);
+                    red_status2.setVisibility(View.GONE);
                     setData(redPaperResponse.getData());
+                } else if (redPaperResponse.getStatus() == -3) {//红包金额被领完了
+                    red_status1.setVisibility(View.GONE);
+                    red_status2.setVisibility(View.VISIBLE);
                 }
             }
-        });
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onResponseError(Response response) {
+                if (response.getStatus() == -3) {//红包金额被领完了
+                    red_status1.setVisibility(View.GONE);
+                    red_status2.setVisibility(View.VISIBLE);
+                }
+            }
+        });*/
+        if (status == 1) {
+            red_status1.setVisibility(View.VISIBLE);
+            red_status2.setVisibility(View.GONE);
+            if (UnlockView.mRedPaper != null) {
+                setData(UnlockView.mRedPaper);
+            }
+        } else if (status == -3) {
+            red_status1.setVisibility(View.GONE);
+            red_status2.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setData(RedPaper redPaper) {

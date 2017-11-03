@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.malinskiy.superrecyclerview.core.RecyclerViewSubscriber;
+import com.umeng.analytics.MobclickAgent;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.mall.GoodsActivity;
@@ -104,7 +105,7 @@ public class GoodsInfoFragment extends BaseFragment {
                 map.put("goodsId",goods.getGoodsId());
                 map.put("goodsName",goods.getName());
                 map.put("userId", ContextParameter.getUserInfo().getUserId());
-//                MobclickAgent.onEvent(getActivity(),"purchase_browse",map);
+                MobclickAgent.onEvent(getActivity(),"purchase_browse",map);
             }
         });
 

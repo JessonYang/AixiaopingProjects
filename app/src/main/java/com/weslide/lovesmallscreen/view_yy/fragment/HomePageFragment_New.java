@@ -53,7 +53,6 @@ import com.weslide.lovesmallscreen.models.SellerList;
 import com.weslide.lovesmallscreen.models.SqgwModel;
 import com.weslide.lovesmallscreen.models.TopClassifyModel;
 import com.weslide.lovesmallscreen.models.TopLocalModel;
-import com.weslide.lovesmallscreen.models.Zone;
 import com.weslide.lovesmallscreen.models.bean.GetSellerListBean;
 import com.weslide.lovesmallscreen.models.config.ShareContent;
 import com.weslide.lovesmallscreen.models.eventbus_message.UpdateMallMessage;
@@ -88,6 +87,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.dkzwm.smoothrefreshlayout.SmoothRefreshLayout;
+import me.dkzwm.smoothrefreshlayout.extra.header.ClassicHeader;
 
 /**
  * Created by xu on 2016/6/3.
@@ -227,6 +228,8 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
 //    SuperRecyclerView list;
     @BindView(R.id.list)
     NestedListView list;
+    @BindView(R.id.smooth_refresh_layout)
+    SmoothRefreshLayout refreshLayout;
 
     SellerList mSellerList = new SellerList();
     GetSellerListBean getSellerListBean = new GetSellerListBean();
@@ -262,25 +265,26 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
     private SellerListAdapter mAdapter;
     private HomeSellerListLvAdapter homeSellerListLvAdapter;
     public static String pid = "";
+    private int dotStatus = 1;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_mall_new, container, false);
         ButterKnife.bind(this, mView);
-
         EventBus.getDefault().register(this);
-
         hasNewMsg = getContext().getSharedPreferences("newMsgInfo", Context.MODE_PRIVATE).getBoolean("hasNewMsg", false);
         unreadCount = getContext().getSharedPreferences("msg", Context.MODE_PRIVATE).getString("unreadCount", "");
         if (hasNewMsg) {
             msg_iv.setImageResource(R.drawable.sy_xiaoxitishidianbaise);
+            dotStatus = 0;
         } else {
             msg_iv.setImageResource(R.drawable.sy_xialagengduo3);
+            dotStatus = 1;
         }
-        Zone district = getSupportApplication().getDaoSession().getZoneDao()
+        /*Zone district = getSupportApplication().getDaoSession().getZoneDao()
                 .loadDistrictByZoneName(ContextParameter.getCurrentLocation().getCity(), ContextParameter.getCurrentLocation().getDistrict());
-        ContextParameter.setCurrentZone(district);
+        ContextParameter.setCurrentZone(district);*/
 //        StatusbarUtils.enableTranslucentStatusbar(getActivity());
 //        llMainMallTitleBackground.setBackgroundColor(Color.argb(0, 48, 63, 159));
         llMainMallTitleBackground.setBackgroundResource(R.drawable.dclbj);
@@ -319,6 +323,27 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
             }
         }
 
+        refreshLayout.setMode(SmoothRefreshLayout.MODE_REFRESH);
+        refreshLayout.setHeaderView(new ClassicHeader(getActivity()));
+        refreshLayout.setResistanceOfPullDown(2.2f);
+        refreshLayout.setResistanceOfPullUp(2.2f);
+        refreshLayout.setOnRefreshListener(new SmoothRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefreshBegin(boolean isRefresh) {
+                load();
+                loadData();
+                if (dotStatus == 0) {
+                    msg_iv.setImageResource(R.drawable.sy_xiaoxitishidianheise);
+                } else {
+                    msg_iv.setImageResource(R.drawable.sy_xialagengduo3);
+                }
+            }
+
+            @Override
+            public void onRefreshComplete() {
+
+            }
+        });
         load();
         loadSellerList();
         loadData();
@@ -348,12 +373,14 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
             public void onError(Throwable e) {
                 Log.d("雨落无痕丶", "onError: rrrrrr:"+e.getMessage());
                 loadingDialog.dismiss();
+                refreshLayout.refreshComplete();
             }
 
             @Override
             public void onResponseError(Response response) {
                 Log.d("雨落无痕丶", "onResponseError: eeeee"+response.getMessage());
                 loadingDialog.dismiss();
+                refreshLayout.refreshComplete();
             }
         });
     }
@@ -489,6 +516,13 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
     public void onEvent(UpdateMallMessage event) {
         load();
         loadData();
+        if (hasNewMsg) {
+            msg_iv.setImageResource(R.drawable.sy_xiaoxitishidianbaise);
+            dotStatus = 0;
+        } else {
+            msg_iv.setImageResource(R.drawable.sy_xialagengduo3);
+            dotStatus = 1;
+        }
     }
 
 
@@ -505,7 +539,7 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
         askNetData();
     }
 
-    @OnClick({R.id.rl_main_mall_title_content, R.id.et_search, R.id.home_page_msg_iv, R.id.shop_around_iv, R.id.sign_up_attend_iv, R.id.time_limite_iv, R.id.credit_exchange_iv, R.id.save_money_title_rll, R.id.brand_zone_iv,
+    @OnClick({R.id.rl_main_mall_title_content, R.id.et_search, R.id.home_page_msg_rll, R.id.shop_around_iv, R.id.sign_up_attend_iv, R.id.time_limite_iv, R.id.credit_exchange_iv, R.id.save_money_title_rll, R.id.brand_zone_iv,
             R.id.nine_to_nine_baoyou_iv, R.id.sqgw_media_rll, R.id.sqgw_shoes_rll, R.id.yhq_banner_iv, R.id.clothing_ll, R.id.muying_ll, R.id.home_dress_ll, R.id.delicious_good_ll, R.id.medical_health_ll, R.id.wtcp_ll, R.id.sports_ll,
             R.id.title_rll, R.id.hzp_ll, R.id.to_friend_iv, R.id.nfcp_iv, R.id.county_banner_iv, R.id.eat_must_iv, R.id.dj_fruit_iv, R.id.tea_iv, R.id.small_live_title, R.id.exchange_iv,R.id.zbdp_rll})
     public void onClick(View view) {
@@ -522,7 +556,7 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
                 AppUtils.toActivity(getActivity(), GoodsSearchActivity_New.class, bundle);
                 break;
 
-            case R.id.home_page_msg_iv:
+            case R.id.home_page_msg_rll:
                 if (pwView == null) {
                     pwView = LayoutInflater.from(getActivity()).inflate(R.layout.home_page_msg_pup_item, null);
                     msg_ll = ((LinearLayout) pwView.findViewById(R.id.home_page_msg_pup_item_msg));
@@ -558,6 +592,7 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
                     AppUtils.toActivity(getActivity(), MsgHomeActivity.class);
                     getContext().getSharedPreferences("newMsgInfo", Context.MODE_PRIVATE).edit().putBoolean("hasNewMsg", false).commit();
                     msg_iv.setImageResource(R.drawable.sy_xialagengduo3);
+                    dotStatus = 1;
                     if (unread_num_tv.getVisibility() == View.VISIBLE) {
                         unread_num_tv.setVisibility(View.GONE);
                     }
@@ -849,7 +884,7 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
             llMainMallTitleBackground.setBackgroundColor(Color.parseColor(transparency));
             tvTitle.setTextColor(Color.parseColor("#333333"));
             page_cashmall_index_location.setImageResource(R.drawable.icon_baisexialajiantou);
-            if (hasNewMsg) {
+            if (dotStatus == 0) {
                 msg_iv.setImageResource(R.drawable.sy_xiaoxitishidianheise);
             } else {
                 msg_iv.setImageResource(R.drawable.sy_xialagengduo3);
@@ -860,8 +895,8 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
         } else if (t <= 20) {
             tvTitle.setTextColor(Color.parseColor("#ffffff"));
             page_cashmall_index_location.setImageResource(R.drawable.icon_xialajiantoubaise);
-            if (hasNewMsg) {
-                msg_iv.setImageResource(R.drawable.sy_xiaoxitishidianbaise);
+            if (dotStatus == 0) {
+                msg_iv.setImageResource(R.drawable.sy_xiaoxitishidianheise);
             } else {
                 msg_iv.setImageResource(R.drawable.sy_xialagengduo3);
             }
@@ -873,7 +908,7 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
             llMainMallTitleBackground.setBackgroundColor(getResources().getColor(R.color.main_color_white));
             tvTitle.setTextColor(Color.parseColor("#333333"));
             page_cashmall_index_location.setImageResource(R.drawable.icon_baisexialajiantou);
-            if (hasNewMsg) {
+            if (dotStatus == 0) {
                 msg_iv.setImageResource(R.drawable.sy_xiaoxitishidianheise);
             } else {
                 msg_iv.setImageResource(R.drawable.sy_xialagengduo3);
@@ -921,8 +956,10 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
                 zbdp_rll.setVisibility(View.VISIBLE);
                 if (loadingDialog != null && loadingDialog.isShowing()) {
                     loadingDialog.dismiss();
+                    refreshLayout.refreshComplete();
                 }
             }
+
         });
     }
 

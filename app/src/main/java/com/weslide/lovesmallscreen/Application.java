@@ -8,11 +8,16 @@ import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
 import com.igexin.sdk.PushManager;
 import com.rey.material.app.ThemeManager;
 import com.squareup.leakcanary.LeakCanary;
-//import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.PlatformConfig;
+import com.weslide.lovesmallscreen.activitys.CrashHandler;
 import com.weslide.lovesmallscreen.managers.LocationService;
 
 import net.aixiaoping.unlock.views.UnlockView;
+
+import io.rong.imkit.RongIM;
+
+//import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by xu on 2016/5/23.
@@ -26,7 +31,6 @@ public class Application extends ArchitectureAppliation {
     @Override
     public void onCreate() {
         super.onCreate();
-
         LeakCanary.install(this);
         AlibcTradeSDK.asyncInit(this, new AlibcTradeInitCallback() {
             @Override
@@ -39,8 +43,12 @@ public class Application extends ArchitectureAppliation {
               //  T.showShort(Application.this,"初始化失败");
             }
         });
+        //友盟数据统计场景设置
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
 
-//        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+        //初始化融云
+        RongIM.init(this,Constants.RONGIM_APP_KEY);
+
     }
 
 
@@ -52,6 +60,9 @@ public class Application extends ArchitectureAppliation {
 
         if(!alreadyInit){
             super.init();
+
+            CrashHandler crashHandler = CrashHandler.getInstance();
+            crashHandler.init(getApplicationContext());
 
             // SDK初始化，第三方程序启动时，都要进行SDK初始化工作
             Log.d("GetuiSdkDemo", "initializing sdk...");

@@ -98,12 +98,12 @@ public class SellerBaseInfoView extends FrameLayout {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.iv_seller_phone, R.id.layout_branchs, R.id.tv_distance, R.id.tv_seller_address})
+    @OnClick({R.id.rll_seller_phone, R.id.layout_branchs, R.id.tv_distance, R.id.tv_seller_address})
     public void onClick(View view) {
         if (mSeller == null) return;
 
         switch (view.getId()) {
-            case R.id.iv_seller_phone:
+            case R.id.rll_seller_phone:
                 if (StringUtils.isEmpty(mSeller.getSellerPhone())) {
                     T.showShort(getContext(), "该商家还没有填写手机号码");
                     return;

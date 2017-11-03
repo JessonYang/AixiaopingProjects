@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:background="#ffffff">
+
+        <com.weslide.lovesmallscreen.view_yy.customview.RoundImgView
+            android:id="@+id/fans_iv"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/icon_morentouxiang"
+            app:roundRadios="5dp"
+            app:type="1" />
+
+        <TextView
+            android:id="@+id/fans_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="19dp"
+            android:layout_toRightOf="@id/fans_iv"
+            android:text=""
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/fans_latest_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fans_name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="13dp"
+            android:layout_toRightOf="@id/fans_iv"
+            android:text=""
+            android:textColor="#999999"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/fans_chat_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="25dp"
+            android:text=""
+            android:textColor="#999999"
+            android:textSize="11dp" />
+    </RelativeLayout>
+</LinearLayout>

@@ -261,10 +261,16 @@ public interface API {
     Call<Response<Address>> updateAddress(@Query("data") String jsonData);
 
     /**
-     * 获取粉丝列表
+     * 获取粉丝列表(个人中心)
      */
     @POST("users/getFansList")
     Call<Response<DataList<Fans>>> getFansList(@Query("data") String jsonData);
+
+    /**
+     * 获取粉丝列表(融云会话列表二级页面)
+     */
+    @POST("users/getFansList2")
+    Call<Response<DataList<Fans>>> getFansList2(@Query("data") String jsonData);
 
     /**
      * 意见反馈
@@ -862,4 +868,16 @@ public interface API {
      */
     @POST("taoke/findGoodsUrl")
     Call<Response<TaoBaoUrlModel>> findGoodsUrl(@Query("data") String jsonData);
+
+    /**
+     * 删除优惠券
+     */
+    @POST("taoke/delcoupon")
+    Call<Response> delcoupon(@Query("data") String jsonData);
+
+    /**
+     * 上传崩溃日志到服务器
+     */
+    @POST("users/uploadLog")
+    Call<Response> upLoadLog(@Query("data") String jsonData);
 }

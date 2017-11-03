@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.mall.GoodsSearchActivity_New;
@@ -94,10 +95,11 @@ public class SaveMoneyHomeFragment extends BaseFragment implements View.OnClickL
             nineToNine_toolbar.setVisibility(View.GONE);
             toolbarType = "";
         } else {
-            save_money_toolbar.setVisibility(View.GONE);
-            nineToNine_toolbar.setVisibility(View.VISIBLE);
+            save_money_toolbar.setVisibility(View.VISIBLE);
+            nineToNine_toolbar.setVisibility(View.GONE);
             nineToNine_title.setText(toolbarType);
         }
+
         getNetData();
     }
 
@@ -163,7 +165,11 @@ public class SaveMoneyHomeFragment extends BaseFragment implements View.OnClickL
                 getActivity().finish();
                 break;
             case R.id.share_iv:
-                ShareUtils.share(getActivity(), shareTitle, shareIconUrl, shareTargetUrl, shareContent);
+                if (shareTitle != null && shareIconUrl != null && shareTargetUrl != null && shareContent != null) {
+                    ShareUtils.share(getActivity(), shareTitle, shareIconUrl, shareTargetUrl, shareContent);
+                }else {
+                    Toast.makeText(SaveMoneyHomeFragment.this.getActivity(), "分享内容出错!", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.search_iv:
             case R.id.search_edt:

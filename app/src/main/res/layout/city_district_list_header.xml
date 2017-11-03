@@ -60,6 +60,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:background="@null"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:hint="输入城市或拼音查询"
                 android:textColor="#666666"
                 android:textSize="14sp" />
@@ -73,6 +75,7 @@
         android:background="@color/project_line_bg" />
 
     <RelativeLayout
+        android:id="@+id/select_area_rll"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/main_color_white">
@@ -89,7 +92,6 @@
             android:textSize="14sp" />
 
         <LinearLayout
-            android:id="@+id/select_area_ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -121,6 +123,7 @@
         android:background="@color/main_color_white"
         android:horizontalSpacing="15dp"
         android:numColumns="3"
+        android:paddingRight="12dp"
         android:paddingBottom="12dp"
         android:verticalSpacing="15dp"
         android:visibility="gone"></com.weslide.lovesmallscreen.view_yy.customview.MyGridView>
@@ -140,6 +143,8 @@
         android:layout_height="35dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="11dp"
+        android:maxLines="1"
+        android:ellipsize="middle"
         android:background="@drawable/city_tv_bg"
         android:gravity="center"
         android:text=""
@@ -165,6 +170,8 @@
             android:layout_width="75dp"
             android:layout_height="35dp"
             android:padding="5dp"
+            android:maxLines="1"
+            android:ellipsize="middle"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:background="@drawable/city_tv_bg"
@@ -175,12 +182,14 @@
 
         <TextView
             android:id="@+id/latest_city_tv2"
-            android:layout_width="75dp"
+            android:layout_width="76.5dp"
             android:layout_height="35dp"
             android:layout_centerInParent="true"
             android:background="@drawable/city_tv_bg"
             android:gravity="center"
             android:text="北京市"
+            android:maxLines="1"
+            android:ellipsize="middle"
             android:textColor="#333333"
             android:textSize="14dp" />
 
@@ -188,10 +197,11 @@
             android:id="@+id/latest_city_tv3"
             android:layout_width="75dp"
             android:layout_height="35dp"
-            android:padding="5dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="12dp"
+            android:layout_marginRight="25dp"
             android:background="@drawable/city_tv_bg"
+            android:maxLines="1"
+            android:ellipsize="middle"
             android:gravity="center"
             android:text="上海市"
             android:textColor="#333333"
@@ -270,5 +280,6 @@
         android:horizontalSpacing="15dp"
         android:numColumns="3"
         android:paddingBottom="12dp"
+        android:paddingRight="12dp"
         android:verticalSpacing="15dp"></com.weslide.lovesmallscreen.view_yy.customview.MyGridView>
 </LinearLayout>

@@ -9,98 +9,166 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_seller_img"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="60dp"
-                android:src="@drawable/icon_defult" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/red_status1"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_seller_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="3dp"
-                android:text=" "
-                android:textColor="@color/white"
-                android:textSize="@dimen/h8" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="60dp"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_seller_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="3dp"
-                android:text=" "
-                android:textColor="@color/darkgray"
-                android:textSize="@dimen/h8" />
+                    <ImageView
+                        android:id="@+id/iv_seller_img"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/icon_defult" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
+                </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/tv_seller_money"
+                    android:id="@+id/tv_seller_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="3dp"
                     android:text=" "
-                    android:textColor="@color/gold"
-                    android:textSize="80dp" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/h8" />
 
                 <TextView
-                    android:id="@+id/tv_yuan"
+                    android:id="@+id/tv_seller_message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_toRightOf="@+id/tv_seller_money"
-                    android:text="元"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="3dp"
+                    android:text=" "
+                    android:textColor="@color/darkgray"
+                    android:textSize="@dimen/h8" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_seller_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text=" "
+                        android:textColor="@color/gold"
+                        android:textSize="80dp" />
+
+                    <TextView
+                        android:id="@+id/tv_yuan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_toRightOf="@+id/tv_seller_money"
+                        android:text="元"
+                        android:textColor="@color/gold"
+                        android:textSize="@dimen/h3" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="3dp"
+                    android:text="已存入钱包，可直接提现"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/h8" />
+
+                <ImageView
+                    android:id="@+id/iv_come"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/icon_redpaper_btn" />
+
+                <com.weslide.lovesmallscreen.views.custom.SuperGridView
+                    android:id="@+id/supergride"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:numColumns="3"></com.weslide.lovesmallscreen.views.custom.SuperGridView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:text="爱生活  爱小屏"
                     android:textColor="@color/gold"
-                    android:textSize="@dimen/h3" />
-            </RelativeLayout>
+                    android:textSize="@dimen/h4" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="3dp"
-                android:text="已存入钱包，可直接提现"
-                android:textColor="@color/white"
-                android:textSize="@dimen/h8" />
-
-            <ImageView
-                android:id="@+id/iv_come"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/icon_redpaper_btn" />
-
-            <com.weslide.lovesmallscreen.views.custom.SuperGridView
-                android:id="@+id/supergride"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:numColumns="3"></com.weslide.lovesmallscreen.views.custom.SuperGridView>
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:id="@+id/red_status2"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:text="爱生活  爱小屏"
-                android:textColor="@color/gold"
-                android:textSize="@dimen/h4" />
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_user_img"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="60dp"
+                    android:src="@drawable/axp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="爱小屏"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:text="恭喜发财，大吉大利"
+                    android:textColor="@color/darkgray"
+                    android:textSize="16dp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:text="红包被抢完了"
+                    android:textColor="#ffdf00"
+                    android:textSize="40dp" />
+
+                <ImageView
+                    android:id="@+id/iv_come2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="76dp"
+                    android:src="@drawable/btn" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
     </ScrollView>
 
     <RelativeLayout

@@ -42,7 +42,6 @@ import com.weslide.lovesmallscreen.model_yy.javabean.TicketTypesModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.TypeListBean;
 import com.weslide.lovesmallscreen.models.CanPayBean;
 import com.weslide.lovesmallscreen.models.GoodsType;
-import com.weslide.lovesmallscreen.models.bean.OrdersOb;
 import com.weslide.lovesmallscreen.models.bean.OriginalCityAgencyBean;
 import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
@@ -55,7 +54,6 @@ import com.weslide.lovesmallscreen.view_yy.adapter.OriginalAgenceVpAdapter;
 import com.weslide.lovesmallscreen.view_yy.customview.MyScrollView;
 import com.weslide.lovesmallscreen.view_yy.customview.NestedListView;
 import com.weslide.lovesmallscreen.view_yy.customview.ViewPageInScrollView;
-import com.weslide.lovesmallscreen.views.adapters.CityAgencyOrderAdapter;
 import com.weslide.lovesmallscreen.views.custom.CustomToolbar;
 import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
 import com.weslide.lovesmallscreen.views.dialogs.SecondaryTypeDialog;
@@ -64,16 +62,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import me.dkzwm.smoothrefreshlayout.SmoothRefreshLayout;
+import me.dkzwm.smoothrefreshlayout.extra.footer.ClassicFooter;
 import okhttp3.OkHttpClient;
 
 /**
  * Created by YY on 2017/3/21.
  */
-public class OriginalCityAgencyFragment extends BaseFragment implements View.OnClickListener, MyScrollView.OnScrollListener, MyScrollView.OnTouchDownListener, View.OnTouchListener {
+public class OriginalCityAgencyFragment extends BaseFragment implements View.OnClickListener, MyScrollView.OnScrollListener, View.OnTouchListener {
 
     private View originalCityAgencyFragmentView;
     private CustomToolbar toolbar;
-    private TextView distinctProfit, loading_tv;
+    private TextView distinctProfit;
     private TextView canDeal;
     private Button go_pay_btn;
     private RadioGroup rg;
@@ -82,21 +82,8 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
     private List<Fragment> fragmentList;
     private RelativeLayout allOrdersRll, hqkt_lv_rll;
     private OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS).build();
-    //    private ListView lv;
-    private String personalOrder;
-    private String personalPredict;
-    private String partnerPredict;
-    private String partnerOrder;
     private OriginalCityAgencyBean data;
-    private int page = 1;
-    private static int DEFAULT_PAGE = 0;
-    private static int REFRESH_PAGE = 1;
-    private int timeNum = 1;
-    private List<OrdersOb> list = new ArrayList<>();
-    private CityAgencyOrderAdapter adapter;
-    //    private Handler mHandler = new Handler();
-    private CityAgencyOrderAdapter mAdapter;
-    private ScrollView scrollView;
+
     private AlertDialog canPayDialog;
     private TextView yesBtn;
     private TextView noBtn;
@@ -177,6 +164,7 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
     private LinearLayout parent_layout, type_ll3;
     private String totalPage = "1";
     private boolean isClearList = true;
+    private SmoothRefreshLayout smooth_refresh;
 
     @Nullable
     @Override
@@ -195,31 +183,23 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                 AppUtils.toActivity(getActivity(), TicketGoodsDtActivity.class, bundle);
             }
         });
-        /*hqkt_lv.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int i) {
-                // 当不滚动时
-                if (i == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-                    // 判断是否滚动到底部
-                    if (absListView.getLastVisiblePosition() == absListView.getCount() - 1) {
-                        //加载更多功能的代码
-                        mLvPage++;
-                        changeHqktLv(typeId);
-                        Log.d("雨落无痕丶", "onScrollStateChanged: 底部");
-                    }
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-
-            }
-        });*/
-
         myScrollView.setOnScrollListener(this);
-        myScrollView.setOnTouchDownListener(this);
         hqkt_lv.setOnTouchListener(this);
+        smooth_refresh.setMode(SmoothRefreshLayout.MODE_LOAD_MORE);
+        smooth_refresh.setFooterView(new ClassicFooter(getActivity()));
+        smooth_refresh.setOnRefreshListener(new SmoothRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefreshBegin(boolean isRefresh) {
+                mLvPage++;
+                isClearList = false;
+                changeHqktLv(typeListId);
+            }
 
+            @Override
+            public void onRefreshComplete() {
+
+            }
+        });
         //当布局的状态或者控件的可见性发生改变回调的接口
         originalCityAgencyFragmentView.findViewById(R.id.parent_layout).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
@@ -230,7 +210,6 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
 
             }
         });
-        Log.d("雨落无痕丶", "getTop1: " + type_ll.getTop());
         return originalCityAgencyFragmentView;
     }
 
@@ -448,10 +427,9 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                     lvList.clear();
                 }
                 lvList.addAll(homeTicketsModelResponse.getData().getTickets());
-                if (homeTicketsModelResponse.getData().getTickets() == null || homeTicketsModelResponse.getData().getTickets().size() == 0){
+                if (homeTicketsModelResponse.getData().getTickets() == null || homeTicketsModelResponse.getData().getTickets().size() == 0) {
                     Toast.makeText(OriginalCityAgencyFragment.this.getActivity(), "没有更多数据了!", Toast.LENGTH_SHORT).show();
                 }
-                Log.d("雨落无痕丶", "lvList: " + lvList.size());
                 if (lvList.size() == 0) {
                     hqkt_lv.setVisibility(View.GONE);
                     empty_ll.setVisibility(View.VISIBLE);
@@ -460,7 +438,7 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                     empty_ll.setVisibility(View.GONE);
                 }
                 mLvAdapter.notifyDataSetChanged();
-                loading_tv.setVisibility(View.GONE);
+                smooth_refresh.refreshComplete();
             }
         });
     }
@@ -470,7 +448,6 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
         toolbar = (CustomToolbar) originalCityAgencyFragmentView.findViewById(R.id.original_city_agency_toolbar);
         myScrollView = (MyScrollView) originalCityAgencyFragmentView.findViewById(R.id.original_agency_scollview);
         distinctProfit = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.distinct_profit_tv));
-        loading_tv = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.loading_tv));
         partner_type_tv = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.partner_type_tv));
         partner_order_tag = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.partner_order_tag));
         partner_predict_tag = ((TextView) originalCityAgencyFragmentView.findViewById(R.id.partner_predict_tag));
@@ -484,6 +461,7 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
         empty_ll = ((LinearLayout) originalCityAgencyFragmentView.findViewById(R.id.empty_ll));
         partner_detail_ll = ((LinearLayout) originalCityAgencyFragmentView.findViewById(R.id.partner_detail_ll));
         go_pay_btn = ((Button) originalCityAgencyFragmentView.findViewById(R.id.original_city_agency_go_pay));
+        smooth_refresh = ((SmoothRefreshLayout) originalCityAgencyFragmentView.findViewById(R.id.smooth_refresh));
 
         parent_layout = ((LinearLayout) originalCityAgencyFragmentView.findViewById(R.id.parent_layout));
         type_ll3 = ((LinearLayout) originalCityAgencyFragmentView.findViewById(R.id.type_ll3));
@@ -775,6 +753,18 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                     typeListId = "183";
                     typeTv.setText("分类");
                     if (string.equals("周边产品")) {
+                        if (!ContextParameter.isLocation()) {
+                            new AlertDialog.Builder(getActivity()).setTitle("提示")
+                                    .setMessage("周边产品需要应用开启手机定位功能才能正常使用！")
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        }
                         areaType = "1";
                         getTypeListNet();
                         mLvPage = 1;
@@ -817,23 +807,6 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
         WindowManager.LayoutParams params = getActivity().getWindow().getAttributes();
         params.alpha = (float) 1;
         getActivity().getWindow().setAttributes(params);
-    }
-
-    @Override
-    public void onTouchDown() {
-        /*if (mLvPage < Integer.parseInt(totalPage)) {
-            loading_tv.setVisibility(View.VISIBLE);
-            mLvPage++;
-            isClearList = false;
-            changeHqktLv(typeListId);
-        } else {
-            Toast.makeText(OriginalCityAgencyFragment.this.getActivity(), "没有更多数据了!", Toast.LENGTH_SHORT).show();
-        }*/
-
-            loading_tv.setVisibility(View.VISIBLE);
-            mLvPage++;
-            isClearList = false;
-            changeHqktLv(typeListId);
     }
 
     @Override

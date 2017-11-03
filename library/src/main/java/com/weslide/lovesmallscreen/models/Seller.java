@@ -14,6 +14,19 @@ public class Seller extends BaseModel {
     @SerializedName("sellerId")
     /** 店铺id */
     private String sellerId;
+
+    public String getSellerUserId() {
+        return sellerUserId;
+    }
+
+    public void setSellerUserId(String sellerUserId) {
+        this.sellerUserId = sellerUserId;
+    }
+
+    @SerializedName("sellerUserId")
+    /** 商家的用户ID */
+
+    private String sellerUserId;
     @SerializedName("sellerName")
     /** 店铺名 */
     private String sellerName;

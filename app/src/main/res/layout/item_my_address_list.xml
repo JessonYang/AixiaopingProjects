@@ -2,116 +2,117 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:orientation="horizontal"
-        >
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="@dimen/h7"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:textColor="@color/gray"
+            android:layout_marginTop="5dp"
             android:gravity="center"
-            />
-         <View
-             android:layout_width="3dp"
-             android:layout_height="match_parent"
-             android:background="@color/gray"
-             android:layout_marginLeft="10dp"
-             android:layout_marginRight="10dp"
-             ></View>
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="@dimen/h7" />
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/gray"></View>
+
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="@dimen/h7"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:text=""
             android:textColor="@color/gray"
-        />
+            android:textSize="@dimen/h7" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:orientation="horizontal"
-        >
-      <TextView
-          android:id="@+id/tv_defaultaddress"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:text=""
-          android:textColor="@color/darkgray"
-          android:layout_marginTop="10dp"
-          android:layout_marginBottom="10dp"
-          android:textSize="@dimen/h7"
-          />
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_defaultaddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:textColor="@color/darkgray"
+            android:textSize="@dimen/h7" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/lightgray"
-        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        ></View>
+        android:layout_marginRight="20dp"
+        android:background="@color/lightgray"></View>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        >
-     <CheckBox
-         android:id="@+id/cb_boolean_defaultaddress"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_gravity="center_vertical"
-         />
-      <TextView
-          android:layout_width="0dp"
-          android:layout_weight="1"
-          android:layout_height="wrap_content"
-          android:text="设置为默认"
-          android:layout_gravity="center_vertical"
-          android:textSize="@dimen/h7"
-          />
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_boolean_defaultaddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="设置为默认"
+            android:textSize="@dimen/h7" />
+
         <ImageView
             android:id="@+id/iv_delet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_shanchu"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="20dp"
-            />
+            android:src="@drawable/icon_shanchu" />
+
         <ImageView
             android:id="@+id/iv_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_bianji"
             android:layout_gravity="center_vertical"
-          />
+            android:src="@drawable/icon_bianji" />
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/darkgray"
-        ></View>
+        android:background="@color/darkgray"></View>
 
 </LinearLayout>

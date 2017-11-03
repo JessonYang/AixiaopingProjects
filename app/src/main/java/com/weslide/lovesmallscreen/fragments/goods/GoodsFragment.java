@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lzy.widget.VerticalSlide;
+import com.umeng.analytics.MobclickAgent;
 import com.weslide.lovesmallscreen.Constants;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
@@ -318,7 +319,7 @@ public class GoodsFragment extends BaseFragment {
                 map.put("goodsId",goods.getGoodsId());
                 map.put("goodsName",goods.getName());
                 map.put("userId",ContextParameter.getUserInfo().getUserId());
-//                MobclickAgent.onEvent(getActivity(),"purchase_shoppingCard",map);
+                MobclickAgent.onEvent(getActivity(),"purchase_shoppingCard",map);
                 Response response = (Response) o;
                 T.showShort(getActivity(), response.getMessage());
 

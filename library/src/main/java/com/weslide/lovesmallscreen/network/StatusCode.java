@@ -58,7 +58,7 @@ public class StatusCode {
                 T.showShort(context, response.getMessage());
             }
         } else {
-            T.showShort(context, R.string.error_data_load);
+//            T.showShort(context, R.string.error_data_load);
         }
         return false;
     }

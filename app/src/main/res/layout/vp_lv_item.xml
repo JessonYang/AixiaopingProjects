@@ -145,7 +145,7 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/ljlq_bg"
             android:gravity="center"
-            android:text="立即领券"
+            android:text="去领券"
             android:textColor="#ff3e6c"
             android:textSize="10sp" />
     </LinearLayout>

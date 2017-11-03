@@ -11,7 +11,7 @@ public class Constants {
     /** 正式发布 */
     public static final boolean RELEASE = false;
     /** 是否为正式服务器 */
-    public static final boolean RELEASE_SERVICE = true;
+    public static final boolean RELEASE_SERVICE = false;
 
     //    1:独立商城stand alone
     public static final String MALL_STAND_ALONE = "1";
@@ -47,6 +47,7 @@ public class Constants {
     public final static String WEXIN_APP_APPSECRET;
     public static final String PACKAGE_WEIXIN = "com.tencent.mm";
     public static final String PACKAGE_QQ = "com.tencent.mobileqq";
+    public static final String RONGIM_APP_KEY = "vnroth0kv4euo";
 
     //Bugly
     public static final String BUGLY_APP_ID;

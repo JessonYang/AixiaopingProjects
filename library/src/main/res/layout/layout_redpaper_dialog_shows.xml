@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_newredpaper"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants"
-    android:layout_gravity="center_horizontal"
-    android:background="@drawable/icon_new_redpapers"
-    android:orientation="vertical"
-    >
-</LinearLayout>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/layout_newredpaper"
+        android:layout_width="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_centerInParent="true"
+        android:background="@drawable/redpaper"
+        android:layout_height="335dp">
+
+        <ImageView
+            android:id="@+id/loading_gold"
+            android:layout_width="wrap_content"
+            android:src="@drawable/gold_jpg"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/chai_iv"
+            android:layout_width="wrap_content"
+            android:src="@drawable/chai"
+            android:visibility="visible"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

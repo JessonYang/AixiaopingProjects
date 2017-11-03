@@ -43,7 +43,6 @@ public class ZoneDao extends BaseDao<Zone> {
         public final static Property englishChar = new Property(3, String.class, "englishChar", false, "englishChar");
         public final static Property zoneId = new Property(4, String.class, "zoneId", false, "zoneId");
         public final static Property parentZoneId = new Property(5, String.class, "parentZoneId", false, "parentZoneId");
-
     }
 
 

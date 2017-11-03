@@ -24,6 +24,28 @@ public class SystemMsgDtObModel extends BaseModel{
     @SerializedName("unread")
     String unread;
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    @SerializedName("picture")
+    String picture;
+
+    public String getNav_title() {
+        return nav_title;
+    }
+
+    public void setNav_title(String nav_title) {
+        this.nav_title = nav_title;
+    }
+
+    @SerializedName("nav_title")
+    String nav_title;
+
     public String getSign() {
         return sign;
     }

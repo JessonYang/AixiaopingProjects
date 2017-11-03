@@ -16,6 +16,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.rey.material.widget.Button;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
+import com.weslide.lovesmallscreen.activitys.DiscountActionActivity;
 import com.weslide.lovesmallscreen.activitys.OrderMsgActivity;
 import com.weslide.lovesmallscreen.activitys.SystemMsgActivity;
 import com.weslide.lovesmallscreen.adapter.MsgHomeLvAdapter;
@@ -85,10 +86,12 @@ public class MsgHomeFragment extends Fragment {
                     AppUtils.toActivity(getActivity(), SystemMsgActivity.class, bundle);
                 } else if (typeId == 2) {
                     AppUtils.toActivity(getActivity(), OrderMsgActivity.class, bundle);
+                } else if (typeId == 12) {
+                    AppUtils.toActivity(getActivity(), DiscountActionActivity.class,bundle);
                 }
                 /*if (list.get(i - 1).getUnread().equals("0") || list.get(i - 1).getUnread().length() == 0 || list.get(i - 1).getUnread() == null) {
                     lv.getRefreshableView().getChildAt(i).findViewById(R.id.system_msg_unread_count).setVisibility(View.GONE);
-//                    Log.d("雨落无痕丶", "onItemClick: unread");
+//                    Log.d("雨落无痕丶", "onItemClick: unsysread");
                 }*/
             }
         });

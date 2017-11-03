@@ -1,7 +1,9 @@
 package com.weslide.lovesmallscreen.view_yy.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +11,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
+import com.weslide.lovesmallscreen.core.SupportSubscriber;
+import com.weslide.lovesmallscreen.model_yy.DeleteCouponModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.TicketListObModel;
+import com.weslide.lovesmallscreen.network.Request;
+import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.AppUtils;
+import com.weslide.lovesmallscreen.utils.RXUtils;
 
 import java.util.List;
 
@@ -116,6 +125,50 @@ public class MyTicketLvAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View view) {
                     AppUtils.toGoods(context,list.get(getLayoutPosition()).getGoodsId());
+                }
+            });
+            consume_type.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    new AlertDialog.Builder(context).setTitle("提示")
+                            .setMessage("是否删除优惠券?")
+                            .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Request<DeleteCouponModel> request = new Request<>();
+                                    DeleteCouponModel model = new DeleteCouponModel();
+                                    model.setCouponId(list.get(getLayoutPosition()).getTicketId());
+                                    model.setUserId(ContextParameter.getUserInfo().getUserId());
+                                    request.setData(model);
+                                    RXUtils.request(context,request,"delcoupon", new SupportSubscriber<Response>() {
+                                        @Override
+                                        public void onNext(Response response) {
+                                            list.remove(getLayoutPosition());
+                                            notifyDataSetChanged();
+                                            Toast.makeText(context, "删除成功!", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onResponseError(Response response) {
+                                            Toast.makeText(context, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            })
+                            .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            })
+                            .create()
+                            .show();
+                    return false;
                 }
             });
         }

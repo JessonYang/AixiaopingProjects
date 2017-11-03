@@ -8,10 +8,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
@@ -26,7 +29,6 @@ import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.URIResolve;
 import com.weslide.lovesmallscreen.activitys.order.ApplyBackOrderActivity;
-import com.weslide.lovesmallscreen.activitys.order.ConfirmOrderActivity;
 import com.weslide.lovesmallscreen.activitys.order.EvaluateActivity;
 import com.weslide.lovesmallscreen.core.BaseActivity;
 import com.weslide.lovesmallscreen.core.LoadingSubscriber;
@@ -41,6 +43,7 @@ import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.AppUtils;
 import com.weslide.lovesmallscreen.utils.DensityUtils;
+import com.weslide.lovesmallscreen.utils.NetworkUtils;
 import com.weslide.lovesmallscreen.utils.OrderUtils;
 import com.weslide.lovesmallscreen.utils.QRCodeUtil;
 import com.weslide.lovesmallscreen.utils.RXUtils;
@@ -72,9 +75,12 @@ public class OrderListView extends FrameLayout {
 
     @BindView(R.id.list)
     SuperRecyclerView list;
+    @BindView(R.id.no_data_ll)
+    LinearLayout no_data_ll;
+    @BindView(R.id.empty_reload_btn)
+    Button btn_empty_reload;
     OrderListAdapter mAdapter;
     OrderList mOrderList = new OrderList();
-
 
     public OrderListView(Context context, String status) {
         super(context);
@@ -98,6 +104,25 @@ public class OrderListView extends FrameLayout {
         ButterKnife.bind(this);
         mGetOrderListBean = new GetOrderListBean();
 
+        if (!NetworkUtils.isConnected(getContext())) {
+            list.setVisibility(GONE);
+            no_data_ll.setVisibility(VISIBLE);
+        }else {
+            list.setVisibility(VISIBLE);
+            no_data_ll.setVisibility(GONE);
+        }
+        btn_empty_reload.setEnabled(true);
+        btn_empty_reload.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("雨落无痕丶", "onClick: cc");
+                if (NetworkUtils.isConnected(getContext())) {
+                    reLoadData();
+                    list.setVisibility(VISIBLE);
+                    no_data_ll.setVisibility(GONE);
+                }
+            }
+        });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);
         //添加项的间隔

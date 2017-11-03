@@ -18,7 +18,6 @@ import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.HomeActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
-import com.weslide.lovesmallscreen.utils.AppUtils;
 import com.weslide.lovesmallscreen.utils.UserUtils;
 import com.weslide.lovesmallscreen.views.order.OrderListView;
 
@@ -183,6 +182,7 @@ public class OrderFragment extends BaseFragment {
         tlTab.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
+//                OrderFragment.this.getFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_pager + ":0")
                 vpPager.setCurrentItem(position);
             }
 

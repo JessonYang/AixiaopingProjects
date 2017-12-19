@@ -15,18 +15,18 @@ public class Seller extends BaseModel {
     /** 店铺id */
     private String sellerId;
 
-    public String getSellerUserId() {
-        return sellerUserId;
+    public String getAxpAdminUserId() {
+        return axpAdminUserId;
     }
 
-    public void setSellerUserId(String sellerUserId) {
-        this.sellerUserId = sellerUserId;
+    public void setAxpAdminUserId(String axpAdminUserId) {
+        this.axpAdminUserId = axpAdminUserId;
     }
 
-    @SerializedName("sellerUserId")
+    @SerializedName("axpAdminUserId")
     /** 商家的用户ID */
 
-    private String sellerUserId;
+    private String axpAdminUserId;
     @SerializedName("sellerName")
     /** 店铺名 */
     private String sellerName;

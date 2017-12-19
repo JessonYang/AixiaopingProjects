@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:text="您还没有相关的订单!"
+            android:text="没有内容哦!"
             android:textColor="#222222"
             android:textSize="15dp" />
 

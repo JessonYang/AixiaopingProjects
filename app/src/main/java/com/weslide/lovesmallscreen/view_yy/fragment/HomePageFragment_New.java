@@ -88,6 +88,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.dkzwm.smoothrefreshlayout.SmoothRefreshLayout;
+import me.dkzwm.smoothrefreshlayout.extra.footer.ClassicFooter;
 import me.dkzwm.smoothrefreshlayout.extra.header.ClassicHeader;
 
 /**
@@ -266,6 +267,8 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
     private HomeSellerListLvAdapter homeSellerListLvAdapter;
     public static String pid = "";
     private int dotStatus = 1;
+    private int sellerListPage = 1;
+    private boolean isPullDown = true;
 
     @Nullable
     @Override
@@ -323,19 +326,26 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
             }
         }
 
-        refreshLayout.setMode(SmoothRefreshLayout.MODE_REFRESH);
+        refreshLayout.setMode(SmoothRefreshLayout.MODE_BOTH);
         refreshLayout.setHeaderView(new ClassicHeader(getActivity()));
+        refreshLayout.setFooterView(new ClassicFooter(getActivity()));
         refreshLayout.setResistanceOfPullDown(2.2f);
         refreshLayout.setResistanceOfPullUp(2.2f);
         refreshLayout.setOnRefreshListener(new SmoothRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefreshBegin(boolean isRefresh) {
-                load();
-                loadData();
-                if (dotStatus == 0) {
-                    msg_iv.setImageResource(R.drawable.sy_xiaoxitishidianheise);
-                } else {
-                    msg_iv.setImageResource(R.drawable.sy_xialagengduo3);
+                if (isRefresh) {
+                    load();
+                    loadData();
+                    if (dotStatus == 0) {
+                        msg_iv.setImageResource(R.drawable.sy_xiaoxitishidianheise);
+                    } else {
+                        msg_iv.setImageResource(R.drawable.sy_xialagengduo3);
+                    }
+                }else {
+                    isPullDown = false;
+                    sellerListPage++;
+                    loadData();
                 }
             }
 
@@ -496,6 +506,7 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
     }
 
     private void load() {
+        isPullDown = true;
         if (loadingDialog == null) {
             loadingDialog = new LoadingDialog(getActivity());
         }
@@ -924,14 +935,16 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
     public void loadData() {
         Request<GetSellerListBean> request = new Request<>();
         getSellerListBean.setType("HOME");//首页的商家
-        getSellerListBean.setPageIndex(1);
+        getSellerListBean.setPageIndex(sellerListPage);
         request.setData(getSellerListBean);
         RXUtils.request(getActivity(), request, "getSellerListForNew", new SupportSubscriber() {
 
             @Override
             public void onNext(Object o) {
                 Response<SellerList> dataListResponse = (Response<SellerList>) o;
-                mSellerList.getDataList().clear();
+                if (isPullDown) {
+                    mSellerList.getDataList().clear();
+                }
                 mSellerList.getDataList().addAll(dataListResponse.getData().getDataList());
                 if (getSellerListBean.getPageIndex() == 1) {
                     //如果没有商品的情况下
@@ -952,12 +965,14 @@ public class HomePageFragment_New extends BaseFragment implements View.OnClickLi
                 params.height = totalHeight + (count - 1) * list.getDividerHeight();
                 list.requestLayout();*/
                 homeSellerListLvAdapter.notifyDataSetChanged();
-                scroll_view.smoothScrollTo(0, 0);
+                if (isPullDown) {
+                    scroll_view.smoothScrollTo(0, 0);
+                }
                 zbdp_rll.setVisibility(View.VISIBLE);
                 if (loadingDialog != null && loadingDialog.isShowing()) {
                     loadingDialog.dismiss();
-                    refreshLayout.refreshComplete();
                 }
+                refreshLayout.refreshComplete();
             }
 
         });

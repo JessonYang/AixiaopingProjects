@@ -32,7 +32,7 @@
         android:layout_width="@dimen/goods_bottom_option_option_width"
         android:layout_height="@dimen/goods_bottom_option_layout_height">
 
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -40,7 +40,18 @@
             android:drawableTop="@drawable/icon_share"
             android:text="@string/goods_share"
             android:textColor="@color/font_content_color"
+            android:textSize="@dimen/h5" />-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="3dp"
+            android:drawableTop="@drawable/chat"
+            android:text="@string/goods_chat"
+            android:textColor="@color/font_content_color"
             android:textSize="@dimen/h5" />
+
     </RelativeLayout>
 
     <View

@@ -110,10 +110,6 @@ public class UnlockActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        /*Intent intent = new Intent(this, DownloadImageService.class);
-        intent.putExtra(DownloadImageService.KEY_FRESHEN, true);
-        this.startService(intent);*/
-
         UnlockView mUnlockView = new UnlockView(this);
         container.addView(mUnlockView);
 
@@ -137,6 +133,11 @@ public class UnlockActivity extends BaseActivity {
                     AppUtils.toBrowser(UnlockActivity.this, advertImg.getUri());
                     finish();
                 }
+            }
+
+            @Override
+            public void finishActivity() {
+                UnlockActivity.this.finish();
             }
         });
     }

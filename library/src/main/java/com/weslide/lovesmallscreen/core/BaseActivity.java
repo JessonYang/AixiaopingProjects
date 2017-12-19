@@ -1,14 +1,19 @@
 package com.weslide.lovesmallscreen.core;
 
-import android.app.Activity;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.weslide.lovesmallscreen.ArchitectureAppliation;
 import com.weslide.lovesmallscreen.utils.ShareUtils;
+import com.weslide.lovesmallscreen.utils.StatusbarUtils;
 
 import net.aixiaoping.library.R;
 
@@ -58,6 +63,8 @@ public class BaseActivity extends AppCompatActivity {
         for (int i = 0; i < periodList.size(); i++) {
             periodList.get(i).onCreate(savedInstanceState);
         }
+
+//        applyKitKatTranslucency();
     }
 
     @Override
@@ -214,6 +221,30 @@ public class BaseActivity extends AppCompatActivity {
 //        }
 
         return super.dispatchTouchEvent(ev);
+    }
+
+    private void applyKitKatTranslucency() {
+
+        // KitKat translucent navigation/status bar.
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+            StatusbarUtils.setStatusBarColor(this, R.color.main_color_white);
+            StatusbarUtils.statusBarLightMode(this);
+        }*/
+
+    }
+
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 
 }

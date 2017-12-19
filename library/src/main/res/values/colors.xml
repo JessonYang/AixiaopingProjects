@@ -4,6 +4,8 @@
     <color name="main_color_red">#ff2d47</color> <!-- 主要颜色 -->
     <color name="main_color">#ff2d47</color> <!-- 主要颜色 -->
     <color name="main_color_white">#ffffff</color> <!-- 主要颜色 -->
+    <color name="main_color_black">#000000</color> <!-- 主要颜色 -->
+    <color name="main_view_bg">#f4f4f4</color> <!-- 主要颜色 -->
     <color name="toolbar_bg_color">#ff2d47</color> <!-- 导航条背景色 -->
     <color name="ticket_good_dt_btn_color">#ff1635</color>
     <color name="font_title_color">#1a1a1a</color> <!-- 文本标题颜色 -->

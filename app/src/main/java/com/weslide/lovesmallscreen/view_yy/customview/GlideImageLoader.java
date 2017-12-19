@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.weslide.lovesmallscreen.models.ImageText;
 import com.youth.banner.loader.ImageLoader;
 
 /**
@@ -12,6 +13,7 @@ import com.youth.banner.loader.ImageLoader;
 public class GlideImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
-        Glide.with(context).load(path).into(imageView);
+        ImageText imageText = (ImageText) path;
+        Glide.with(context).load(imageText.getImage()).into(imageView);
     }
 }

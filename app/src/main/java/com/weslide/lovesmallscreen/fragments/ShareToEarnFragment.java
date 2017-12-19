@@ -28,13 +28,13 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.LoginOptionActivity;
-import com.weslide.lovesmallscreen.activitys.user.MyFansActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
 import com.weslide.lovesmallscreen.models.config.ShareContent;
 import com.weslide.lovesmallscreen.utils.AppUtils;
 import com.weslide.lovesmallscreen.utils.QRCodeUtil;
 import com.weslide.lovesmallscreen.utils.ShareUtils;
 import com.weslide.lovesmallscreen.view_yy.activity.ConstantListActivity;
+import com.weslide.lovesmallscreen.view_yy.activity.FansConversationListActivity;
 import com.weslide.lovesmallscreen.views.custom.CustomToolbar;
 
 import java.io.File;
@@ -184,9 +184,13 @@ public class ShareToEarnFragment extends BaseFragment implements View.OnClickLis
                 if (ContextParameter.isLogin() == false) {
                     AppUtils.toActivity(getActivity(), LoginOptionActivity.class);
                 } else {
-                    Bundle bundle = new Bundle();
+                    //旧版我的粉丝列表
+                    /*Bundle bundle = new Bundle();
                     bundle.putString("number", ContextParameter.getUserInfo().getFansNumber());
-                    AppUtils.toActivity(getActivity(), MyFansActivity.class, bundle);
+                    AppUtils.toActivity(getActivity(), MyFansActivity.class, bundle);*/
+
+                    //改版我的粉丝列表页面
+                    AppUtils.toActivity(getActivity(), FansConversationListActivity.class);
                 }
                 break;
             case R.id.invitation_code:
@@ -201,7 +205,7 @@ public class ShareToEarnFragment extends BaseFragment implements View.OnClickLis
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                saveImageToGallery(getActivity(),bitmap,"爱小屏二维码.jpg");
+                                saveImageToGallery(getActivity(), bitmap, "爱小屏二维码.jpg");
                             }
                         })
                         .create()

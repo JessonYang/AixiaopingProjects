@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.weslide.lovesmallscreen.core.RecyclerViewModel;
 import com.weslide.lovesmallscreen.network.DataList;
-import com.weslide.lovesmallscreen.utils.L;
 
 import java.util.List;
 
@@ -42,7 +40,6 @@ public abstract class SuperRecyclerViewAdapter<V, VH extends RecyclerView.ViewHo
 
         mDataList = dataList;
         mList = dataList.getDataList();
-
 
     }
 

@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
+import com.weslide.lovesmallscreen.Constants;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
+import com.weslide.lovesmallscreen.activitys.HomeActivity;
 import com.weslide.lovesmallscreen.activitys.mall.SellerActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
 import com.weslide.lovesmallscreen.core.RecyclerViewModel;
@@ -58,6 +60,7 @@ public class SellerFragment extends BaseFragment {
     int pageIndex = 0;
     private String sellerName;
     DataList<RecyclerViewModel> mHomeData = new DataList<>();
+    private Bundle bundle;
 
 
     @Nullable
@@ -68,22 +71,26 @@ public class SellerFragment extends BaseFragment {
 
 
         ButterKnife.bind(this, mView);
-
+        initBundle();
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                if (bundle.getString("back_type") != null && bundle.getString("back_type").length() > 0 && Constants.SELLER_ACTIVITY_HOME_BACK.equals(bundle.getString("back_type"))) {
+                    AppUtils.toActivity(getActivity(), HomeActivity.class);
+                    getActivity().finish();
+                } else {
+                    getActivity().finish();
+                }
             }
         });
 
-        initBundle();
         initRecycler();
         initSellerData();
         return mView;
     }
 
     private void initBundle() {
-        Bundle bundle = getActivity().getIntent().getExtras();
+        bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
             mSellerId = bundle.getString(SellerActivity.SELLER_ID, "-1");
         }

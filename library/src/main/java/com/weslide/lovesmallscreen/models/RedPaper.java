@@ -35,6 +35,17 @@ public class RedPaper extends BaseModel {
     @SerializedName("type")
     private String type;
 
+    public String getModule() {
+        return Module;
+    }
+
+    public void setModule(String module) {
+        Module = module;
+    }
+
+    @SerializedName("Module")
+    private String Module;
+
     @SerializedName("goodsList")
     private List<Goods> goodsList;
 

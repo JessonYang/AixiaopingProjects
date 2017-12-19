@@ -16,11 +16,12 @@
 
         <ImageView
             android:id="@+id/iv_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="8dp"
             android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/icon_my_fenxiang" />
+            android:layout_marginRight="16dp"
+            android:src="@drawable/icon_share" />
     </android.support.v7.widget.Toolbar>
 
     <com.malinskiy.superrecyclerview.SuperRecyclerView

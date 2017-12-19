@@ -48,22 +48,22 @@ public class FansConversationListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         MyViewholder holder;
         if (view == null) {
-            view = inflater.inflate(R.layout.fans_conversation_lv_item,viewGroup,false);
+            view = inflater.inflate(R.layout.fans_conversation_lv_item, viewGroup, false);
             holder = new MyViewholder();
             holder.fans_name = (TextView) view.findViewById(R.id.fans_name);
             holder.fans_chat_time = (TextView) view.findViewById(R.id.fans_chat_time);
             holder.fans_latest_msg = (TextView) view.findViewById(R.id.fans_latest_msg);
             holder.fans_iv = (ImageView) view.findViewById(R.id.fans_iv);
             view.setTag(holder);
-        }else {
+        } else {
             holder = (MyViewholder) view.getTag();
         }
         Fans fans = list.get(i);
         Glide.with(context).load(fans.getHeadImage()).into(holder.fans_iv);
-        holder.fans_name.setText(fans.getName());
+        holder.fans_name.setText("粉丝:" + fans.getName());
         if (fans.getChat_latest_time() != null && fans.getChat_latest_time().length() > 0) {
             holder.fans_chat_time.setText(fans.getChat_latest_time());
-        }else {
+        } else {
             holder.fans_chat_time.setText(fans.getDate());
         }
         if (fans.getChat_latest_msg() != null && fans.getChat_latest_msg().length() > 0) {
@@ -73,8 +73,8 @@ public class FansConversationListAdapter extends BaseAdapter {
         return view;
     }
 
-    class MyViewholder{
-        TextView fans_latest_msg,fans_name,fans_chat_time;
+    class MyViewholder {
+        TextView fans_latest_msg, fans_name, fans_chat_time;
         ImageView fans_iv;
     }
 }

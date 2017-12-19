@@ -47,6 +47,7 @@ import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.AppUtils;
 import com.weslide.lovesmallscreen.utils.RXUtils;
+import com.weslide.lovesmallscreen.utils.ScreenUtils;
 import com.weslide.lovesmallscreen.view_yy.activity.ApplayPartnerActivity;
 import com.weslide.lovesmallscreen.view_yy.activity.TaoBaoActivity;
 import com.weslide.lovesmallscreen.view_yy.activity.TicketGoodsDtActivity;
@@ -165,6 +166,8 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
     private String totalPage = "1";
     private boolean isClearList = true;
     private SmoothRefreshLayout smooth_refresh;
+    private PopupWindow comment_pw;
+    private View comment_pw_view;
 
     @Nullable
     @Override
@@ -411,6 +414,7 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
     }
 
     private void changeHqktLv(String typeId) {
+        loadingDialog.show();
         Request<HomeTicketsModel> request = new Request<>();
         HomeTicketsModel homeTicketsModel = new HomeTicketsModel();
         homeTicketsModel.setTypeId(typeId);
@@ -439,6 +443,7 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                 }
                 mLvAdapter.notifyDataSetChanged();
                 smooth_refresh.refreshComplete();
+                loadingDialog.dismiss();
             }
         });
     }
@@ -732,7 +737,40 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                 });
                 break;
             case R.id.comment_rll:
+                commentTv.setTextColor(Color.parseColor("#ff4460"));
+                commentTv3.setTextColor(Color.parseColor("#ff4460"));
+                commentIv.setImageResource(R.drawable.icon_shangsanjiao);
+                commentIv3.setImageResource(R.drawable.icon_shangsanjiao);
+                type_ll3.setVisibility(View.VISIBLE);
                 myScrollView.smoothScrollTo(0, type_ll.getTop());
+                if (comment_pw == null || comment_pw_view == null) {
+                    comment_pw_view = LayoutInflater.from(getActivity()).inflate(R.layout.comment_pw_item, null);
+                    ((LinearLayout) comment_pw_view.findViewById(R.id.high_commission)).setOnClickListener(this);
+                    ((LinearLayout) comment_pw_view.findViewById(R.id.low_commission)).setOnClickListener(this);
+                    ((LinearLayout) comment_pw_view.findViewById(R.id.activity_extend)).setOnClickListener(this);
+                    ((LinearLayout) comment_pw_view.findViewById(R.id.nomal_extend)).setOnClickListener(this);
+                    ((LinearLayout) comment_pw_view.findViewById(R.id.all_type)).setOnClickListener(this);
+                    comment_pw = new PopupWindow(comment_pw_view, WindowManager.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                }
+                screen_bg_ll.setVisibility(View.VISIBLE);
+                comment_pw.setOutsideTouchable(true);
+                comment_pw.setFocusable(true);
+                comment_pw.setBackgroundDrawable(new BitmapDrawable());
+                int xoff = -(ScreenUtils.getScreenWidth(getActivity()) - comment_pw.getWidth());
+                comment_pw.showAsDropDown(type_ll3, -xoff, 0);
+                comment_pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        screen_bg_ll.setVisibility(View.GONE);
+                        commentIv.setImageResource(R.drawable.icon_xiasanjiao);
+                        commentIv3.setImageResource(R.drawable.icon_xiasanjiao);
+                        type_ll3.setVisibility(View.GONE);
+                        commentTv.setTextColor(Color.parseColor("#333333"));
+                        commentTv3.setTextColor(Color.parseColor("#333333"));
+                    }
+                });
+
+                /*myScrollView.smoothScrollTo(0, type_ll.getTop());
                 if (sortType.equals("0")) {
                     sortType = "1";
                     commentIv.setImageResource(R.drawable.icon_didaogao);
@@ -745,7 +783,7 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                 }
                 mLvPage = 1;
                 isClearList = true;
-                changeHqktLv(typeListId);
+                changeHqktLv(typeListId);*/
                 break;
             case R.id.near_type_tv:
                 String string = near_type_tv.getText().toString();
@@ -786,6 +824,61 @@ public class OriginalCityAgencyFragment extends BaseFragment implements View.OnC
                         near_type_tv.setText("周边产品");
                     }
                 }
+                break;
+            case R.id.all_type:
+                commentTv.setText("全选");
+                commentTv.setTextColor(getResources().getColor(R.color.main_color_red));
+                commentTv3.setText("全选");
+                commentTv3.setTextColor(getResources().getColor(R.color.main_color_red));
+                sortType = "0";
+                mLvPage = 1;
+                isClearList = true;
+                changeHqktLv(typeListId);
+                comment_pw.dismiss();
+                break;
+            case R.id.high_commission:
+                commentTv.setText("高佣金");
+                commentTv.setTextColor(getResources().getColor(R.color.main_color_red));
+                commentTv3.setText("高佣金");
+                commentTv3.setTextColor(getResources().getColor(R.color.main_color_red));
+                sortType = "-1";
+                mLvPage = 1;
+                isClearList = true;
+                changeHqktLv(typeListId);
+                comment_pw.dismiss();
+                break;
+            case R.id.low_commission:
+                commentTv.setText("低佣金");
+                commentTv.setTextColor(getResources().getColor(R.color.main_color_red));
+                commentTv3.setText("低佣金");
+                commentTv3.setTextColor(getResources().getColor(R.color.main_color_red));
+                sortType = "1";
+                mLvPage = 1;
+                isClearList = true;
+                changeHqktLv(typeListId);
+                comment_pw.dismiss();
+                break;
+            case R.id.activity_extend:
+                commentTv.setText("活动推广");
+                commentTv.setTextColor(getResources().getColor(R.color.main_color_red));
+                commentTv3.setText("活动推广");
+                commentTv3.setTextColor(getResources().getColor(R.color.main_color_red));
+                sortType = "3";
+                mLvPage = 1;
+                isClearList = true;
+                changeHqktLv(typeListId);
+                comment_pw.dismiss();
+                break;
+            case R.id.nomal_extend:
+                commentTv.setText("普通推广");
+                commentTv.setTextColor(getResources().getColor(R.color.main_color_red));
+                commentTv3.setText("普通推广");
+                commentTv3.setTextColor(getResources().getColor(R.color.main_color_red));
+                sortType = "4";
+                mLvPage = 1;
+                isClearList = true;
+                changeHqktLv(typeListId);
+                comment_pw.dismiss();
                 break;
         }
     }

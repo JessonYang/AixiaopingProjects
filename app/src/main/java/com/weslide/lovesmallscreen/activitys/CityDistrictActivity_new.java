@@ -1,6 +1,8 @@
 package com.weslide.lovesmallscreen.activitys;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -153,9 +155,15 @@ public class CityDistrictActivity_new extends BaseActivity implements View.OnCli
         totalCityList = ContextParameter.getAllCityList();
         currentZone = ContextParameter.getCurrentZone();
         if (currentZone.getLevel().equals("2")) {
-            areaList.addAll(getSupportApplication().getDaoSession().getZoneDao().loadDistrictList(currentZone.getZoneId()));
+            List<Zone> zones = getSupportApplication().getDaoSession().getZoneDao().loadDistrictList(currentZone.getZoneId());
+            if (zones != null) {
+                areaList.addAll(zones);
+            }
         } else {
-            areaList.addAll(getSupportApplication().getDaoSession().getZoneDao().loadDistrictList(currentZone.getParentZoneId()));
+            List<Zone> districtList = getSupportApplication().getDaoSession().getZoneDao().loadDistrictList(currentZone.getParentZoneId());
+            if (districtList != null) {
+                areaList.addAll(districtList);
+            }
         }
         if (areaList.size() > 0) {
             insertDefaultZone(areaList);
@@ -224,6 +232,7 @@ public class CityDistrictActivity_new extends BaseActivity implements View.OnCli
                     getSharedPreferences("ZONEFILE", MODE_PRIVATE).edit().putString("LEVEL", zone.getLevel()).putString("NAME", zone.getName()).putString("PINYIN", zone.getPinYin()).putString("ENGLISHCHAR", zone.getEnglishChar()).putString("ZONEID", zone.getZoneId()).putString("PARENTZONEID", zone.getParentZoneId()).commit();
                     CityDistrictActivity_new.this.finish();
                     updateLatestCityList(zone);
+                    putZoneId(zone);
                 }
             }
         });
@@ -249,6 +258,7 @@ public class CityDistrictActivity_new extends BaseActivity implements View.OnCli
                 getSharedPreferences("ZONEFILE", MODE_PRIVATE).edit().putString("LEVEL", zone.getLevel()).putString("NAME", zone.getName()).putString("PINYIN", zone.getPinYin()).putString("ENGLISHCHAR", zone.getEnglishChar()).putString("ZONEID", zone.getZoneId()).putString("PARENTZONEID", zone.getParentZoneId()).commit();
                 CityDistrictActivity_new.this.finish();
                 updateLatestCityList(zone);
+                putZoneId(zone);
             }
         });
         hot_city_gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -263,6 +273,7 @@ public class CityDistrictActivity_new extends BaseActivity implements View.OnCli
                 getSharedPreferences("ZONEFILE", MODE_PRIVATE).edit().putString("LEVEL", zone.getLevel()).putString("NAME", zone.getName()).putString("PINYIN", zone.getPinYin()).putString("ENGLISHCHAR", zone.getEnglishChar()).putString("ZONEID", zone.getZoneId()).putString("PARENTZONEID", zone.getParentZoneId()).commit();
                 CityDistrictActivity_new.this.finish();
                 updateLatestCityList(zone);
+                putZoneId(zone);
             }
         });
         indexView.setShowLetterTv(showLetterTv);
@@ -352,6 +363,7 @@ public class CityDistrictActivity_new extends BaseActivity implements View.OnCli
                 getSharedPreferences("ZONEFILE", MODE_PRIVATE).edit().putString("LEVEL", zone.getLevel()).putString("NAME", zone.getName()).putString("PINYIN", zone.getPinYin()).putString("ENGLISHCHAR", zone.getEnglishChar()).putString("ZONEID", zone.getZoneId()).putString("PARENTZONEID", zone.getParentZoneId()).commit();
                 CityDistrictActivity_new.this.finish();
                 updateLatestCityList(zone);
+                putZoneId(zone);
                 break;
             case R.id.latest_city_tv2:
                 Zone zone1 = latest_city_list.get(1);
@@ -363,6 +375,7 @@ public class CityDistrictActivity_new extends BaseActivity implements View.OnCli
                 EventBus.getDefault().post(new UpdateMallMessage());
                 finish();
                 updateLatestCityList(zone1);
+                putZoneId(zone1);
                 break;
             case R.id.latest_city_tv3:
                 Zone zone2 = latest_city_list.get(2);
@@ -374,7 +387,15 @@ public class CityDistrictActivity_new extends BaseActivity implements View.OnCli
                 EventBus.getDefault().post(new UpdateMallMessage());
                 finish();
                 updateLatestCityList(zone2);
+                putZoneId(zone2);
                 break;
         }
+    }
+
+    private void putZoneId(Zone zone2) {
+        SharedPreferences mSharedPreferences = getSharedPreferences("Location_ZONG", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString("LOCATION_ZONG_ID",zone2.getZoneId());
+        editor.commit();
     }
 }

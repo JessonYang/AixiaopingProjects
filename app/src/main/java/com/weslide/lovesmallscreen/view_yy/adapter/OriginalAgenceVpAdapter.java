@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -59,14 +60,25 @@ public class OriginalAgenceVpAdapter extends BaseAdapter {
             holder.final_price = (TextView) view.findViewById(R.id.final_price);
             holder.quan_left_num = (TextView) view.findViewById(R.id.quan_left_num);
             holder.quan_price = (TextView) view.findViewById(R.id.quan_price);
+            holder.rpCash_tv = (TextView) view.findViewById(R.id.rpCash_tv);
             holder.ticket_good_iv = (ImageView) view.findViewById(R.id.ticket_good_iv);
             holder.consume_tack_iv = (ImageView) view.findViewById(R.id.consume_tack_iv);
             holder.ticket_good_progress = (ProgressBar) view.findViewById(R.id.ticket_good_progress);
             holder.earn_ll = (LinearLayout) view.findViewById(R.id.earn_ll);
+            holder.rpCash_ll = (LinearLayout) view.findViewById(R.id.rpCash_ll);
+            holder.fl_bg = ((FrameLayout) view.findViewById(R.id.fl_bg));
             view.setTag(holder);
         } else holder = (MyViewHolder) view.getTag();
         TicketAllModel model = list.get(i);
         Glide.with(context).load(model.getGoodsIcon()).into(holder.ticket_good_iv);
+        if (model.getRpCash() != null && model.getRpCash().length() > 0 && Double.parseDouble(model.getRpCash()) > 0) {
+            holder.fl_bg.setVisibility(View.VISIBLE);
+            holder.rpCash_ll.setVisibility(View.VISIBLE);
+            holder.rpCash_tv.setText("￥"+model.getRpCash());
+        }else {
+            holder.fl_bg.setVisibility(View.GONE);
+            holder.rpCash_ll.setVisibility(View.GONE);
+        }
         holder.ticket_good_desc.setText(model.getGoodsName());
         holder.original_price.setText(model.getGoodsPrice());
         holder.month_sale_num.setText(model.getGoodsSoldPerMonty());
@@ -92,9 +104,10 @@ public class OriginalAgenceVpAdapter extends BaseAdapter {
     }
 
     class MyViewHolder {
-        TextView ticket_good_desc, original_price, month_sale_num, earn_money_tv, final_price, quan_left_num, quan_price;
+        TextView rpCash_tv,ticket_good_desc, original_price, month_sale_num, earn_money_tv, final_price, quan_left_num, quan_price;
         ImageView ticket_good_iv,consume_tack_iv;
         ProgressBar ticket_good_progress;
-        LinearLayout earn_ll;
+        LinearLayout earn_ll,rpCash_ll;
+        FrameLayout fl_bg;
     }
 }

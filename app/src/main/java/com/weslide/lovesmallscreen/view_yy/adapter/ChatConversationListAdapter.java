@@ -14,6 +14,7 @@ import com.weslide.lovesmallscreen.R;
 import java.util.List;
 
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.MessageContent;
 import io.rong.message.TextMessage;
 
 /**
@@ -63,11 +64,11 @@ public class ChatConversationListAdapter extends BaseAdapter {
         Conversation fans = list.get(i);
         Glide.with(context).load(fans.getPortraitUrl()).into(holder.fans_iv);
         holder.fans_name.setText(fans.getSenderUserName());
-
         holder.fans_chat_time.setText(fans.getSentTime() + "");
 
-        if (fans.getLatestMessage() != null) {
-            holder.fans_latest_msg.setText(((TextMessage) fans.getLatestMessage()).getContent());
+        MessageContent latestMessage = fans.getLatestMessage();
+        if (latestMessage != null && latestMessage instanceof TextMessage) {
+            holder.fans_latest_msg.setText(((TextMessage) latestMessage).getContent());
         }
 
         return view;

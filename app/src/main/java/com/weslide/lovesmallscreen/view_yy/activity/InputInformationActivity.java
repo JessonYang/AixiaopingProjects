@@ -97,7 +97,7 @@ public class InputInformationActivity extends BaseActivity {
                     T.showShort(InputInformationActivity.this, "请完善提交信息");
                 }*/
 
-                if (StringUtils.isBlank(edtInfo.getText().toString()) || StringUtils.isBlank(edtName.getText().toString()) || StringUtils.isBlank(edtPhone.getText().toString()) || StringUtils.isBlank(tvAddress.getText().toString()) || tvType.getText().toString().equals("您的店铺类型") || tvLicense.getText().toString().equals("上传营业执照")){
+                if (StringUtils.isBlank(edtInfo.getText().toString()) || StringUtils.isBlank(edtName.getText().toString()) || StringUtils.isBlank(edtPhone.getText().toString()) || tvAddress.getText().toString().equals("填入商铺地址") || tvType.getText().toString().equals("您的店铺类型") || tvLicense.getText().toString().equals("上传营业执照")){
                     T.showShort(InputInformationActivity.this, "请完善提交信息");
                 }else {
                     updateStoreInfo();

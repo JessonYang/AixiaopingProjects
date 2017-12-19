@@ -34,6 +34,7 @@ import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.AppUtils;
 import com.weslide.lovesmallscreen.utils.RXUtils;
+import com.weslide.lovesmallscreen.view_yy.customview.RecyclerViewDivider;
 import com.weslide.lovesmallscreen.views.adapters.SellerListAdapter;
 import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
 import com.weslide.lovesmallscreen.views.dialogs.SecondaryCityDialog_new;
@@ -119,6 +120,8 @@ public class SellerListFragment_new extends BaseFragment {
         mAdapter = new SellerListAdapter(getActivity(), mSellerList);
 
         list.setAdapter(mAdapter);
+
+        list.addItemDecoration(new RecyclerViewDivider(getActivity(),LinearLayoutManager.VERTICAL,1, Color.parseColor("#dddddd")));
 
         //刷新
         list.setRefreshListener(() -> {

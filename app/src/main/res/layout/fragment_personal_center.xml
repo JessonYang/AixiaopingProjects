@@ -44,8 +44,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:background="#dddddd"
-        android:layout_height="0.5dp"/>
+        android:layout_height="0.5dp"
+        android:background="#dddddd" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -99,14 +99,14 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="wrap_content"
                             android:id="@+id/user_tag_iv"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
                         <TextView
@@ -120,11 +120,11 @@
                             android:textSize="@dimen/h8" />
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:src="@drawable/icon_yiwen"
-                            android:layout_marginLeft="10dp"
                             android:id="@+id/question_iv"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/icon_yiwen" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -139,12 +139,12 @@
                     <ImageView
                         android:id="@+id/personal_info_iv"
                         android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
                         android:layout_marginRight="20dp"
                         android:padding="5dp"
-                        android:src="@drawable/chakanxiangqing"
-                        android:layout_centerInParent="true"
-                        android:layout_height="36dp" />
+                        android:src="@drawable/chakanxiangqing" />
 
                     <!--<LinearLayout
                         android:layout_width="match_parent"
@@ -211,8 +211,8 @@
                     android:id="@+id/wallet_ll"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="#ffffff"
                     android:layout_weight="1"
+                    android:background="#ffffff"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -380,53 +380,134 @@
                 android:background="@color/white"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_to_evaluate"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawablePadding="5dp"
-                    android:drawableTop="@drawable/icon_daipingjia2x"
-                    android:gravity="center_horizontal"
-                    android:paddingTop="10dp"
-                    android:text="待付款"
-                    android:textSize="@dimen/h8" />
+                    android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/tv_acknowledged"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawablePadding="5dp"
-                    android:drawableTop="@drawable/icon_yiqueren2x"
-                    android:gravity="center_horizontal"
-                    android:paddingTop="10dp"
-                    android:text="待确认"
-                    android:textSize="@dimen/h8" />
+                    <TextView
+                        android:id="@+id/tv_to_evaluate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:drawablePadding="5dp"
+                        android:drawableTop="@drawable/icon_daipingjia2x"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="10dp"
+                        android:text="待付款"
+                        android:textSize="@dimen/h8" />
 
-                <TextView
-                    android:id="@+id/tv_have_evaluation"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawablePadding="5dp"
-                    android:drawableTop="@drawable/icon_yipingjia2x"
-                    android:gravity="center_horizontal"
-                    android:paddingTop="10dp"
-                    android:text="待评价"
-                    android:textSize="@dimen/h8" />
+                    <TextView
+                        android:id="@+id/wait_pay_order_count"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="14dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/system_msg_unread_count_bg"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#ffffff"
+                        android:textSize="10dp"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/tv_off_the_stocks"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawablePadding="5dp"
-                    android:drawableTop="@drawable/icon_yiwancheng2x"
-                    android:gravity="center_horizontal"
-                    android:paddingTop="10dp"
-                    android:text="退单售后"
-                    android:textSize="@dimen/h8" />
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_acknowledged"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:drawablePadding="5dp"
+                        android:drawableTop="@drawable/icon_yiqueren2x"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="10dp"
+                        android:text="待确认"
+                        android:textSize="@dimen/h8" />
+
+                    <TextView
+                        android:id="@+id/wait_confirm_order_count"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="14dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/system_msg_unread_count_bg"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#ffffff"
+                        android:textSize="10dp"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_have_evaluation"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:drawablePadding="5dp"
+                        android:drawableTop="@drawable/icon_yipingjia2x"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="10dp"
+                        android:text="待评价"
+                        android:textSize="@dimen/h8" />
+
+                    <TextView
+                        android:id="@+id/wait_evaluate_order_count"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="14dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/system_msg_unread_count_bg"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#ffffff"
+                        android:textSize="10dp"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_off_the_stocks"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:drawablePadding="5dp"
+                        android:drawableTop="@drawable/icon_yiwancheng2x"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="10dp"
+                        android:text="退单售后"
+                        android:textSize="@dimen/h8" />
+
+                    <TextView
+                        android:id="@+id/back_order_count"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="14dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/system_msg_unread_count_bg"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#ffffff"
+                        android:textSize="10dp"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -437,9 +518,9 @@
 
             <com.weslide.lovesmallscreen.views.custom.SuperGridView
                 android:id="@+id/gv_layout"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:background="@color/white"
                 android:numColumns="4"></com.weslide.lovesmallscreen.views.custom.SuperGridView>
 

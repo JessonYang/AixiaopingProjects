@@ -3,9 +3,12 @@ package com.weslide.lovesmallscreen.activitys.mall;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.weslide.lovesmallscreen.Constants;
 import com.weslide.lovesmallscreen.R;
+import com.weslide.lovesmallscreen.activitys.HomeActivity;
 import com.weslide.lovesmallscreen.core.BaseActivity;
 import com.weslide.lovesmallscreen.fragments.mall.SellerFragment;
+import com.weslide.lovesmallscreen.utils.AppUtils;
 
 
 /**
@@ -34,7 +37,15 @@ public class SellerActivity extends BaseActivity {
 //        if (JCVideoPlayer.backPress()) {
 //            return;
 //        }
-        super.onBackPressed();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            if (bundle.getString("back_type") != null && bundle.getString("back_type").length() > 0 && Constants.SELLER_ACTIVITY_HOME_BACK.equals(bundle.getString("back_type"))) {
+                AppUtils.toActivity(this, HomeActivity.class);
+                finish();
+            }else {
+                super.onBackPressed();
+            }
+        }else super.onBackPressed();
     }
 
     @Override

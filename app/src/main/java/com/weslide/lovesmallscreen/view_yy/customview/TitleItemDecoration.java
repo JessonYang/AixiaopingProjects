@@ -1,4 +1,4 @@
-package com.weslide.lovesmallscreen.view_yy.util;
+package com.weslide.lovesmallscreen.view_yy.customview;
 
 import android.content.Context;
 import android.graphics.Canvas;

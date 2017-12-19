@@ -4,7 +4,7 @@
 # You can edit the include path and order by changing the proguardFiles
 # directive in build.gradle.
 #
-# For more_iv details, see
+# For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
@@ -152,17 +152,6 @@
 
  -keep class com.linkedin.** { *; }
  -keepattributes Signature
-
- -keepclassmembers class * {
-    public <init> (org.json.JSONObject);
- }
- -keep public class com.weslide.lovesmallscreen.R$*{
- public static final int *;
- }
- -keepclassmembers enum * {
-     public static **[] values();
-     public static ** valueOf(java.lang.String);
- }
 #--------------------------------------------友盟----------------------------------------------------#
 
 #支付宝
@@ -289,3 +278,12 @@
 -dontwarn com.ta.**
 -keep class org.json.** {*;}
 -keep class com.ali.auth.** {*;}
+
+
+-keep class com.payeco.android.plugin.view.MyPasswordView
+-keep class com.payeco.android.plugin.view.ShimmerTextView
+-keep interface com.payeco.android.plugin.PayecoPluginPayCallBack{*;}
+-keepclasseswithmembernames class com.payeco.android.plugin.PayecoPluginPayIn{
+	public static void doPay(android.app.Activity,java.util.Map,com.payeco.android.plugin.PayecoPluginPayCallBack);
+	public static java.lang.String getVersionName();
+}

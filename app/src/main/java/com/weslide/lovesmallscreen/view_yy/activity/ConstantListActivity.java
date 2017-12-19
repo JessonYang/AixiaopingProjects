@@ -18,7 +18,7 @@ import com.weslide.lovesmallscreen.utils.AppUtils;
 import com.weslide.lovesmallscreen.view_yy.adapter.ContactListAdapter;
 import com.weslide.lovesmallscreen.view_yy.customview.IndexBar;
 import com.weslide.lovesmallscreen.view_yy.util.ContactInfoService;
-import com.weslide.lovesmallscreen.view_yy.util.TitleItemDecoration;
+import com.weslide.lovesmallscreen.view_yy.customview.TitleItemDecoration;
 import com.weslide.lovesmallscreen.views.custom.CustomToolbar;
 
 import java.io.Serializable;

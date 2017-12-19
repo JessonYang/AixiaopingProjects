@@ -11,7 +11,7 @@ public class Constants {
     /** 正式发布 */
     public static final boolean RELEASE = false;
     /** 是否为正式服务器 */
-    public static final boolean RELEASE_SERVICE = false;
+    public static final boolean RELEASE_SERVICE = true;
 
     //    1:独立商城stand alone
     public static final String MALL_STAND_ALONE = "1";
@@ -47,7 +47,7 @@ public class Constants {
     public final static String WEXIN_APP_APPSECRET;
     public static final String PACKAGE_WEIXIN = "com.tencent.mm";
     public static final String PACKAGE_QQ = "com.tencent.mobileqq";
-    public static final String RONGIM_APP_KEY = "vnroth0kv4euo";
+    public static final String RONGIM_APP_KEY = "m7ua80gbmwh9m";
 
     //Bugly
     public static final String BUGLY_APP_ID;
@@ -121,6 +121,21 @@ public class Constants {
     public static final String SCORE_TYPE_WEBSITE = "3";
     /** 滑屏广告获得积分类型 */
     public static final String SCORE_TYPE_GLIDE_ADVERT = "12";
+    /** SellerActivity 正常回退类型*/
+    public static final String SELLER_ACTIVITY_NORMAL_BACK = "SELLER_ACTIVITY_NORMAL_BACK";
+    /** SellerActivity 回退时退到HomeActivity界面(从红包详情页打开SellerActivity的时候)*/
+    public static final String SELLER_ACTIVITY_HOME_BACK = "SELLER_ACTIVITY_HOME_BACK";
+
+    //首页adapter的item类型
+    public static final int HOME_BINNER_TYPE = 0;
+    public static final int HOME_NEAR_STORE_TYPE = 1;
+    public static final int HOME_SAVE_MONEY_SHOPPING_TYPE = 2;
+    public static final int HOME_TOP_LOCAL_TYPE = 3;
+    public static final int HOME_SPECIAL_MALL_TYPE = 4;
+    public static final int HOME_LIVE_TYPE = 5;
+    public static final int HOME_BOTTOM_IMG_TYPE = 6;
+    public static final int HOME_NEAR_STORE_LIST_TITLE_TYPE = 7;
+    public static final int HOME_NEAR_STORE_LIST_TYPE = 8;
 
 
 
@@ -139,5 +154,41 @@ public class Constants {
             BUGLY_APP_ID = "900043058";
         }
     }
+
+    /**
+     *
+     *                 Created by 洪峰 on 15/9/7.
+     *                 Copyright (c) 2015年 洪峰. All rights reserved.
+     *
+     *                #####################################################
+     *                #                                                   #
+     *                #                       _oo0oo_                     #
+     *                #                      o8888888o                    #
+     *                #                      88" . "88                    #
+     *                #                      (| -_- |)                    #
+     *                #                      0\  =  /0                    #
+     *                #                    ___/`---'\___                  #
+     *                #                  .' \\|     |# '.                 #
+     *                #                 / \\|||  :  |||# \                #
+     *                #                / _||||| -:- |||||- \              #
+     *                #               |   | \\\  -  #/ |   |              #
+     *                #               | \_|  ''\---/''  |_/ |             #
+     *                #               \  .-\__  '-'  ___/-. /             #
+     *                #             ___'. .'  /--.--\  `. .'___           #
+     *                #          ."" '<  `.___\_<|>_/___.' >' "".         #
+     *                #         | | :  `- \`.;`\ _ /`;.`/ - ` : | |       #
+     *                #         \  \ `_.   \_ __\ /__ _/   .-` /  /       #
+     *                #     =====`-.____`.___ \_____/___.-`___.-'=====    #
+     *                #                       `=---='                     #
+     *                #     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   #
+     *                #                                                   #
+     *                #               佛祖保佑         永无BUG              #
+     *                #                                                   #
+     *                #####################################################
+     *
+     *                 新浪微博:http://weibo.com/hongfenglt
+     *                 博客地址:http://blog.csdn.net/hongfengkt
+
+     */
 
 }

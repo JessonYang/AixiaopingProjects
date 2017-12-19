@@ -54,6 +54,7 @@ import com.weslide.lovesmallscreen.activitys.withdrawals.CashActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
 import com.weslide.lovesmallscreen.core.SupportSubscriber;
 import com.weslide.lovesmallscreen.dao.sp.UserInfoSP;
+import com.weslide.lovesmallscreen.model_yy.javabean.OrderStatusNum;
 import com.weslide.lovesmallscreen.models.ImageAndText;
 import com.weslide.lovesmallscreen.models.MonitorAccount;
 import com.weslide.lovesmallscreen.models.UserInfo;
@@ -138,6 +139,14 @@ public class PersonalCenterFragment extends BaseFragment {
     ImageView setting_iv;
     @BindView(R.id.tv_inviter_name)
     TextView tvInviterName;
+    @BindView(R.id.wait_evaluate_order_count)
+    TextView wait_evaluate_order_count;
+    @BindView(R.id.wait_pay_order_count)
+    TextView wait_pay_order_count;
+    @BindView(R.id.wait_confirm_order_count)
+    TextView wait_confirm_order_count;
+    @BindView(R.id.back_order_count)
+    TextView back_order_count;
     @BindView(R.id.ll_inviter)
     LinearLayout llInviter;
     private int[] drawint = new int[]{/*R.drawable.icon_jifen_wode_my,*/
@@ -177,7 +186,7 @@ public class PersonalCenterFragment extends BaseFragment {
 
     private void init() {
 
-        if (ContextParameter.getClientConfig().getHasNewVerson().equals("1")) {
+        if (ContextParameter.getClientConfig().getHasNewVerson() != null && ContextParameter.getClientConfig().getHasNewVerson().equals("1")) {
             setting_iv.setImageResource(R.drawable.icon_heiseshezhidian);
         } else {
             setting_iv.setImageResource(R.drawable.icon_heiseshezhi);
@@ -222,7 +231,40 @@ public class PersonalCenterFragment extends BaseFragment {
 //            Log.d("雨落无痕丶", "onResume: 移除");
         }
         setDate();
+        updateOrderStatusNum();
+    }
 
+    private void updateOrderStatusNum() {
+        RXUtils.request(getActivity(), new Request(), "getOrderStatusNum", new SupportSubscriber<Response<OrderStatusNum>>() {
+            @Override
+            public void onNext(Response<OrderStatusNum> orderStatusNumResponse) {
+                OrderStatusNum orderStatusNum = orderStatusNumResponse.getData();
+                if (orderStatusNum.getPayment().equals("0")) {
+                    wait_pay_order_count.setVisibility(View.GONE);
+                } else {
+                    wait_pay_order_count.setText(orderStatusNum.getPayment());
+                    wait_pay_order_count.setVisibility(View.VISIBLE);
+                }
+                if (orderStatusNum.getConfirm().equals("0")) {
+                    wait_confirm_order_count.setVisibility(View.GONE);
+                } else {
+                    wait_confirm_order_count.setText(orderStatusNum.getConfirm());
+                    wait_confirm_order_count.setVisibility(View.VISIBLE);
+                }
+                if (orderStatusNum.getEvaluate().equals("0")) {
+                    wait_evaluate_order_count.setVisibility(View.GONE);
+                } else {
+                    wait_evaluate_order_count.setText(orderStatusNum.getEvaluate());
+                    wait_evaluate_order_count.setVisibility(View.VISIBLE);
+                }
+                if (orderStatusNum.getChargeback().equals("0")) {
+                    back_order_count.setVisibility(View.GONE);
+                } else {
+                    back_order_count.setText(orderStatusNum.getChargeback());
+                    back_order_count.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void getMonitorAccount(int type) {

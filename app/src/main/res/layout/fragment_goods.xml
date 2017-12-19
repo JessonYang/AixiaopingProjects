@@ -19,11 +19,11 @@
 
         <ImageView
             android:id="@+id/iv_to_shopping_car"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_gravity="right|center_vertical"
-            android:padding="12dp"
-            android:src="@drawable/icon_shopping_car" />
+            android:padding="9dp"
+            android:src="@drawable/icon_share" />
 
     </android.support.v7.widget.Toolbar>
 

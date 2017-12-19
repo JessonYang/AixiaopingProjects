@@ -10,8 +10,8 @@ android {
         applicationId "com.weslide.lovesmallscreen"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 93
-        versionName "5.9.2"
+        versionCode 95
+        versionName "5.10.0"
         multiDexEnabled true
         manifestPlaceholders = [BAIDU_API_KEY      : BAIDU_API_KEY,       //百度地图KEY
                                 GETUI_APP_ID       : GETUI_APP_ID,              //个推APPID
@@ -135,12 +135,10 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.9'
     //友盟集成统计
     compile 'com.umeng.analytics:analytics:latest.integration'
-    compile project(':CallLib')
     compile project(':IMLib')
     compile project(':library')
     compile project(':material_lib')
     compile project(':IMKit')
-    compile project(':CallKit')
     //下拉刷新组件
     compile 'com.github.dkzwm:SmoothRefreshLayout:1.3.2'
 }

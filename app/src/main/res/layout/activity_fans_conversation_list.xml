@@ -1,15 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.weslide.lovesmallscreen.view_yy.activity.FansConversationListActivity">
 
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/lv"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/fans_toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/main_color_white"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationIcon="@drawable/icon_quxiao"
+        app:title="我的粉丝"
+        app:titleTextColor="@color/toolbar_title_color" />
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="#f4f4f4"
-        android:dividerHeight="0.5dp"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:layout_height="0.5dp"
+        android:background="#dddddd" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#f4f4f4"
+            android:dividerHeight="0.5dp"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+        <LinearLayout
+            android:id="@+id/no_data_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="96dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/nothing" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="您暂时还没有小伙伴哦!"
+                android:textColor="#666666"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

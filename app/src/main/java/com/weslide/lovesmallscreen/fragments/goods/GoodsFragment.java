@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,12 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.IRongCallback;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.message.RichContentMessage;
 
 /**
  * Created by xu on 2016/6/15.
@@ -146,36 +153,43 @@ public class GoodsFragment extends BaseFragment {
                 AppUtils.toSeller(getActivity(), getGoods().getSeller().getSellerId());
                 break;
             case R.id.layout_option_share:
-                ShareContent home = ContextParameter.getClientConfig().getGoodsShareContent();
-                String username = ContextParameter.getUserInfo().getUsername();
-                String userId = ContextParameter.getUserInfo().getUserId();
-                String sellerId = ContextParameter.getUserInfo().getSellerId();
-                String headimage = ContextParameter.getUserInfo().getHeadimage();
-                String phone = ContextParameter.getUserInfo().getPhone();
-                String inviteCode = ContextParameter.getUserInfo().getInviteCode();
-                if (username == null){
-                    username = "";
-                }
-                if (userId == null){
-                    userId = "";
-                }
-                if (sellerId == null){
-                    sellerId = "";
-                }
-                if (headimage == null){
-                    headimage = "";
-                }
-                if (phone == null){
-                    phone = "";
-                }
-                if (inviteCode == null){
-                    inviteCode = "";
-                }
-                ShareUtils.share(getActivity(), "商品详情",
-                        goods.getCoverPic(),
-                        home.getTargetUrl() + "?userId=" + userId + "&appVersion=" + AppUtils.getVersionCode(getActivity()) + "&zoneId=" + ContextParameter.getCurrentZone().getZoneId() + "&sellerId=" + sellerId
-                                + "&goodsId=" + goods.getGoodsId()+ "&img=" + headimage + "&name=" + username + "&phone=" + phone + "&code=" + inviteCode,
-                        goods.getName());
+                //聊天
+                String axpAdminUserId = getGoods().getSeller().getAxpAdminUserId();
+
+                //图文消息
+                RichContentMessage richContentMessage = RichContentMessage.obtain(goods.getSeller().getSellerName(), goods.getName(), goods.getCoverPic(), goods.getGoodDetailUrl());
+                richContentMessage.setExtra(goods.getGoodsId());
+
+                //自定义消息模块
+//                CustomizeMessage customizeMessage = CustomizeMessage.obtain(goods.getGoodsId(),goods.getCoverPic(),goods.getName(),goods.getGoodDetailUrl(),new User(ContextParameter.getUserInfo().getName(),ContextParameter.getUserInfo().getUserHead(),ContextParameter.getUserInfo().getUserId()));
+
+                Message message = Message.obtain(axpAdminUserId, Conversation.ConversationType.PRIVATE, richContentMessage);
+                RongIM.getInstance().sendMessage(message, "您有新消息!", null, new IRongCallback.ISendMediaMessageCallback() {
+                    @Override
+                    public void onProgress(Message message, int i) {
+
+                    }
+
+                    @Override
+                    public void onCanceled(Message message) {
+
+                    }
+
+                    @Override
+                    public void onAttached(Message message) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(Message message) {
+                        RongIM.getInstance().startPrivateChat(getActivity(), axpAdminUserId, getGoods().getSeller().getSellerName());
+                    }
+
+                    @Override
+                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                        Log.d("雨落无痕丶", "onError: 发送消息失败");
+                    }
+                });
                 break;
             case R.id.layout_option_concern:
                 if (UserUtils.handlerLogin(getActivity())) {
@@ -244,8 +258,41 @@ public class GoodsFragment extends BaseFragment {
 
                 break;
             case R.id.iv_to_shopping_car:
-                AppUtils.toShoppingCar(getActivity());
-                getActivity().finish();
+                //跳转购物车
+//                AppUtils.toShoppingCar(getActivity());
+//                getActivity().finish();
+
+                //分享
+                ShareContent home = ContextParameter.getClientConfig().getGoodsShareContent();
+                String username = ContextParameter.getUserInfo().getUsername();
+                String userId = ContextParameter.getUserInfo().getUserId();
+                String sellerId = ContextParameter.getUserInfo().getSellerId();
+                String headimage = ContextParameter.getUserInfo().getHeadimage();
+                String phone = ContextParameter.getUserInfo().getPhone();
+                String inviteCode = ContextParameter.getUserInfo().getInviteCode();
+                if (username == null) {
+                    username = "";
+                }
+                if (userId == null) {
+                    userId = "";
+                }
+                if (sellerId == null) {
+                    sellerId = "";
+                }
+                if (headimage == null) {
+                    headimage = "";
+                }
+                if (phone == null) {
+                    phone = "";
+                }
+                if (inviteCode == null) {
+                    inviteCode = "";
+                }
+                ShareUtils.share(getActivity(), "商品详情",
+                        goods.getCoverPic(),
+                        home.getTargetUrl() + "?userId=" + userId + "&appVersion=" + AppUtils.getVersionCode(getActivity()) + "&zoneId=" + ContextParameter.getCurrentZone().getZoneId() + "&sellerId=" + sellerId
+                                + "&goodsId=" + goods.getGoodsId()+ "&img=" + headimage + "&name=" + username + "&phone=" + phone + "&code=" + inviteCode,
+                        goods.getName());
                 break;
         }
     }
@@ -315,11 +362,11 @@ public class GoodsFragment extends BaseFragment {
 
             @Override
             public void onNext(Object o) {
-                HashMap<String,String> map = new HashMap<String, String>();
-                map.put("goodsId",goods.getGoodsId());
-                map.put("goodsName",goods.getName());
-                map.put("userId",ContextParameter.getUserInfo().getUserId());
-                MobclickAgent.onEvent(getActivity(),"purchase_shoppingCard",map);
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("goodsId", goods.getGoodsId());
+                map.put("goodsName", goods.getName());
+                map.put("userId", ContextParameter.getUserInfo().getUserId());
+                MobclickAgent.onEvent(getActivity(), "purchase_shoppingCard", map);
                 Response response = (Response) o;
                 T.showShort(getActivity(), response.getMessage());
 

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/all_type"
+        android:layout_width="110dp"
+        android:layout_height="35dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/all_type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="    全选"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="110dp"
+        android:background="#ececec"
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:id="@+id/high_commission"
+        android:layout_width="110dp"
+        android:layout_height="35dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/near_type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="高佣金"
+            android:drawableRight="@drawable/up"
+            android:drawablePadding="8dp"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="110dp"
+        android:background="#ececec"
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:id="@+id/low_commission"
+        android:layout_width="110dp"
+        android:layout_height="35dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="低佣金"
+            android:drawableRight="@drawable/down"
+            android:drawablePadding="8dp"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="110dp"
+        android:background="#ececec"
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:id="@+id/activity_extend"
+        android:layout_width="110dp"
+        android:layout_height="35dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="活动推广"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="110dp"
+        android:background="#ececec"
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:id="@+id/nomal_extend"
+        android:layout_width="110dp"
+        android:layout_height="35dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="普通推广"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="110dp"
+        android:background="#ececec"
+        android:layout_height="0.5dp"/>
+
+
+</LinearLayout>

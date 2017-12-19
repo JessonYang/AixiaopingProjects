@@ -36,6 +36,17 @@ public class TicketAllModel extends BaseModel {
     @SerializedName("ticketPrice")
     String ticketPrice;
 
+    public String getRpCash() {
+        return rpCash;
+    }
+
+    public void setRpCash(String rpCash) {
+        this.rpCash = rpCash;
+    }
+
+    @SerializedName("rpCash")
+    String rpCash;
+
     @SerializedName("goodsPriceAfterTicket")
     String goodsPriceAfterTicket;
 

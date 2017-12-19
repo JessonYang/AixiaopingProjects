@@ -29,7 +29,7 @@ public class AreaListGvAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        return list == null ? 0 : list.size();
     }
 
     @Override
@@ -47,17 +47,17 @@ public class AreaListGvAdapter extends BaseAdapter {
         MyViewHolder holder;
         if (view == null) {
             holder = new MyViewHolder();
-            view = inflater.inflate(R.layout.area_list_gv_item,viewGroup,false);
+            view = inflater.inflate(R.layout.area_list_gv_item, viewGroup, false);
             holder.cityName = (TextView) view.findViewById(R.id.city_name);
             view.setTag(holder);
-        }else {
+        } else {
             holder = (MyViewHolder) view.getTag();
         }
         holder.cityName.setText(list.get(i).getName());
         return view;
     }
 
-    class MyViewHolder{
+    class MyViewHolder {
         TextView cityName;
     }
 }

@@ -9,7 +9,9 @@ import com.weslide.lovesmallscreen.model_yy.javabean.CouponsBean;
 import com.weslide.lovesmallscreen.model_yy.javabean.FeedbackTipsBean;
 import com.weslide.lovesmallscreen.model_yy.javabean.GoodsModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.HomeTicketsModel;
+import com.weslide.lovesmallscreen.model_yy.javabean.OrderStatusNum;
 import com.weslide.lovesmallscreen.model_yy.javabean.PartnerIconListModel;
+import com.weslide.lovesmallscreen.model_yy.javabean.RongUserInfo;
 import com.weslide.lovesmallscreen.model_yy.javabean.Shopcate;
 import com.weslide.lovesmallscreen.model_yy.javabean.TaoBaoUrlModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.TicketGoodsDtModel;
@@ -181,6 +183,15 @@ public interface API {
      */
     @POST("users/checkAdminRedPaper")
     Call<Response<RedPaper>> checkRedPaper(@Query("data") String jsonData);
+
+    /**
+     * 检查订单红包
+     *
+     * @param jsonData
+     * @return checkOrderRedPaper
+     */
+    @POST("users/checkOrderRedPaper")
+    Call<Response<RedPaper>> checkOrderRedPaper(@Query("data") String jsonData);
 
     /**
      * 拆红包
@@ -880,4 +891,16 @@ public interface API {
      */
     @POST("users/uploadLog")
     Call<Response> upLoadLog(@Query("data") String jsonData);
+
+    /**
+     * 获取融云聊天列表userinfo
+     */
+    @POST("users/getUserInfo")
+    Call<Response<RongUserInfo>> getRongUserInfo(@Query("data") String jsonData);
+
+    /**
+     * 获取订单状态对应订单数
+     */
+    @POST("users/getOrderStatusNum")
+    Call<Response<OrderStatusNum>> getOrderStatusNum(@Query("data") String jsonData);
 }

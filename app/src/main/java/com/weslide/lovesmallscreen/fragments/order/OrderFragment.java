@@ -1,5 +1,6 @@
 package com.weslide.lovesmallscreen.fragments.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -17,6 +19,7 @@ import com.weslide.lovesmallscreen.Constants;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.HomeActivity;
+import com.weslide.lovesmallscreen.activitys.sellerinfo.OrderRedPaperDtActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
 import com.weslide.lovesmallscreen.utils.UserUtils;
 import com.weslide.lovesmallscreen.views.order.OrderListView;
@@ -55,9 +58,12 @@ public class OrderFragment extends BaseFragment {
     Toolbar toolBarNoReturn;
     @BindView(R.id.vp_pager)
     ViewPager vpPager;
+    @BindView(R.id.rp_fl_bg)
+    FrameLayout rp_fl_bg;
 
     String[] mTitles = new String[]{"待支付", "待发货", "待兑换", "待收货", "待评价", "已完成 "};
     ArrayList<OrderListView> mViews = new ArrayList<>();
+    private int settingId = 0;
 
 
     @Nullable
@@ -68,7 +74,6 @@ public class OrderFragment extends BaseFragment {
         ButterKnife.bind(this, mView);
         loadBundle();
         init();
-
         return mView;
     }
 
@@ -76,6 +81,7 @@ public class OrderFragment extends BaseFragment {
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
             showOrderStatus = bundle.getString(KEY_ORDER_STATUS, Constants.ORDER_STATUS_WAIT_PAY);
+            settingId = bundle.getInt("settingId", -1);
         }
     }
 
@@ -220,10 +226,30 @@ public class OrderFragment extends BaseFragment {
                 break;
         }
 
+        if (settingId > 0) {
+            //有红包
+            rp_fl_bg.setVisibility(View.VISIBLE);
+        } else {
+            rp_fl_bg.setVisibility(View.GONE);
+        }
+
     }
 
-    @OnClick(R.id.btn_to_login)
-    public void onClick() {
-        UserUtils.login(getActivity());
+    @OnClick({R.id.btn_to_login, R.id.rp_rll, R.id.del_rp_iv})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_to_login:
+                UserUtils.login(getActivity());
+                break;
+            case R.id.rp_rll:
+                Intent intent = new Intent(getActivity(), OrderRedPaperDtActivity.class);
+                intent.putExtra("settingId",settingId);
+                getActivity().startActivity(intent);
+                rp_fl_bg.setVisibility(View.GONE);
+                break;
+            case R.id.del_rp_iv:
+                rp_fl_bg.setVisibility(View.GONE);
+                break;
+        }
     }
 }

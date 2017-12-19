@@ -35,6 +35,7 @@ import com.weslide.lovesmallscreen.model_yy.javabean.BankPayResultBean;
 import com.weslide.lovesmallscreen.models.Address;
 import com.weslide.lovesmallscreen.models.Order;
 import com.weslide.lovesmallscreen.models.OrderList;
+import com.weslide.lovesmallscreen.models.RedPaper;
 import com.weslide.lovesmallscreen.models.bean.ConfirmOrderBean;
 import com.weslide.lovesmallscreen.models.bean.PayOrderBean;
 import com.weslide.lovesmallscreen.models.eventbus_message.UpdateOrderListMessage;
@@ -520,15 +521,51 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
         MobclickAgent.onEvent(getActivity(), "purchase_completionTrans", map);
         ContextParameter.getUserInfo().setAvailableMoney(Float.parseFloat(ContextParameter.getUserInfo().getAvailableMoney()) - totalMoney + "");
         Toast.makeText(getActivity(), "支付成功!", Toast.LENGTH_SHORT).show();
+        checkOrderRedPaper();
 
-        Bundle bundle = new Bundle();
-
+        /*Bundle bundle = new Bundle();
         X:for (int i = 0; i < mOrderList.getDataList().size(); i++) {
 
             //购买成功后，一律跳转到待发货列表
             bundle.putString(OrderActivity.KEY_ORDER_STATUS,Constants.ORDER_STATUS_WAIT_SEND_OUT_GOODS);
 
             //购买成功后，积分商品和普通商品分别跳转到待兑换和待发货列表
+            *//*int type = mOrderList.getDataList().get(i).getType();
+            switch (type) {
+                case 1:
+                    bundle.putString(OrderActivity.KEY_ORDER_STATUS, Constants.ORDER_STATUS_WAIT_EXCHANGE);
+                    break X;
+                default:
+                    bundle.putString(OrderActivity.KEY_ORDER_STATUS, Constants.ORDER_STATUS_WAIT_SEND_OUT_GOODS);
+                    break;
+
+            }*//*
+
+        }
+
+        getSupportApplication().removeActivitys(OrderActivity.class);
+        AppUtils.toActivity(getActivity(), OrderActivity.class, bundle);
+        //关闭不需要的界面
+        getSupportApplication().removeActivitys(ConfirmOrderActivity.class, GoodsActivity.class);*/
+    }
+
+    private void checkOrderRedPaper() {
+        Request request = new Request();
+        PayOrderBean bean = new PayOrderBean();
+        bean.setOrderIds(orderIds);
+        bean.setPayType(mPayMode);
+        bean.setType(Integer.parseInt(payType));
+        request.setData(bean);
+        RXUtils.request(getActivity(),request,"checkOrderRedPaper", new SupportSubscriber<Response<RedPaper>>() {
+            @Override
+            public void onNext(Response<RedPaper> redPaperResponse) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("settingId",redPaperResponse.getData().getSettingId());
+                X:for (int i = 0; i < mOrderList.getDataList().size(); i++) {
+                    //购买成功后，一律跳转到待发货列表
+                    bundle.putString(OrderActivity.KEY_ORDER_STATUS,Constants.ORDER_STATUS_WAIT_SEND_OUT_GOODS);
+
+                    //购买成功后，积分商品和普通商品分别跳转到待兑换和待发货列表
             /*int type = mOrderList.getDataList().get(i).getType();
             switch (type) {
                 case 1:
@@ -540,14 +577,14 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
 
             }*/
 
-        }
+                }
 
-        getSupportApplication().removeActivitys(OrderActivity.class);
-
-        AppUtils.toActivity(getActivity(), OrderActivity.class, bundle);
-
-        //关闭不需要的界面
-        getSupportApplication().removeActivitys(ConfirmOrderActivity.class, GoodsActivity.class);
+                getSupportApplication().removeActivitys(OrderActivity.class);
+                AppUtils.toActivity(getActivity(), OrderActivity.class, bundle);
+                //关闭不需要的界面
+                getSupportApplication().removeActivitys(ConfirmOrderActivity.class, GoodsActivity.class);
+            }
+        });
     }
 
     @Override

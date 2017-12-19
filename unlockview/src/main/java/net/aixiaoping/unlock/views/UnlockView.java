@@ -4,6 +4,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +21,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.weslide.lovesmallscreen.ArchitectureAppliation;
@@ -38,6 +40,7 @@ import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.RXUtils;
+import com.weslide.lovesmallscreen.utils.SPUtils;
 import com.weslide.lovesmallscreen.utils.StringUtils;
 
 import net.aixiaoping.unlock.R;
@@ -227,7 +230,9 @@ public class UnlockView extends FrameLayout implements View.OnClickListener, APe
                 String url = HTTP.URL_OPEN_RED_PAPER + HTTP.formatJSONData(new Request().setData(redPaper));
                 unlock(OPTION_UNLOCK);
                 URIResolve.resolve(getContext(), url);*/
-                unlock(OPTION_UNLOCK);
+
+                //解锁
+//                unlock(OPTION_UNLOCK);
                 RedPaper redPaper = (RedPaper) view.getTag();
                 openAdminRedPaper(redPaper.getSettingId());
                 /*Intent intent = new Intent();
@@ -250,24 +255,32 @@ public class UnlockView extends FrameLayout implements View.OnClickListener, APe
         RedPaper redPaper = new RedPaper();
         redPaper.setSettingId(settingId);
         redPaper.setType("6");
+        redPaper.setModule("Ad");
         request.setData(redPaper);
         RXUtils.request(mContext, request, "openAdminRedPaper", new SupportSubscriber<Response<RedPaper>>() {
 
             @Override
             public void onNext(Response<RedPaper> redPaperResponse) {
-                mRedPaper = redPaperResponse.getData();
-                Intent intent = new Intent();
-                intent.setClassName(getContext(), "com.weslide.lovesmallscreen.activitys.sellerinfo.RedPaperDetailsActivity");
-                intent.putExtra("status", redPaperResponse.getStatus());
-                mContext.startActivity(intent);
-                mRedPaperView.setVisibility(View.GONE);
-                gold_iv.setVisibility(GONE);
-                chai_iv.setVisibility(VISIBLE);
+                if (redPaperResponse.getStatus() == 1) {
+                    mRedPaper = redPaperResponse.getData();
+                    Intent intent = new Intent();
+                    intent.setClassName(getContext(), "com.weslide.lovesmallscreen.activitys.sellerinfo.RedPaperDetailsActivity");
+                    intent.putExtra("status", redPaperResponse.getStatus());
+                    mContext.startActivity(intent);
+                    mRedPaperView.setVisibility(View.GONE);
+                    gold_iv.setVisibility(GONE);
+                    chai_iv.setVisibility(VISIBLE);
+                    if (mOptionListener != null) {
+                        mOptionListener.finishActivity();
+                    }
+                }else {
+                    Toast.makeText(mContext, redPaperResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onError(Throwable e) {
-
+                Toast.makeText(mContext, "糟糕!红包领取出错啦", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -279,6 +292,11 @@ public class UnlockView extends FrameLayout implements View.OnClickListener, APe
                     mContext.startActivity(intent);
                     mRedPaperView.setVisibility(View.GONE);
                     gold_iv.setVisibility(GONE);
+                    if (mOptionListener != null) {
+                        mOptionListener.finishActivity();
+                    }
+                }else {
+                    Toast.makeText(mContext, response.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -477,8 +495,7 @@ public class UnlockView extends FrameLayout implements View.OnClickListener, APe
      * 解锁
      */
     public void unlock(String option) {
-        AdvertImg advertImg = mAdverts == null || mAdverts.size() == 0 ? null :
-                mAdverts.get(mViewPager.getCurrentItem() % mAdverts.size());
+        AdvertImg advertImg = mAdverts == null || mAdverts.size() == 0 ? null : mAdverts.get(mViewPager.getCurrentItem() % mAdverts.size());
         mOptionListener.option(option, advertImg);
     }
 
@@ -499,6 +516,8 @@ public class UnlockView extends FrameLayout implements View.OnClickListener, APe
      */
     public interface OnOptionListener {
         void option(String option, AdvertImg advertImg);
+
+        void finishActivity();
     }
 
     /**
@@ -520,23 +539,30 @@ public class UnlockView extends FrameLayout implements View.OnClickListener, APe
         //几率判断
         if (random < probability) {
 
-            RXUtils.request(getContext(), new Request(), "checkRedPaper", new SupportSubscriber<Response<RedPaper>>() {
+            Request request = new Request();
+            final SharedPreferences sp = mContext.getSharedPreferences("Location_ZONG", Context.MODE_PRIVATE);
+            String zoneId = sp.getString("LOCATION_ZONG_ID","");
+            if (zoneId != null && zoneId.length() > 0) {
+                request.setZoneId(zoneId);
+            }
+            RXUtils.request(getContext(), request, "checkRedPaper", new SupportSubscriber<Response<RedPaper>>() {
 
                 @Override
                 public void onResponseError(Response response) {
                     super.onResponseError(response);
+//                    sp.edit().clear().commit();
                     L.i("未有红包返回");
                 }
 
                 @Override
                 public void onNext(Response<RedPaper> redPaperResponse) {
+//                    sp.edit().clear().commit();
                     if (redPaperResponse.getData().getSettingId() > 0) {
                         mRedPaperView.setVisibility(VISIBLE);
                         gold_iv.setVisibility(GONE);
                         chai_iv.setVisibility(VISIBLE);
                         mRedPaperView.setTag(redPaperResponse.getData());
                         animationShow(mRedPaperView, 1200).start();
-
                     }
                 }
             });

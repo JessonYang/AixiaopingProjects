@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/header_rll"
         android:layout_width="match_parent"
         android:layout_height="42dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:src="@drawable/icon_morentouxiang"
+        <com.weslide.lovesmallscreen.view_yy.customview.RoundImgView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:layout_centerVertical="true"
-            android:layout_height="wrap_content" />
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:src="@drawable/icon_morentouxiang"
+            app:roundRadios="5dp"
+            app:type="1" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="test"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_height="wrap_content" />
+            android:text="我的粉丝"
+            android:textColor="#333333"
+            android:textSize="15dp" />
     </RelativeLayout>
+
 </LinearLayout>

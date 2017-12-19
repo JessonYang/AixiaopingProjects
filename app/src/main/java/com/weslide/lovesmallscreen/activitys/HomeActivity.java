@@ -39,10 +39,12 @@ import com.weslide.lovesmallscreen.core.BaseActivity;
 import com.weslide.lovesmallscreen.core.SupportSubscriber;
 import com.weslide.lovesmallscreen.dao.serialize.ZoneClientSerialize;
 import com.weslide.lovesmallscreen.dao.sp.UserInfoSP;
+import com.weslide.lovesmallscreen.fragments.ChatFragment2;
 import com.weslide.lovesmallscreen.fragments.mall.ExChangeBusFragment;
 import com.weslide.lovesmallscreen.fragments.mall.PersonalCenterFragment;
 import com.weslide.lovesmallscreen.fragments.mall.ShoppingCartFragment;
 import com.weslide.lovesmallscreen.fragments.order.OrderFragment;
+import com.weslide.lovesmallscreen.model_yy.javabean.RongUserInfo;
 import com.weslide.lovesmallscreen.models.AcquireScore;
 import com.weslide.lovesmallscreen.models.Show;
 import com.weslide.lovesmallscreen.models.Zone;
@@ -62,8 +64,7 @@ import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.NetworkUtils;
 import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.view_yy.activity.AxpDiscountTicketActivity;
-import com.weslide.lovesmallscreen.view_yy.adapter.ConversationListAdapterEx;
-import com.weslide.lovesmallscreen.view_yy.fragment.HomePageFragment_New;
+import com.weslide.lovesmallscreen.view_yy.fragment.HomeMainFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -74,9 +75,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.rong.imkit.RongContext;
+import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
@@ -93,7 +97,7 @@ public class HomeActivity extends BaseActivity {
      */
     //主页
 //    HomePageFragment mMallFragment;
-    HomePageFragment_New mMallFragment;
+    HomeMainFragment mMallFragment;
     //购物车
     ShoppingCartFragment mShoppingCartFragment;
     //订单
@@ -121,6 +125,8 @@ public class HomeActivity extends BaseActivity {
     RadioButton chat_rb;
     @BindView(R.id.personal_center_rb)
     RadioButton personal_center_rb;
+    @BindView(R.id.chat_un_read_count)
+    TextView chat_un_read_count;
     private String showChange;
     private boolean click = false;
     private int show = Constants.HOME_SHOW_MALL;
@@ -137,6 +143,7 @@ public class HomeActivity extends BaseActivity {
     private boolean isDebug = false;
     private Conversation.ConversationType[] mConversationsTypes;
     private Fragment mChatFragment;
+    private IUnReadMessageObserver unReadMessageObserver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -144,10 +151,42 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
         activity = this;
         ButterKnife.bind(this);
+        getSharedPreferences("Location_ZONG", Context.MODE_PRIVATE).edit().clear().commit();
         String city = ContextParameter.getCurrentLocation().getCity();
         Zone district = null;
         if (city == null) {
             city = "";
+        }
+        if (ContextParameter.getUserInfo().getToken() != null && ContextParameter.isLogin()) {
+            RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+                @Override
+                public UserInfo getUserInfo(String s) {
+                    Request<RongUserInfo> request = new Request<>();
+                    RongUserInfo rongUserInfo = new RongUserInfo();
+                    rongUserInfo.setUserId(s);
+                    request.setData(rongUserInfo);
+                    RXUtils.request(HomeActivity.this,request,"getRongUserInfo", new SupportSubscriber<Response<RongUserInfo>>() {
+                        @Override
+                        public void onNext(Response<RongUserInfo> rongUserInfoResponse) {
+                            Log.d("雨落无痕丶", "userInfo头像: "+rongUserInfoResponse.getData().getPortraitUri());
+                            UserInfo userInfo = new UserInfo(rongUserInfoResponse.getData().getUserId(), rongUserInfoResponse.getData().getName(), Uri.parse(rongUserInfoResponse.getData().getPortraitUri()));
+                            RongIM.getInstance().refreshUserInfoCache(userInfo);
+                        }
+                    });
+                    return null;
+                }
+            },true);
+            connectRongIM();
+            unReadMessageObserver = new IUnReadMessageObserver() {
+                @Override
+                public void onCountChanged(int i) {
+                    if (i > 0) {
+                        chat_un_read_count.setVisibility(View.VISIBLE);
+                        chat_un_read_count.setText(i+"");
+                    }else chat_un_read_count.setVisibility(View.GONE);
+                }
+            };
+            RongIM.getInstance().addUnReadMessageCountChangedObserver(unReadMessageObserver, Conversation.ConversationType.PRIVATE);
         }
         tab_rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -156,7 +195,7 @@ public class HomeActivity extends BaseActivity {
                     case R.id.main_rb:
                         postion = 1;
                         if (mMallFragment == null) {
-                            mMallFragment = new HomePageFragment_New();
+                            mMallFragment = new HomeMainFragment();
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         if (mMallFragment.isAdded()) {
@@ -193,18 +232,22 @@ public class HomeActivity extends BaseActivity {
                         mCurrentFragment = mShoppingCartFragment;
                         break;
                     case R.id.chat_rb:
-                        postion = 3;
-                        if (mChatFragment == null) {
-//                            mChatFragment = new ChatFragment();
-                            mChatFragment = initConversationList();
+                        if (ContextParameter.isLogin()) {
+                            postion = 3;
+                            if (mChatFragment == null) {
+                                mChatFragment = new ChatFragment2();
+    //                            mChatFragment = initConversationList();
+                            }
+                            FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+                            if (mChatFragment.isAdded()) {
+                                transaction2.hide(mCurrentFragment).show(mChatFragment).commit();
+                            } else {
+                                transaction2.hide(mCurrentFragment).add(R.id.container, mChatFragment).commit();
+                            }
+                            mCurrentFragment = mChatFragment;
+                        }else {
+                            AppUtils.toActivity(HomeActivity.this,LoginOptionActivity.class);
                         }
-                        FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
-                        if (mChatFragment.isAdded()) {
-                            transaction2.hide(mCurrentFragment).show(mChatFragment).commit();
-                        } else {
-                            transaction2.hide(mCurrentFragment).add(R.id.container, mChatFragment).commit();
-                        }
-                        mCurrentFragment = mChatFragment;
                         break;
                     case R.id.personal_center_rb:
                         postion = 4;
@@ -222,7 +265,7 @@ public class HomeActivity extends BaseActivity {
                 }
             }
         });
-        mCurrentFragment = new HomePageFragment_New();
+        mCurrentFragment = new HomeMainFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mCurrentFragment).commit();
         init();
 
@@ -236,8 +279,28 @@ public class HomeActivity extends BaseActivity {
             EventBus.getDefault().post(new UpdateOrderListMessage(Constants.ORDER_STATUS_WAIT_PAY));
             Log.d("雨落无痕丶", "onCreate: fff"+show);
         }*/
-        L.e("onCreate");
         pasteToResult();
+    }
+
+    private void connectRongIM() {
+        //融云连接(在用户登陆成功的时候进行连接)
+        String token = ContextParameter.getUserInfo().getToken();
+        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+                Log.d("雨落无痕丶", "融云Token不正确 ");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                Log.d("雨落无痕丶", "融云连接成功: "+s);
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.d("雨落无痕丶", "融云连接错误码: "+errorCode.getMessage());
+            }
+        });
     }
 
     private void pasteToResult() {
@@ -275,7 +338,7 @@ public class HomeActivity extends BaseActivity {
 //        loadChange();
         loadClientConfig();
         updateScore();
-        loadGlideAdvert();
+//        loadGlideAdvert();
         updateZoneList();
 //        rlMainTabMall.performClick();
     }
@@ -309,7 +372,7 @@ public class HomeActivity extends BaseActivity {
      */
     @Subscribe
     public void onEvent(UpdateMallMessage event) {
-        loadChange();
+//        loadChange();
     }
 
     @Override
@@ -435,55 +498,6 @@ public class HomeActivity extends BaseActivity {
                 restoreScreenBg();
             }
         });
-    }
-
-    //初始化融云会话列表fg
-    private Fragment initConversationList() {
-        Log.d("雨落无痕丶", "initConversationList: ");
-        if (mConversationListFg == null) {
-            ConversationListFragment listFragment = new ConversationListFragment();
-            listFragment.setAdapter(new ConversationListAdapterEx(RongContext.getInstance()));
-            Uri uri;
-            if (isDebug) {
-                uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
-                        .appendPath("conversationlist")
-                        .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "true") //设置私聊会话是否聚合显示
-                        .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "true")//群组
-                        .appendQueryParameter(Conversation.ConversationType.PUBLIC_SERVICE.getName(), "false")//公共服务号
-                        .appendQueryParameter(Conversation.ConversationType.APP_PUBLIC_SERVICE.getName(), "false")//订阅号
-                        .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")//系统
-                        .appendQueryParameter(Conversation.ConversationType.DISCUSSION.getName(), "true")
-                        .build();
-                mConversationsTypes = new Conversation.ConversationType[]{Conversation.ConversationType.PRIVATE,
-                        Conversation.ConversationType.GROUP,
-                        Conversation.ConversationType.PUBLIC_SERVICE,
-                        Conversation.ConversationType.APP_PUBLIC_SERVICE,
-                        Conversation.ConversationType.SYSTEM,
-                        Conversation.ConversationType.DISCUSSION
-                };
-
-            } else {
-                uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
-                        .appendPath("conversationlist")
-                        .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //设置私聊会话是否聚合显示
-                        .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false")//群组
-                        .appendQueryParameter(Conversation.ConversationType.PUBLIC_SERVICE.getName(), "false")//公共服务号
-                        .appendQueryParameter(Conversation.ConversationType.APP_PUBLIC_SERVICE.getName(), "false")//订阅号
-                        .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")//系统
-                        .build();
-                mConversationsTypes = new Conversation.ConversationType[]{Conversation.ConversationType.PRIVATE,
-                        Conversation.ConversationType.GROUP,
-                        Conversation.ConversationType.PUBLIC_SERVICE,
-                        Conversation.ConversationType.APP_PUBLIC_SERVICE,
-                        Conversation.ConversationType.SYSTEM
-                };
-            }
-            listFragment.setUri(uri);
-            mConversationListFg = listFragment;
-            return listFragment;
-        } else {
-            return mConversationListFg;
-        }
     }
 
     private void changeScreenBg() {
@@ -684,6 +698,9 @@ public class HomeActivity extends BaseActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
         ArchitectureAppliation.fixInputMethodManagerLeak(this);
+        if (unReadMessageObserver != null) {
+            RongIM.getInstance().removeUnReadMessageCountChangedObserver(unReadMessageObserver);
+        }
     }
 
     private void click() {

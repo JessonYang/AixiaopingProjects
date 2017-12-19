@@ -52,6 +52,14 @@ public class CustomToolbar extends RelativeLayout {
             leftIvLp.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,12,getResources().getDisplayMetrics());
             leftIvLp.addRule(ALIGN_PARENT_LEFT|CENTER_VERTICAL,TRUE);
             addView(leftIv,leftIvLp);
+            leftIv.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onImgClick != null){
+                        onImgClick.onLeftImgClick();
+                    }
+                }
+            });
         }
 
         if (rightDrawable != null) {
@@ -81,16 +89,6 @@ public class CustomToolbar extends RelativeLayout {
             titleLp.addRule(CENTER_IN_PARENT,TRUE);
             addView(title,titleLp);
         }
-
-        leftIv.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onImgClick != null){
-                    onImgClick.onLeftImgClick();
-                }
-            }
-        });
-
 
     }
 

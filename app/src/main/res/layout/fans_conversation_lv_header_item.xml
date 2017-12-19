@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="-  -"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="14dp" />
 
@@ -92,55 +92,63 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/recommend_rll"
         android:layout_width="match_parent"
-        android:background="#ffffff"
-        android:layout_marginTop="10dp"
-        android:layout_height="71dp">
+        android:background="#f4f4f4"
+        android:paddingTop="10dp"
+        android:layout_height="81dp">
 
-        <com.weslide.lovesmallscreen.view_yy.customview.RoundImgView
-            android:id="@+id/recommender_iv"
-            app:roundRadios="5dp"
-            app:type="1"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:src="@drawable/icon_morentouxiang" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="#ffffff"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/recommender_name2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="19dp"
-            android:layout_toRightOf="@id/recommender_iv"
-            android:text=""
-            android:textColor="#333333"
-            android:textSize="15sp" />
+            <com.weslide.lovesmallscreen.view_yy.customview.RoundImgView
+                android:id="@+id/recommender_iv"
+                app:roundRadios="5dp"
+                app:type="1"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp" />
 
-        <TextView
-            android:id="@+id/fans_latest_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/recommender_name2"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="13dp"
-            android:layout_toRightOf="@id/recommender_iv"
-            android:text=""
-            android:textColor="#999999"
-            android:textSize="11dp" />
+            <TextView
+                android:id="@+id/recommender_name2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="19dp"
+                android:layout_toRightOf="@id/recommender_iv"
+                android:text=""
+                android:textColor="#333333"
+                android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/fans_chat_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="25dp"
-            android:text="11:26"
-            android:visibility="gone"
-            android:textColor="#999999"
-            android:textSize="11dp" />
+            <TextView
+                android:id="@+id/fans_latest_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recommender_name2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="13dp"
+                android:layout_toRightOf="@id/recommender_iv"
+                android:text=""
+                android:visibility="gone"
+                android:textColor="#999999"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/fans_chat_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="25dp"
+                android:text=""
+                android:visibility="gone"
+                android:textColor="#999999"
+                android:textSize="11dp" />
+
+        </RelativeLayout>
     </RelativeLayout>
 
     <View

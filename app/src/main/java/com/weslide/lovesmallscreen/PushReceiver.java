@@ -200,7 +200,7 @@ public class PushReceiver extends BroadcastReceiver {
     }
 
     private void sendMessage(Push<SystemMsg> messagePush, Context context) {
-        Log.d("雨落无痕丶", "sendMessage: yy");
+        Log.d("雨落无痕丶", "sendMessage: 推送===");
         final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 //        Intent intent = new Intent(context, MyMessageActivity.class);
@@ -210,18 +210,18 @@ public class PushReceiver extends BroadcastReceiver {
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_app))
                 .setContentTitle("爱小屏消息")//大标题
                 .setContentText(messagePush.getData().getMessage())//内容
-                .setTicker("爱小屏新消息哦~~")//提醒
+//                .setTicker("爱小屏新消息哦~~")//提醒
                 .setContentIntent(PendingIntent.getActivity(context, 0, intent, 0));
 //                .setFullScreenIntent(PendingIntent.getActivity(context, 0, intent, 0), true);//横幅通知
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0或以上
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0或以上
             builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-            // 关联PendingIntent
+            // 关联PendingIntent(关联后可能会自动跳转到意图activity)
             builder.setFullScreenIntent(PendingIntent.getActivity(context, 0, intent, 0), false);// 横幅
-                }
+        }*/
         Notification n = builder.getNotification();
         n.flags |= Notification.FLAG_AUTO_CANCEL;
-        n.tickerText = "爱小屏新消息哦~~";
+//        n.tickerText = "爱小屏新消息哦~~";
         if (ContextParameter.getLocalConfig().isOpenVoice()) {
             n.defaults = Notification.DEFAULT_SOUND;
         } else {

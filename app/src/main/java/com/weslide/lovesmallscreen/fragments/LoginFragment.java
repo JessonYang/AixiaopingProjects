@@ -3,6 +3,7 @@ package com.weslide.lovesmallscreen.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -36,7 +37,9 @@ import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.HomeActivity;
 import com.weslide.lovesmallscreen.activitys.LoginOptionActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
+import com.weslide.lovesmallscreen.core.SupportSubscriber;
 import com.weslide.lovesmallscreen.dao.sp.UserInfoSP;
+import com.weslide.lovesmallscreen.model_yy.javabean.RongUserInfo;
 import com.weslide.lovesmallscreen.models.UserInfo;
 import com.weslide.lovesmallscreen.models.eventbus_message.UpdateWXAuthMessage;
 import com.weslide.lovesmallscreen.network.HTTP;
@@ -46,6 +49,7 @@ import com.weslide.lovesmallscreen.network.StatusCode;
 import com.weslide.lovesmallscreen.utils.AppUtils;
 import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.NetworkUtils;
+import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.utils.ReflectionUtils;
 import com.weslide.lovesmallscreen.utils.StringUtils;
 import com.weslide.lovesmallscreen.utils.T;
@@ -399,7 +403,6 @@ public class LoginFragment extends BaseFragment {
             }
         });
 
-
     }
 
     public void weixin() {
@@ -488,8 +491,19 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onNext(UserInfo userInfo) {  //执行完成后执行
                 MobclickAgent.onProfileSignIn(ContextParameter.getUserInfo().getUserId());
-                getActivity().finish();
+                Request<RongUserInfo> request = new Request<>();
+                RongUserInfo rongUserInfo = new RongUserInfo();
+                rongUserInfo.setUserId(ContextParameter.getUserInfo().getUserId());
+                request.setData(rongUserInfo);
+                RXUtils.request(getActivity(),request,"getRongUserInfo", new SupportSubscriber<Response<RongUserInfo>>() {
+                    @Override
+                    public void onNext(Response<RongUserInfo> rongUserInfoResponse) {
+                        io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(rongUserInfoResponse.getData().getUserId(), rongUserInfoResponse.getData().getName(), Uri.parse(rongUserInfoResponse.getData().getPortraitUri()));
+                        RongIM.getInstance().refreshUserInfoCache(userInfo);
+                    }
+                });
                 connectRongIM();
+                getActivity().finish();
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -589,7 +603,6 @@ public class LoginFragment extends BaseFragment {
             public void onNext(UserInfo userInfo) {  //执行完成后执行
                 MobclickAgent.onProfileSignIn(ContextParameter.getUserInfo().getUserId());
                 getActivity().finish();
-                connectRongIM();
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -752,7 +765,6 @@ public class LoginFragment extends BaseFragment {
                     public void onNext(UserInfo userInfo) {
                         MobclickAgent.onProfileSignIn("login_qq",ContextParameter.getUserInfo().getUserId());
                         getActivity().finish();
-                        connectRongIM();
                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -760,26 +772,6 @@ public class LoginFragment extends BaseFragment {
                 });
 
 
-    }
-
-    private void connectRongIM() {
-        //融云连接(在用户登陆成功的时候进行连接)
-        RongIM.connect(ContextParameter.getUserInfo().getToken(), new RongIMClient.ConnectCallback() {
-            @Override
-            public void onTokenIncorrect() {
-                Log.d("雨落无痕丶", "融云Token不正确 ");
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                Log.d("雨落无痕丶", "融云连接成功: "+s);
-            }
-
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.d("雨落无痕丶", "融云连接错误码: "+errorCode.getMessage());
-            }
-        });
     }
 
     @Override
@@ -874,6 +866,27 @@ public class LoginFragment extends BaseFragment {
             e.printStackTrace();
         }
         return "";
+    }
+
+    private void connectRongIM() {
+        //融云连接(在用户登陆成功的时候进行连接)
+        String token = ContextParameter.getUserInfo().getToken();
+        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+                Log.d("雨落无痕丶", "融云Token不正确 ");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                Log.d("雨落无痕丶", "融云连接成功: "+s);
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.d("雨落无痕丶", "融云连接错误码: "+errorCode.getMessage());
+            }
+        });
     }
 
 }

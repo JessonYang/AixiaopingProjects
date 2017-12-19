@@ -1,5 +1,6 @@
 package com.weslide.lovesmallscreen.activitys.sellerinfo;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -15,10 +16,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.weslide.lovesmallscreen.Constants;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.URIResolve;
 import com.weslide.lovesmallscreen.activitys.HomeActivity;
 import com.weslide.lovesmallscreen.activitys.UnlockActivity;
+import com.weslide.lovesmallscreen.activitys.mall.SellerActivity;
 import com.weslide.lovesmallscreen.activitys.withdrawals.CashActivity;
 import com.weslide.lovesmallscreen.core.BaseActivity;
 import com.weslide.lovesmallscreen.models.Goods;
@@ -135,7 +138,13 @@ public class RedPaperDetailsActivity extends BaseActivity {
                 }
             } else {
                 //进店逛逛
-                AppUtils.toSeller(this, sellerId);
+                Intent intent = new Intent(this, SellerActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("seller_id", sellerId);
+                bundle.putString("back_type", Constants.SELLER_ACTIVITY_HOME_BACK);
+                intent.putExtras(bundle);
+                startActivity(intent);
+//                AppUtils.toSeller(this, sellerId);
             }
         }
     }

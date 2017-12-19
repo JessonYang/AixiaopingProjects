@@ -17,6 +17,17 @@ public class RecomenderModel extends BaseModel {
     @SerializedName("recommenderId")
     String recommenderId;
 
+    public String getFansNum() {
+        return fansNum;
+    }
+
+    public void setFansNum(String fansNum) {
+        this.fansNum = fansNum;
+    }
+
+    @SerializedName("fansNum")
+    String fansNum;
+
     public String getRecommenderId() {
         return recommenderId;
     }

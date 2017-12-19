@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/msg_bg"
+        android:layout_width="wrap_content"
+        android:padding="8dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/good_pic"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/good_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/good_pic"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="3dp"
+            android:layout_toRightOf="@id/good_pic"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/send_link_btn"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:layout_alignBottom="@id/good_pic"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/custom_msg_send_btn_bg"
+            android:text="发送链接"
+            android:visibility="gone"
+            android:textColor="#ff0000" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.weslide.lovesmallscreen.network;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.T;
@@ -37,7 +38,7 @@ public class StatusCode {
                 L.e("请求错误，错误码：" + response.getStatus() + ", 错误内容：" + response.getMessage());
             }
         } else {
-            T.showShort(context, R.string.error_data_load);
+            Toast.makeText(context, R.string.error_data_load, Toast.LENGTH_SHORT).show();
         }
 
         return false;

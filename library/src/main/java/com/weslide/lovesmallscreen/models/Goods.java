@@ -36,6 +36,17 @@ public class Goods extends BaseModel {
     @SerializedName("score")
     /** 商品可以使用的积分 */
     private String score;
+    @SerializedName("goodDetailUrl")
+    /** 商品详情Url */
+    private String goodDetailUrl;
+
+    public String getGoodDetailUrl() {
+        return goodDetailUrl;
+    }
+
+    public void setGoodDetailUrl(String goodDetailUrl) {
+        this.goodDetailUrl = goodDetailUrl;
+    }
 
     public String getPay_price() {
         return pay_price;

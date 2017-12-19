@@ -1381,7 +1381,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
-                                        android:text="佣金高低"
+                                        android:text="筛选"
                                         android:textColor="#333333"
                                         android:textSize="14sp" />
 
@@ -1549,7 +1549,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
-                                    android:text="佣金高低"
+                                    android:text="筛选"
                                     android:textColor="#333333"
                                     android:textSize="15sp" />
 
@@ -1560,7 +1560,7 @@
                                     android:layout_centerVertical="true"
                                     android:layout_marginLeft="8dp"
                                     android:layout_toRightOf="@id/comment_tv"
-                                    android:src="@drawable/icon_didaogao" />
+                                    android:src="@drawable/icon_xiasanjiao" />
                             </RelativeLayout>
                         </LinearLayout>
 
@@ -1658,7 +1658,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="佣金高低"
+                        android:text="筛选"
                         android:textColor="#333333"
                         android:textSize="15sp" />
 

@@ -9,20 +9,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/ticket_good_iv"
+        <RelativeLayout
+            android:id="@+id/good_iv_rll"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_marginLeft="5dp"
-            android:padding="3dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/icon_morentouxiang" />
+            android:layout_marginLeft="5dp">
+
+            <ImageView
+                android:id="@+id/ticket_good_iv"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:padding="3dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_morentouxiang" />
+
+            <FrameLayout
+                android:id="@+id/fl_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:alpha="0.3"
+                android:background="#000000"></FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/rpCash_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="3dp"
+                android:background="@drawable/hb"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/rpCash_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fefb54"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/consume_tack_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/ticket_good_iv"
+            android:layout_alignBottom="@id/good_iv_rll"
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="8dp" />
 
@@ -33,7 +66,7 @@
             android:layout_marginLeft="9dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="7dp"
-            android:layout_toRightOf="@id/ticket_good_iv"
+            android:layout_toRightOf="@id/good_iv_rll"
             android:ellipsize="end"
             android:lineSpacingExtra="2.5dp"
             android:maxLines="2"
@@ -48,7 +81,7 @@
             android:layout_below="@id/ticket_good_desc"
             android:layout_marginLeft="9dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/ticket_good_iv"
+            android:layout_toRightOf="@id/good_iv_rll"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -88,11 +121,11 @@
                 android:id="@+id/earn_money_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:maxLines="1"
-                android:ellipsize="end"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text=""
                 android:textColor="#ff2b47"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -126,12 +159,12 @@
             android:id="@+id/pg_fl"
             android:layout_width="match_parent"
             android:layout_height="12dp"
-            android:layout_alignBottom="@id/ticket_good_iv"
+            android:layout_alignBottom="@id/good_iv_rll"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="9dp"
             android:layout_marginRight="6dp"
             android:layout_toLeftOf="@id/earn_ll"
-            android:layout_toRightOf="@id/ticket_good_iv">
+            android:layout_toRightOf="@id/good_iv_rll">
 
             <ProgressBar
                 android:id="@+id/ticket_good_progress"
@@ -179,7 +212,7 @@
             android:layout_below="@id/original_price_ll"
             android:layout_marginLeft="9dp"
             android:layout_marginTop="4dp"
-            android:layout_toRightOf="@id/ticket_good_iv"
+            android:layout_toRightOf="@id/good_iv_rll"
             android:gravity="center">
 
             <TextView

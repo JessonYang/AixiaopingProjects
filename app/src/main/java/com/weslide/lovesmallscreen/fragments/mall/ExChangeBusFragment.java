@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.core.BaseFragment;
 import com.weslide.lovesmallscreen.network.HTTP;
-import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.utils.L;
 
 import butterknife.BindView;
@@ -63,7 +61,7 @@ public class ExChangeBusFragment extends BaseFragment {
 //自适应屏幕
         wb.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         wb.getSettings().setLoadWithOverviewMode(true);
-        wb.setWebViewClient(new WebViewClient(){
+        wb.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // TODO Auto-generated method stub
@@ -90,25 +88,26 @@ public class ExChangeBusFragment extends BaseFragment {
             }
         });
 
-        String URL = HTTP.URL_EXCHENGE_GOODS+"appVersion="+ContextParameter.getAppVersion()+
-                 "&channelId="+ContextParameter.getChannelId()+"&dip="+
-                 ContextParameter.getDip()+"&lat="+ContextParameter.getCurrentLocation().getLatitude()+
-                 "&lng"+ContextParameter.getCurrentLocation().getLongitude()+"&os=ANDROID"+"&userId="+ContextParameter.getUserInfo().getUserId()
-                 +"&zoneId="+ContextParameter.getCurrentZone().getZoneId();
-             L.e("换货会链接", URL);
+        String URL = HTTP.URL_EXCHENGE_GOODS + "appVersion=" + ContextParameter.getAppVersion() +
+                "&channelId=" + ContextParameter.getChannelId() + "&dip=" +
+                ContextParameter.getDip() + "&lat=" + ContextParameter.getCurrentLocation().getLatitude() +
+                "&lng" + ContextParameter.getCurrentLocation().getLongitude() + "&os=ANDROID" + "&userId=" + ContextParameter.getUserInfo().getUserId()
+                + "&zoneId=" + ContextParameter.getCurrentZone().getZoneId();
+        L.e("换货会链接", URL);
         wb.addJavascriptInterface(new InJavaScriptGetBody(), "back");
         wb.loadUrl(URL);
 
     }
+
     /**
      * 供网页js调用的方法
      */
     class InJavaScriptGetBody {
 
-           @JavascriptInterface
-           public void back(){
-               getActivity().onBackPressed();
-           }
+        @JavascriptInterface
+        public void back() {
+            getActivity().onBackPressed();
+        }
     }
 
 }

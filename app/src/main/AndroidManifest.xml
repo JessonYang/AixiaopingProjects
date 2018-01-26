@@ -88,8 +88,10 @@
         android:theme="@style/Aixiaoping.AppTheme"
         tools:replace="android:icon, android:allowBackup">
 
-        <!--适配18:9屏幕(如三星s8等)-->
-        <meta-data android:name="android.max_aspect" android:value="2.1" />
+        <!-- 适配18:9屏幕(如三星s8等) -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
 
         <!-- 友盟key icon, -->
         <meta-data
@@ -374,13 +376,11 @@
             android:name=".activitys.user.LockScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme" />
-
         //滑屏红包详情
         <activity
             android:name=".activitys.sellerinfo.RedPaperDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Aixiaoping.AppTheme" />
-
         //订单红包详情
         <activity
             android:name=".activitys.sellerinfo.OrderRedPaperDtActivity"
@@ -565,7 +565,6 @@
                 <action android:name="com.igexin.sdk.action.${GETUI_APP_ID}" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".RongIMReceiver"
             android:exported="true">
@@ -758,8 +757,7 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".view_yy.activity.FansConversationListActivity"></activity>
+        <activity android:name=".view_yy.activity.FansConversationListActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -771,6 +769,15 @@
                 android:resource="@xml/rc_file_path" />
         </provider>
 
+        <activity android:name=".view_yy.activity.PutTogetherActivity" />
+        <activity android:name=".activitys.mall.PtListActivity" />
+        <activity android:name=".activitys.user.ScoreRechargeOffLineActivity" />
+        <activity android:name=".activitys.user.ScoreRechargeSuccessActivity" />
+        <activity android:name=".exchange.activity.MyExchangeActivity" />
+        <activity android:name=".exchange.activity.ExchangeGoodDetailActivity" />
+        <activity android:name=".exchange.activity.DealDetailActivity" />
+        <activity android:name=".exchange.activity.ChooseSpecActivity" />
+        <activity android:name=".exchange.activity.ChooseGoodsActivity"></activity>
     </application>
 
 </manifest>

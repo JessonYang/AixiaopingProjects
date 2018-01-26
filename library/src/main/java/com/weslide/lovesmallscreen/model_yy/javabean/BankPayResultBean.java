@@ -3,7 +3,7 @@ package com.weslide.lovesmallscreen.model_yy.javabean;
 /**
  * Created by YY on 2017/7/29.
  */
-public class BankPayResultBean {
+public class BankPayResultBean extends BaseModel{
 
     private String Version;
     private String MerchantId;

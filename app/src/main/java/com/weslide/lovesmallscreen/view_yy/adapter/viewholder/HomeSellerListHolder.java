@@ -28,11 +28,11 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class HomeSellerListHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    ImageView ivPreferentials1,ivPreferentials2,ivPreferentials3,ivSellerIcon;
-    TextView tvDistance,tvSellerName,tvSellerAddress;
-    GridLayout glPreferentials,glGoods;
+    ImageView ivPreferentials1, ivPreferentials2, ivPreferentials3, ivSellerIcon;
+    TextView tvDistance, tvSellerName, tvSellerAddress;
+    GridLayout glPreferentials, glGoods;
     CheckBox cbConcern;
-    SellerItemScoreGoodsView goodsScore1,goodsScore2,goodsScore3;
+    SellerItemScoreGoodsView goodsScore1, goodsScore2, goodsScore3;
     Button btn_seller;
     private boolean bind = false;
     private Context mContext;
@@ -56,7 +56,7 @@ public class HomeSellerListHolder extends RecyclerView.ViewHolder implements Vie
         btn_seller = (Button) itemView.findViewById(R.id.btn_seller);
     }
 
-    public void oprateView(Seller mSeller){
+    public void oprateView(Seller mSeller) {
         tvSellerName.setText(mSeller.getSellerName());
         tvSellerAddress.setText(mSeller.getSellerAddress());
         // tvDistance.setText(ContextParameter.getDistanceForCurrentLocationAddUnit(mSeller));
@@ -94,7 +94,9 @@ public class HomeSellerListHolder extends RecyclerView.ViewHolder implements Vie
 
             if (mSeller.getPreferentials().size() > 1) {
                 ivPreferentials2.setVisibility(View.VISIBLE);
+
                 Glide.with(mContext).load(mSeller.getPreferentials().get(1).getImage()).skipMemoryCache(true).into(ivPreferentials1);
+
             } else {
                 ivPreferentials2.setVisibility(View.INVISIBLE);
                 ivPreferentials3.setVisibility(View.INVISIBLE);

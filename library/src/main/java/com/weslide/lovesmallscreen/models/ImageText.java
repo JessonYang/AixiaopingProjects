@@ -21,6 +21,9 @@ public class ImageText extends BaseModel {
     @SerializedName("name")
     /** 对于图片的描述 */
     private String name;
+    @SerializedName("goodsOrder")
+    /** 对于图片的描述 */
+    private String goodsOrder;
     @SerializedName("typeId")
     /** 分类id 自定义值，视情况而定 */
     private String typeId;
@@ -82,5 +85,13 @@ public class ImageText extends BaseModel {
 
     public void setSellerId(String sellerId) {
         this.sellerId = sellerId;
+    }
+
+    public String getGoodsOrder() {
+        return goodsOrder;
+    }
+
+    public void setGoodsOrder(String goodsOrder) {
+        this.goodsOrder = goodsOrder;
     }
 }

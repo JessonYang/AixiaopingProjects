@@ -26,6 +26,16 @@ public class FeatureTypeModel extends BaseModel {
     @SerializedName("yxypMinPicture")
     NfcpModel yxypMinPicture;
 
+    private String titleImg;
+
+    public String getTitleImg() {
+        return titleImg;
+    }
+
+    public void setTitleImg(String titleImg) {
+        this.titleImg = titleImg;
+    }
+
     public NfcpModel getTea() {
         return tea;
     }

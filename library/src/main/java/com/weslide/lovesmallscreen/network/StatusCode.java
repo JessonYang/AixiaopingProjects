@@ -1,12 +1,9 @@
 package com.weslide.lovesmallscreen.network;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.T;
-
-import net.aixiaoping.library.R;
 
 /**
  * Created by xu on 2016/5/25.
@@ -38,7 +35,8 @@ public class StatusCode {
                 L.e("请求错误，错误码：" + response.getStatus() + ", 错误内容：" + response.getMessage());
             }
         } else {
-            Toast.makeText(context, R.string.error_data_load, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, R.string.error_data_load, Toast.LENGTH_SHORT).show();
+//            CustomDialogUtil.showNoticDialog(context,"请求失败!");
         }
 
         return false;

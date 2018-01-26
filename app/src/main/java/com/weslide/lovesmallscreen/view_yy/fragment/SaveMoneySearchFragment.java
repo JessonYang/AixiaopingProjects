@@ -114,7 +114,7 @@ public class SaveMoneySearchFragment extends BaseFragment implements View.OnClic
         GoodsModel model = new GoodsModel();
         model.setPage_num(String.valueOf(page));
         model.setKeyWords(search);
-        model.setPid(HomePageFragment_New.pid);
+        model.setPid(HomeMainFragment.pid);
         model.setCid("-1");
         String methodName;
         if (title != null && !title.equals("省钱购物") && !title.equals("九块九") && !title.equals("")) {

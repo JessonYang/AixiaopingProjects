@@ -17,23 +17,25 @@ import com.weslide.lovesmallscreen.utils.AppUtils;
  */
 public class HomeSpecialStoreHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private final ImageView nfcp_iv,county_banner_iv,to_friend_iv,eat_must_iv,dj_fruit_iv,tea_iv;
+    private final ImageView nfcp_iv, county_banner_iv, to_friend_iv, eat_must_iv, dj_fruit_iv, tea_iv;
     private Context mContext;
     private FeatureTypeModel featureType;
     private String typeId;
+    private final ImageView title_rll;
 
     public HomeSpecialStoreHolder(Context context, View itemView) {
         super(itemView);
         mContext = context;
         county_banner_iv = ((ImageView) itemView.findViewById(R.id.county_banner_iv));
         nfcp_iv = ((ImageView) itemView.findViewById(R.id.nfcp_iv));
+        title_rll = (ImageView) itemView.findViewById(R.id.title_rll);
         to_friend_iv = ((ImageView) itemView.findViewById(R.id.to_friend_iv));
         eat_must_iv = ((ImageView) itemView.findViewById(R.id.eat_must_iv));
         dj_fruit_iv = ((ImageView) itemView.findViewById(R.id.dj_fruit_iv));
         tea_iv = ((ImageView) itemView.findViewById(R.id.tea_iv));
     }
 
-    public void oprateView(FeatureTypeModel featureTypeModel){
+    public void oprateView(FeatureTypeModel featureTypeModel) {
         featureType = featureTypeModel;
         Glide.with(mContext).load(featureType.getYxypMaxPicture().getImage()).into(county_banner_iv);
         Glide.with(mContext).load(featureType.getNfcp().getImage()).into(nfcp_iv);
@@ -41,12 +43,14 @@ public class HomeSpecialStoreHolder extends RecyclerView.ViewHolder implements V
         Glide.with(mContext).load(featureType.getCate().getImage()).into(eat_must_iv);
         Glide.with(mContext).load(featureType.getFruit().getImage()).into(dj_fruit_iv);
         Glide.with(mContext).load(featureType.getTea().getImage()).into(tea_iv);
+        Glide.with(mContext).load(featureType.getTitleImg()).into(title_rll);
         county_banner_iv.setOnClickListener(this);
         nfcp_iv.setOnClickListener(this);
         to_friend_iv.setOnClickListener(this);
         eat_must_iv.setOnClickListener(this);
         dj_fruit_iv.setOnClickListener(this);
         tea_iv.setOnClickListener(this);
+        title_rll.setOnClickListener(this);
     }
 
     @Override
@@ -89,6 +93,9 @@ public class HomeSpecialStoreHolder extends RecyclerView.ViewHolder implements V
                 countyBundle5.putString("typeId", typeId);
                 countyBundle5.putInt("where", 0);
                 AppUtils.toActivity(mContext, SpecialLocalProductActivity.class, countyBundle5);
+                break;
+            case R.id.title_rll:
+                AppUtils.toActivity(mContext, SpecialLocalProductActivity.class);
                 break;
         }
     }

@@ -48,6 +48,7 @@ import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.utils.ReflectionUtils;
 import com.weslide.lovesmallscreen.utils.StringUtils;
 import com.weslide.lovesmallscreen.utils.T;
+import com.weslide.lovesmallscreen.view_yy.activity.PutTogetherActivity;
 import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
 import com.weslide.lovesmallscreen.views.order.OrderView;
 import com.weslide.lovesmallscreen.views.order.PayView;
@@ -99,7 +100,7 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
     FrameLayout progress;
     @BindView(R.id.tool_bar)
     Toolbar toolBar;
-    private Float totalMoney;
+    private Float totalMoney, totalScore;
     private String payType = "0";
     private List<String> orderIds;
     private BroadcastReceiver payResultReceiver = new BroadcastReceiver() {
@@ -122,7 +123,8 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
                 public void onNext(Response response) {
                     Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                     Bundle bundle = new Bundle();
-                    X:for (int i = 0; i < mOrderList.getDataList().size(); i++) {
+                    X:
+                    for (int i = 0; i < mOrderList.getDataList().size(); i++) {
 
                         //购买成功后，一律跳转到待发货列表
                         bundle.putString(OrderActivity.KEY_ORDER_STATUS, Constants.ORDER_STATUS_WAIT_SEND_OUT_GOODS);
@@ -152,6 +154,8 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
     };
     public final static String PAY_RESULT_RECEIVER_ACTION = "bank_pay_result_action";
     private String science = "01";
+    private int goodType;
+    private String teamOrderId;
 
     @Nullable
     @Override
@@ -187,28 +191,34 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
     }
 
     private void loadBundle() {
-        Bundle bundle = getActivity().getIntent().getExtras();
+        /*Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
             mOrderList = (OrderList) bundle.getSerializable(KEY_ORDER_LIST);
-        }
+        }*/
+        mOrderList = (OrderList) getActivity().getIntent().getSerializableExtra(KEY_ORDER_LIST);
         science = getActivity().getIntent().getStringExtra("science");
-        Log.d("雨落无痕丶", "science: " + science);
+        goodType = getActivity().getIntent().getIntExtra("goodType", 1);
+        teamOrderId = getActivity().getIntent().getStringExtra("teamOrderId");
     }
 
     private void bindView() {
-
-        if (mOrderList.getTotalMoney() == 0) {
+        totalMoney = mOrderList.getTotalMoney();
+        totalScore = mOrderList.getTotalScore();
+        if (totalMoney == 0) {
             mPayMode = Constants.PAY_WALLET;
             pvPay.setVisibility(View.GONE);
+            if (totalScore <= 0) {
+                tvTotalMoney.setText("合计：￥" + totalMoney);
+            } else {
+                tvTotalMoney.setText("合计：" + totalScore + "积分");
+            }
+        } else {
+            tvTotalMoney.setText("合计：￥" + totalMoney);
         }
-
-        totalMoney = mOrderList.getTotalMoney();
-        tvTotalMoney.setText("合计：￥" + totalMoney);
         pvPay.setOnPayChangeListener(new PayView.OnPayChangeListener() {
             @Override
             public void payChange(String pay) {
                 mPayMode = pay;
-                Log.d("雨落无痕丶", "payChange1: " + mPayMode);
             }
         });
 
@@ -398,47 +408,37 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
 
             @Override
             public void onNext(Response<PayModel> payOrderBean) {
-                if (Constants.PAY_ALIPAY.equals(mPayMode)) {
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put("payType", "支付宝支付");
-                    map.put("receiverName", mAddress.getName());
-                    map.put("receiverPhone", mAddress.getPhone());
-                    map.put("userId", ContextParameter.getUserInfo().getUserId());
-                    map.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()));
-                    for (int i = 0; i < orderIds.size(); i++) {
-                        map.put("orderIds" + i, orderIds.get(i));
-                    }
-                    MobclickAgent.onEvent(getActivity(), "purchase_pay", map);
+                if (Constants.PAY_ALIPAY.equals(mPayMode)) {//支付宝支付
+                    addToStatic("支付宝支付");
                     MyPay.payToAlipay(getActivity(), payOrderBean.getData().getSign(), ConfirmOrderFragment.this);
-                } else if (Constants.PAY_WALLET.equals(mPayMode)) {
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put("payType", "钱包支付");
-                    map.put("receiverName", mAddress.getName());
-                    map.put("receiverPhone", mAddress.getPhone());
-                    map.put("userId", ContextParameter.getUserInfo().getUserId());
-                    map.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()));
-                    for (int i = 0; i < orderIds.size(); i++) {
-                        map.put("orderIds" + i, orderIds.get(i));
-                    }
-                    MobclickAgent.onEvent(getActivity(), "purchase_pay", map);
+                } else if (Constants.PAY_WALLET.equals(mPayMode)) {//钱包支付
+                    addToStatic("钱包支付");
                     onSuccess();
-                } else if (Constants.PAY_WEIXIN.equals(mPayMode)) {
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put("payType", "微信支付");
-                    map.put("receiverName", mAddress.getName());
-                    map.put("receiverPhone", mAddress.getPhone());
-                    map.put("userId", ContextParameter.getUserInfo().getUserId());
-                    map.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()));
-                    for (int i = 0; i < orderIds.size(); i++) {
-                        map.put("orderIds" + i, orderIds.get(i));
-                    }
-                    MobclickAgent.onEvent(getActivity(), "purchase_pay", map);
+                } else if (Constants.PAY_WEIXIN.equals(mPayMode)) {//微信支付
+                    addToStatic("微信支付");
                     MyPay.payToWeiXin(getActivity(), payOrderBean.getData(), ConfirmOrderFragment.this);
-                } else if (Constants.PAY_BANK.equals(mPayMode)) {
+                } else if (Constants.PAY_BANK.equals(mPayMode)) {//银联支付
+                    addToStatic("银联支付");
                     MyPay.payToBank(payOrderBean, getActivity(), science);
                 }
             }
         });
+    }
+
+    /**
+     * 添加友盟统计
+     */
+    private void addToStatic(String payType) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("payType", payType);
+        map.put("receiverName", mAddress.getName());
+        map.put("receiverPhone", mAddress.getPhone());
+        map.put("userId", ContextParameter.getUserInfo().getUserId());
+        map.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()));
+        for (int i = 0; i < orderIds.size(); i++) {
+            map.put("orderIds" + i, orderIds.get(i));
+        }
+        MobclickAgent.onEvent(getActivity(), "purchase_pay", map);
     }
 
 
@@ -474,12 +474,12 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
                         } else if (!PayView.isAliyunCheck && PayView.isWalletCheck && !PayView.isWeixinCheck && !PayView.isBankCheck) {
                             mPayMode = Constants.PAY_WALLET;
                             payType = "0";
-                        }else if (!PayView.isAliyunCheck && !PayView.isWalletCheck && !PayView.isWeixinCheck && !PayView.isBankCheck){
+                        } else if (!PayView.isAliyunCheck && !PayView.isWalletCheck && !PayView.isWeixinCheck && !PayView.isBankCheck) {
                             Toast.makeText(getActivity(), "请选择支付方式!", Toast.LENGTH_SHORT).show();
                             return;
                         }
                     }
-                }else {
+                } else {
                     mPayMode = Constants.PAY_WALLET;
                 }
 
@@ -556,31 +556,40 @@ public class ConfirmOrderFragment extends BaseFragment implements PayListener {
         bean.setPayType(mPayMode);
         bean.setType(Integer.parseInt(payType));
         request.setData(bean);
-        RXUtils.request(getActivity(),request,"checkOrderRedPaper", new SupportSubscriber<Response<RedPaper>>() {
+        RXUtils.request(getActivity(), request, "checkOrderRedPaper", new SupportSubscriber<Response<RedPaper>>() {
             @Override
             public void onNext(Response<RedPaper> redPaperResponse) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("settingId",redPaperResponse.getData().getSettingId());
-                X:for (int i = 0; i < mOrderList.getDataList().size(); i++) {
-                    //购买成功后，一律跳转到待发货列表
-                    bundle.putString(OrderActivity.KEY_ORDER_STATUS,Constants.ORDER_STATUS_WAIT_SEND_OUT_GOODS);
+                if (goodType != Constants.TYPE_OF_TEAM) {//购买成功后跳转到订单列表
+                    bundle.putInt("settingId", redPaperResponse.getData().getSettingId());
+                    X:
+                    for (int i = 0; i < mOrderList.getDataList().size(); i++) {
+                        //购买成功后，一律跳转到待发货列表
+                        bundle.putString(OrderActivity.KEY_ORDER_STATUS, Constants.ORDER_STATUS_WAIT_SEND_OUT_GOODS);
 
-                    //购买成功后，积分商品和普通商品分别跳转到待兑换和待发货列表
-            /*int type = mOrderList.getDataList().get(i).getType();
-            switch (type) {
-                case 1:
-                    bundle.putString(OrderActivity.KEY_ORDER_STATUS, Constants.ORDER_STATUS_WAIT_EXCHANGE);
-                    break X;
-                default:
-                    bundle.putString(OrderActivity.KEY_ORDER_STATUS, Constants.ORDER_STATUS_WAIT_SEND_OUT_GOODS);
-                    break;
+                        //购买成功后，积分商品和普通商品分别跳转到待兑换和待发货列表
+                /*int type = mOrderList.getDataList().get(i).getType();
+                switch (type) {
+                    case 1:
+                        bundle.putString(OrderActivity.KEY_ORDER_STATUS, Constants.ORDER_STATUS_WAIT_EXCHANGE);
+                        break X;
+                    default:
+                        bundle.putString(OrderActivity.KEY_ORDER_STATUS, Constants.ORDER_STATUS_WAIT_SEND_OUT_GOODS);
+                        break;
 
-            }*/
+                }*/
 
+                    }
+                } else {//购买成功后跳转到拼团页面
+                    bundle.putString("teamOrderId", teamOrderId);
                 }
 
                 getSupportApplication().removeActivitys(OrderActivity.class);
-                AppUtils.toActivity(getActivity(), OrderActivity.class, bundle);
+                if (goodType != Constants.TYPE_OF_TEAM) {//订单列表页面
+                    AppUtils.toActivity(getActivity(), OrderActivity.class, bundle);
+                } else {//拼团页面
+                    AppUtils.toActivity(getActivity(), PutTogetherActivity.class, bundle);
+                }
                 //关闭不需要的界面
                 getSupportApplication().removeActivitys(ConfirmOrderActivity.class, GoodsActivity.class);
             }

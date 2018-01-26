@@ -1,6 +1,7 @@
 package com.weslide.lovesmallscreen.view_yy.customview;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
@@ -84,5 +85,11 @@ public class MyScrollView extends ScrollView {
                 break;
         }
         return super.onTouchEvent(ev);
+    }
+
+    //禁止scrollView内布局变化后自动滚动
+    @Override
+    protected int computeScrollDeltaToGetChildRectOnScreen(Rect rect) {
+        return 0;
     }
 }

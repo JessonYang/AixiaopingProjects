@@ -33,6 +33,18 @@ public class PayModel extends BaseModel {
     @SerializedName("timeStamp")
     /** 时间戳 */
     private String timeStamp;
+
+    public String getTeamOrderId() {
+        return teamOrderId;
+    }
+
+    public void setTeamOrderId(String teamOrderId) {
+        this.teamOrderId = teamOrderId;
+    }
+
+    @SerializedName("teamOrderId")
+    /** 拼团商品id */
+    private String teamOrderId;
     @SerializedName("package")
     /** 扩展字段 */
     private String packageValue;

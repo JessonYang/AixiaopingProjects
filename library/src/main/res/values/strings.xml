@@ -50,7 +50,7 @@
     <string name="invitation_code">验证码</string>
     <string name="agree">同意爱小屏的</string>
     <string name="agreement">安装使用协议</string>
-    <string name="intergal_save">积分余额:</string>
+    <string name="intergal_save">积分数量</string>
     <string name="to_use">去使用></string>
     <string name="intergal_hint">积分多者，可换天下</string>
     <string name="recipient_name">收件人姓名:</string>

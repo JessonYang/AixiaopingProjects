@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/project_main_bg"
+    tools:context="com.weslide.lovesmallscreen.exchange.activity.ChooseGoodsActivity">
+
+    <com.weslide.lovesmallscreen.views.custom.CustomToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@color/white"
+        app:leftIv="@drawable/icon_fanhuij"
+        app:titleColor="#323232"
+        app:titleName="商品列表"
+        app:titleSize="16dp"></com.weslide.lovesmallscreen.views.custom.CustomToolbar>
+
+    <Button
+        android:id="@+id/btn_sure"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/btn_bg_yes_click"
+        android:text="确定"
+        android:textColor="#ffffff" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/good_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_sure"
+        android:layout_below="@id/toolbar"
+        android:divider="@color/project_main_bg"
+        android:dividerHeight="10dp" />
+
+</RelativeLayout>

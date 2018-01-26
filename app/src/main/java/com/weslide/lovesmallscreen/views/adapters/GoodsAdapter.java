@@ -2,6 +2,7 @@ package com.weslide.lovesmallscreen.views.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.malinskiy.superrecyclerview.SuperRecyclerViewAdapter;
+import com.weslide.lovesmallscreen.Constants;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.mall.GoodsCommentListActivity;
 import com.weslide.lovesmallscreen.core.RecyclerViewModel;
@@ -22,15 +25,25 @@ import com.weslide.lovesmallscreen.models.Comment;
 import com.weslide.lovesmallscreen.models.Goods;
 import com.weslide.lovesmallscreen.models.ImageText;
 import com.weslide.lovesmallscreen.models.Seller;
+import com.weslide.lovesmallscreen.models.bean.TeamGoodEvModel;
+import com.weslide.lovesmallscreen.models.bean.TeamOrderModel;
 import com.weslide.lovesmallscreen.network.DataList;
 import com.weslide.lovesmallscreen.utils.AppUtils;
+import com.weslide.lovesmallscreen.utils.CalcUtils;
+import com.weslide.lovesmallscreen.utils.CustomDialogUtil;
 import com.weslide.lovesmallscreen.utils.Utils;
+import com.weslide.lovesmallscreen.view_yy.customview.UPMarqueeView;
 import com.weslide.lovesmallscreen.views.Banner;
 import com.weslide.lovesmallscreen.views.adapters.viewholder.GoodsCommentItemViewHolder;
 import com.weslide.lovesmallscreen.views.adapters.viewholder.GoodsCommentTitleViewHolder;
+import com.weslide.lovesmallscreen.views.customview.CircleImageView;
+import com.weslide.lovesmallscreen.views.dialogs.CustomDialog;
 import com.weslide.lovesmallscreen.views.goods.SpecView;
 import com.weslide.lovesmallscreen.views.widget.AddAndSubtractView;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -241,6 +254,14 @@ class GoodsInfoViewHolder extends RecyclerView.ViewHolder {
     SpecView svSpec;
     @BindView(R.id.layout_spec)
     LinearLayout layoutSpec;
+    @BindView(R.id.rights_ll)
+    LinearLayout rightsLl;
+    @BindView(R.id.real_good_ll)
+    LinearLayout realGoodLl;
+    @BindView(R.id.send_fast_ll)
+    LinearLayout sendFastLl;
+    @BindView(R.id.after_careless_ll)
+    LinearLayout afterCarelessLl;
     @BindView(R.id.as_number)
     AddAndSubtractView asNumber;
     @BindView(R.id.iv_seller_icon)
@@ -267,6 +288,16 @@ class GoodsInfoViewHolder extends RecyclerView.ViewHolder {
     ImageView ivExpressTactics;
     @BindView(R.id.tv_sales_volume)
     TextView tvSalesVolume;
+    @BindView(R.id.team_line)
+    View team_line;
+    @BindView(R.id.team_line2)
+    View team_line2;
+    @BindView(R.id.look_other_team)
+    RelativeLayout look_other_team;
+    @BindView(R.id.upmarquee_view)
+    UPMarqueeView upmarquee_view;
+    private CustomDialog teamListDialog;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd天HH时mm分ss秒");
 
     public GoodsInfoViewHolder(Context context, GoodsFragment goodsFragment, ViewGroup parent) {
         super(LayoutInflater.from(context).inflate(R.layout.goods_view_info, parent, false));
@@ -281,12 +312,22 @@ class GoodsInfoViewHolder extends RecyclerView.ViewHolder {
             case 1:
                 //积分商品
                 tvTagRedPager.setVisibility(View.GONE);
-                tvGoodsValue.setText(goods.getValue());
+                tvGoodsValue.setText(goods.getScore()+"积分");
                 break;
             case 2:
                 //现金商品
                 tvTagRedPager.setVisibility(View.GONE);
-                tvGoodsValue.setText(goods.getValue());
+                String value = goods.getValue();
+                tvGoodsValue.setText(value);
+                if (goods.isTeam()) {//拼团商品
+                    String oriMoney = value.substring(value.indexOf("￥") + 1);
+                    TeamGoodEvModel teamGoodEvModel = new TeamGoodEvModel();
+                    teamGoodEvModel.setGoodType(Constants.TYPE_OF_TEAM);
+                    String discountPrice = goods.getDiscountPrice();
+                    teamGoodEvModel.setMoney(CalcUtils.doubleSub(Double.parseDouble(oriMoney),Double.parseDouble(discountPrice)));
+                    teamGoodEvModel.setOriMoney(value);
+                    EventBus.getDefault().post(teamGoodEvModel);
+                }
                 break;
             case 3:
                 //免单商品
@@ -306,14 +347,32 @@ class GoodsInfoViewHolder extends RecyclerView.ViewHolder {
 
         mGoods = goods;
 
-
         tvGoodsName.setText(mGoods.getName());
 
         showGoodsInfo(mGoods);
 
-        if ("2".equals(mGoods.getMallType()) || "scm".equals(mGoods.getMallType())){
+        List<Integer> rightsProtect = mGoods.getRightsProtect();
+        if (rightsProtect != null && rightsProtect.size() > 0) {
+            rightsLl.setVisibility(View.VISIBLE);
+            for (Integer integer : rightsProtect) {
+                switch (integer) {
+                    case 1:
+                        realGoodLl.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        sendFastLl.setVisibility(View.VISIBLE);
+                        break;
+                    case 3:
+                        afterCarelessLl.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        } else {
+            rightsLl.setVisibility(View.GONE);
+        }
+        if ("2".equals(mGoods.getMallType()) || "scm".equals(mGoods.getMallType())) {
             score_no_charge_back.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             score_no_charge_back.setVisibility(View.GONE);
         }
         tvCostPrice.setText("￥" + mGoods.getCostPrice());
@@ -337,12 +396,13 @@ class GoodsInfoViewHolder extends RecyclerView.ViewHolder {
 
             svSpec.setOnSpecItemViewSelectListener((specNote, selectKeys) -> {
 
-
                 if (selectKeys != null && mGoods.getSpec().size() == selectKeys.length) {
 
                     Goods _goods = new Goods();
                     _goods.setPrice(specNote.getPrice());
                     _goods.setScore(specNote.getScore());
+                    _goods.setTeam(mGoods.isTeam());
+                    _goods.setDiscountPrice(mGoods.getDiscountPrice());
                     _goods.setCashpoint(specNote.getCashpoint());
 
 
@@ -410,10 +470,143 @@ class GoodsInfoViewHolder extends RecyclerView.ViewHolder {
 
 //        wvGoodsDetailed.getWebView().loadUrl(HTTP.URL_GOODS_DETAIL + "?goodsId" + goods.getGoodsId());
 
+        if (goods.isTeam()) {
+            look_other_team.setVisibility(View.VISIBLE);
+            team_line.setVisibility(View.VISIBLE);
+            List<View> views = new ArrayList<>();
+            List<TeamOrderModel> teamOrderList = goods.getTeamOrderList();
+            for (int j = 0; j < teamOrderList.size(); j = j + 2) {
+                View view = LayoutInflater.from(mContext).inflate(R.layout.vf_item, null);
+                RelativeLayout ptRll = (RelativeLayout) view.findViewById(R.id.yiqipin_rll);
+                CircleImageView ptUserFace1 = (CircleImageView) view.findViewById(R.id.host_pic1);
+                CircleImageView ptUserFace2 = (CircleImageView) view.findViewById(R.id.host_pic2);
+                TextView limitTv1 = (TextView) view.findViewById(R.id.host_title1);
+                TextView limitTv2 = (TextView) view.findViewById(R.id.host_title2);
+                TextView leftTv1 = (TextView) view.findViewById(R.id.host_left_time1);
+                TextView leftTv2 = (TextView) view.findViewById(R.id.host_left_time2);
+                RelativeLayout yiqipinTv1 = (RelativeLayout) view.findViewById(R.id.yiqipin_tv);
+                TextView yiqipinTv2 = (TextView) view.findViewById(R.id.yiqipin_tv2);
+                final TeamOrderModel teamOrderModel = teamOrderList.get(j);
+                Glide.with(mContext).load(teamOrderModel.getUserHead()).into(ptUserFace1);
+                limitTv1.setText("至少" + teamOrderModel.getSurplusNum() + "人");
+                long total_second = teamOrderModel.getSurplusTime() / 1000;
+                long total_minute = total_second / 60;
+                long total_hour = total_minute / 60;
+                long second = total_second % 60;
+                long minute = total_minute % 60;
+                long hour = total_hour % 24;
+                long day = total_hour / 24;
+                leftTv1.setText(getTime(day, hour, minute, second));
+                new CountDownTimer(teamOrderModel.getSurplusTime(), 1000) {
+                    @Override
+                    public void onTick(long l) {
+                        long total_second = l / 1000;
+                        long total_minute = total_second / 60;
+                        long total_hour = total_minute / 60;
+                        long second = total_second % 60;
+                        long minute = total_minute % 60;
+                        long hour = total_hour % 24;
+                        long day = total_hour / 24;
+                        leftTv1.setText(getTime(day, hour, minute, second));
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+                }.start();
+                yiqipinTv1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        TeamGoodEvModel teamGoodEvModel = new TeamGoodEvModel();
+                        teamGoodEvModel.setGoodType(Constants.TYPE_OF_TEAM_LIST);
+                        teamGoodEvModel.setTeamOrderId(teamOrderModel.getTeamOrderId());
+                        teamGoodEvModel.setOrderUserId(teamOrderModel.getOrderUserId());
+                        EventBus.getDefault().post(teamGoodEvModel);
+                    }
+                });
+                if (teamOrderList.size() > j + 1) {
+                    ptRll.setVisibility(View.VISIBLE);
+                    final TeamOrderModel teamOrderModel1 = teamOrderList.get(j + 1);
+                    Glide.with(mContext).load(teamOrderModel1.getUserHead()).into(ptUserFace2);
+                    limitTv2.setText(teamOrderModel1.getSurplusNum());
+                    long total_second2 = teamOrderModel.getSurplusTime() / 1000;
+                    long total_minute2 = total_second / 60;
+                    long total_hour2 = total_minute / 60;
+                    long second2 = total_second2 % 60;
+                    long minute2 = total_minute2 % 60;
+                    long hour2 = total_hour2 % 24;
+                    long day2 = total_hour2 / 24;
+                    leftTv2.setText(getTime(day2, hour2, minute2, second2));
+                    new CountDownTimer(teamOrderModel1.getSurplusTime(), 1000) {
+                        @Override
+                        public void onTick(long l) {
+                            long total_second = l / 1000;
+                            long total_minute = total_second / 60;
+                            long total_hour = total_minute / 60;
+                            long second = total_second % 60;
+                            long minute = total_minute % 60;
+                            long hour = total_hour % 24;
+                            long day = total_hour / 24;
+                            leftTv2.setText(getTime(day, hour, minute, second));
+                        }
+
+                        @Override
+                        public void onFinish() {
+
+                        }
+                    }.start();
+                    ptRll.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            TeamGoodEvModel teamGoodEvModel = new TeamGoodEvModel();
+                            teamGoodEvModel.setGoodType(Constants.TYPE_OF_TEAM_LIST);
+                            teamGoodEvModel.setTeamOrderId(teamOrderModel1.getTeamOrderId());
+                            teamGoodEvModel.setOrderUserId(teamOrderModel.getOrderUserId());
+                            EventBus.getDefault().post(teamGoodEvModel);
+                        }
+                    });
+                } else {
+                    ptRll.setVisibility(View.GONE);
+                }
+                views.add(view);
+            }
+            upmarquee_view.setViews(views);
+
+        } else {
+            look_other_team.setVisibility(View.GONE);
+            team_line.setVisibility(View.GONE);
+            upmarquee_view.setVisibility(View.GONE);
+            team_line2.setVisibility(View.GONE);
+        }
+
     }
 
-    @OnClick(R.id.btn_seller)
-    public void onClick() {
-        AppUtils.toSeller(mContext, mGoods.getSeller().getSellerId());
+    @OnClick({R.id.btn_seller, R.id.look_other_team})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_seller:
+                AppUtils.toSeller(mContext, mGoods.getSeller().getSellerId());
+                break;
+            case R.id.look_other_team:
+                List<TeamOrderModel> list = mGoods.getTeamOrderList();
+                if (list != null && list.size() > 0) {
+                    TeamListAdapter teamListAdapter = new TeamListAdapter(mContext, list);
+                    teamListDialog = CustomDialogUtil.showCustomDialog(mContext, R.style.customDialogStyle, R.layout.pt_list_dialog, 270, 350, teamListAdapter, R.id.pt_dialog_lv, mGoods.getTeamOrderList(), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            teamListDialog.dismiss();
+                        }
+                    }, R.id.btn_cal);
+                } else {
+                    CustomDialogUtil.showNoticDialog(mContext, "还没有其他小伙伴发起此商品的拼团哦!您可以单独购买或发起团购拼团活动。");
+                }
+                break;
+        }
     }
+
+    private String getTime(long day, long hour, long minute, long second) {
+        return "剩余:" + String.format("%02d", day) + "天" + String.format("%02d", hour) + "时" + String.format("%02d", minute) + "分" + String.format("%02d", second) + "秒";
+    }
+
 }

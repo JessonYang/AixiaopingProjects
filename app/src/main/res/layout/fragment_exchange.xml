@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/project_main_bg"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.weslide.lovesmallscreen.views.custom.CustomToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@color/white"
+        app:rightIv="@drawable/icon_sousuo"
+        app:titleColor="#333333"
+        app:titleName="换货会"
+        app:titleSize="16dp"></com.weslide.lovesmallscreen.views.custom.CustomToolbar>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/exchange_tab"
+        android:layout_width="match_parent"
+        android:background="#ffffff"
+        app:tabGravity="center"
+        app:tabIndicatorColor="#ff2d47"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="#ff2b49"
+        app:tabTextAppearance="@style/MyTextAppreanceStyle"
+        app:tabTextColor="#333333"
+        android:layout_height="40dp"></android.support.design.widget.TabLayout>
+
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:id="@+id/rclv"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="match_parent"></com.malinskiy.superrecyclerview.SuperRecyclerView>
+</LinearLayout>

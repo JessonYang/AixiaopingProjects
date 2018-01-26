@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <com.youth.banner.Banner
         android:id="@+id/home_fg_banner"
+        app:indicator_drawable_selected="@color/main_color"
+        app:indicator_drawable_unselected="@color/white"
         android:layout_width="match_parent"
         android:layout_height="180dp"></com.youth.banner.Banner>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="2dp"
         android:background="#f4f4f4" />
 
 </LinearLayout>

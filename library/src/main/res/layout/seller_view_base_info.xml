@@ -165,6 +165,7 @@
 
     <!-- 分店 -->
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/layout_branchs"
         android:layout_width="match_parent"
         android:layout_height="@dimen/seller_address_layout_height"
@@ -195,6 +196,7 @@
     <com.weslide.lovesmallscreen.views.FixedGridView
         android:id="@+id/gv_preferentials"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:background="@color/background_color"
         android:numColumns="2"

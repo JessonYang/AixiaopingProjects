@@ -23,6 +23,7 @@ import com.weslide.lovesmallscreen.core.SupportSubscriber;
 import com.weslide.lovesmallscreen.models.Goods;
 import com.weslide.lovesmallscreen.models.bean.CreateTempOrderListBean;
 import com.weslide.lovesmallscreen.models.bean.ShoppingCarBean;
+import com.weslide.lovesmallscreen.models.bean.TeamGoodEvModel;
 import com.weslide.lovesmallscreen.models.config.ShareContent;
 import com.weslide.lovesmallscreen.models.eventbus_message.UpdateShoppingCarMessage;
 import com.weslide.lovesmallscreen.network.HTTP;
@@ -30,6 +31,7 @@ import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.APIUtils;
 import com.weslide.lovesmallscreen.utils.AppUtils;
+import com.weslide.lovesmallscreen.utils.CustomDialogUtil;
 import com.weslide.lovesmallscreen.utils.OrderUtils;
 import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.utils.ShareUtils;
@@ -39,6 +41,7 @@ import com.weslide.lovesmallscreen.utils.UserUtils;
 import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -75,6 +78,12 @@ public class GoodsFragment extends BaseFragment {
     RelativeLayout layoutOptionAddShoppingCar;
     @BindView(R.id.tv_buy)
     TextView tvBuy;
+    @BindView(R.id.shopping_car_tv)
+    TextView shoppingCarTv;
+    @BindView(R.id.buy_self_tv)
+    TextView buySelfTv;
+    @BindView(R.id.two_people_tv)
+    TextView twoPeopleTv;
     @BindView(R.id.layout_goods_bottom)
     LinearLayout layoutOption;
     private Goods goods;
@@ -96,6 +105,9 @@ public class GoodsFragment extends BaseFragment {
 
     GoodsInfoFragment firstFragment;
     GoodsDetailFragment secondFragment;
+    private int goodType = Constants.TYPE_OF_NORMAL;
+    private double money;
+    private String oriMoney;
 
 
     @Nullable
@@ -105,7 +117,7 @@ public class GoodsFragment extends BaseFragment {
         mView = inflater.inflate(R.layout.fragment_goods, container, false);
 
         ButterKnife.bind(this, mView);
-
+        EventBus.getDefault().register(this);
         loadBundle();
 
         layoutOption.setVisibility(View.GONE);
@@ -115,11 +127,14 @@ public class GoodsFragment extends BaseFragment {
             @Override
             public void onShowNextPage() {
 
-                Map<String, String> values = new HashMap<>();
-                values.put("goodsId", goods.getGoodsId());
-                String json = HTTP.formatJSONData(new Request().setData(values));
-
-                secondFragment.setUrl(HTTP.URL_GOODS_DETAIL + json);
+                if (goods.isNewGoodDetail()) {//新图文详情
+                    secondFragment.setDetailGood(goods.getDetailTPs());
+                }else {//旧网页详情
+                    Map<String, String> values = new HashMap<>();
+                    values.put("goodsId", goods.getGoodsId());
+                    String json = HTTP.formatJSONData(new Request().setData(values));
+                    secondFragment.setUrl(HTTP.URL_GOODS_DETAIL + json);
+                }
             }
         });
 
@@ -238,8 +253,18 @@ public class GoodsFragment extends BaseFragment {
                 break;
             case R.id.layout_option_add_shopping_car:
 
-                if (UserUtils.handlerLogin(getActivity()))
-                    addShoppingCar();
+                if (oriMoney == null) {
+                    if (UserUtils.handlerLogin(getActivity()))
+                        addShoppingCar();
+                }else {
+                    CreateTempOrderListBean bean = new CreateTempOrderListBean();
+                    if (specs != null) bean.setSpecs(Arrays.asList(specs));
+                    bean.setGoodsId(getGoods().getGoodsId());
+                    bean.setNumber(number);
+                    bean.setType("2");
+                    bean.setTeam(false);
+                    OrderUtils.createTempOrderList(getActivity(), bean,Constants.TYPE_OF_NORMAL);
+                }
 
 
                 break;
@@ -288,7 +313,7 @@ public class GoodsFragment extends BaseFragment {
                 if (inviteCode == null) {
                     inviteCode = "";
                 }
-                ShareUtils.share(getActivity(), "商品详情",
+                ShareUtils.share(getActivity(), goods.getSeller().getSellerName(),
                         goods.getCoverPic(),
                         home.getTargetUrl() + "?userId=" + userId + "&appVersion=" + AppUtils.getVersionCode(getActivity()) + "&zoneId=" + ContextParameter.getCurrentZone().getZoneId() + "&sellerId=" + sellerId
                                 + "&goodsId=" + goods.getGoodsId()+ "&img=" + headimage + "&name=" + username + "&phone=" + phone + "&code=" + inviteCode,
@@ -316,14 +341,17 @@ public class GoodsFragment extends BaseFragment {
                 return;
             }
         }
-
         CreateTempOrderListBean bean = new CreateTempOrderListBean();
         if (specs != null) bean.setSpecs(Arrays.asList(specs));
         bean.setGoodsId(getGoods().getGoodsId());
         bean.setNumber(number);
         bean.setType("2");
-
-        OrderUtils.createTempOrderList(getActivity(), bean);
+        if (goodType == Constants.TYPE_OF_NORMAL) {//普通商品购买
+            bean.setTeam(false);
+        } else if (goodType == Constants.TYPE_OF_TEAM) {//开团商品购买
+            bean.setTeam(true);
+        }
+        OrderUtils.createTempOrderList(getActivity(), bean,goodType);
     }
 
     private void addShoppingCar() {
@@ -412,8 +440,42 @@ public class GoodsFragment extends BaseFragment {
         }
 
         layoutOption.setVisibility(View.VISIBLE);
+        if (Constants.MALL_SOCRE.equals(goods.getMallType())) {
+            tvBuy.setText("立即兑换");
+        }else {
+            tvBuy.setText("立即购买");
+        }
     }
 
+    @Subscribe
+    public void onEvent(TeamGoodEvModel model){
+        goodType = model.getGoodType();
+        if (model.getMoney() != -1) {
+            money = model.getMoney();
+            tvBuy.setText("￥"+money+"");
+            buySelfTv.setVisibility(View.VISIBLE);
+            twoPeopleTv.setVisibility(View.VISIBLE);
+        }
+        if (model.getOriMoney() != null) {
+            oriMoney = model.getOriMoney();
+            shoppingCarTv.setText(oriMoney);
+        }
+        if (goodType == Constants.TYPE_OF_TEAM_LIST && model.getTeamOrderId() != null) {//拼团商品购买
+            String orderUserId = model.getOrderUserId();
+            if (!orderUserId.equals(ContextParameter.getUserInfo().getUserId())) {
+                CreateTempOrderListBean bean = new CreateTempOrderListBean();
+                if (specs != null) bean.setSpecs(Arrays.asList(specs));
+                bean.setGoodsId(getGoods().getGoodsId());
+                bean.setNumber(number);
+                bean.setType("2");
+                bean.setTeam(true);
+                bean.setTeamOrderId(model.getTeamOrderId());
+                OrderUtils.createTempOrderList(getActivity(), bean,goodType);
+            }else {
+                CustomDialogUtil.showNoticDialog(getActivity(),"拼团商品只能跟Ta人一起拼!");
+            }
+        }
+    }
     @Override
     public void onResume() {
         super.onResume();

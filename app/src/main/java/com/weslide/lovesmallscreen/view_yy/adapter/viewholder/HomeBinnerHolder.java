@@ -9,6 +9,7 @@ import com.weslide.lovesmallscreen.URIResolve;
 import com.weslide.lovesmallscreen.models.ImageText;
 import com.weslide.lovesmallscreen.view_yy.customview.GlideImageLoader;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class HomeBinnerHolder extends RecyclerView.ViewHolder {
     public void oprateView(List<ImageText> banner_imgs){
         banner.setImageLoader(new GlideImageLoader());
         banner.setImages(banner_imgs);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         banner.setDelayTime(2000);
         banner.startAutoPlay();
         banner.start();

@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,6 +113,7 @@ public class SaveMoneyHomeFragment extends BaseFragment implements View.OnClickL
 
             @Override
             public void onNext(Response<Cate> response) {
+                Log.d("雨落无痕丶", "onNext: ssssssssssssssssssssssss");
                 tabList = response.getData().getCate();
                 addFragmentList();
 //                shareContent = response.getData().getShareContent();

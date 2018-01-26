@@ -48,9 +48,9 @@ public class GetGoodsListBean extends BaseModel {
     private int[] tag;
     @SerializedName("search")
     private String search;
-    @SerializedName("mallTyle")
+    @SerializedName("mallType")
     /** 商城类型 具体看Constants */
-    private String mallTyle;
+    private String mallType;
     @SerializedName("type")
     private String type;
 
@@ -113,11 +113,11 @@ public class GetGoodsListBean extends BaseModel {
     }
 
     public String getMallTyle() {
-        return mallTyle;
+        return mallType;
     }
 
     public void setMallTyle(String mallTyle) {
-        this.mallTyle = mallTyle;
+        this.mallType = mallTyle;
     }
 
 

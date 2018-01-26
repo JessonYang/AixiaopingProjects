@@ -25,7 +25,7 @@ import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.user.ChangePasswordActivity;
 import com.weslide.lovesmallscreen.activitys.user.ChioseSexActivity;
-import com.weslide.lovesmallscreen.activitys.user.MyAddressEditActivity;
+import com.weslide.lovesmallscreen.activitys.user.MyAddressActivity;
 import com.weslide.lovesmallscreen.activitys.user.NameEditActivity;
 import com.weslide.lovesmallscreen.activitys.user.RetrieveActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
@@ -130,7 +130,8 @@ public class PersonalInformationFragment extends BaseFragment {
             case R.id.ll_address:
                 Bundle bundle = new Bundle();
                 bundle.putInt("type",3);
-                AppUtils.toActivity(getActivity(), MyAddressEditActivity.class,bundle);
+                AppUtils.toActivity(getActivity(), MyAddressActivity.class,bundle);
+//                AppUtils.toActivity(getActivity(), MyAddressEditActivity.class,bundle);
                 break;
             case R.id.ll_sex:
                 AppUtils.toActivity(getActivity(), ChioseSexActivity.class);

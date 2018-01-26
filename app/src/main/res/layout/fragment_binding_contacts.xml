@@ -43,8 +43,11 @@
             <EditText
                 android:id="@+id/edt_invite_code"
                 android:layout_width="0dp"
+                android:hint="请输入邀请码"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:textSize="15dp"
+                android:paddingLeft="4dp"
                 android:background="@color/white"
                 android:gravity="center_vertical" />
         </LinearLayout>

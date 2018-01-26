@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.weslide.lovesmallscreen.exchange.activity.ChooseSpecActivity">
+
+    <com.weslide.lovesmallscreen.views.custom.CustomToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@color/white"
+        app:leftIv="@drawable/icon_fanhuij"
+        app:titleColor="#333333"
+        app:titleName="交易明细"
+        app:titleSize="16dp"></com.weslide.lovesmallscreen.views.custom.CustomToolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/project_main_bg"
+            android:orientation="vertical">
+
+            <com.weslide.lovesmallscreen.exchange.widget.ExchangeDealView
+                android:id="@+id/good_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></com.weslide.lovesmallscreen.exchange.widget.ExchangeDealView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/spec_tag_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="42dp"
+                        android:text="规格:"
+                        android:textColor="#323232"
+                        android:textSize="13dp" />
+
+                    <com.weslide.lovesmallscreen.view_yy.customview.MyGridView
+                        android:id="@+id/spec_gv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="36dp"
+                        android:layout_toRightOf="@id/spec_tag_tv"
+                        android:horizontalSpacing="15dp"
+                        android:numColumns="3"
+                        android:verticalSpacing="15dp"></com.weslide.lovesmallscreen.view_yy.customview.MyGridView>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="0.5dp"
+                    android:background="@color/project_line_bg" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
+                        android:text="商品数量"
+                        android:textColor="#323232"
+                        android:textSize="13dp" />
+
+                    <com.weslide.lovesmallscreen.views.widget.AddAndSubtractView
+                        android:id="@+id/as_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"></com.weslide.lovesmallscreen.views.widget.AddAndSubtractView>
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/sure_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@color/main_color"
+                    android:text="确定"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

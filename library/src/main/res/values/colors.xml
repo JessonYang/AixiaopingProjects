@@ -13,6 +13,7 @@
     <color name="font_content_color1">#666666</color> <!-- 文本内容颜色 -->
     <color name="font_color">#222222</color> <!-- 字体主要颜色 -->
     <color name="background_color">#ececec</color><!-- 背景颜色 -->
+    <color name="main_background_color">#f1f1f1</color><!-- 背景颜色 -->
     <color name="update_dialog_color">#50000000</color><!-- 背景颜色 -->
 
     <color name="remind_red_color">#ff2d47</color> <!-- 红色提示色 -->
@@ -181,6 +182,6 @@
     <color name="navy">#000080</color><!--海军色 -->
     <color name="black">#000000</color><!--黑色 -->
     <color name="partner_btn_bg">#3eabe4</color>
-    <color name="project_main_bg">#f4f4f4</color>
+    <color name="project_main_bg">#f1f1f1</color>
     <color name="project_line_bg">#dddddd</color>
 </resources>

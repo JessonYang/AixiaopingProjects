@@ -10,17 +10,18 @@ import com.bumptech.glide.Glide;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.ScoreExchangeActivity;
 import com.weslide.lovesmallscreen.activitys.SecondKillActivity;
-import com.weslide.lovesmallscreen.activitys.TaoKeActivity;
+import com.weslide.lovesmallscreen.activitys.mall.PtListActivity;
 import com.weslide.lovesmallscreen.activitys.mall.SellerListActivity_new;
 import com.weslide.lovesmallscreen.models.TopClassifyModel;
 import com.weslide.lovesmallscreen.utils.AppUtils;
+import com.weslide.lovesmallscreen.view_yy.activity.SaveMoneyHomeActivity;
 
 /**
  * Created by YY on 2017/11/27.
  */
 public class HomeNearStoreHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private final ImageView shop_around_iv,time_limite_iv,credit_exchange_iv,sign_up_attend_iv;
+    private final ImageView shop_around_iv, time_limite_iv, credit_exchange_iv, sign_up_attend_iv, pt_iv;
     private Context mContext;
     private TopClassifyModel topClassify;
 
@@ -31,18 +32,22 @@ public class HomeNearStoreHolder extends RecyclerView.ViewHolder implements View
         time_limite_iv = ((ImageView) itemView.findViewById(R.id.time_limite_iv));
         credit_exchange_iv = ((ImageView) itemView.findViewById(R.id.credit_exchange_iv));
         sign_up_attend_iv = ((ImageView) itemView.findViewById(R.id.sign_up_attend_iv));
+        pt_iv = ((ImageView) itemView.findViewById(R.id.pt_iv));
     }
 
-    public void oprateView(TopClassifyModel topClassifyModel){
+    public void oprateView(TopClassifyModel topClassifyModel) {
         topClassify = topClassifyModel;
         Glide.with(mContext).load(topClassify.getZbdp().getImage()).into(shop_around_iv);
         Glide.with(mContext).load(topClassify.getXsms().getImage()).into(time_limite_iv);
         Glide.with(mContext).load(topClassify.getJfdh().getImage()).into(credit_exchange_iv);
-        Glide.with(mContext).load(topClassify.getChbm().getImage()).into(sign_up_attend_iv);
+//        Glide.with(mContext).load(topClassify.getChbm().getImage()).into(sign_up_attend_iv);//参会报名
+        Glide.with(mContext).load(topClassify.getYhq().getImage()).into(sign_up_attend_iv);//优惠券
+        Glide.with(mContext).load(topClassify.getPt().getImage()).into(pt_iv);
         shop_around_iv.setOnClickListener(this);
         time_limite_iv.setOnClickListener(this);
         credit_exchange_iv.setOnClickListener(this);
         sign_up_attend_iv.setOnClickListener(this);
+        pt_iv.setOnClickListener(this);
     }
 
     @Override
@@ -58,10 +63,21 @@ public class HomeNearStoreHolder extends RecyclerView.ViewHolder implements View
                 AppUtils.toActivity(mContext, ScoreExchangeActivity.class);
                 break;
             case R.id.sign_up_attend_iv:
-                String ChbmUri = topClassify.getChbm().getUri();
+                //参会报名
+                /*String ChbmUri = topClassify.getChbm().getUri();
                 Bundle ChbmBundle = new Bundle();
                 ChbmBundle.putString(TaoKeActivity.KEY_LOAD_URL, ChbmUri);
-                AppUtils.toActivity(mContext, TaoKeActivity.class, ChbmBundle);
+                AppUtils.toActivity(mContext, TaoKeActivity.class, ChbmBundle);*/
+
+                //优惠券(省钱购物)
+                Bundle saveMoneyBundle = new Bundle();
+                saveMoneyBundle.putString("toolbarType", "省钱购物");
+                saveMoneyBundle.putString("searchValue", "");
+                saveMoneyBundle.putString("cid", "-1");
+                AppUtils.toActivity(mContext, SaveMoneyHomeActivity.class, saveMoneyBundle);
+                break;
+            case R.id.pt_iv:
+                AppUtils.toActivity(mContext, PtListActivity.class);
                 break;
         }
     }

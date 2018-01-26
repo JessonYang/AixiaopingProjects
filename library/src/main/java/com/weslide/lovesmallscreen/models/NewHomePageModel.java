@@ -2,6 +2,7 @@ package com.weslide.lovesmallscreen.models;
 
 import com.google.gson.annotations.SerializedName;
 import com.weslide.lovesmallscreen.core.BaseModel;
+import com.weslide.lovesmallscreen.models.bean.PtGoodModel;
 
 import java.util.List;
 
@@ -105,6 +106,42 @@ public class NewHomePageModel extends BaseModel {
 
     @SerializedName("homeBottomBanner")
     private NfcpModel homeBottomBanner;
+
+    //拼团顶部轮播图背景image
+    @SerializedName("ptBgImageUrl")
+    private String ptBgImageUrl;
+
+    //拼团顶部轮播图数组，image图片链接， typeId商品所属类别id， title 商品所属类别名称
+    @SerializedName("ptImages")
+    private List<NfcpModel> ptImages;
+
+    public List<PtGoodModel> getPtGoods() {
+        return ptGoods;
+    }
+
+    public void setPtGoods(List<PtGoodModel> ptGoods) {
+        this.ptGoods = ptGoods;
+    }
+
+    public String getPtBgImageUrl() {
+        return ptBgImageUrl;
+    }
+
+    public void setPtBgImageUrl(String ptBgImageUrl) {
+        this.ptBgImageUrl = ptBgImageUrl;
+    }
+
+    public List<NfcpModel> getPtImages() {
+        return ptImages;
+    }
+
+    public void setPtImages(List<NfcpModel> ptImages) {
+        this.ptImages = ptImages;
+    }
+
+    //拼团商品数组，image图片链接， goodsId商品id， name 商品名称, price 商品展示价格
+    @SerializedName("ptGoods")
+    private List<PtGoodModel> ptGoods;
 
     public String getSearchurl() {
         return searchurl;

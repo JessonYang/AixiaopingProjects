@@ -3,6 +3,7 @@ package com.weslide.lovesmallscreen.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.flyco.tablayout.SlidingTabLayout;
 import com.weslide.lovesmallscreen.Constants;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.mall.GoodsClassifiActivity;
@@ -47,7 +47,7 @@ public class ScoreExchangeActivity extends BaseActivity {
     @BindView(R.id.gv_gride)
     public GridView gvGride;
     @BindView(R.id.stl_score_exchange_tab)
-    SlidingTabLayout mTab;
+    TabLayout mTab;
     @BindView(R.id.vp_main_mall_search_shop_list)
     ViewPager mViewpager;
     List<BaseFragment> mFragments = new ArrayList<>();
@@ -85,7 +85,8 @@ public class ScoreExchangeActivity extends BaseActivity {
 
             @Override
             public void onNext(Response<ScoreExchangeMall> response) {
-                addFragment(response.getData().getScoreGoodsClassifys(),response.getData().getConcentration());
+//                addFragment(response.getData().getScoreGoodsClassifys(),response.getData().getConcentration());
+                addFragment(response.getData().getGoodsClassifys(), response.getData().getConcentration());
                 setGrideviewAdapter(response.getData().getGoodsClassifys());
                 loadingDialog.dismiss();
             }
@@ -95,20 +96,19 @@ public class ScoreExchangeActivity extends BaseActivity {
     /**
      * 添加fragment
      */
-    private void addFragment(List<ImageText> scoreGoodsClassify,Concentration concentration) {
-        for(int i = 0 ;i < scoreGoodsClassify.size();i++){
-            if(i==0){
-                mFragments.add(ScoreExchangeListFragment.newInstance(Integer.parseInt(scoreGoodsClassify.get(i).getTypeId()),concentration));
+    private void addFragment(List<ImageText> scoreGoodsClassify, Concentration concentration) {
+        for (int i = 0; i < scoreGoodsClassify.size() + 1; i++) {
+            if (i == 0) {
+                mFragments.add(ScoreExchangeListFragment.newInstance(null, concentration));
+                mTitles.add("全部");
             } else {
-                mFragments.add(ScoreExchangeListFragment.newInstance(Integer.parseInt(scoreGoodsClassify.get(i).getTypeId())));
+                mFragments.add(ScoreExchangeListFragment.newInstance(scoreGoodsClassify.get(i - 1).getTypeId()));
+                mTitles.add(scoreGoodsClassify.get(i - 1).getName());
             }
 
-            mTitles.add(scoreGoodsClassify.get(i).getName());
         }
         mViewpager.setAdapter(new ScoreExchangeFragmentPageAdapter(this.getSupportFragmentManager()));
-        mTab.setViewPager(mViewpager);
-
-
+        mTab.setupWithViewPager(mViewpager);
     }
 
     class ScoreExchangeFragmentPageAdapter extends FragmentPagerAdapter {
@@ -133,8 +133,8 @@ public class ScoreExchangeActivity extends BaseActivity {
         }
     }
 
-       private void setGrideviewAdapter(List<ImageText> goodsClassify){
-         gvGride.setAdapter(new SimpleAdpater() {
+    private void setGrideviewAdapter(List<ImageText> goodsClassify) {
+        gvGride.setAdapter(new SimpleAdpater() {
             @Override
             public int getCount() {
                 return goodsClassify.size();

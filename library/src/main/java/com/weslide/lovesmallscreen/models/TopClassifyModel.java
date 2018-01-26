@@ -11,8 +11,22 @@ public class TopClassifyModel extends BaseModel {
     @SerializedName("chbm")
     NfcpModel chbm;
 
+    public NfcpModel getYhq() {
+        return yhq;
+    }
+
+    public void setYhq(NfcpModel yhq) {
+        this.yhq = yhq;
+    }
+
+    @SerializedName("yhq")
+    NfcpModel yhq;
+
     @SerializedName("xsms")
     NfcpModel xsms;
+
+    @SerializedName("pt")
+    NfcpModel pt;
 
     @SerializedName("jfdh")
     NfcpModel jfdh;
@@ -23,6 +37,14 @@ public class TopClassifyModel extends BaseModel {
 
     public NfcpModel getXsms() {
         return xsms;
+    }
+
+    public NfcpModel getPt() {
+        return pt;
+    }
+
+    public void setPt(NfcpModel pt) {
+        this.pt = pt;
     }
 
     public void setXsms(NfcpModel xsms) {

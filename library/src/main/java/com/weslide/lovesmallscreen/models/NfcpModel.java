@@ -12,7 +12,7 @@ public class NfcpModel extends BaseModel {
     String title;
 
     @SerializedName("image")
-    String image;
+    String image = "";
 
 
     public String getRemark() {
@@ -63,4 +63,15 @@ public class NfcpModel extends BaseModel {
 
     @SerializedName("typeId")
     String typeId;
+
+    public String getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    @SerializedName("goodsId")
+    String goodsId;
 }

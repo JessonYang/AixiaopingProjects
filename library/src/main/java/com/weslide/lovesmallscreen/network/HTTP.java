@@ -52,8 +52,8 @@ public class HTTP {
 //            API_SERVER = "http://27.54.226.210:8080/aixiaopingAPI/invoke/";
 //            API_SERVER = "http://192.168.200.201:8080/aixiaopingAPI/invoke/";
 //            API_SERVER = "http://test.aixiaoping.cn:8888/aixiaopingAPI/invoke/";
-//            API_SERVER = "http://192.168.200.182:8080/aixiaopingAPI/invoke/";
-            API_SERVER = "http://192.168.200.152:8080/aixiaopingAPI/invoke/";
+            API_SERVER = "http://192.168.200.182:8080/aixiaopingAPI/invoke/";
+//            API_SERVER = "http://192.168.200.152:8080/aixiaopingAPI/invoke/";
         }
 
         if (Constants.RELEASE) {

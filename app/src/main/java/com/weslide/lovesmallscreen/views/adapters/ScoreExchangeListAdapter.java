@@ -10,16 +10,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.malinskiy.superrecyclerview.SuperRecyclerViewAdapter;
-import com.umeng.socialize.utils.Log;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.URIResolve;
-import com.weslide.lovesmallscreen.activitys.mall.BecomeVipActivity;
 import com.weslide.lovesmallscreen.core.RecyclerViewModel;
 import com.weslide.lovesmallscreen.models.Goods;
 import com.weslide.lovesmallscreen.models.ImageText;
 import com.weslide.lovesmallscreen.network.DataList;
 import com.weslide.lovesmallscreen.utils.AppUtils;
-import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.Utils;
 import com.weslide.lovesmallscreen.views.Banner;
 import com.weslide.lovesmallscreen.views.widget.SquareImageView;
@@ -135,10 +132,12 @@ public class ScoreExchangeListAdapter extends SuperRecyclerViewAdapter<RecyclerV
         TextView tvSalesVolume;
         @BindView(R.id.tv_locaiont)
         TextView tvLocaiont;
+        @BindView(R.id.sold_out_tv)
+        TextView sold_out_tv;
         Context context;
 
         public ClassifiGoodsAdapterViewHolder(Context context , ViewGroup parent) {
-            super(LayoutInflater.from(context).inflate(R.layout.view_goods_grid, parent, false));
+            super(LayoutInflater.from(context).inflate(R.layout.score_mall_goods_view, parent, false));
             ButterKnife.bind(this, itemView);
             this.context = context;
         }
@@ -151,7 +150,9 @@ public class ScoreExchangeListAdapter extends SuperRecyclerViewAdapter<RecyclerV
             expressTactics.setText(goods.getExpressTactics());
             Utils.strikethrough(tvGoodsCostPrice);
             itemView.setOnClickListener(view -> AppUtils.toGoods(context, goods.getGoodsId()));
-
+            if (goods.getStockNumber() > 0) {
+                sold_out_tv.setVisibility(View.GONE);
+            }else sold_out_tv.setVisibility(View.VISIBLE);
         }
     }
     class SelectionViewHolder extends RecyclerView.ViewHolder{

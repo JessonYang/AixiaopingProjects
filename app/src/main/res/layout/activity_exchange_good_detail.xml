@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.weslide.lovesmallscreen.exchange.activity.ExchangeGoodDetailActivity">
+
+    <com.weslide.lovesmallscreen.views.custom.CustomToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@color/white"
+        app:leftIv="@drawable/icon_fanhuij"
+        app:titleColor="@color/toolbar_title_color"
+        app:titleName="商品详情"
+        app:titleSize="16dp"></com.weslide.lovesmallscreen.views.custom.CustomToolbar>
+
+    <RelativeLayout
+        android:id="@+id/change_rll"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/connect_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/lianxita" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="联系他"
+                android:textColor="#ff2d47"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/score_exchange"
+            android:layout_width="65dp"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/exchange_btn_bg"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/jifenhuan" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="积分换"
+                android:textColor="#ffffff"
+                android:textSize="11dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/good_exchange"
+            android:layout_width="65dp"
+            android:layout_height="26dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/score_exchange"
+            android:background="@drawable/exchange_btn_bg"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wuwuhaun" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="物物换"
+                android:textColor="#ffffff"
+                android:textSize="11dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.lzy.widget.VerticalSlide
+        android:id="@+id/vertical_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/change_rll"
+        android:layout_below="@id/toolbar">
+
+        <FrameLayout
+            android:id="@+id/first"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/second"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></FrameLayout>
+    </com.lzy.widget.VerticalSlide>
+
+</RelativeLayout>

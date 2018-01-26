@@ -23,4 +23,15 @@
         <attr name="type" format="integer"/>
         <attr name="roundRadios" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="RotateTextView">
+        <attr name="degree" format="dimension" />
+    </declare-styleable>
+    
+    <!--<declare-styleable name="CustomColum">-->
+        <!--<attr name="title" format="string"/>-->
+        <!--<attr name="titleSize" format="dimension|reference"/>-->
+        <!--<attr name="titleColor" format="color|reference" />-->
+        <!--<attr name="rightDrawable" format="reference" />-->
+    <!--</declare-styleable>-->
 </resources>

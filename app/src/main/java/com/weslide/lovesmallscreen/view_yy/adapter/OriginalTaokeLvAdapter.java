@@ -30,7 +30,7 @@ import com.weslide.lovesmallscreen.model_yy.javabean.TaoBaoUrlModel;
 import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.RXUtils;
-import com.weslide.lovesmallscreen.view_yy.fragment.HomePageFragment_New;
+import com.weslide.lovesmallscreen.view_yy.fragment.HomeMainFragment;
 import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
 
 import java.util.HashMap;
@@ -134,7 +134,7 @@ public class OriginalTaokeLvAdapter extends BaseAdapter {
                 dialog.show();
                 Request<TaoBaoUrlModel> request = new Request<TaoBaoUrlModel>();
                 TaoBaoUrlModel model = new TaoBaoUrlModel();
-                model.setPid(HomePageFragment_New.pid);
+                model.setPid(HomeMainFragment.pid);
                 model.setGoodsId(list.get(position).getGoods_id());
                 request.setData(model);
                 RXUtils.request(context,request,"findGoodsUrl", new SupportSubscriber<Response<TaoBaoUrlModel>>() {

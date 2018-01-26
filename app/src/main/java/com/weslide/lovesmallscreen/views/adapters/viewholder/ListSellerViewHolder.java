@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.core.SupportSubscriber;
 import com.weslide.lovesmallscreen.models.Seller;
@@ -19,7 +18,6 @@ import com.weslide.lovesmallscreen.models.eventbus_message.UploadShopConcernMess
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.APIUtils;
 import com.weslide.lovesmallscreen.utils.AppUtils;
-import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.T;
 import com.weslide.lovesmallscreen.views.home.SellerItemScoreGoodsView;
 
@@ -82,7 +80,8 @@ public class ListSellerViewHolder extends RecyclerView.ViewHolder {
         tvSellerName.setText(mSeller.getSellerName());
         tvSellerAddress.setText(mSeller.getSellerAddress());
        // tvDistance.setText(ContextParameter.getDistanceForCurrentLocationAddUnit(mSeller));
-        double location = Double.parseDouble(mSeller.getDistance());
+        String distance = mSeller.getDistance();
+        double location = Double.parseDouble(distance.trim());
         String result = null;
         String results = null;
        /* if (location < 1000) {

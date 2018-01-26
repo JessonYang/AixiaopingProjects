@@ -22,202 +22,292 @@
         app:titleName="邀请好友"
         app:titleSize="16sp"></com.weslide.lovesmallscreen.views.custom.CustomToolbar>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="@drawable/xxbj"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/xxbj"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/user_face"
+                        android:layout_width="84dp"
+                        android:layout_height="84dp"
+                        android:layout_marginLeft="29dp"
+                        android:src="@drawable/icon_defult" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="用  户  名:"
+                                android:textColor="#ffffff"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/user_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
+                                android:textColor="#ffffff"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="手机号码:"
+                                android:textColor="#ffffff"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/user_phone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
+                                android:textColor="#ffffff"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="邀  请  码:  "
+                                android:textColor="#ffffff"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/personal_invatation_code"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#ffffff"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="28dp"
+                    android:text="点击二维码保存至本地"
+                    android:textColor="#ff4460"
+                    android:textSize="14sp" />
 
                 <ImageView
-                    android:id="@+id/user_face"
-                    android:layout_width="84dp"
-                    android:layout_height="84dp"
-                    android:layout_marginLeft="29dp"
-                    android:src="@drawable/icon_defult" />
+                    android:id="@+id/invitation_code"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="17dp"
+                    android:src="@drawable/wenzi" />
+
+                <RelativeLayout
+                    android:id="@+id/to_fans_number_rll"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/fsbg">
+
+                    <ImageView
+                        android:id="@+id/fensi_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
+                        android:src="@drawable/icon_fensi" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/fensi_iv"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="粉丝数量:"
+                            android:textColor="#222222"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/fans_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:textColor="#ff2d47"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        android:src="@drawable/right_jiantou_img" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="vertical">
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_binding_contacts"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="20dp"
+                        android:visibility="visible">
+
+                        <com.rey.material.widget.Button
+                            android:id="@+id/tv_binding_contacts"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:text="绑定推荐人"
+                            android:textSize="@dimen/h5"
+                            app:v_styleId="@array/button_raise_check_color" />
+                    </RelativeLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/ll_inviter"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="用  户  名:"
-                            android:textColor="#ffffff"
-                            android:textSize="15sp" />
+                        <ImageView
+                            android:id="@+id/iv_inviter_img"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icon_defult" />
 
-                        <TextView
-                            android:id="@+id/user_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:textColor="#ffffff"
-                            android:textSize="15sp" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="我的推荐人"
+                                android:textSize="@dimen/h8" />
+
+                            <TextView
+                                android:id="@+id/tv_inviter_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text=""
+                                android:textSize="@dimen/h8" />
+                        </LinearLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp">
+                    <RelativeLayout
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:visibility="gone">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="手机号码:"
-                            android:textColor="#ffffff"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/user_phone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:textColor="#ffffff"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="邀  请  码:  "
-                            android:textColor="#ffffff"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/personal_invatation_code"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#ffffff"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
+                        <com.rey.material.widget.Button
+                            android:id="@+id/tv_must_see_strategy"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:text="必看攻略"
+                            android:textSize="@dimen/h5"
+                            app:v_styleId="@array/button_raise_check_color" />
+                    </RelativeLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="45dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/invate_friend_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/invate_friend_btn_bg"
+                        android:gravity="center"
+                        android:text="发送邀请给朋友"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp" />
+
+                    <Button
+                        android:id="@+id/send_constact_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/send_constact_btn_bg"
+                        android:gravity="center"
+                        android:text="发送通讯录好友"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="28dp"
-                android:text="点击二维码保存至本地"
-                android:textColor="#ff4460"
-                android:textSize="14sp" />
-
-            <ImageView
-                android:id="@+id/invitation_code"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:scaleType="centerCrop" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="17dp"
-                android:src="@drawable/wenzi" />
-
-            <RelativeLayout
-                android:id="@+id/to_fans_number_rll"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/fsbg">
-
-                <ImageView
-                    android:id="@+id/fensi_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="12dp"
-                    android:src="@drawable/icon_fensi" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/fensi_iv"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="粉丝数量:"
-                        android:textColor="#222222"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/fans_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:textColor="#ff2d47"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="12dp"
-                    android:src="@drawable/right_jiantou_img" />
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="45dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/invate_friend_btn"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:background="@drawable/invate_friend_btn_bg"
-                android:gravity="center"
-                android:text="发送邀请给朋友"
-                android:textColor="#ffffff"
-                android:textSize="15dp" />
-
-            <Button
-                android:id="@+id/send_constact_btn"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:background="@drawable/send_constact_btn_bg"
-                android:gravity="center"
-                android:text="发送通讯录好友"
-                android:textColor="#ffffff"
-                android:textSize="15dp" />
-        </LinearLayout>
-    </RelativeLayout>
+        </ScrollView>
 
 </LinearLayout>

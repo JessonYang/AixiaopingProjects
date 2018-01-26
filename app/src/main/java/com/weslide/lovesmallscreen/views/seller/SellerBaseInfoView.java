@@ -27,6 +27,7 @@ import com.weslide.lovesmallscreen.utils.AppUtils;
 import com.weslide.lovesmallscreen.utils.MapUtils;
 import com.weslide.lovesmallscreen.utils.StringUtils;
 import com.weslide.lovesmallscreen.utils.T;
+import com.weslide.lovesmallscreen.view_yy.util.StringUtil;
 import com.weslide.lovesmallscreen.views.FixedGridView;
 
 import java.util.List;
@@ -115,7 +116,9 @@ public class SellerBaseInfoView extends FrameLayout {
                 break;
             case R.id.tv_distance:
             case R.id.tv_seller_address:
-                MapUtils.showNav((BaseActivity) getContext(), new LatLng(Double.parseDouble(mSeller.getLat()), Double.parseDouble(mSeller.getLng())));
+                if (!StringUtil.isBlank(mSeller.getLat()) && !StringUtil.isBlank(mSeller.getLng())) {
+                    MapUtils.showNav((BaseActivity) getContext(), new LatLng(Double.parseDouble(mSeller.getLat()), Double.parseDouble(mSeller.getLng())));
+                }
                 break;
         }
     }

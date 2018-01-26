@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="+43积分"
+        android:visibility="gone"
         android:paddingBottom="5dp"
         android:textColor="@color/white" />
 

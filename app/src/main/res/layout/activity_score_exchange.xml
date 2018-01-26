@@ -4,19 +4,25 @@
     xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroud"
+    android:background="#f1f1f1"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@id/tool_bar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:background="@color/main_color_white"
         android:minHeight="?attr/actionBarSize"
-        app:navigationIcon="@drawable/icon_quxiao"
-        app:title="积分兑换"
-        app:titleTextColor="@color/toolbar_title_color"></android.support.v7.widget.Toolbar>
+        app:navigationIcon="@drawable/icon_quxiao">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="积分商城"
+            android:textColor="#333333"
+            android:textSize="16dp" />
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,6 +32,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:background="@color/white">
 
             <GridView
@@ -39,26 +46,22 @@
                 android:verticalSpacing="@dimen/home_goods_classify_verticalSpacing"></GridView>
         </LinearLayout>
 
-        <com.flyco.tablayout.SlidingTabLayout
+        <android.support.design.widget.TabLayout
             android:id="@+id/stl_score_exchange_tab"
             android:layout_width="match_parent"
             android:layout_height="@dimen/home_score_exchange_tab_height"
-            android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            tl:tl_indicator_color="@color/orange"
-            tl:tl_indicator_corner_radius="5dp"
-            tl:tl_indicator_margin_left="2dp"
-            tl:tl_indicator_margin_right="2dp"
-            tl:tl_tab_space_equal="true"
-            tl:tl_textSelectColor="@color/orange"
-            tl:tl_textUnselectColor="@color/font_title_color"
-            tl:tl_textsize="@dimen/h5" />
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            app:tabIndicatorHeight="1dp"
+            app:tabMode="scrollable"
+            app:tabIndicatorColor="@color/main_color"
+            app:tabSelectedTextColor="@color/main_color" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_main_mall_search_shop_list"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 </LinearLayout>

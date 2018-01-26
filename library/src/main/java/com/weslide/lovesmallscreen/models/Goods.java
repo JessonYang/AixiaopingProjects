@@ -2,6 +2,8 @@ package com.weslide.lovesmallscreen.models;
 
 import com.google.gson.annotations.SerializedName;
 import com.weslide.lovesmallscreen.core.BaseModel;
+import com.weslide.lovesmallscreen.models.bean.NewGoodDetailModel;
+import com.weslide.lovesmallscreen.models.bean.TeamOrderModel;
 import com.weslide.lovesmallscreen.utils.StringUtils;
 
 import java.util.List;
@@ -18,22 +20,87 @@ public class Goods extends BaseModel {
 
     @SerializedName("mallType")
     /** mallType	所属商城模块	商城类型
-     1:独立商城
-     2:积分商城
-     3:秒杀商城
-     4:各地特产商城
+     1:周边商品
+     2:积分商品
+     3:秒杀商品
+     4:各地特产商品
      5:99特惠商城
      6:会员免单商城
+     7:换货会
+     8::拼团
      */
     private String mallType;
 
     @SerializedName("name")
     /** 商品名 */
     private String name;
+
+    public String getTeamMsg() {
+        return teamMsg;
+    }
+
+    public void setTeamMsg(String teamMsg) {
+        this.teamMsg = teamMsg;
+    }
+
+    @SerializedName("teamMsg")
+    /** 拼团商品状态 */
+    private String teamMsg;
     @SerializedName("price")
     /** 商品价格 */
     private String price;
+    @SerializedName("discountPrice")
+    /** 商品优惠价格 */
+    private String discountPrice;
+
+    public String getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(String discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    @SerializedName("isTeam")
+
+    /** 是否是拼团 */
+    private boolean isTeam;
+    @SerializedName("isNewGoodDetail")
+    /** 是否是新的商品详情*/
+    private boolean isNewGoodDetail;
+    @SerializedName("teamOrderList")
+    /** 拼团列表 */
+    private List<TeamOrderModel> teamOrderList;
+    @SerializedName("rightsProtect")
+    /** 权益保障 */
+    private List<Integer> rightsProtect;
+
+    public List<Integer> getRightsProtect() {
+        return rightsProtect;
+    }
+
+    public void setRightsProtect(List<Integer> rightsProtect) {
+        this.rightsProtect = rightsProtect;
+    }
+
+    public boolean isTeam() {
+        return isTeam;
+    }
+
+    public void setTeam(boolean team) {
+        isTeam = team;
+    }
+
+    public List<TeamOrderModel> getTeamOrderList() {
+        return teamOrderList;
+    }
+
+    public void setTeamOrderList(List<TeamOrderModel> teamOrderList) {
+        this.teamOrderList = teamOrderList;
+    }
+
     @SerializedName("score")
+
     /** 商品可以使用的积分 */
     private String score;
     @SerializedName("goodDetailUrl")
@@ -96,6 +163,26 @@ public class Goods extends BaseModel {
     @SerializedName("specNotes")
     /** 不同规格的商品库存、价值记录 */
     private List<SpecNote> specNotes;
+
+    public List<NewGoodDetailModel> getDetailTPs() {
+        return detailTPs;
+    }
+
+    public void setDetailTPs(List<NewGoodDetailModel> detailTPs) {
+        this.detailTPs = detailTPs;
+    }
+
+    public boolean isNewGoodDetail() {
+        return isNewGoodDetail;
+    }
+
+    public void setNewGoodDetail(boolean newGoodDetail) {
+        isNewGoodDetail = newGoodDetail;
+    }
+
+    @SerializedName("detailTPs")
+    /** 新商品详情图文字段 */
+    private List<NewGoodDetailModel> detailTPs;
     @SerializedName("discount")
     /** 折扣 */
     private String discount;
@@ -111,6 +198,18 @@ public class Goods extends BaseModel {
     /** 商品封面图片 */
     private String coverPic;
 
+    public int getStockNumber() {
+        return stockNumber;
+    }
+
+    public void setStockNumber(int stockNumber) {
+        this.stockNumber = stockNumber;
+    }
+
+    @SerializedName("stockNumber")
+    /** 商品库存 */
+    private int stockNumber;
+
     @SerializedName("salesRatio")
     /** 售出比例 秒杀时使用 */
     private String salesRatio;
@@ -119,9 +218,13 @@ public class Goods extends BaseModel {
     private Boolean concern;
     private Boolean select = false;
 
-    public void setSelect(Boolean select) { this.select = select; }
+    public void setSelect(Boolean select) {
+        this.select = select;
+    }
 
-    public Boolean getSelect() { return select; }
+    public Boolean getSelect() {
+        return select;
+    }
 
     public String getGoodsId() {
         return goodsId;

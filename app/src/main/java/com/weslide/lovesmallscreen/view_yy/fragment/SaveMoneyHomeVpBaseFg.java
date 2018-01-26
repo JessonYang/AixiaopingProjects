@@ -2,7 +2,6 @@ package com.weslide.lovesmallscreen.view_yy.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,9 +103,8 @@ public class SaveMoneyHomeVpBaseFg extends BaseFragment {
         Request<GoodsModel> request = new Request<>();
         GoodsModel model = new GoodsModel();
         model.setPage_num(page+"");
-        model.setPid(HomePageFragment_New.pid);
+        model.setPid(HomeMainFragment.pid);
         String methodName;
-        Log.d("雨落无痕丶", "loadData: "+title);
         if (!title.equals("省钱购物") && !title.equals("九块九") && !title.equals("")) {
             methodName = "getBrandGoods";
             model.setKeyWords(title);

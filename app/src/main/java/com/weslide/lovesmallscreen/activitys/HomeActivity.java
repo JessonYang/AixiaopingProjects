@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.weslide.lovesmallscreen.ArchitectureAppliation;
@@ -35,13 +36,14 @@ import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.DownloadImageService;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.URIResolve;
+import com.weslide.lovesmallscreen.activitys.user.ScoreRechargeSuccessActivity;
 import com.weslide.lovesmallscreen.core.BaseActivity;
 import com.weslide.lovesmallscreen.core.SupportSubscriber;
 import com.weslide.lovesmallscreen.dao.serialize.ZoneClientSerialize;
 import com.weslide.lovesmallscreen.dao.sp.UserInfoSP;
+import com.weslide.lovesmallscreen.exchange.fragment.ExchangeFragment;
 import com.weslide.lovesmallscreen.fragments.ChatFragment2;
-import com.weslide.lovesmallscreen.fragments.mall.ExChangeBusFragment;
-import com.weslide.lovesmallscreen.fragments.mall.PersonalCenterFragment;
+import com.weslide.lovesmallscreen.fragments.mall.PersonalCenterFragment_New;
 import com.weslide.lovesmallscreen.fragments.mall.ShoppingCartFragment;
 import com.weslide.lovesmallscreen.fragments.order.OrderFragment;
 import com.weslide.lovesmallscreen.model_yy.javabean.RongUserInfo;
@@ -49,6 +51,8 @@ import com.weslide.lovesmallscreen.models.AcquireScore;
 import com.weslide.lovesmallscreen.models.Show;
 import com.weslide.lovesmallscreen.models.Zone;
 import com.weslide.lovesmallscreen.models.ZoneList;
+import com.weslide.lovesmallscreen.models.bean.QrCodeContentModel;
+import com.weslide.lovesmallscreen.models.bean.ReceiveScoreModel;
 import com.weslide.lovesmallscreen.models.bean.UpdateScoreBean;
 import com.weslide.lovesmallscreen.models.bean.ZoneListBean;
 import com.weslide.lovesmallscreen.models.config.ClientConfig;
@@ -60,11 +64,13 @@ import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.network.StatusCode;
 import com.weslide.lovesmallscreen.utils.AppUtils;
+import com.weslide.lovesmallscreen.utils.CustomDialogUtil;
 import com.weslide.lovesmallscreen.utils.L;
 import com.weslide.lovesmallscreen.utils.NetworkUtils;
 import com.weslide.lovesmallscreen.utils.RXUtils;
 import com.weslide.lovesmallscreen.view_yy.activity.AxpDiscountTicketActivity;
 import com.weslide.lovesmallscreen.view_yy.fragment.HomeMainFragment;
+import com.weslide.lovesmallscreen.views.dialogs.CustomDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -103,9 +109,11 @@ public class HomeActivity extends BaseActivity {
     //订单
     OrderFragment mOrderFragment;
     //个人中心
-    PersonalCenterFragment mUserInfoFragment;
+    PersonalCenterFragment_New mUserInfoFragment;
+//    PersonalCenterFragment mUserInfoFragment;
     //换货会
-    ExChangeBusFragment exChangeBusFragment;
+    ExchangeFragment mExChangeFragment;
+//    ExChangeBusFragment exChangeBusFragment;
     //聊天
     ConversationListFragment mConversationListFg;
     public static Activity activity;
@@ -144,6 +152,7 @@ public class HomeActivity extends BaseActivity {
     private Conversation.ConversationType[] mConversationsTypes;
     private Fragment mChatFragment;
     private IUnReadMessageObserver unReadMessageObserver;
+    private CustomDialog customDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -206,7 +215,7 @@ public class HomeActivity extends BaseActivity {
                         mCurrentFragment = mMallFragment;
                         break;
                     case R.id.exchange_rb:
-                        if (ContextParameter.isLogin() == false) {
+                        /*if (ContextParameter.isLogin() == false) {
                             AppUtils.toActivity(HomeActivity.this, LoginOptionActivity.class);
                         } else {
                             String URL = HTTP.URL_EXCHENGE_GOODS + "zone_id=" + ContextParameter.getCurrentZone().getZoneId() + "&user_id=" + ContextParameter.getUserInfo().getUserId();
@@ -216,7 +225,19 @@ public class HomeActivity extends BaseActivity {
                             bundle.putString(ChangeGoodsWebActivity.KEY_LOAD_URL, URL);
                             AppUtils.toActivity(HomeActivity.this, ChangeGoodsWebActivity.class, bundle);
                         }
-                        click = true;
+                        click = true;*/
+
+                        postion = 5;
+                        if (mExChangeFragment == null) {
+                            mExChangeFragment = new ExchangeFragment();
+                        }
+                        FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
+                        if (mExChangeFragment.isAdded()) {
+                            transaction4.hide(mCurrentFragment).show(mExChangeFragment).commit();
+                        } else {
+                            transaction4.hide(mCurrentFragment).add(R.id.container, mExChangeFragment).commit();
+                        }
+                        mCurrentFragment = mExChangeFragment;
                         break;
                     case R.id.shopping_car_rb:
                         postion = 2;
@@ -252,7 +273,8 @@ public class HomeActivity extends BaseActivity {
                     case R.id.personal_center_rb:
                         postion = 4;
                         if (mUserInfoFragment == null) {
-                            mUserInfoFragment = new PersonalCenterFragment();
+                            mUserInfoFragment = new PersonalCenterFragment_New();
+//                            mUserInfoFragment = new PersonalCenterFragment();
                         }
                         FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
                         if (mUserInfoFragment.isAdded()) {
@@ -648,13 +670,16 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-
         if (result != null) {
             if (result.getContents() == null) {
                 Log.d("QRActivity", "Cancelled scan");
             } else {
                 Log.d("QRActivity", "Scanned : " + result.getContents());
-                URIResolve.resolve(this, result.getContents());
+                if (!result.getContents().contains("ScorePresent:")) {
+                    URIResolve.resolve(this, result.getContents());
+                } else {
+                    receiveQrScore(result.getContents());
+                }
             }
         } else {
             // This is important, otherwise the result will not be passed to the fragment
@@ -662,6 +687,50 @@ public class HomeActivity extends BaseActivity {
 
         }
 
+    }
+
+    private void receiveQrScore(String contents) {
+        Request<ReceiveScoreModel> request = new Request<>();
+        ReceiveScoreModel model = new ReceiveScoreModel();
+        QrCodeContentModel qrCodeContentModel = new Gson().fromJson(contents.substring("ScorePresent:".length()), QrCodeContentModel.class);
+        model.setPresenterId(qrCodeContentModel.getPresenterId());
+        model.setScoreNum(qrCodeContentModel.getScore());
+        model.setTime(qrCodeContentModel.getTime());
+        request.setData(model);
+        RXUtils.request(this, request, "receiveQRScore", new SupportSubscriber<Response>() {
+            @Override
+            public void onNext(Response response) {
+//                DialogUtil.showNoticDialog(HomeActivity.this, "成功收到" + qrCodeContentModel.getScore() + "积分!");
+                customDialog = CustomDialogUtil.showCustomDialog(HomeActivity.this, R.style.customDialogStyle, R.layout.notice_dialog, 260, 162, response.getMessage(), R.id.dialog_notice, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        switch (view.getId()) {
+                            case R.id.sure:
+                                customDialog.dismiss();
+                                goToIntent(qrCodeContentModel.getScore());
+                                break;
+                        }
+                    }
+                },R.id.sure);
+            }
+
+            @Override
+            public void onResponseError(Response response) {
+                CustomDialogUtil.showNoticDialog(HomeActivity.this, ""+response.getMessage());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                CustomDialogUtil.showNoticDialog(HomeActivity.this,""+e.toString());
+            }
+        });
+    }
+
+    private void goToIntent(String score) {
+        Bundle bundle = new Bundle();
+        bundle.putString("score", score);
+        bundle.putString("title", "收取积分");
+        AppUtils.toActivity(this, ScoreRechargeSuccessActivity.class, bundle);
     }
 
     long exitTime = 0;
@@ -712,6 +781,8 @@ public class HomeActivity extends BaseActivity {
             chat_rb.setChecked(true);
         } else if (postion == 4) {
             personal_center_rb.setChecked(true);
+        } else if (postion == 5) {
+            exchange_rb.setChecked(true);
         }
     }
 

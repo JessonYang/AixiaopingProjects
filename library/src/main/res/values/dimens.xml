@@ -49,7 +49,7 @@
 
     <!-- 积分兑换模块 -->
     <dimen name="home_score_exchange_more_height">42dp</dimen>
-    <dimen name="home_score_exchange_tab_height">38dp</dimen>
+    <dimen name="home_score_exchange_tab_height">40dp</dimen>
     <dimen name="home_score_exchange_goods_height">184dp</dimen>
     <dimen name="home_score_exchange_goods_width">130dp</dimen>
     <dimen name="home_score_exchange_goods_size">@dimen/home_score_exchange_goods_width</dimen>

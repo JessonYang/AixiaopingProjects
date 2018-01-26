@@ -173,7 +173,7 @@ public class AppUtils {
     }
 
     /**
-     * 跳转至商品详情
+     * 跳转至普通商品详情
      *
      * @param context
      * @param goodsId
@@ -205,6 +205,29 @@ public class AppUtils {
             bundle.putString("goods_id", goodsId);
             bundle.putBoolean("KEY_SECOND_KILL_NO_START", startSecondKill);
             toActivity(context, goodsClass, bundle);
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     * @param context
+     * @param goodOrder
+     * 跳转至换货会商品详情
+     */
+    public static Class goodExchangeClass;
+
+    public static void toExchangeGoods(Context context, String goodOrder) {
+        try {
+            if (goodExchangeClass == null) {
+                goodExchangeClass = Class.forName("com.weslide.lovesmallscreen.exchange.activity.ExchangeGoodDetailActivity");
+            }
+
+            Bundle bundle = new Bundle();
+            bundle.putString("goodOrder", goodOrder);
+            toActivity(context, goodExchangeClass, bundle);
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

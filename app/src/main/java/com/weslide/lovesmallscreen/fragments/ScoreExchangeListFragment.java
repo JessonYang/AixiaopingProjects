@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +16,16 @@ import com.weslide.lovesmallscreen.activitys.ScoreExchangeActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
 import com.weslide.lovesmallscreen.core.RecyclerViewModel;
 import com.weslide.lovesmallscreen.models.Concentration;
-import com.weslide.lovesmallscreen.models.Fans;
 import com.weslide.lovesmallscreen.models.Goods;
 import com.weslide.lovesmallscreen.models.GoodsList;
 import com.weslide.lovesmallscreen.models.ImageText;
-import com.weslide.lovesmallscreen.models.bean.FansBean;
 import com.weslide.lovesmallscreen.models.bean.GetGoodsListBean;
 import com.weslide.lovesmallscreen.network.DataList;
 import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
-import com.weslide.lovesmallscreen.utils.L;
+import com.weslide.lovesmallscreen.utils.DensityUtils;
 import com.weslide.lovesmallscreen.utils.RXUtils;
-import com.weslide.lovesmallscreen.views.adapters.FreeGoodsAdapter;
-import com.weslide.lovesmallscreen.views.adapters.HomeMallAdapter;
-import com.weslide.lovesmallscreen.views.adapters.ScoreExchangeAdapter;
+import com.weslide.lovesmallscreen.view_yy.customview.DividerGridItemDecoration;
 import com.weslide.lovesmallscreen.views.adapters.ScoreExchangeListAdapter;
 
 import java.util.ArrayList;
@@ -50,6 +44,7 @@ public class ScoreExchangeListFragment extends BaseFragment {
     @BindView(R.id.lv_score_exchange)
     SuperRecyclerView lvScoreExchange;
     private int mTag;
+    private String typeId;
     ScoreExchangeActivity mActivity;
     Concentration concentration;
     DataList<RecyclerViewModel> mDataList = new DataList<>();
@@ -58,17 +53,15 @@ public class ScoreExchangeListFragment extends BaseFragment {
 
     }
 
-
-
-    public static final ScoreExchangeListFragment newInstance(int tag) {
+    public static final ScoreExchangeListFragment newInstance(String typeId) {
         ScoreExchangeListFragment fragment = new ScoreExchangeListFragment();
-        fragment.mTag = tag;
+        fragment.typeId = typeId;
         return fragment;
     }
 
-    public static final ScoreExchangeListFragment newInstance(int tag, Concentration concentration) {
+    public static final ScoreExchangeListFragment newInstance(String typeId, Concentration concentration) {
         ScoreExchangeListFragment fragment = new ScoreExchangeListFragment();
-        fragment.mTag = tag;
+        fragment.typeId = typeId;
         fragment.concentration = concentration;
         return fragment;
     }
@@ -89,9 +82,8 @@ public class ScoreExchangeListFragment extends BaseFragment {
     private void init() {
         mDataList.setDataList(new ArrayList<>());
         mGoodsListReqeust.setMallTyle(Constants.MALL_SOCRE);
-        mGoodsListReqeust.setTag(new int[]{mTag});
+        mGoodsListReqeust.setTypeId(typeId);
         mAdapter = new ScoreExchangeListAdapter(getActivity(), mDataList);
-
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -109,6 +101,7 @@ public class ScoreExchangeListFragment extends BaseFragment {
         });
         lvScoreExchange.setLayoutManager(layoutManager);
         lvScoreExchange.setAdapter(mAdapter);
+        lvScoreExchange.addItemDecoration(new DividerGridItemDecoration(getActivity(), DensityUtils.dp2px(getActivity(),5), R.color.main_background_color));
         load();
         lvScoreExchange.setupMoreListener((overallItemsCount, itemsBeforeMore, maxLastVisiblePosition) -> getScoreExchangeGood(mGoodsListReqeust), 2);
 
@@ -135,10 +128,10 @@ public class ScoreExchangeListFragment extends BaseFragment {
         mDataList.getDataList().clear();
         mGoodsListReqeust.setPageIndex(0);
         getScoreExchangeGood(mGoodsListReqeust);
-        if (concentration != null) {
+        /*if (concentration != null) {
             headerBanner(concentration.getConcentrationBanners());
             selectionData(concentration.getConcentrationImageTexts());
-        }
+        }*/
     }
 
     /**
@@ -168,12 +161,10 @@ public class ScoreExchangeListFragment extends BaseFragment {
      */
     public void handlerGoodsItem(Response<GoodsList> response) {
         setResponseData(mDataList, response.getData());
-
         for (Goods goods : response.getData().getDataList()) {
             RecyclerViewModel recyclerViewModel = new RecyclerViewModel();
             recyclerViewModel.setData(goods);
             recyclerViewModel.setItemType(ScoreExchangeListAdapter.TYPE_GOODS_ITEM);
-
             mDataList.getDataList().add(recyclerViewModel);
         }
 

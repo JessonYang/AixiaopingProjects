@@ -371,6 +371,7 @@ public class SpecialLocalProductFragment extends BaseFragment {
     private void loadType() {
         mGoodsTypeReqeust.setType("91");
         mGoodsTypeReqeust.setPageIndex(1);
+        mGoodsTypeReqeust.setMallTyle(Constants.MALL_SPECIAL_LOCAL_PRODUCT);
         Request<GetGoodsListBean> request = new Request();
         request.setData(mGoodsTypeReqeust);
         RXUtils.request(getActivity(), request, "getGoodsType", new SupportSubscriber<Response<HeadquartersType>>() {
@@ -388,6 +389,8 @@ public class SpecialLocalProductFragment extends BaseFragment {
                 if (count == 1) {
                     initTablayout();
                 }
+                typeListCount++;
+                count++;
             }
         });
     }
@@ -397,21 +400,35 @@ public class SpecialLocalProductFragment extends BaseFragment {
         View pwView = inflater.inflate(R.layout.special_local_popupwindow, null, false);
         initPwView(pwView);
         pw = new PopupWindow(pwView, ViewGroup.LayoutParams.MATCH_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 145, getResources().getDisplayMetrics()), true);
-
-        for (int i = 0; i < typeList.size(); i++) {
+        for (int i = 0; i < typeList.size() + 1; i++) {
             TabLayout.Tab tab = mTabLayout.newTab();
-            tab.setText(typeList.get(i).getTypeName());
-            tab.setTag(new TabBean(typeList.get(i).getTypeItems(), typeList.get(i).getTypeId()));
-            if (typeId != null && typeId.equals(typeList.get(i).getTypeId())) {
-                mTabLayout.addTab(tab,2,true);
+            if (i != 0) {
+                tab.setText(typeList.get(i - 1).getTypeName());
+                tab.setTag(new TabBean(typeList.get(i - 1).getTypeItems(), typeList.get(i - 1).getTypeId()));
+            } else {
+                tab.setText("全部");
+                tab.setTag(null);
+            }
+            mTabLayout.addTab(tab);
+            if (i != 0 && typeId != null && typeId.equals(typeList.get(i - 1).getTypeId())) {
                 truePosition = i;
-            } else mTabLayout.addTab(tab);
+                mTabLayout.getTabAt(truePosition).select();
+            }
         }
 
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                showPw(tab);
+//                showPw(tab);
+                if (tab.getPosition() != 0) {
+                    typeId = typeList.get(tab.getPosition() - 1).getTypeId();
+                } else {
+                    typeId = null;
+                }
+                mGoodsListReqeust.setPageIndex(0);
+                count++;
+                typeListCount++;
+                load();
             }
 
             @Override
@@ -421,7 +438,7 @@ public class SpecialLocalProductFragment extends BaseFragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                showPw(tab);
+//                showPw(tab);
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.weslide.lovesmallscreen.view_yy.customview;
+package com.weslide.lovesmallscreen.views.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,10 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.weslide.lovesmallscreen.Constants;
+import com.weslide.lovesmallscreen.models.bean.TeamGoodEvModel;
+import com.weslide.lovesmallscreen.models.bean.TeamOrderModel;
 import com.weslide.lovesmallscreen.utils.DensityUtils;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 
 /**
@@ -108,6 +118,22 @@ public class CustomDialog extends Dialog {
 
         public Builder cancelTouchOut(boolean cancelTouchOut) {
             mCancelTouchOut = cancelTouchOut;
+            return this;
+        }
+
+        public Builder teamlistAdapter(BaseAdapter adapter, int listId, final List<TeamOrderModel> list) {
+            ListView teamList = (ListView) mView.findViewById(listId);
+            teamList.setAdapter(adapter);
+            teamList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    TeamGoodEvModel teamGoodEvModel = new TeamGoodEvModel();
+                    teamGoodEvModel.setGoodType(Constants.TYPE_OF_TEAM_LIST);
+                    teamGoodEvModel.setTeamOrderId(list.get(i).getTeamOrderId());
+                    teamGoodEvModel.setOrderUserId(list.get(i).getOrderUserId());
+                    EventBus.getDefault().post(teamGoodEvModel);
+                }
+            });
             return this;
         }
 

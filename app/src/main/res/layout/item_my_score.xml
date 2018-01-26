@@ -5,9 +5,10 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_type_name"
@@ -15,25 +16,19 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:text=""
+            android:text="ff"
             android:textColor="@color/font_content_color"
             android:textSize="@dimen/h8" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_below="@id/tv_type_name"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:text=""
+            android:text="fgg"
             android:textColor="@color/gray"
             android:textSize="@dimen/h5" />
 
@@ -44,9 +39,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:text=""
-            android:textColor="@color/red"
-            android:textSize="@dimen/h8" />
+            android:text="ff"
+            android:textColor="#5abe34"
+            android:textSize="17dp" />
 
     </RelativeLayout>
 

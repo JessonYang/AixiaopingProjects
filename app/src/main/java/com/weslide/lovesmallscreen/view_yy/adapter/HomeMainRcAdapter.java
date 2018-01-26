@@ -16,15 +16,19 @@ import com.weslide.lovesmallscreen.models.Seller;
 import com.weslide.lovesmallscreen.models.SqgwModel;
 import com.weslide.lovesmallscreen.models.TopClassifyModel;
 import com.weslide.lovesmallscreen.models.TopLocalProductModel;
+import com.weslide.lovesmallscreen.models.bean.PtGoodModel;
+import com.weslide.lovesmallscreen.models.bean.PtResModel;
 import com.weslide.lovesmallscreen.network.DataList;
 import com.weslide.lovesmallscreen.view_yy.adapter.viewholder.HomeBinnerHolder;
 import com.weslide.lovesmallscreen.view_yy.adapter.viewholder.HomeBottomImgHolder;
 import com.weslide.lovesmallscreen.view_yy.adapter.viewholder.HomeLiveHolder;
 import com.weslide.lovesmallscreen.view_yy.adapter.viewholder.HomeNearStoreHolder;
+import com.weslide.lovesmallscreen.view_yy.adapter.viewholder.HomePtTopViewHoder;
 import com.weslide.lovesmallscreen.view_yy.adapter.viewholder.HomeSaveMoneyHolder;
 import com.weslide.lovesmallscreen.view_yy.adapter.viewholder.HomeSellerListHolder;
 import com.weslide.lovesmallscreen.view_yy.adapter.viewholder.HomeSpecialStoreHolder;
 import com.weslide.lovesmallscreen.view_yy.adapter.viewholder.HomeTopLocalHolder;
+import com.weslide.lovesmallscreen.views.adapters.viewholder.HomePtViewHoder;
 
 import java.util.List;
 
@@ -43,6 +47,8 @@ public class HomeMainRcAdapter extends SuperRecyclerViewAdapter<RecyclerViewMode
     public static final int HOME_BOTTOM_IMG_TYPE = 6;
     public static final int HOME_NEAR_STORE_LIST_TITLE_TYPE = 7;
     public static final int HOME_NEAR_STORE_LIST_TYPE = 8;
+    private static final int HOME_PT_ITEM_TYPE = 9;
+    private static final int HOME_PT_ITEM_TOP_TYPE = 10;
     private Context mContext;
     private LayoutInflater inflater;
 
@@ -61,6 +67,12 @@ public class HomeMainRcAdapter extends SuperRecyclerViewAdapter<RecyclerViewMode
                 break;
             case HOME_NEAR_STORE_TYPE:
                 viewHolder = new HomeNearStoreHolder(mContext, inflater.inflate(R.layout.home_fragment_near_store_item, parent, false));
+                break;
+            case HOME_PT_ITEM_TOP_TYPE:
+                viewHolder = new HomePtTopViewHoder(mContext,inflater.inflate(R.layout.home_pt_top_layout,parent,false));
+                break;
+            case HOME_PT_ITEM_TYPE:
+                viewHolder = new HomePtViewHoder(mContext,inflater.inflate(R.layout.home_pt_layout,parent,false));
                 break;
             case HOME_SAVE_MONEY_SHOPPING_TYPE:
                 viewHolder = new HomeSaveMoneyHolder(mContext, inflater.inflate(R.layout.home_fragment_save_money_item, parent, false));
@@ -99,6 +111,14 @@ public class HomeMainRcAdapter extends SuperRecyclerViewAdapter<RecyclerViewMode
             case HOME_NEAR_STORE_TYPE:
                 ((HomeNearStoreHolder) holder).oprateView((TopClassifyModel) mList.get(position).getData());
                 break;
+            //拼团上部分
+            case HOME_PT_ITEM_TOP_TYPE:
+                ((HomePtTopViewHoder) holder).oprateView((PtResModel) mList.get(position).getData());
+                break;
+            //拼团商品部分
+            case HOME_PT_ITEM_TYPE:
+                ((HomePtViewHoder) holder).oprateView((PtGoodModel) mList.get(position).getData());
+                break;
             //省钱购物
             case HOME_SAVE_MONEY_SHOPPING_TYPE:
                 ((HomeSaveMoneyHolder) holder).oprateView((SqgwModel) mList.get(position).getData());
@@ -134,5 +154,10 @@ public class HomeMainRcAdapter extends SuperRecyclerViewAdapter<RecyclerViewMode
         int superType = super.getItemViewType(position);
         return superType == 0 ? mList.get(position).getItemType() : superType;
     }
+
+    public boolean isPtGood(int pos){
+        return getItemViewType(pos) == HOME_PT_ITEM_TYPE;
+    }
+
 
 }

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.weslide.lovesmallscreen.exchange.activity.DealDetailActivity">
+
+    <LinearLayout
+        android:id="@+id/change_ll"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/cancel_exchange_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/main_color"
+            android:text="取消换货"
+            android:textColor="#ffffff"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <Button
+            android:id="@+id/exchange_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/main_color"
+            android:text="发起换货"
+            android:textColor="#ffffff"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/change_ll">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/project_main_bg"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/back_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="4dp"
+                    android:padding="8dp"
+                    android:src="@drawable/icon_fanhuij" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="交易明细"
+                    android:textColor="#333333"
+                    android:textSize="16dp" />
+
+                <Button
+                    android:id="@+id/edit_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="-12dp"
+                    android:background="@null"
+                    android:visibility="gone"
+                    android:text="编辑"
+                    android:textColor="#333333"
+                    android:textSize="12dp" />
+            </RelativeLayout>
+
+            <com.weslide.lovesmallscreen.exchange.widget.ExchangeDealView
+                android:id="@+id/opposite_good_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"></com.weslide.lovesmallscreen.exchange.widget.ExchangeDealView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/jiaohuanshangpin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="交换商品"
+                    android:textColor="#323232"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/add_good_rll"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="添加我的交换商品"
+                    android:textColor="#646464"
+                    android:textSize="12dp" />
+
+                <ImageView
+                    android:id="@+id/add_good_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/tianjiashnagpin" />
+            </RelativeLayout>
+
+            <com.weslide.lovesmallscreen.exchange.widget.ExchangeDealView
+                android:id="@+id/my_good_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"></com.weslide.lovesmallscreen.exchange.widget.ExchangeDealView>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

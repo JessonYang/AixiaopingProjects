@@ -39,7 +39,6 @@ public class CountyGoodRcLvAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder = (MyHolder) holder;
         myHolder.product_good_title_tv.setText(list.get(position).getName());
-        myHolder.product_good_price_tv.setText("￥" + list.get(position).getPrice());
         Glide.with(context).load(list.get(position).getImage()).into(myHolder.product_good_iv);
     }
 
@@ -51,13 +50,11 @@ public class CountyGoodRcLvAdapter extends RecyclerView.Adapter {
     class MyHolder extends RecyclerView.ViewHolder {
 
         private TextView product_good_title_tv;
-        private TextView product_good_price_tv;
         private ImageView product_good_iv;
 
         public MyHolder(View itemView) {
             super(itemView);
             product_good_title_tv = (TextView) itemView.findViewById(R.id.product_good_title_tv);
-            product_good_price_tv = (TextView) itemView.findViewById(R.id.product_good_price_tv);
             product_good_iv = (ImageView) itemView.findViewById(R.id.product_good_iv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

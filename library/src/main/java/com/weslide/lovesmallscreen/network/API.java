@@ -6,6 +6,7 @@ import com.weslide.lovesmallscreen.model_yy.javabean.ApplyPartnerModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.Brand;
 import com.weslide.lovesmallscreen.model_yy.javabean.Cate;
 import com.weslide.lovesmallscreen.model_yy.javabean.CouponsBean;
+import com.weslide.lovesmallscreen.model_yy.javabean.ExchangeGoodDtModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.FeedbackTipsBean;
 import com.weslide.lovesmallscreen.model_yy.javabean.GoodsModel;
 import com.weslide.lovesmallscreen.model_yy.javabean.HomeTicketsModel;
@@ -59,9 +60,14 @@ import com.weslide.lovesmallscreen.models.SystemMsgDtModel;
 import com.weslide.lovesmallscreen.models.UserInfo;
 import com.weslide.lovesmallscreen.models.Withdrawals;
 import com.weslide.lovesmallscreen.models.ZoneList;
+import com.weslide.lovesmallscreen.models.bean.ExchangeGoodListResModel;
+import com.weslide.lovesmallscreen.models.bean.ExchangeReplyResModel;
 import com.weslide.lovesmallscreen.models.bean.LeaderBean;
+import com.weslide.lovesmallscreen.models.bean.MyChangeListResModel;
 import com.weslide.lovesmallscreen.models.bean.Orders;
 import com.weslide.lovesmallscreen.models.bean.OriginalCityAgencyBean;
+import com.weslide.lovesmallscreen.models.bean.RechargeCardModel;
+import com.weslide.lovesmallscreen.models.bean.TeamDataModel;
 import com.weslide.lovesmallscreen.models.bean.UpdateScoreBean;
 import com.weslide.lovesmallscreen.models.bean.UploadFileBean;
 import com.weslide.lovesmallscreen.models.config.ClientConfig;
@@ -834,6 +840,7 @@ public interface API {
     @POST("users/getDefaultMsg")
     Call<Response> getDefaultMsg(@Query("data") String jsonData);
 
+    //银联支付成功后通知我方服务器
     @POST("order/synchroYiLianNotify")
     Call<Response> synchroYiLianNotify(@Query("data") String jsonData);
 
@@ -903,4 +910,59 @@ public interface API {
      */
     @POST("users/getOrderStatusNum")
     Call<Response<OrderStatusNum>> getOrderStatusNum(@Query("data") String jsonData);
+
+    /**
+     * 获取购买商品成功后拼团页面数据
+     */
+    @POST("order/teamShare")
+    Call<Response<TeamDataModel>> teamShare(@Query("data") String jsonData);
+
+    /**
+     * 接收通过qr赠送积分
+     */
+    @POST("integral/receiveQRScore")
+    Call<Response> receiveQRScore(@Query("data") String jsonData);
+
+    /**
+     * 实卡充值
+     */
+    @POST("integral/recharge")
+    Call<Response<RechargeCardModel>> recharge(@Query("data") String jsonData);
+
+    /**
+     * 换货会首页商品列表
+     */
+    @POST("change/getChangeMallList")
+    Call<Response<ExchangeGoodListResModel>> getChangeMallList(@Query("data") String jsonData);
+
+    /**
+     * 换货会首页帖子列表
+     */
+    @POST("change/getChangeReplys")
+    Call<Response<ExchangeReplyResModel>> getChangeReplys(@Query("data") String jsonData);
+
+    /**
+     * 我的换货检测列表个数
+     */
+    @POST("change/myChangeList")
+    Call<Response<MyChangeListResModel>> myChangeList(@Query("data") String jsonData);
+
+    /**
+     * 换货会商品详情
+     */
+    @POST("change/getGoodsDetail")
+    Call<Response<ExchangeGoodDtModel>> getGoodsDetail(@Query("data") String jsonData);
+
+    /**
+     * 换货会交易明细选择商品
+     */
+    @POST("change/getMyChangeGoods")
+    Call<Response<ExchangeGoodDtModel>> getMyChangeGoods(@Query("data") String jsonData);
+
+    /**
+     * 换货会发起换货
+     */
+    @POST("change/putChangeOrder")
+    Call<Response> putChangeOrder(@Query("data") String jsonData);
+
 }

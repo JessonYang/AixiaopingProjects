@@ -6,7 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -36,11 +36,12 @@ import com.weslide.lovesmallscreen.network.DataList;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.presenter_yy.HomeMainFgPresenter;
 import com.weslide.lovesmallscreen.utils.AppUtils;
+import com.weslide.lovesmallscreen.utils.DensityUtils;
 import com.weslide.lovesmallscreen.utils.QRCodeUtil;
 import com.weslide.lovesmallscreen.utils.SerializableUtils;
 import com.weslide.lovesmallscreen.utils.ShareUtils;
 import com.weslide.lovesmallscreen.view_yy.adapter.HomeMainRcAdapter;
-import com.weslide.lovesmallscreen.view_yy.customview.RecyclerViewDivider;
+import com.weslide.lovesmallscreen.view_yy.customview.DividerGridItemDecoration;
 import com.weslide.lovesmallscreen.view_yy.viewinterface.IShowHomeMainFg;
 import com.weslide.lovesmallscreen.views.dialogs.LoadingDialog;
 
@@ -76,6 +77,8 @@ public class HomeMainFragment extends BaseFragment implements IShowHomeMainFg, V
     private DataList<RecyclerViewModel> mDataList;
     private int totalDy = 0;
     private Response mResponse;
+    private GridLayoutManager rclvManager;
+    public static String pid = "";
 
     @Nullable
     @Override
@@ -125,11 +128,17 @@ public class HomeMainFragment extends BaseFragment implements IShowHomeMainFg, V
             dotStatus = 1;
         }
         mAdapter = new HomeMainRcAdapter(getActivity(), mDataList);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        mRclv.setLayoutManager(manager);
+        rclvManager = new GridLayoutManager(getActivity(), 3);
+        mRclv.setLayoutManager(rclvManager);
         mRclv.setAdapter(mAdapter);
-        mRclv.addItemDecoration(new RecyclerViewDivider(getActivity(), LinearLayoutManager.VERTICAL, 1, Color.parseColor("#dddddd")));
-        mRclv.setRefreshListener(this);
+        rclvManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return mAdapter.isPtGood(position) ? 1 : 3;
+            }
+        });
+        mRclv.addItemDecoration(new DividerGridItemDecoration(getActivity(), DensityUtils.dp2px(getActivity(), 3), R.color.main_view_bg));
+//        mRclv.setRefreshListener(this);
         mRclv.setupMoreListener(this);
         //滑动监听(处理toolbar渐变)
         mRclv.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -139,6 +148,7 @@ public class HomeMainFragment extends BaseFragment implements IShowHomeMainFg, V
                 totalDy += dy;
                 scrollChange(totalDy);
             }
+
         });
     }
 
@@ -163,6 +173,9 @@ public class HomeMainFragment extends BaseFragment implements IShowHomeMainFg, V
 
     @Override
     public void showView(DataList<RecyclerViewModel> dataList) {
+        if (dataList.getPid() != null) {
+            pid = dataList.getPid();
+        }
         tv_title.setText(ContextParameter.getCurrentZone().getName());
         mDataList.getDataList().clear();
         mDataList.getDataList().addAll(dataList.getDataList());

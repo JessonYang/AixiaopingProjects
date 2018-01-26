@@ -1,5 +1,8 @@
 package com.weslide.lovesmallscreen.fragments.goods;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -8,10 +11,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.core.BaseFragment;
+import com.weslide.lovesmallscreen.models.bean.NewGoodDetailModel;
+import com.weslide.lovesmallscreen.utils.DensityUtils;
+import com.weslide.lovesmallscreen.utils.ScreenUtils;
+import com.weslide.lovesmallscreen.views.custom.GoodDtScrollView;
 import com.weslide.lovesmallscreen.views.custom.MyWebview;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +46,10 @@ public class GoodsDetailFragment extends BaseFragment {
 
     @BindView(R.id.wv_web)
     MyWebview wb;
+    @BindView(R.id.good_detail_containner)
+    LinearLayout goodContainner;
+    @BindView(R.id.good_dt_scorll)
+    GoodDtScrollView goodDtScroll;
     private boolean isload = false;
 
     @Nullable
@@ -41,7 +63,8 @@ public class GoodsDetailFragment extends BaseFragment {
     }
 
     public void setUrl(String url) {
-
+        goodDtScroll.setVisibility(View.GONE);
+        wb.setVisibility(View.VISIBLE);
         if(!isload){
             isload = true;
 
@@ -120,4 +143,75 @@ public class GoodsDetailFragment extends BaseFragment {
                     + "}" + "})()");
         }
     }
+
+    public void setDetailGood(List<NewGoodDetailModel> list){
+        wb.setVisibility(View.GONE);
+        goodDtScroll.setVisibility(View.VISIBLE);
+        goodContainner.removeAllViews();
+        if (list != null && list.size() > 0) {
+            for (NewGoodDetailModel model : list) {
+                String detailType = model.getDetailType();
+                if (detailType.equals("text")) {
+                    TextView textView = new TextView(getActivity());
+                    textView.setTextColor(Color.parseColor("#000000"));
+                    textView.setTextSize(DensityUtils.dp2px(getActivity(),5));
+                    textView.setText(model.getText());
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    params.topMargin = DensityUtils.dp2px(getActivity(),12);
+                    goodContainner.addView(textView,params);
+                } else if (detailType.equals("picture")) {
+                    ImageView imageView = new ImageView(getActivity());
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    String picture = model.getPicture();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (picture != null && picture.length() > 0) {
+                                Bitmap bitmap = returnBitMap(picture);
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        int bHeight = bitmap.getHeight();
+                                        int bWidth = bitmap.getWidth();
+                                        int screenWidth = ScreenUtils.getScreenWidth(getActivity());
+                                        int height = screenWidth * bHeight / bWidth;
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        params.height = height;
+                                        params.topMargin = DensityUtils.dp2px(getActivity(),12);
+                                        imageView.setLayoutParams(params);
+                                        Glide.with(getActivity()).load(picture).into(imageView);
+                                        goodContainner.addView(imageView,params);
+                                    }
+                                });
+                            }
+                        }
+                    }).start();
+                }
+            }
+        }
+    }
+
+    public Bitmap returnBitMap(final String url) {
+
+        Bitmap bitmap = null;
+        URL imageurl = null;
+        try {
+            imageurl = new URL(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            HttpURLConnection conn = (HttpURLConnection) imageurl.openConnection();
+            conn.setDoInput(true);
+            conn.connect();
+            InputStream is = null;
+            is = conn.getInputStream();
+            bitmap = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
 }

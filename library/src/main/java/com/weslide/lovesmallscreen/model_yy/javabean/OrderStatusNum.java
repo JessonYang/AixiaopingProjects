@@ -7,14 +7,25 @@ import com.google.gson.annotations.SerializedName;
  */
 public class OrderStatusNum extends BaseModel{
 
+    //代付款订单数
     @SerializedName("payment")
     String payment;
 
-    @SerializedName("confirm")
-    String confirm;
+    //待分享
+    @SerializedName("share")
+    String share;
 
-    @SerializedName("evaluate")
-    String evaluate;
+    //待发货
+    @SerializedName("sendOutGoods")
+    String sendOutGoods;
+
+    //待收货
+    @SerializedName("receive")
+    String receive;
+
+    //退单售后
+    @SerializedName("chargeback")
+    String chargeback;
 
     public String getChargeback() {
         return chargeback;
@@ -32,22 +43,27 @@ public class OrderStatusNum extends BaseModel{
         this.payment = payment;
     }
 
-    public String getConfirm() {
-        return confirm;
+    public String getShare() {
+        return share;
     }
 
-    public void setConfirm(String confirm) {
-        this.confirm = confirm;
+    public void setShare(String share) {
+        this.share = share;
     }
 
-    public String getEvaluate() {
-        return evaluate;
+    public String getSendOutGoods() {
+        return sendOutGoods;
     }
 
-    public void setEvaluate(String evaluate) {
-        this.evaluate = evaluate;
+    public void setSendOutGoods(String sendOutGoods) {
+        this.sendOutGoods = sendOutGoods;
     }
 
-    @SerializedName("chargeback")
-    String chargeback;
+    public String getReceive() {
+        return receive;
+    }
+
+    public void setReceive(String receive) {
+        this.receive = receive;
+    }
 }

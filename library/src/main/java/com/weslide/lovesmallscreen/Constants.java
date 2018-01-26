@@ -11,7 +11,7 @@ public class Constants {
     /** 正式发布 */
     public static final boolean RELEASE = false;
     /** 是否为正式服务器 */
-    public static final boolean RELEASE_SERVICE = true;
+    public static final boolean RELEASE_SERVICE = false;
 
     //    1:独立商城stand alone
     public static final String MALL_STAND_ALONE = "1";
@@ -21,6 +21,8 @@ public class Constants {
     public static final String MALL_SECOND_KILL = "3";
     //    4:各地特产商城specialLocalProduct
     public static final String MALL_SPECIAL_LOCAL_PRODUCT = "4";
+    //    4:拼团商品
+    public static final String HOME_MALL_PT = "7";
     //    5:99特惠商城preferential99
     public static final String MALL_PREFERENTIAL_99 = "5";
     //    6:会员免单商城Free single
@@ -38,6 +40,12 @@ public class Constants {
     public static final String MALL_TYPE_PREFERENTIAL_99 = MALL_PREFERENTIAL_99;
     //    会员免单商城 = "mem";
     public static final String MALL_TYPE_FREE_SINGLE = MALL_FREE_SINGLE;
+    //    拼团商品列表类型;
+    public static final int TYPE_OF_TEAM_LIST = 3;
+    //    拼团商品类型;
+    public static final int TYPE_OF_TEAM = 2;
+    //    普通商品类型;
+    public static final int TYPE_OF_NORMAL = 1;
 
 
     // 微信邀请与QQ邀请及微信支付
@@ -81,6 +89,8 @@ public class Constants {
     public static final String ORDER_STATUS_WAIT_SEND_OUT_GOODS = "20";
     /** 待兑换 */
     public static final String ORDER_STATUS_WAIT_EXCHANGE = "25";
+    /** 待分享 */
+    public static final String ORDER_STATUS_WAIT_SHARE = "5";
     /** 待收货 */
     public static final String ORDER_STATUS_WAIT_OF_GOODS = "30";
     /** 待评价 */
@@ -136,7 +146,14 @@ public class Constants {
     public static final int HOME_BOTTOM_IMG_TYPE = 6;
     public static final int HOME_NEAR_STORE_LIST_TITLE_TYPE = 7;
     public static final int HOME_NEAR_STORE_LIST_TYPE = 8;
+    public static final int HOME_PT_ITEM_TYPE = 9;
+    public static final int HOME_PT_ITEM_TOP_TYPE = 10;
 
+
+    //换货会物物换
+    public static final int GOOD_EXCHANGE_TYPE = 10;
+    //换货会积分换
+    public static final int SCORE_EXCHANGE_TYPE = 20;
 
 
     static {

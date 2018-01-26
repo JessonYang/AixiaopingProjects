@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.malinskiy.superrecyclerview.core.RecyclerViewSubscriber;
 import com.malinskiy.superrecyclerview.decoration.SpaceItemDecoration;
+import com.weslide.lovesmallscreen.Constants;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.mall.SpecialLocalProductActivity;
@@ -254,7 +255,7 @@ public class ShoppingCartFragment extends BaseFragment {
             CreateTempOrderListBean bean = new CreateTempOrderListBean();
             bean.setShoppingCarItemIds(ids);
             bean.setType("1");
-            OrderUtils.createTempOrderList(getActivity(), bean);
+            OrderUtils.createTempOrderList(getActivity(), bean, Constants.TYPE_OF_NORMAL);
         }
 
 

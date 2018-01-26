@@ -18,63 +18,65 @@
 
     <View
         android:layout_width="match_parent"
-        android:background="#dddddd"
-        android:layout_height="0.5dp"/>
+        android:layout_height="0.5dp"
+        android:background="#dddddd" />
 
     <View
         android:layout_width="match_parent"
-        android:background="#f4f4f4"
-        android:layout_height="5dp"/>
+        android:layout_height="5dp"
+        android:background="#f4f4f4" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="150dp"
         android:background="#ff4460"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_weight="1"
-                android:text="@string/intergal_save"
-                android:textColor="@color/white"
-                android:textSize="@dimen/h8" />
-
-            <TextView
-                android:id="@+id/tv_to_use"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:text="@string/to_use"
-                android:textColor="@color/white"
-                android:textSize="@dimen/h8" />
-        </LinearLayout>
+            android:text="@string/intergal_save"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/tv_integral_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:text=""
+            android:layout_marginTop="10dp"
+            android:text="888"
             android:textColor="@color/white"
             android:textSize="@dimen/h3" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:text="积分多者，'可换天下'"
-            android:textColor="@color/white"
-            android:textSize="@dimen/h8" />
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/recharge_btn"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/btn_rec_white_bg"
+                android:text="充值"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/h8" />
+
+            <Button
+                android:id="@+id/tv_to_use"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:background="@drawable/btn_rec_white_bg"
+                android:text="使用"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/h8" />
+        </LinearLayout>
     </LinearLayout>
 
     <com.malinskiy.superrecyclerview.SuperRecyclerView

@@ -98,6 +98,85 @@
         android:background="@color/line"></View>
 
     <LinearLayout
+        android:id="@+id/rights_ll"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/real_good_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_gouxuan" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="正品保证"
+                android:textColor="#000000"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/send_fast_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_gouxuan" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="快速发货"
+                android:textColor="#000000"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/after_careless_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_gouxuan" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="售后无忧"
+                android:textColor="#000000"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/layout_spec"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -114,6 +193,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="8dp">
@@ -130,8 +211,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
 
             <TextView
                 android:id="@+id/score_no_charge_back"
@@ -139,12 +220,69 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="(积分商品不可退单)"
                 android:layout_marginRight="10dp"
+                android:text="(积分商品不可退单)"
                 android:textColor="@color/main_color_red" />
 
         </RelativeLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/project_line_bg"
+        android:layout_height="0.5dp"/>
+
+    <RelativeLayout
+        android:id="@+id/look_other_team"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:text="正在拼团,可直接参与"
+            android:textColor="#222222"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/next_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:src="@drawable/icon_nextstep_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/next_iv"
+            android:text="查看更多"
+            android:textColor="#999999"
+            android:textSize="13dp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/team_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#dddddd" />
+
+    <com.weslide.lovesmallscreen.view_yy.customview.UPMarqueeView
+        android:id="@+id/upmarquee_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" />
+
+    <View
+        android:id="@+id/team_line2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#dddddd" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -249,11 +387,12 @@
                 android:textSize="@dimen/h5">
 
             </Button>
-
-
         </RelativeLayout>
-
-
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#dddddd" />
 
 </LinearLayout>

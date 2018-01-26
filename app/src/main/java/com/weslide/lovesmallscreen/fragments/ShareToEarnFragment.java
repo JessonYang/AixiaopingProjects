@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,11 +29,13 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.LoginOptionActivity;
+import com.weslide.lovesmallscreen.activitys.user.BindingContactsActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
 import com.weslide.lovesmallscreen.models.config.ShareContent;
 import com.weslide.lovesmallscreen.utils.AppUtils;
 import com.weslide.lovesmallscreen.utils.QRCodeUtil;
 import com.weslide.lovesmallscreen.utils.ShareUtils;
+import com.weslide.lovesmallscreen.utils.StringUtils;
 import com.weslide.lovesmallscreen.view_yy.activity.ConstantListActivity;
 import com.weslide.lovesmallscreen.view_yy.activity.FansConversationListActivity;
 import com.weslide.lovesmallscreen.views.custom.CustomToolbar;
@@ -60,6 +63,11 @@ public class ShareToEarnFragment extends BaseFragment implements View.OnClickLis
     private CustomToolbar toolbar;
     private AlertDialog.Builder constactDialog;
     private Bitmap bitmap;
+    private TextView tv_binding_contacts;
+    private RelativeLayout rlBindingContacts;
+    private TextView tvInviterName;
+    private ImageView ivInviterImg;
+    private LinearLayout llInviter;
 
     @Nullable
     @Override
@@ -68,6 +76,12 @@ public class ShareToEarnFragment extends BaseFragment implements View.OnClickLis
         initView();
         initData();
         return mView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        bindContactPersion();
     }
 
     private void initData() {
@@ -99,6 +113,7 @@ public class ShareToEarnFragment extends BaseFragment implements View.OnClickLis
         send_constact_btn.setOnClickListener(this);
         to_fans_number_rll.setOnClickListener(this);
         invitationCode.setOnClickListener(this);
+        tv_binding_contacts.setOnClickListener(this);
         String targetUrl = ContextParameter.getClientConfig().getPersonalCenterShareContent().getTargetUrl();
         if (targetUrl == null) {
             targetUrl = "http://seller.aixiaoping.com/Share/Index/index";
@@ -120,15 +135,48 @@ public class ShareToEarnFragment extends BaseFragment implements View.OnClickLis
         userFace = ((ImageView) mView.findViewById(R.id.user_face));
         userName = ((TextView) mView.findViewById(R.id.user_name));
         userPhone = ((TextView) mView.findViewById(R.id.user_phone));
+        tv_binding_contacts = ((TextView) mView.findViewById(R.id.tv_binding_contacts));
+        tvInviterName = ((TextView) mView.findViewById(R.id.tv_inviter_name));
         invitationCode = ((ImageView) mView.findViewById(R.id.invitation_code));
+        ivInviterImg = ((ImageView) mView.findViewById(R.id.iv_inviter_img));
         personalInvatationCode = ((TextView) mView.findViewById(R.id.personal_invatation_code));
         fansNum = ((TextView) mView.findViewById(R.id.fans_num));
         invate_friend_btn = ((Button) mView.findViewById(R.id.invate_friend_btn));
         send_constact_btn = ((Button) mView.findViewById(R.id.send_constact_btn));
         to_fans_number_rll = ((RelativeLayout) mView.findViewById(R.id.to_fans_number_rll));
+        rlBindingContacts = ((RelativeLayout) mView.findViewById(R.id.rl_binding_contacts));
+        llInviter = ((LinearLayout) mView.findViewById(R.id.ll_inviter));
         dcl_view = ((View) mView.findViewById(R.id.dcl_view));
         toolbar = ((CustomToolbar) mView.findViewById(R.id.toolbar));
 
+    }
+
+    private void bindContactPersion(){
+        //是否绑定推荐人，如果绑定则显示绑定上级头像及昵称
+        if (ContextParameter.getUserInfo().getBindingInviter() == true) {
+            llInviter.setVisibility(View.VISIBLE);
+            rlBindingContacts.setVisibility(View.GONE);
+            if (StringUtils.isBlank(ContextParameter.getUserInfo().getInviterImg())) {
+                ivInviterImg.setImageResource(R.drawable.icon_defult);
+            } else {
+                Glide.with(getActivity()).load(ContextParameter.getUserInfo().getInviterImg()).asBitmap().error(R.drawable.icon_defult).placeholder(R.drawable.icon_defult).centerCrop().into(new BitmapImageViewTarget(ivInviterImg) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(getActivity().getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        ivInviterImg.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
+            }
+            if (!StringUtils.isBlank(ContextParameter.getUserInfo().getInviterName())) {
+                tvInviterName.setText(ContextParameter.getUserInfo().getInviterName());
+            }
+        } else {
+            llInviter.setVisibility(View.GONE);
+            rlBindingContacts.setVisibility(View.VISIBLE);
+
+        }
     }
 
     @Override
@@ -210,6 +258,10 @@ public class ShareToEarnFragment extends BaseFragment implements View.OnClickLis
                         })
                         .create()
                         .show();
+                break;
+            //绑定联系人
+            case R.id.tv_binding_contacts:
+                AppUtils.toActivity(getActivity(), BindingContactsActivity.class);
                 break;
         }
     }

@@ -7,6 +7,7 @@ import com.weslide.lovesmallscreen.model_yy.IHomeMainFgData;
 import com.weslide.lovesmallscreen.model_yy.IHomeMainFgDataImpl;
 import com.weslide.lovesmallscreen.model_yy.IMainFgListenner;
 import com.weslide.lovesmallscreen.network.DataList;
+import com.weslide.lovesmallscreen.utils.CustomDialogUtil;
 import com.weslide.lovesmallscreen.view_yy.viewinterface.IShowHomeMainFg;
 
 /**
@@ -39,6 +40,7 @@ public class HomeMainFgPresenter {
             @Override
             public void onError(String errMsg) {
                 iShowHomeMainFg.dismissLoadingView();
+                CustomDialogUtil.showNoticDialog(context,errMsg);
             }
         });
     }

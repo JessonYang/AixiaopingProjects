@@ -8,16 +8,16 @@ import com.weslide.lovesmallscreen.core.BaseModel;
  */
 public class MyScore extends BaseModel{
     @SerializedName("createtime")//积分操作时间
-
     private String acquireTime;
 
     @SerializedName("typeName")//获得或失去的积分类型名
-
     private String typeName;
 
-    @SerializedName("remark")//获得或失去的积分额
+    @SerializedName("remark")//获得或失去的积分描述
+    private String remakk;
 
-    private String score;
+    @SerializedName("score")//获得或失去的积分额
+    private int score;
 
     public String getAcquireTime() { return acquireTime; }
 
@@ -25,9 +25,22 @@ public class MyScore extends BaseModel{
 
     public String getTypeName() { return typeName; }
 
+    public String getRemakk() {
+        return remakk;
+    }
+
+    public void setRemakk(String remakk) {
+        this.remakk = remakk;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public void setTypeName(String typeName) { this.typeName = typeName; }
 
-    public String getScore() { return score; }
-
-    public void setScore(String score) { this.score = score; }
 }

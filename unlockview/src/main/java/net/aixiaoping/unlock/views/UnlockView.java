@@ -222,11 +222,10 @@ public class UnlockView extends FrameLayout implements View.OnClickListener, APe
         /**
          * 跳转红包
          */
-        mRedPaperView.setOnClickListener(new OnClickListener() {
+        mRedPaperView.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View view) {
-
-              /*  RedPaper redPaper = (RedPaper) view.getTag();
+            public void noDoubleClick(View view) {
+                /*  RedPaper redPaper = (RedPaper) view.getTag();
                 String url = HTTP.URL_OPEN_RED_PAPER + HTTP.formatJSONData(new Request().setData(redPaper));
                 unlock(OPTION_UNLOCK);
                 URIResolve.resolve(getContext(), url);*/
@@ -396,9 +395,12 @@ public class UnlockView extends FrameLayout implements View.OnClickListener, APe
             RXUtils.request(mContext, reqeust, "updateScore", new SupportSubscriber<Response<UpdateScoreBean>>() {
                 @Override
                 public void onNext(Response<UpdateScoreBean> updateScoreBeanResponse) {
-                    ContextParameter.getUserInfo().setScore(updateScoreBeanResponse.getData().getTotalScore());
-                    UserInfoSP.setUserInfo(ContextParameter.getUserInfo());
-                    Log.d("雨落无痕丶", "score: " + ContextParameter.getUserInfo().getScore());
+                    if (updateScoreBeanResponse.getData() != null && !StringUtils.isBlank(updateScoreBeanResponse.getData().getTotalScore())) {
+                        String totalScore = updateScoreBeanResponse.getData().getTotalScore();
+                        ContextParameter.getUserInfo().setScore(totalScore);
+                        UserInfoSP.setUserInfo(ContextParameter.getUserInfo());
+                        Log.d("雨落无痕丶", "score: " + ContextParameter.getUserInfo().getScore());
+                    }
                 }
             });
         }
@@ -626,13 +628,13 @@ class PageChangeListener implements ViewPager.OnPageChangeListener {
             //触发红包
             mUnlockView.detonateRedPaper();
 
-            //判断该图片是否已经获得积分
-            if (advertImg.getAcquireSocre().equals("false")) {
+            //判断该图片是否已经获得积分(5.11.0版本暂时屏蔽获得积分)
+            /*if (advertImg.getAcquireSocre().equals("false")) {
                 int score = acquiteGlideScreenSocre(position);
                 advertImg.setAcquireSocre("true"); //设置已经获得积分，下次不在回去
                 advertImg.setAcquireSocreNumber(score + ""); //设置获得的积分
                 ArchitectureAppliation.getDaoSession().getAdvertImgDao().update(advertImg);
-            }
+            }*/
 
         }
         option = 0;

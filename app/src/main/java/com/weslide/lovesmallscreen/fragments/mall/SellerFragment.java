@@ -49,7 +49,6 @@ import butterknife.OnClick;
  */
 public class SellerFragment extends BaseFragment {
 
-
     View mView;
     @BindView(R.id.tool_bar)
     Toolbar toolBar;

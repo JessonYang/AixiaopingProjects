@@ -41,9 +41,6 @@ public class Request<T> extends BaseModel {
         String axpabc = md5("axp"+userId);
         String s = md5(axpabc + formatMD5.format(System.currentTimeMillis() + ContextParameter.getTimeExtra()));
         axp =s;
-//        axp = md5(md5("axp"+"abc")+formatMD5.format(System.currentTimeMillis() + ContextParameter.getTimeExtra()));
-//        Log.d("雨落无痕丶", "Request: axpMD5:"+axp);
-//        Log.d("雨落无痕丶", "Request: userid:"+userId+";time:"+formatMD5.format(System.currentTimeMillis()));
     }
 
     /**

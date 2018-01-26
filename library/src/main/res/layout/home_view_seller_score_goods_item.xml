@@ -2,35 +2,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="4dp"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp">
+    android:paddingTop="4dp">
 
     <com.weslide.lovesmallscreen.views.widget.SquareImageView
         android:id="@+id/iv_goods_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_app"/>
+        android:src="@drawable/icon_app" />
 
     <TextView
         android:id="@+id/tv_price"
-        android:layout_below="@id/iv_goods_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/iv_goods_image"
         android:gravity="center"
-        android:textSize="@dimen/h7"
+        android:text="￥19.0"
         android:textColor="@color/main_color_red"
-        android:text="￥19.0"/>
+        android:textSize="@dimen/h7" />
 
     <TextView
-        android:layout_below="@id/tv_price"
         android:id="@+id/tv_goods_costPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_price"
         android:gravity="center"
         android:minHeight="18dp"
-        android:textSize="12dp"
-        android:text="原价：￥120"/>
+        android:text="原价：￥120"
+        android:textSize="12dp" />
 
 </RelativeLayout>

@@ -15,6 +15,7 @@ import com.malinskiy.superrecyclerview.core.RecyclerViewSubscriber;
 import com.weslide.lovesmallscreen.ContextParameter;
 import com.weslide.lovesmallscreen.R;
 import com.weslide.lovesmallscreen.activitys.ScoreExchangeActivity;
+import com.weslide.lovesmallscreen.activitys.user.ScoreRechargeOffLineActivity;
 import com.weslide.lovesmallscreen.core.BaseFragment;
 import com.weslide.lovesmallscreen.models.MyScore;
 import com.weslide.lovesmallscreen.models.bean.ScoreBean;
@@ -71,7 +72,7 @@ public class MyIntegralSaveFragment extends BaseFragment {
             }
         });
 
-        adapter = new MyScoreAdapter(getActivity(),myScore);
+        adapter = new MyScoreAdapter(getActivity(), myScore);
 
         reLoadData();
 
@@ -97,7 +98,7 @@ public class MyIntegralSaveFragment extends BaseFragment {
         });
     }
 
-    public void reLoadData(){
+    public void reLoadData() {
         mScoreListReqeust.setPageIndex(0);
         getScoreDetails();
     }
@@ -115,7 +116,7 @@ public class MyIntegralSaveFragment extends BaseFragment {
         Request<ScoreBean> request = new Request<>();
         mScoreListReqeust.setPageIndex(mScoreListReqeust.getPageIndex() + 1);
         request.setData(mScoreListReqeust);
-        RXUtils.request(getActivity(), request, "getScoreList", new RecyclerViewSubscriber<Response<DataList<MyScore>>>(adapter, myScore){
+        RXUtils.request(getActivity(), request, "getScoreList", new RecyclerViewSubscriber<Response<DataList<MyScore>>>(adapter, myScore) {
 
             @Override
             public void onSuccess(Response<DataList<MyScore>> dataListResponse) {
@@ -125,8 +126,17 @@ public class MyIntegralSaveFragment extends BaseFragment {
         });
     }
 
-    @OnClick(R.id.tv_to_use)
-    public void onClick() {
-        AppUtils.toActivity(getActivity(), ScoreExchangeActivity.class);
+    @OnClick({R.id.tv_to_use, R.id.recharge_btn})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            //充值
+            case R.id.recharge_btn:
+                AppUtils.toActivity(getActivity(), ScoreRechargeOffLineActivity.class);
+                break;
+            //使用
+            case R.id.tv_to_use:
+                AppUtils.toActivity(getActivity(), ScoreExchangeActivity.class);
+                break;
+        }
     }
 }

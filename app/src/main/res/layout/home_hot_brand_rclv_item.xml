@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="110dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/good_iv"
+        android:layout_width="110dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_height="80dp"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="6dp"
+        android:layout_below="@id/good_iv"
+        android:layout_marginLeft="6dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textColor="#ff0000"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/good_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="200.0"
+                android:textColor="#ff0000"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/good_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="疯狗还的哦我该地块律师费你返回 "
+            android:textColor="#000000"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <com.weslide.lovesmallscreen.view_yy.customview.LeanTextview
+        android:layout_width="wrap_content"
+        android:textSize="8dp"
+        android:textColor="#ffffff"
+        android:id="@+id/discount_price_rtv"
+        android:paddingBottom="14dp"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/di999_jpg"
+        android:text="低999"
+        android:layout_height="wrap_content" />
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="50dp"-->
+        <!--android:background="@drawable/di999_jpg"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_height="50dp">-->
+
+        <!--<com.weslide.lovesmallscreen.view_yy.customview.RotateTextView-->
+            <!--android:id="@+id/discount_price_rtv"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:text="抵999"-->
+            <!--android:layout_marginLeft="17dp"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:textSize="11dp"-->
+            <!--app:degree="135.5dp" />-->
+        <!---->
+    <!--</RelativeLayout>-->
+</RelativeLayout>

@@ -66,6 +66,56 @@ public class DataList<T> extends BaseModel {
     @SerializedName("allMoney")
     private String money;
 
+    //拼团分享标题
+    @SerializedName("shareTitle")
+    private String shareTitle;
+
+    //拼团分享icon
+    @SerializedName("shareIcon")
+    private String shareIcon;
+
+    //拼团分享链接
+    @SerializedName("shareUrl")
+    private String shareUrl;
+
+    //拼团分享内容
+
+    public String getShareTitle() {
+        return shareTitle;
+    }
+
+    public void setShareTitle(String shareTitle) {
+        this.shareTitle = shareTitle;
+    }
+
+    public String getShareIcon() {
+        return shareIcon;
+    }
+
+    public void setShareIcon(String shareIcon) {
+        this.shareIcon = shareIcon;
+    }
+
+    public String getShareUrl() {
+        return shareUrl;
+    }
+
+    public void setShareUrl(String shareUrl) {
+        this.shareUrl = shareUrl;
+    }
+
+    public String getShareContent() {
+
+        return shareContent;
+    }
+
+    public void setShareContent(String shareContent) {
+        this.shareContent = shareContent;
+    }
+
+    @SerializedName("shareContent")
+    private String shareContent;
+
     public String getTitle() {
         return title;
     }
@@ -76,6 +126,17 @@ public class DataList<T> extends BaseModel {
 
     @SerializedName("title")
     private String title;
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
+    @SerializedName("pid")
+    private String pid;
 
     public RecomenderModel getRecommender() {
         return recommender;
@@ -92,7 +153,9 @@ public class DataList<T> extends BaseModel {
     private String recyclerViewStatus = "RECYCLER_VIEW_STATUS_SUCCESS";
 
 
-    /** 数据列表 */
+    /**
+     * 数据列表
+     */
     public List<T> getDataList() {
         return dataList;
     }
@@ -113,11 +176,17 @@ public class DataList<T> extends BaseModel {
         this.pageSize = pageSize;
     }
 
-    public String getScore() { return score; }
+    public String getScore() {
+        return score;
+    }
 
-    public void setScore(String score) { this.score = score; }
+    public void setScore(String score) {
+        this.score = score;
+    }
 
-    /** 当前返回数据的页索引 */
+    /**
+     * 当前返回数据的页索引
+     */
     public int getPageIndex() {
         return pageIndex;
     }
@@ -126,7 +195,9 @@ public class DataList<T> extends BaseModel {
         this.pageIndex = pageIndex;
     }
 
-    /** 当前一页返回的数据条数 */
+    /**
+     * 当前一页返回的数据条数
+     */
     public int getPageItemCount() {
         return pageItemCount;
     }
@@ -135,11 +206,17 @@ public class DataList<T> extends BaseModel {
         this.pageItemCount = pageItemCount;
     }
 
-    public String getMoney() { return money; }
+    public String getMoney() {
+        return money;
+    }
 
-    public void setMoney(String totalMoney) { this.money = money; }
+    public void setMoney(String totalMoney) {
+        this.money = money;
+    }
 
-    /** recyclerView的值状态 SuperRecyclerView中有定义 默认正在加载 */
+    /**
+     * recyclerView的值状态 SuperRecyclerView中有定义 默认正在加载
+     */
     public String getRecyclerViewStatus() {
         return recyclerViewStatus;
     }

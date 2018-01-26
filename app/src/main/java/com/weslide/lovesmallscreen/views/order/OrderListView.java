@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +41,7 @@ import com.weslide.lovesmallscreen.models.eventbus_message.UpdateOrderListMessag
 import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
 import com.weslide.lovesmallscreen.utils.AppUtils;
+import com.weslide.lovesmallscreen.utils.CustomDialogUtil;
 import com.weslide.lovesmallscreen.utils.DensityUtils;
 import com.weslide.lovesmallscreen.utils.NetworkUtils;
 import com.weslide.lovesmallscreen.utils.OrderUtils;
@@ -115,7 +115,6 @@ public class OrderListView extends FrameLayout {
         btn_empty_reload.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("雨落无痕丶", "onClick: cc");
                 if (NetworkUtils.isConnected(getContext())) {
                     reLoadData();
                     list.setVisibility(VISIBLE);
@@ -210,7 +209,8 @@ public class OrderListView extends FrameLayout {
      */
     public static void back(Context context, ArrayList<OrderItem> orderItems, String status) {
         if (orderItems == null || orderItems.size() == 0) {
-            T.showShort(context, "还未选中");
+//            T.showShort(context, "还未选中");
+            CustomDialogUtil.showNoticDialog(context,"还未选中任何商品!");
             return;
         }
 

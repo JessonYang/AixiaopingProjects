@@ -23,8 +23,8 @@ import com.weslide.lovesmallscreen.R;
 public class RoundImgView extends ImageView {
     private int mBorderRadio;
     private int mImgType;
-    private int ROUND_CIRCLE = 0;
-    private int ROUND_RECT = 1;
+    private int ROUND_CIRCLE = 0;//圆形
+    private int ROUND_RECT = 1;//圆角矩形
     private int mViewWidth, mRadios;
     private Drawable mDrawable;
     private Matrix mMatrix;

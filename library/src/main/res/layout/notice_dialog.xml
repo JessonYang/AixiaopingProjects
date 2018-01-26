@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="260dp"
-    android:layout_height="130dp">
+    android:layout_height="162dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="162dp"
         android:background="@drawable/dialog_rec_bg">
 
         <TextView
-            android:id="@+id/dialog_notice_msg"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="16dp"
+            android:textColor="#000000"
+            android:id="@+id/dialog_title"
+            android:text="提示"
+            android:layout_marginTop="12dp"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/dialog_notice"
             android:layout_width="match_parent"
             android:layout_height="85.5dp"
             android:gravity="center"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:layout_below="@id/dialog_title"
             android:text="审核中的商品无法编辑"
             android:textColor="#000000"
             android:textSize="15dp" />
@@ -20,7 +33,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_below="@id/dialog_notice_msg"
+            android:layout_below="@id/dialog_notice"
             android:background="#dddddd" />
 
         <LinearLayout
@@ -30,7 +43,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_cal"
+                android:id="@+id/cal"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -46,7 +59,7 @@
                 android:background="#dddddd" />
 
             <Button
-                android:id="@+id/btn_sure"
+                android:id="@+id/sure"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

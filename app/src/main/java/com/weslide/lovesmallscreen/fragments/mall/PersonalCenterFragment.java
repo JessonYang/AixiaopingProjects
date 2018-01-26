@@ -239,25 +239,25 @@ public class PersonalCenterFragment extends BaseFragment {
             @Override
             public void onNext(Response<OrderStatusNum> orderStatusNumResponse) {
                 OrderStatusNum orderStatusNum = orderStatusNumResponse.getData();
-                if (orderStatusNum.getPayment().equals("0")) {
+                if (orderStatusNum.getPayment().equals("0")) {//待付款
                     wait_pay_order_count.setVisibility(View.GONE);
                 } else {
                     wait_pay_order_count.setText(orderStatusNum.getPayment());
                     wait_pay_order_count.setVisibility(View.VISIBLE);
                 }
-                if (orderStatusNum.getConfirm().equals("0")) {
+                if (orderStatusNum.getShare().equals("0")) {//待分享
                     wait_confirm_order_count.setVisibility(View.GONE);
                 } else {
-                    wait_confirm_order_count.setText(orderStatusNum.getConfirm());
+                    wait_confirm_order_count.setText(orderStatusNum.getShare());
                     wait_confirm_order_count.setVisibility(View.VISIBLE);
                 }
-                if (orderStatusNum.getEvaluate().equals("0")) {
+                if (orderStatusNum.getSendOutGoods().equals("0")) {//待发货
                     wait_evaluate_order_count.setVisibility(View.GONE);
                 } else {
-                    wait_evaluate_order_count.setText(orderStatusNum.getEvaluate());
+                    wait_evaluate_order_count.setText(orderStatusNum.getSendOutGoods());
                     wait_evaluate_order_count.setVisibility(View.VISIBLE);
                 }
-                if (orderStatusNum.getChargeback().equals("0")) {
+                if (orderStatusNum.getChargeback().equals("0")) {//退单售后
                     back_order_count.setVisibility(View.GONE);
                 } else {
                     back_order_count.setText(orderStatusNum.getChargeback());

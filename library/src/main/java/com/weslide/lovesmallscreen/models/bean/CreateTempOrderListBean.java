@@ -15,6 +15,31 @@ public class CreateTempOrderListBean extends BaseModel {
     /** 类型 1:购物车 2：立即购买 3：订单再付款 */
     private String type;
 
+    @SerializedName("isTeam")
+    /** 是否为拼团商品 */
+    private boolean isTeam = false;
+
+    public String getTeamOrderId() {
+        return teamOrderId;
+    }
+
+    public void setTeamOrderId(String teamOrderId) {
+        this.teamOrderId = teamOrderId;
+    }
+
+    public boolean isTeam() {
+        return isTeam;
+    }
+
+    public void setTeam(boolean team) {
+        isTeam = team;
+    }
+
+    @SerializedName("teamOrderId")
+    /** 拼团商品id */
+
+    private String teamOrderId;
+
     //    购物车临时订单生成参数
 //    shoppingCarItemIds	购物车商品项id	[String,String]
 //    购物车结算时传递

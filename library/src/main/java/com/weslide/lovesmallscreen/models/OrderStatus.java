@@ -9,7 +9,8 @@ import com.weslide.lovesmallscreen.core.BaseModel;
  */
 public class OrderStatus extends BaseModel {
 
-//    name	状态名称	待支付       0
+//    name	状态名称
+//    待支付       0
 //    待确认       10
 //    待发货       20
 //    待兑换       25

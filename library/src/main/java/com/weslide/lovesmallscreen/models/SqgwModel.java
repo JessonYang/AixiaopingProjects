@@ -2,6 +2,7 @@ package com.weslide.lovesmallscreen.models;
 
 import com.google.gson.annotations.SerializedName;
 import com.weslide.lovesmallscreen.core.BaseModel;
+import com.weslide.lovesmallscreen.models.bean.HomePprmModel;
 
 import java.util.List;
 
@@ -18,6 +19,28 @@ public class SqgwModel extends BaseModel{
 
     @SerializedName("sqgwCategories")
     List<SqgwCategoriesModel> sqgwCategories;
+
+    @SerializedName("pprm")
+    List<HomePprmModel> pprm;
+
+    public List<HomePprmModel> getBkrx() {
+        return bkrx;
+    }
+
+    public void setBkrx(List<HomePprmModel> bkrx) {
+        this.bkrx = bkrx;
+    }
+
+    public List<HomePprmModel> getPprm() {
+        return pprm;
+    }
+
+    public void setPprm(List<HomePprmModel> pprm) {
+        this.pprm = pprm;
+    }
+
+    @SerializedName("bkrx")
+    List<HomePprmModel> bkrx;
 
     @SerializedName("sqgwTp")
     NfcpModel sqgwTp;

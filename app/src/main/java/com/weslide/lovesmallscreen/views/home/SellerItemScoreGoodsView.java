@@ -58,14 +58,11 @@ public class SellerItemScoreGoodsView extends FrameLayout {
      * @param goods
      */
     public void bindView(Goods goods) {
-
         Utils.strikethrough(tvGoodsCostPrice);
-
         Glide.with(getContext()).load(goods.getCoverPic()).into(ivGoodsImage);
-
         tvPrice.setText("￥" + goods.getPrice());
         tvGoodsCostPrice.setText("原价：￥" + goods.getCostPrice());
-
+        tvGoodsCostPrice.setVisibility(GONE);
         setOnClickListener(view -> AppUtils.toGoods(getContext(), goods.getGoodsId()));
     }
 }

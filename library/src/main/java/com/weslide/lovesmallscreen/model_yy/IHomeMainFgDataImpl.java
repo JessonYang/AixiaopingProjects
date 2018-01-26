@@ -18,6 +18,8 @@ import com.weslide.lovesmallscreen.models.TopClassifyModel;
 import com.weslide.lovesmallscreen.models.TopLocalModel;
 import com.weslide.lovesmallscreen.models.TopLocalProductModel;
 import com.weslide.lovesmallscreen.models.bean.GetSellerListBean;
+import com.weslide.lovesmallscreen.models.bean.PtGoodModel;
+import com.weslide.lovesmallscreen.models.bean.PtResModel;
 import com.weslide.lovesmallscreen.network.DataList;
 import com.weslide.lovesmallscreen.network.Request;
 import com.weslide.lovesmallscreen.network.Response;
@@ -41,6 +43,7 @@ public class IHomeMainFgDataImpl implements IHomeMainFgData {
     private DataList<RecyclerViewModel> mDataList = new DataList<>();
     private List<RecyclerViewModel> modelList = new ArrayList<>();
     private int sellerListPage = 1;
+    private String pid;
     private Handler mHandler = new Handler();
 
     @Override
@@ -57,13 +60,14 @@ public class IHomeMainFgDataImpl implements IHomeMainFgData {
             @Override
             public void onNext(Response<NewHomePageModel> newHomePageModelResponse) {
                 if (newHomePageModelResponse != null && newHomePageModelResponse.getData() != null) {
+                    pid = newHomePageModelResponse.getData().getPid();
                     handlerHomeResponse(newHomePageModelResponse, listenner);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                listenner.onError(e.getMessage());
+                listenner.onError("请求失败!");
             }
 
             @Override
@@ -92,6 +96,51 @@ public class IHomeMainFgDataImpl implements IHomeMainFgData {
             modelList.add(nearStoreModel);
         }
 
+        //拼团上部分
+        PtResModel ptResModel = new PtResModel();
+        ptResModel.setPtBgImageUrl(newHomePageModelResponse.getData().getPtBgImageUrl());
+        ptResModel.setPtImages(newHomePageModelResponse.getData().getPtImages());
+        if (ptResModel.getPtBgImageUrl() != null && ptResModel.getPtImages() != null) {
+            RecyclerViewModel ptModel = new RecyclerViewModel();
+            ptModel.setItemType(Constants.HOME_PT_ITEM_TOP_TYPE);
+            ptModel.setData(ptResModel);
+            modelList.add(ptModel);
+        }
+
+        //拼团商品部分
+        List<PtGoodModel> ptGoods = newHomePageModelResponse.getData().getPtGoods();
+        if (ptGoods != null) {
+            for (int i = 0; i < ptGoods.size(); i++) {
+                RecyclerViewModel ptTopModel = new RecyclerViewModel();
+                ptTopModel.setItemType(Constants.HOME_PT_ITEM_TYPE);
+                ptTopModel.setData(ptGoods.get(i));
+                modelList.add(ptTopModel);
+            }
+        }
+
+        /*PtResModel ptResModel = new PtResModel();
+        ptResModel.setPtBgImageUrl("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1665207864,746409922&fm=27&gp=0.jpg");
+        ArrayList<NfcpModel> list = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            NfcpModel nfcpModel = new NfcpModel();
+            nfcpModel.setImage("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1665207864,746409922&fm=27&gp=0.jpg");
+            list.add(nfcpModel);
+        }
+        ptResModel.setPtImages(list);
+        RecyclerViewModel viewModelodel = new RecyclerViewModel();
+        viewModelodel.setItemType(Constants.HOME_PT_ITEM_TOP_TYPE);
+        viewModelodel.setData(ptResModel);
+        modelList.add(viewModelodel);
+
+        for (int j = 0; j < 7; j++) {
+            PtGoodModel ptGoodModel = new PtGoodModel();
+            ptGoodModel.setImage("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1665207864,746409922&fm=27&gp=0.jpg");
+            RecyclerViewModel ptModel = new RecyclerViewModel();
+            ptModel.setItemType(Constants.HOME_PT_ITEM_TYPE);
+            ptModel.setData(ptGoodModel);
+            modelList.add(ptModel);
+        }*/
+
         //省钱购物
         SqgwModel sqgw = newHomePageModelResponse.getData().getSqgw();
         if (sqgw != null) {
@@ -101,25 +150,25 @@ public class IHomeMainFgDataImpl implements IHomeMainFgData {
             modelList.add(saveMoneyShoppingModel);
         }
 
+        //特产商城
+        FeatureTypeModel featureType = newHomePageModelResponse.getData().getFeatureType();
+        if (featureType != null) {
+            featureType.setTitleImg(newHomePageModelResponse.getData().getFeatureType().getYxypMinPicture().getImage());
+            RecyclerViewModel specialMallModel = new RecyclerViewModel();
+            specialMallModel.setItemType(Constants.HOME_SPECIAL_MALL_TYPE);
+            specialMallModel.setData(featureType);
+            modelList.add(specialMallModel);
+        }
+
         //一县一品
         List<TopLocalModel> toplocal = newHomePageModelResponse.getData().getToplocal();
         if (toplocal != null) {
             TopLocalProductModel topLocalProductModel = new TopLocalProductModel();
             topLocalProductModel.setTopLocalModel(toplocal);
-            topLocalProductModel.setTitleImg(newHomePageModelResponse.getData().getFeatureType().getYxypMinPicture().getImage());
             RecyclerViewModel topLocalModel = new RecyclerViewModel();
             topLocalModel.setItemType(Constants.HOME_TOP_LOCAL_TYPE);
             topLocalModel.setData(topLocalProductModel);
             modelList.add(topLocalModel);
-        }
-
-        //特产商城
-        FeatureTypeModel featureType = newHomePageModelResponse.getData().getFeatureType();
-        if (featureType != null) {
-            RecyclerViewModel specialMallModel = new RecyclerViewModel();
-            specialMallModel.setItemType(Constants.HOME_SPECIAL_MALL_TYPE);
-            specialMallModel.setData(featureType);
-            modelList.add(specialMallModel);
         }
 
         //直播
@@ -168,6 +217,7 @@ public class IHomeMainFgDataImpl implements IHomeMainFgData {
                             mDataList.setDataList(modelList);
                             mDataList.setPageIndex(dataListResponse.getData().getPageIndex());
                             mDataList.setPageSize(dataListResponse.getData().getPageSize());
+                            mDataList.setPid(pid);
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {

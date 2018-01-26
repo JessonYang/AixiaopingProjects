@@ -34,7 +34,7 @@ public class HomeBottomImgHolder extends RecyclerView.ViewHolder implements View
         zbdp_rll = (RelativeLayout) itemView.findViewById(R.id.zbdp_rll);
     }
 
-    public void oprateView(NfcpModel nfcpModel){
+    public void oprateView(NfcpModel nfcpModel) {
         Glide.with(mContext).load(nfcpModel.getImage()).into(exchange_iv);
         exchangeUri = nfcpModel.getUri();
         exchange_iv.setOnClickListener(this);

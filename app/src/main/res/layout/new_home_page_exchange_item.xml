@@ -6,13 +6,13 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#dddddd" />
+        android:layout_height="2dp"
+        android:background="#f4f4f4" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="#f4f4f4" />
+        android:layout_height="0.5dp"
+        android:background="#dddddd" />
 
     <ImageView
         android:id="@+id/exchange_iv"

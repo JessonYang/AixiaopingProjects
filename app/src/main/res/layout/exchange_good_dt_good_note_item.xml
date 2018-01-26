@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/want_rll"
+        android:layout_width="match_parent"
+        android:layout_height="42dp">
+
+        <TextView
+            android:id="@+id/want_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:text="想换:"
+            android:textColor="#646464"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/want_note1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/want_tag"
+            android:background="@drawable/exchange_note_tv_bg"
+            android:padding="6dp"
+            android:text="4k全画质电视"
+            android:textColor="#969696"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/want_note2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/want_note1"
+            android:background="@drawable/exchange_note_tv_bg"
+            android:visibility="gone"
+            android:padding="6dp"
+            android:text="超级加长林肯"
+            android:textColor="#969696"
+            android:textSize="10dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="浏览:"
+                android:textColor="#969696"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/resume_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="888"
+                android:textColor="#969696"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/project_line_bg" />
+</LinearLayout>

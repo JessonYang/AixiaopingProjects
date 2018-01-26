@@ -19,6 +19,18 @@
         android:visibility="gone">
 
         <Button
+            android:id="@+id/wait_recevie_qr"
+            style="@style/ButtonOrder"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="二维码"
+            android:textSize="@dimen/h5" />
+
+        <Button
             android:id="@+id/btn_logistics"
             style="@style/ButtonOrder"
             android:layout_width="wrap_content"
@@ -70,6 +82,38 @@
             android:layout_marginRight="8dp"
             android:gravity="center"
             android:text="评价晒单"
+            android:textSize="@dimen/h5" />
+    </LinearLayout>
+
+
+    <!-- 待分享布局 -->
+    <LinearLayout
+        android:id="@+id/layout_receipt_of_share"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_wait_share_back_order"
+            style="@style/ButtonOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="退单"
+            android:textSize="@dimen/h5" />
+
+        <Button
+            android:id="@+id/btn_invite"
+            style="@style/ButtonOrderOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="邀好友拼单"
             android:textSize="@dimen/h5" />
     </LinearLayout>
 

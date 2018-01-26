@@ -105,7 +105,7 @@ public class OrderView extends FrameLayout {
 
         if(mOrder.getDetails() != null){
             for (OrderDetail detail : mOrder.getDetails()) {
-                if(detail.getName().equals("运费") || detail.getName().equals("优惠券抵扣")) {
+                if(detail.getName().equals("运费") || detail.getName().equals("优惠券抵扣") || detail.getName().equals("拼团优惠") || detail.getName().equals("积分抵扣")) {
                     OrderDetailView detailView = new OrderDetailView(getContext());
                     detailView.bindView(detail);
                     layoutOrderDetails.addView(detailView);

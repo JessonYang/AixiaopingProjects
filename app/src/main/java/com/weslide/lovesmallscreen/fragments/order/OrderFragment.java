@@ -61,7 +61,7 @@ public class OrderFragment extends BaseFragment {
     @BindView(R.id.rp_fl_bg)
     FrameLayout rp_fl_bg;
 
-    String[] mTitles = new String[]{"待支付", "待发货", "待兑换", "待收货", "待评价", "已完成 "};
+    String[] mTitles = new String[]{"待付款", "待发货", /*"待兑换",*/ "待分享","待收货", "待评价", "已完成 "};
     ArrayList<OrderListView> mViews = new ArrayList<>();
     private int settingId = 0;
 
@@ -124,7 +124,9 @@ public class OrderFragment extends BaseFragment {
         /** 待发货 */
         OrderListView waiSendOutGoods = new OrderListView(getActivity(), Constants.ORDER_STATUS_WAIT_SEND_OUT_GOODS);
         /** 待兑换 */
-        OrderListView waiExchange = new OrderListView(getActivity(), Constants.ORDER_STATUS_WAIT_EXCHANGE);
+//        OrderListView waiExchange = new OrderListView(getActivity(),Constants.ORDER_STATUS_WAIT_EXCHANGE);
+        /** 待分享 */
+        OrderListView waiExchange = new OrderListView(getActivity(),Constants.ORDER_STATUS_WAIT_SHARE);
         /** 待收货 */
         OrderListView waitOfGoods = new OrderListView(getActivity(), Constants.ORDER_STATUS_WAIT_OF_GOODS);
         /** 待评价 */
@@ -208,7 +210,7 @@ public class OrderFragment extends BaseFragment {
                 tlTab.setCurrentTab(1);
                 vpPager.setCurrentItem(1);
                 break;
-            case Constants.ORDER_STATUS_WAIT_EXCHANGE:
+            case Constants.ORDER_STATUS_WAIT_SHARE:
                 tlTab.setCurrentTab(2);
                 vpPager.setCurrentItem(2);
                 break;

@@ -3,103 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/save_money_title_rll"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:src="@drawable/sqgw_title"></ImageView>
-
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#dddddd" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="195dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/brand_zone_iv"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/pinpaizhunqu"
-            android:scaleType="fitXY"/>
-
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="#dddddd" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/nine_to_nine_baoyou_iv"
-                android:layout_width="match_parent"
-                android:layout_height="84.5dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/nine_to_nine" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#dddddd" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:id="@+id/sqgw_media_rll"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <ImageView
-                        android:id="@+id/sqgw_second_classify_iv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/shumayinying" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:background="#dddddd" />
-
-                <RelativeLayout
-                    android:id="@+id/sqgw_shoes_rll"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <ImageView
-                        android:id="@+id/sqgw_second_classify_iv2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/sy_xbpssp" />
-                </RelativeLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#dddddd" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="#f4f4f4" />
+        android:layout_height="7dp"
+        android:background="@color/main_view_bg" />
 
     <ImageView
         android:id="@+id/yhq_banner_iv"
@@ -108,6 +15,80 @@
         android:scaleType="fitXY"
         android:src="@drawable/sy_yhqbanner" />
 
-    <include layout="@layout/new_home_page_goods_classify_item" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ppzq_iv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/pinpaizhunqu" />
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:background="@color/main_view_bg" />
+
+        <ImageView
+            android:id="@+id/nine2nine_iv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/nine2nine" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/hot_brand_rclv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"></android.support.v7.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/rexiaozhuanlan_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/sy_pinpairemen" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/project_line_bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/hot_sold_rclv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"></android.support.v7.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/baokuanrexiao_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/sy_paokuanrexiao" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/project_line_bg" />
 
 </LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.weslide.lovesmallscreen.views.home.HomePtItemView
+        android:id="@+id/pt_good_item"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"></com.weslide.lovesmallscreen.views.home.HomePtItemView>
+</LinearLayout>

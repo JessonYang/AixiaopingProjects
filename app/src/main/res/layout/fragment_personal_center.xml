@@ -62,6 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="@color/main_color_red"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -646,7 +647,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="20dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <com.rey.material.widget.Button
                         android:id="@+id/tv_binding_contacts"
@@ -666,7 +667,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <ImageView
                         android:id="@+id/iv_inviter_img"
